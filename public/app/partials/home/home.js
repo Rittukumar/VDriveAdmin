@@ -235,6 +235,14 @@ evezownApp
         $scope.imagePath = PATHS.api_url + 'image/show/';
 
         // Fetch all news items
+        function fetchHomeNews() {
+            ArticleService.getHomeNews().then(function (data) {
+
+                $scope.news = data;
+            });
+        }
+
+        // Fetch all blogs items
         function fetchRelatedBlogs() {
             BlogService.getTrendingBlogs(3).then(function (data) {
 
@@ -297,6 +305,8 @@ evezownApp
             fetchVideos();
         }
 
+        fetchHomeNews();
+        
         fetchRelatedBlogs();
 
         fetchRelatedEvents();
