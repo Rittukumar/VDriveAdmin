@@ -15,56 +15,70 @@ class DatabaseSeeder extends Seeder {
 
 		Eloquent::unguard();
 
-		// $this->call('RoleTableSeeder');
+		$this->call('RoleTableSeeder');
 
-		 //$this->call('PermissionsTableSeeder');
+		$this->call('PermissionsTableSeeder');
 
-	//	$this->call('DobTableSeeder');
+		$this->call('DobTableSeeder');
 
-	//	$this->call('UserTableSeeder');
+		$this->call('UserTableSeeder');
 
-	//	$this->call('PostTypeTableSeeder');
+		$this->call('PostTypeTableSeeder');
 
-	//	$this->call('EvezownSectionTableSeeder');
+		$this->call('EvezownSectionTableSeeder');
 
-	//	$this->call('CategoryTableSeeder');
+		$this->call('CategoryTableSeeder');
 
-	//	$this->call('SubCategoryTableSeeder');
+		$this->call('SubCategoryTableSeeder');
 
-	//	$this->call('VisibilityTableSeeder');
+		$this->call('VisibilityTableSeeder');
 
-    //    $this->call('EvezplaceProductsTableSeeder');
+        $this->call('EvezplaceProductsTableSeeder');
 
-    //   $this->call('EvezplaceProductSubcategoriesTableSeeder');
-//
-   //     $this->call('ServicesCategoriesTableSeeder');
+        $this->call('EvezplaceProductSubcategoriesTableSeeder');
 
-     //   $this->call('ServiceSubCategoriesTableSeeder');
+        $this->call('ServicesCategoriesTableSeeder');
 
-     //   $this->call('EvezplaceListingTableSeeder');
+        $this->call('ServiceSubCategoriesTableSeeder');
 
-     //   $this->call('EvezplaceListingSubcategoriesTableSeeder');
+        $this->call('EvezplaceListingTableSeeder');
 
-      //  $this->call('ListingTypeTableSeeder');
+        $this->call('EvezplaceListingSubcategoriesTableSeeder');
 
-      //  $this->call('ProductPlusServiceTableSeeder');
+        $this->call('ListingTypeTableSeeder');
 
-       // $this->call('ProductPlusServiceSubTableSeeder');
+        $this->call('ProductPlusServiceTableSeeder');
 
-       // $this->call('StoreSubscriptionTypeTableSeeder');
+        $this->call('ProductPlusServiceSubTableSeeder');
 
-     //   $this->call('ReccoSubscriptionsTableSeeder');
+        $this->call('StoreSubscriptionTypeTableSeeder');
 
-		//$this->call('NotSpecifiedTableSeeder');
-
-      //  $this->call('NotSpecifiedSubcatTableSeeder');
-
-
-		//$this->call('StoreStatusEnumTableSeeder');
-
-		$this->call('OrderStatusEnumTableSeeder');
-
-
-	}
+        $this->call('ReccoSubscriptionsTableSeeder');
+        
+        $this->call('NotSpecifiedTableSeeder');
+        
+        $this->call('NotSpecifiedSubcatTableSeeder');
+        
+        $this->call('StoreStatusEnumTableSeeder');
+        
+        $this->call('OrderStatusEnumTableSeeder');
+       
+        
+       // -- Following Seeder are not required. This is for testing purpose. -- 
+       // BlogTableSeeder
+       // BrandTableSeeder
+       // CirclesTableSeeder
+       // EventsTableSeeder
+       // FavoritesTableSeeder
+       // FriendsTableSeeder
+       // ImagesTableSeeder	
+       // ListingsTableSeeder
+       // PostCommentTableSeeder
+       // PostGradeTableSeeder
+       // PostRewoiceTableSeeder
+       // PostsTableSeeder
+       // ProductsTableSeeder
+       // StoresTableSeeder
+ 	}
 
 }
