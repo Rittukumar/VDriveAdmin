@@ -1,0 +1,165 @@
+<div style="background: #692668; padding: 5px 10px; color: #ffffff; margin-top: 5px">
+    <div class="row">
+        <div class="col-sm-12">
+            <select class="form-control"
+                    ng-model="selectedSectionId"
+                    style="font-weight: 700"
+                    default-option="Choose Evezplace Section"
+                    ng-change="chooseSectionTrendingItems(selectedSectionId)"
+                    ng-options="section.id as section.name for section in sections"
+                    required>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-sm-10">
+                <h5 style="font-weight: 600">All Trending Items</h5>
+            </div>
+            <div class="col-sm-2">
+                <a href class="btn btn-primary btn-sm pull-right" ng-click="toggleTrendingItem()">Add</a>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <div class="col-sm-12" ng-if="isAddTrendingItem">
+        <div class="row">
+            <div class="col-sm-6">
+                <img ng-src="{{newTrendingItem.update_image.large_image_url}}"
+                     class="img-responsive" alt="" style="width: 100%"/>
+                <a href ng-click="showTrendingItemImageDialog()" class="btn btn-primary"
+                   style="position: absolute; bottom: 5px; right: 20px; opacity: 0.8">Upload</a>
+            </div>
+            <div class="col-sm-6">
+                <h5>Title</h5>
+                <input type="text" class="form-control"
+                       ng-model="newTrendingItem.title" required>
+                <h5>Description</h5>
+                        <textarea class="form-control" placeholder="optional"
+                                  ng-model="newTrendingItem.description"
+                                  rows="2">
+                        </textarea>
+                <h5>Trending Item Link</h5>
+                <input type="text" class="form-control"
+                       ng-model="newTrendingItem.link" required>
+                </input>
+                <h5>Priority</h5>
+                <input type="number" class="form-control"
+                       ng-model="newTrendingItem.priority" placeholder="optional">
+                </input>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <hr>
+            <div class="row">
+                <div class="col-sm-offset-6 col-sm-2">
+                    <button ng-click="discardTrendingItemDetails()" class="btn btn-default btn-block">Discard</button>
+                </div>
+                <div class="col-sm-2">
+                    <button ng-click="saveTrendingItemDetails(newTrendingItem)" class="btn btn-primary btn-block">Save
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <button ng-click="doneTrendingItemDetails(newTrendingItem)" class="btn btn-primary btn-block">Done
+                    </button>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="row" ng-if="trendingItems.length == 0">
+            <div class="col-sm-12 text-center">
+                <h5 style="border: 1px solid #e50880; padding: 120px 0px;
+                font-weight: 700">No trending Items exist</h5>
+            </div>
+        </div>
+
+        <div class="row" ng-if="trendingItems.length > 0">
+            <div class="col-sm-12">
+                <div class="row" ng-repeat="trendingItems4 in trendingItems">
+                    <div class="col-sm-3 text-center" ng-repeat="trendingItem in trendingItems4">
+                        <img ng-if="trendingItem.image != null"
+                             src="{{imageUrl}}image/show/{{trendingItem.image.large_image_url}}/215/215"
+                             class="img-responsive" alt="{{trendingItem.title}}">
+                        <img ng-if="trendingItem.image == null" src="http://placehold.it/215x215/692668/ffffff"
+                             class="img-responsive" alt="{{trendingItem.title}}">
+                        <h4>{{trendingItem.title}}</h4>
+                        <h5>{{trendingItem.link}}</h5>
+                        <a href ng-click="toggleTrendingItemUpdate(trendingItem, trendingItems4)"
+                           class="btn btn-link" ng-class="{active : trendingItem.isEditActive}">
+                            <span ng-if="trendingItem.isEditActive"
+                                  style="font-size: 24px; color: #a540a4; position: relative;"
+                                  class="fa fa-caret-up"></span>
+                            <span ng-if="!trendingItem.isEditActive" class="fa fa-edit"> edit</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-12" ng-if="trendingItems4.isEditTrendingItem" style="border: 1px solid #a540a4;
+                                    margin-bottom: 10px; padding: 10px">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <img ng-src="{{newTrendingItem.update_image.large_image_url}}"
+                                     class="img-responsive" alt="" style="width: 100%"/>
+                                <a href ng-click="showTrendingItemImageDialog()" class="btn btn-primary"
+                                   style="position: absolute; bottom: 5px; right: 20px; opacity: 0.8">Upload</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Title</h5>
+                                <input type="text" class="form-control"
+                                       ng-model="newTrendingItem.title" required>
+                                <h5>Description</h5>
+                        <textarea class="form-control" placeholder="optional"
+                                  ng-model="newTrendingItem.description"
+                                  rows="2">
+                        </textarea>
+                                <h5>Trending Item Link</h5>
+                                <input type="text" class="form-control"
+                                       ng-model="newTrendingItem.link" required>
+                                </input>
+                                <h5>Priority</h5>
+                                <input type="number" class="form-control"
+                                       ng-model="newTrendingItem.priority" placeholder="optional">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-offset-8 col-sm-2">
+                                    <button ng-click="saveTrendingItemDetails(newTrendingItem)"
+                                            class="btn btn-primary btn-block">Save
+                                    </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button ng-click="doneTrendingItemDetails(newTrendingItem, trendingItems4)"
+                                            class="btn btn-primary btn-block">Done
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <uib-pagination
+                    total-items="trendingMeta.pagination.total"
+                    ng-model="trendingMeta.pagination.current_page"
+                    items-per-page="trendingMeta.pagination.per_page"
+                    max-size="trendingMeta.pagination.count"
+                    class="pagination-sm  pull-right"
+                    force-ellipses="false"
+                    ng-change="getEvezplaceTrendingItemsForPage(trendingMeta.pagination.current_page)"
+                    boundary-link-numbers="true"
+                    rotate="true">
+
+            </uib-pagination>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,72 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}">Evezsite</a>
+            </li>
+            <li><a class="active" href="#advertise">Advertise</a></li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+<div class="col-md-2 user-menu-btns">
+    <div class="btn-group-vertical square" id="responsive">
+        <a href="#community" class="btn btn-default">
+            <p>Connect</p>
+        </a>
+        <a href="" class="btn btn-default btn-block active">
+            <p>Advertise</p>
+        </a>
+        <a href="#circles" class="btn btn-default btn-block">
+            <p>Circles</p>
+        </a>
+        <a href="#friends/invite" class="btn btn-default">
+            <p>Invite Evez</p>
+        </a>
+        <a href="#invitehistory" class="btn btn-default">
+            <p>Invite History</p>
+        </a>
+    </div>
+</div>
+<div class="col-md-10 user-menu user-pad">
+    <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px;margin-top:40px;">
+        <h2 class="text-center">Advertise</h2>
+        <br><br><br>
+        <h4 class="text-center">Comming Soon</h4>
+    </div>
+</div>

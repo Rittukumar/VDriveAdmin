@@ -1,0 +1,351 @@
+<div ng-controller="CreateClassifiedsCtrl">
+    <div class="jumbotron alert alert-dismissible inner-jumbotron shadow switch" id="no-border-round" role="alert">
+        <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        
+            <h1 style="color: #e51385">Step 2</h1>
+
+            <p>Choose the type of classified layout you prefer from the 4 standard options provided. Provide Title, description, images you would like to have in the classified. You can mention the price, if you would like to. Provide contact details and store location details, (if you have a physical store)</p>
+    </div>
+
+
+    <div ng-include src='"partials/evezplace/create_classifieds_menu.html"'></div>
+
+    <div class="create-store-section">
+        <form role="form"
+              name="customOptionsForm"
+              ng-submit="saveClassifiedsStep2()"
+              ng-fab-form-options="customFormOptions">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h3 style="color: #e51385">Choose Layout of Classifieds</h3>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <div class="col-md-2">
+                            <input type="radio" id="type1" name="type1" value="1"
+                                   ng-model="addClassified.layoutType" style="width: 16px; height: 16px">
+                        </div>
+                        <div class="col-md-10">
+                            <img src="img/evezplace/classifieds/box1.png" alt="" style="width: 100%"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-2">
+                            <input type="radio" id="type2" name="type2" value="2"
+                                   ng-model="addClassified.layoutType" style="width: 16px; height: 16px">
+                        </div>
+                        <div class="col-md-10">
+                            <img src="img/evezplace/classifieds/box2.png" alt="" style="width: 100%"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px; margin-bottom: 40px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <div class="col-md-2">
+                            <input type="radio" id="type3" name="type3" value="3"
+                                   ng-model="addClassified.layoutType" style="width: 16px; height: 16px">
+                        </div>
+                        <div class="col-md-10">
+                            <img src="img/evezplace/classifieds/box3.png" alt="" style="width: 100%"/>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-md-2">
+                            <input type="radio" id="type4" name="type4" value="4"
+                                   ng-model="addClassified.layoutType" style="width: 16px; height: 16px">
+                        </div>
+                        <div class="col-md-10">
+                            <img src="img/evezplace/classifieds/box4.png" alt="" style="width: 100%"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <label for="classifiedTitle">Title</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Enter Title" class="form-control" id="classifiedTitle"
+                               name="classifiedTitle"
+                               ng-model="addClassified.classifiedTitle" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <label for="classifiedTitle">Body Description</label>
+                    </div>
+                    <div class="col-md-4">
+                <textarea rows="4" placeholder="Enter Description" class="form-control" id="classifiedDesc"
+                          name="classifiedDesc"
+                          ng-model="addClassified.classifiedDesc" required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <label for="titleImage">Title Image</label>
+                    </div>
+                    <div class="col-md-4">
+                        <a ng-click="CropTitleImage()"
+                           class="btn btn-primary" id="titleImage">
+                            <span><i class="fa fa-camera"></i> Select title image</span>
+                        </a>
+
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addClassified.titleImage.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addClassified.titleImage.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <label for="bodyImages">The classified consists of 4 Body Images</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <a ng-click="CropBodyImage1()"
+                                   class="btn btn-primary" id="bodyImages">
+                                    <span><i class="fa fa-camera"></i> Select body image 1</span>
+                                </a>
+                                <a ng-click="ImagePreview(addClassified.bodyImage1.croppedImage)"
+                                   ng-show="addClassified.bodyImage1.croppedImage" class="btn btn-link"
+                                   style="color: #e50880">
+                                    preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-6 col-md-4">
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <a ng-click="CropBodyImage2()"
+                                   class="btn btn-primary">
+                                    <span><i class="fa fa-camera"></i> Select body image 2</span>
+                                </a>
+                                <a ng-click="ImagePreview(addClassified.bodyImage2.croppedImage)"
+                                   ng-show="addClassified.bodyImage2.croppedImage" class="btn btn-link"
+                                   style="color: #e50880">
+                                    preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-6 col-md-4">
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <a ng-click="CropBodyImage3()"
+                                   class="btn btn-primary">
+                                    <span><i class="fa fa-camera"></i> Select body image 3</span>
+                                </a>
+                                <a ng-click="ImagePreview(addClassified.bodyImage3.croppedImage)"
+                                   ng-show="addClassified.bodyImage3.croppedImage" class="btn btn-link"
+                                   style="color: #e50880">
+                                    preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-6 col-md-4">
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <a ng-click="CropBodyImage4(addClassified.bodyImage4)"
+                                   class="btn btn-primary">
+                                    <span><i class="fa fa-camera"></i> Select body image 4</span>
+                                </a>
+                                <a ng-click="ImagePreview(addClassified.bodyImage4.croppedImage)"
+                                   ng-show="addClassified.bodyImage4.croppedImage" class="btn btn-link"
+                                   style="color: #e50880">
+                                    preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <label for="dealDescription">Deal Description or Price Box</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="dealDescription" name="dealDescription"
+                               ng-model="addClassified.dealDescription" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <label for="dealDescription">Contact Details</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Phone Number" class="form-control" id="phoneNum" name="phoneNum"
+                               ng-model="addClassified.contactDetails.phoneNum" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-6 col-md-4">
+                        <input type="text" placeholder="Email" class="form-control" id="email" name="email"
+                               ng-model="addClassified.contactDetails.email" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-6 col-md-4">
+                        <input type="text" placeholder="Name" class="form-control" id="name" name="name"
+                               ng-model="addClassified.contactDetails.name" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <label for="dealDescription">Store Location</label>
+                    </div>
+                    <div class="col-md-4">
+                <textarea class="form-control" placeholder="Street Address" id="streetAddress" name="streetAddress"
+                          ng-model="addClassified.storeLocation.streetAddress" required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-6 col-md-4">
+                        <input  type="text"
+                                placeholder="City, State"
+                                class="form-control"
+                                name="cityState"
+                                g-places-autocomplete
+                                ng-model="addClassified.storeLocation.cityState" required>
+                        </input>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-6 col-md-4">
+                        <input type="text" placeholder="Pincode" class="form-control" id="cityState" name="pincode"
+                               ng-model="addClassified.storeLocation.pincode" required/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 40px">
+                <div class="col-md-4 col-md-offset-2">
+                    <a href="" class="btn btn-primary btn-lg btn-block">Preview Classified</a>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color: #e50880">
+                        <i class="fa fa-arrow-right"></i> Next
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/ng-template" id="cropTitleImageDialogId">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Classified Title Image</b>
+        <br/>
+        <p>Please crop the image before uploading...</p>
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select title image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="titleImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="titleImage.src">No title image chosen</i>
+
+            <ng-crop data-src="titleImage.src"
+                     ratio={{titleImage.cropConfig.aspectRatio}}
+                     box-width={{titleImage.boxWidth}}
+                    selected='titleImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-if="selection" ng-click="uploadTitleImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="cropBodyImageDialogId">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Classified Body Image</b>
+        <br/>
+        <p>Please crop the image before uploading...</p>
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select body image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="bodyImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="bodyImage.src">No body image chosen</i>
+
+            <ng-crop data-src="bodyImage.src"
+                     ratio={{bodyImage.cropConfig.aspectRatio}}
+                     box-width={{bodyImage.boxWidth}}
+                     
+                     selected='bodyImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-if="isCropped" ng-click="uploadBodyImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="imagePreviewDialogId">
+    <div class="ngdialog-buttons popuptemplate">
+        <img src="{{imagePath}}" alt="" class="img-responsive" width="100%"/>
+    </div>
+</script>

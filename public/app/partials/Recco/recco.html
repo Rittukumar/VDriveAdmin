@@ -1,0 +1,784 @@
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="reccoController">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Reco</h1>
+
+    <p>Woman can create their identity. Connect with friends, colleagues, customers, partners, employees or just about
+        any woman. You can also promote and accelerate your business digitally within your private circles as well as
+        publicly on the website. Create independent circles; promote your reccos, preferences as well as your own
+        stores, services or ideas. You can create your events, groups; participate in forums and many more. Make your
+        voice heard.</p>
+
+
+</div>
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="{ active: isActive('/trending')}"><a href="#trending">Trending</a></li>
+            <li ng-class="{ active: isActive('/community')}"><a href="#community">Build Community</a></li>
+            <li ng-class="{ active: isActive('/recco')}"><a href="#recco" class="active">Recco it</a></li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+    <!--/.nav-collapse -->
+</nav>
+
+<!-- Posting area start -->
+<div class="postingContainer" ng-controller="reccoController">
+    <div class="col-md-12" id="postingArea">
+        <h4 style="padding: 0px 0px 5px 2px">Create your reco</h4>
+        <div class="col-md-12 zero-padding-left-right trending-title">
+            <input type="text" class="form-control" placeholder="Whats your reco?"/>
+        </div>
+        <div class="col-md-12 zero-padding-left-right trending-whats-recommendation">
+            <textarea class="form-control" rows="4" placeholder="Whats your recommendation?"/>
+        </div>
+        <div class="col-md-12 no-padding category-details">
+            <div class="col-md-2 zero-padding-left-right text-right">
+                <label for="post-type">what' the reco about?</label>
+            </div>
+            <div class="col-md-2 zero-padding-left-right">
+                <select class=" form-control" id="post-type">
+                    <option value="finds">finds</option>
+                    <option value="generic">generic</option>
+                    <option value="recos">recos</option>
+                    <option value="warning">warning</option>
+                </select>
+            </div>
+            <div class="col-md-2 zero-padding-left-right  text-right">
+                <label for="category-type">choose category?</label>
+            </div>
+            <span us-spinner="{radius:6, width:2, length: 2,color: '#e50880'}" spinner-key="spinner-1" spinner-start-active="true">
+
+                </span>
+            <div  ng-controller="trendingCategories">
+            <div class="col-md-2 zero-padding-left-right">
+                <select class="form-control" id="category-type" ng-options="category as category.category_name for category in categories" ng-change="GetSubCategories()" data-ng-model="selectedOption">
+
+                </select>
+            </div>
+            <div class="col-md-2 zero-padding-left-right  text-right">
+                <label for="sub-category-type">choose sub category?</label>
+            </div>
+            <div class="col-md-2 zero-padding-left-right">
+                <select class="form-control" id="sub-category-type" ng-options="subcategory as subcategory.subcategory_name for subcategory in subcategories" data-ng-model = "selectedsubcategories">
+
+                </select>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-12 no-padding brand-details">
+            <div class="col-md-2  text-right">
+                <label for="brand-type">choose brand?</label>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control" id="brand-type">
+                    <option value="Loreal">Loreal</option>
+                    <option value="Lakme">Lakme</option>
+                    <option value="Gucci">Gucci</option>
+                    <option value="Calvin">Calvin Klien</option>
+                </select>
+            </div>
+            <div class="col-md-2  text-right">
+                <label for="price-range">price range in &#8377;</label>
+            </div>
+            <div class="col-md-2">
+                <input class="form-control" type="text" placeholder="eg: 1500 - 2500" id="price-range" />
+            </div>
+        </div>
+        <div class="col-md-12 zero-padding-left-right trending-description">
+            <textarea class="form-control" rows="4" placeholder="Whats your recommendation?"/>
+        </div>
+        <div class="row zero-padding-left-right heading">
+            <div class="col-md-3">
+                <button class="btn btn-block btn-default" ng-file-select ng-model="files" multiple="true"><i
+                        class="fa fa-camera"></i> select photos
+                </button>
+            </div>
+            <div class="col-md-1 no-padding text-right">
+                <i class="fa fa-link fa-reco-link"></i>
+            </div>
+            <div class="col-md-4 no-padding">
+                <input class="form-control" type="text" placeholder="eg: www.mywebsite.com" />
+            </div>
+            <div class="col-md-2">
+                <select class="form-control">
+                    <option value="all">with all</option>
+                    <option value="friends">with friends</option>
+                    <option value="circles">with circles</option>
+                    <option value="me">with me</option>
+                </select>
+            </div>
+            <div class="col-md-2 pull-left">
+                <a href class="btn btn-primary btn-block" id="btn-woiceit"
+                   ng-click="UploadImage(files)">Reco it</a>
+            </div>
+        </div>
+        <div class="table-row">
+
+        </div>
+    </div>
+</div>
+
+<!-- Content area starts -->
+
+<div class="col-md-12 trending-section">
+
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-1">
+            <img ng-src="http://blogs-images.forbes.com/emilyinverso/files/2014/05/ToryBurchPRHeadshot-e1401373190150-1024x1024.jpg"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-2">
+            <h5>Radha Radhakrish...
+                <small> says...</small>
+            </h5>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option value="one">with friends</option>
+                <option value="two">with circles</option>
+                <option value="three">with all</option>
+                <option value="four">only me</option>
+            </select>
+        </div>
+        <div class="times-ago col-md-2 col-md-offset-5 text-right">
+            <h5>45 min ago</h5>
+        </div>
+    </div>
+    <div class="col-xs-12 spec center-block reco-image-gallery">
+        <div class="col-xs-3 reco-image">
+            <a href="" class="thumbnail">
+                <img ng-src="http://media-cdn.tripadvisor.com/media/photo-s/03/df/c9/9a/fine-food-restaurant.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.foodportfolio.com/b/wp-content/uploads/2011/03/foodphotographyseminar1.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.warhorseinn.com/images/pics/restaurant-food.jpg" alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://d99ngkg9mjpdb.cloudfront.net/public/images/editoClp/restaurant-food-services.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-1 reco-brand-logo">
+            <img ng-src="http://cdn2.blisstree.com/wp-content/uploads/2014/03/47-Brand-Logo.png"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-4">
+            <h5>Brand Name
+            </h5>
+        </div>
+        <div class="col-md-4 col-md-offset-3 text-right">
+            <p>
+                Location: <b>Bangalore</b>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 reco-testimonial">
+        <i class="fa fa-quote-left"></i><i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? </i><i class="fa fa-quote-right"></i>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-2">
+            <p>
+                Price: <b>2,000</b>
+            </p>
+        </div>
+        <div class="col-md-4 col-md-offset-6 text-right">
+            <span class="fa fa-link"></span><a href="www.creativethoughts.co.in"><b style="color: #4cb1ca;">
+            www.creativethoughts.co.in</b></a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-12">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+        </div>
+    </div>
+    <div class="col-md-12 no-right-pad">
+        <div class="col-md-2 commentStyle">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span style="font-size: 12px;">15 Comments</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1 " style="padding-top: 20px;">
+            <bold style="font-size: 12px">Grade It</bold>
+        </div>
+        <div class="col-md-2 rating-back">
+            <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars ng-model="stars" value="4" max="5"></span>
+
+                <p>
+                    <small style="font-size: 12px">Current {{stars}} Levels</small>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-2 rewoiceStyle">
+            <span class="fa fa-share-square"></span>
+            <span style="font-size: 12px;">15 Rewoices</span>
+        </div>
+        <div class="col-md-2 reco-tag">
+            <bold style="font-size: 12px">reco</bold>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 trending-section">
+
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-1">
+            <img ng-src="http://blogs-images.forbes.com/emilyinverso/files/2014/05/ToryBurchPRHeadshot-e1401373190150-1024x1024.jpg"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-2">
+            <h5>Radha Radhakrish...
+                <small> says...</small>
+            </h5>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option value="one">with friends</option>
+                <option value="two">with circles</option>
+                <option value="three">with all</option>
+                <option value="four">only me</option>
+            </select>
+        </div>
+        <div class="times-ago col-md-2 col-md-offset-5 text-right">
+            <h5>45 min ago</h5>
+        </div>
+    </div>
+    <div class="col-xs-12 spec center-block reco-image-gallery">
+        <div class="col-xs-3 reco-image">
+            <a href="" class="thumbnail">
+                <img ng-src="http://media-cdn.tripadvisor.com/media/photo-s/03/df/c9/9a/fine-food-restaurant.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.foodportfolio.com/b/wp-content/uploads/2011/03/foodphotographyseminar1.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.warhorseinn.com/images/pics/restaurant-food.jpg" alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://d99ngkg9mjpdb.cloudfront.net/public/images/editoClp/restaurant-food-services.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-1 reco-brand-logo">
+            <img ng-src="http://cdn2.blisstree.com/wp-content/uploads/2014/03/47-Brand-Logo.png"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-4">
+            <h5>Brand Name
+            </h5>
+        </div>
+        <div class="col-md-4 col-md-offset-3 text-right">
+            <p>
+                Location: <b>Bangalore</b>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 reco-testimonial">
+        <i class="fa fa-quote-left"></i><i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? </i><i class="fa fa-quote-right"></i>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-2">
+            <p>
+                Price: <b>2,000</b>
+            </p>
+        </div>
+        <div class="col-md-4 col-md-offset-6 text-right">
+            <span class="fa fa-link"></span><a href="www.creativethoughts.co.in"><b style="color: #4cb1ca;">
+            www.creativethoughts.co.in</b></a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-12">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+        </div>
+    </div>
+    <div class="col-md-12 no-right-pad">
+        <div class="col-md-2 commentStyle">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span style="font-size: 12px;">15 Comments</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1 " style="padding-top: 20px;">
+            <bold style="font-size: 12px">Grade It</bold>
+        </div>
+        <div class="col-md-2 rating-back">
+            <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars ng-model="stars" value="4" max="5"></span>
+
+                <p>
+                    <small style="font-size: 12px">Current {{stars}} Levels</small>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-2 rewoiceStyle">
+            <span class="fa fa-share-square"></span>
+            <span style="font-size: 12px;">15 Rewoices</span>
+        </div>
+        <div class="col-md-2 reco-tag">
+            <bold style="font-size: 12px">reco</bold>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 trending-section">
+
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-1">
+            <img ng-src="http://blogs-images.forbes.com/emilyinverso/files/2014/05/ToryBurchPRHeadshot-e1401373190150-1024x1024.jpg"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-2">
+            <h5>Radha Radhakrish...
+                <small> says...</small>
+            </h5>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option value="one">with friends</option>
+                <option value="two">with circles</option>
+                <option value="three">with all</option>
+                <option value="four">only me</option>
+            </select>
+        </div>
+        <div class="times-ago col-md-2 col-md-offset-5 text-right">
+            <h5>45 min ago</h5>
+        </div>
+    </div>
+    <div class="col-xs-12 spec center-block reco-image-gallery">
+        <div class="col-xs-3 reco-image">
+            <a href="" class="thumbnail">
+                <img ng-src="http://media-cdn.tripadvisor.com/media/photo-s/03/df/c9/9a/fine-food-restaurant.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.foodportfolio.com/b/wp-content/uploads/2011/03/foodphotographyseminar1.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.warhorseinn.com/images/pics/restaurant-food.jpg" alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://d99ngkg9mjpdb.cloudfront.net/public/images/editoClp/restaurant-food-services.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-1 reco-brand-logo">
+            <img ng-src="http://cdn2.blisstree.com/wp-content/uploads/2014/03/47-Brand-Logo.png"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-4">
+            <h5>Brand Name
+            </h5>
+        </div>
+        <div class="col-md-4 col-md-offset-3 text-right">
+            <p>
+                Location: <b>Bangalore</b>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 reco-testimonial">
+        <i class="fa fa-quote-left"></i><i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? </i><i class="fa fa-quote-right"></i>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-2">
+            <p>
+                Price: <b>2,000</b>
+            </p>
+        </div>
+        <div class="col-md-4 col-md-offset-6 text-right">
+            <span class="fa fa-link"></span><a href="www.creativethoughts.co.in"><b style="color: #4cb1ca;">
+            www.creativethoughts.co.in</b></a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-12">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+        </div>
+    </div>
+    <div class="col-md-12 no-right-pad">
+        <div class="col-md-2 commentStyle">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span style="font-size: 12px;">15 Comments</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1 " style="padding-top: 20px;">
+            <bold style="font-size: 12px">Grade It</bold>
+        </div>
+        <div class="col-md-2 rating-back">
+            <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars ng-model="stars" value="4" max="5"></span>
+
+                <p>
+                    <small style="font-size: 12px">Current {{stars}} Levels</small>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-2 rewoiceStyle">
+            <span class="fa fa-share-square"></span>
+            <span style="font-size: 12px;">15 Rewoices</span>
+        </div>
+        <div class="col-md-2 reco-tag">
+            <bold style="font-size: 12px">reco</bold>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 trending-section">
+
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-1">
+            <img ng-src="http://blogs-images.forbes.com/emilyinverso/files/2014/05/ToryBurchPRHeadshot-e1401373190150-1024x1024.jpg"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-2">
+            <h5>Radha Radhakrish...
+                <small> says...</small>
+            </h5>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option value="one">with friends</option>
+                <option value="two">with circles</option>
+                <option value="three">with all</option>
+                <option value="four">only me</option>
+            </select>
+        </div>
+        <div class="times-ago col-md-2 col-md-offset-5 text-right">
+            <h5>45 min ago</h5>
+        </div>
+    </div>
+    <div class="col-xs-12 spec center-block reco-image-gallery">
+        <div class="col-xs-3 reco-image">
+            <a href="" class="thumbnail">
+                <img ng-src="http://media-cdn.tripadvisor.com/media/photo-s/03/df/c9/9a/fine-food-restaurant.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.foodportfolio.com/b/wp-content/uploads/2011/03/foodphotographyseminar1.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.warhorseinn.com/images/pics/restaurant-food.jpg" alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://d99ngkg9mjpdb.cloudfront.net/public/images/editoClp/restaurant-food-services.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-1 reco-brand-logo">
+            <img ng-src="http://cdn2.blisstree.com/wp-content/uploads/2014/03/47-Brand-Logo.png"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-4">
+            <h5>Brand Name
+            </h5>
+        </div>
+        <div class="col-md-4 col-md-offset-3 text-right">
+            <p>
+                Location: <b>Bangalore</b>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 reco-testimonial">
+        <i class="fa fa-quote-left"></i><i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? </i><i class="fa fa-quote-right"></i>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-2">
+            <p>
+                Price: <b>2,000</b>
+            </p>
+        </div>
+        <div class="col-md-4 col-md-offset-6 text-right">
+            <span class="fa fa-link"></span><a href="www.creativethoughts.co.in"><b style="color: #4cb1ca;">
+            www.creativethoughts.co.in</b></a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-12">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+        </div>
+    </div>
+    <div class="col-md-12 no-right-pad">
+        <div class="col-md-2 commentStyle">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span style="font-size: 12px;">15 Comments</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1 " style="padding-top: 20px;">
+            <bold style="font-size: 12px">Grade It</bold>
+        </div>
+        <div class="col-md-2 rating-back">
+            <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars ng-model="stars" value="4" max="5"></span>
+
+                <p>
+                    <small style="font-size: 12px">Current {{stars}} Levels</small>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-2 rewoiceStyle">
+            <span class="fa fa-share-square"></span>
+            <span style="font-size: 12px;">15 Rewoices</span>
+        </div>
+        <div class="col-md-2 reco-tag">
+            <bold style="font-size: 12px">reco</bold>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 trending-section">
+
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-1">
+            <img ng-src="http://blogs-images.forbes.com/emilyinverso/files/2014/05/ToryBurchPRHeadshot-e1401373190150-1024x1024.jpg"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-2">
+            <h5>Radha Radhakrish...
+                <small> says...</small>
+            </h5>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control">
+                <option value="one">with friends</option>
+                <option value="two">with circles</option>
+                <option value="three">with all</option>
+                <option value="four">only me</option>
+            </select>
+        </div>
+        <div class="times-ago col-md-2 col-md-offset-5 text-right">
+            <h5>45 min ago</h5>
+        </div>
+    </div>
+    <div class="col-xs-12 spec center-block reco-image-gallery">
+        <div class="col-xs-3 reco-image">
+            <a href="" class="thumbnail">
+                <img ng-src="http://media-cdn.tripadvisor.com/media/photo-s/03/df/c9/9a/fine-food-restaurant.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.foodportfolio.com/b/wp-content/uploads/2011/03/foodphotographyseminar1.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://www.warhorseinn.com/images/pics/restaurant-food.jpg" alt="125x125">
+            </a>
+        </div>
+        <div class="col-xs-3 reco-image">
+            <a href="#" class="thumbnail">
+                <img ng-src="http://d99ngkg9mjpdb.cloudfront.net/public/images/editoClp/restaurant-food-services.jpg"
+                     alt="125x125">
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-1 reco-brand-logo">
+            <img ng-src="http://cdn2.blisstree.com/wp-content/uploads/2014/03/47-Brand-Logo.png"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-4">
+            <h5>Brand Name
+            </h5>
+        </div>
+        <div class="col-md-4 col-md-offset-3 text-right">
+            <p>
+                Location: <b>Bangalore</b>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 reco-testimonial">
+        <i class="fa fa-quote-left"></i><i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet
+        provident sapiente
+        unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+        rerum ullam. Atque, id, voluptatibus? </i><i class="fa fa-quote-right"></i>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-2">
+            <p>
+                Price: <b>2,000</b>
+            </p>
+        </div>
+        <div class="col-md-4 col-md-offset-6 text-right">
+            <span class="fa fa-link"></span><a href="www.creativethoughts.co.in"><b style="color: #4cb1ca;">
+            www.creativethoughts.co.in</b></a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-12">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse eveniet provident sapiente
+                unde! Optio pariatur quisquam vero? Alias assumenda est facere id magni odit reprehenderit
+                rerum ullam. Atque, id, voluptatibus?</p>
+        </div>
+    </div>
+    <div class="col-md-12 no-right-pad">
+        <div class="col-md-2 commentStyle">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span style="font-size: 12px;">15 Comments</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1 " style="padding-top: 20px;">
+            <bold style="font-size: 12px">Grade It</bold>
+        </div>
+        <div class="col-md-2 rating-back">
+            <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars ng-model="stars" value="4" max="5"></span>
+
+                <p>
+                    <small style="font-size: 12px">Current {{stars}} Levels</small>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-2 rewoiceStyle">
+            <span class="fa fa-share-square"></span>
+            <span style="font-size: 12px;">15 Rewoices</span>
+        </div>
+        <div class="col-md-2 reco-tag">
+            <bold style="font-size: 12px">reco</bold>
+        </div>
+    </div>
+</div>

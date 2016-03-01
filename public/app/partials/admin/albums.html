@@ -1,0 +1,66 @@
+<!-- Main component for a primary marketing message or call to action -->
+
+<!-- Static navbar -->
+
+<ul class="breadcrumb">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#/admin/album">Gallery</a></li>
+</ul>
+<div class="col-md-10 user-menu user-pad"  ng-controller="albums">
+    <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+        <div class="fragment">
+            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+            <h4>Gallery</h4>
+            <p>
+                Publish your pictures and images. Create different albums and segregate your collection
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 panel-heading custom-album-panel-heading" style="padding-left: 0px">
+        <div class="col-md-2" style="padding-left: 0px">
+            <h4>
+                Albums ({{myAlbums.length}})
+            </h4>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="search albums" ng-model="albumsearch"/>
+        </div>
+        <div class="col-md-2 col-md-offset-4 pull-right custom-create-album-button">
+            <a href ng-click="CreateAlbum()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Album</a>
+        </div>
+
+    </div>
+    <div class="col-md-12 album-section" style="margin-top:30px;">
+        <!-- Row 1-->
+        <div class="col-md-4 custom-show-albums" style="padding-left: 0px; padding-right: 0px" ng-repeat="album in myAlbums | filter:albumsearch">
+            <div class="view view-first">
+                <img ng-if="album.images.length == 0" src="http://creativethoughts.co.in/evezown/api/public/v1/image/show/2015-02-27-05:22:10-evezown_album.jpg" class="img-responsive"/>
+                <img ng-if="album.images.length > 0" src="{{service_url}}image/show/{{album.images[0].large_image_url}}" class="img-responsive"/>
+                <div class="mask">
+                    <h2>{{album.title}}</h2>
+                    <p>{{album.description}}</p>
+                    <a href="#albums/details/{{album.id}}" class="info">view album</a>
+                    <a href ng-click="DeleteAlbum(album)" class="info">Delete album</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="templateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="albums">
+        <h4>Add album</h4>
+        <input class="form-control" type="text" placeholder="Album Title"
+               id="circle" ng-model="album" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="15"/>
+        <textarea class="form-control" rows="4" placeholder="Album Description (optional)"
+                  ng-model="description" maxlength="100"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="SaveAlbum()">Add</button>
+    </div>
+</script>

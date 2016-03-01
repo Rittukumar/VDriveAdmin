@@ -1,0 +1,12 @@
+<div class="ngdialog-buttons popuptemplate" ng-controller="trending">
+    <h4>Add a new brand</h4>
+    <input class="form-control" type="text" placeholder="brand Name"
+           id="brandname" ng-model="brandname" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+
+    <div ng-file-drop ng-file-select ng-model="files" ng-model-rejected="rejFiles"
+         drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+         ng-multiple="true" allow-dir="true" ng-accept="'image/*'">
+        Drop Image <div>or click to select</div>
+    </div>
+
+</div>

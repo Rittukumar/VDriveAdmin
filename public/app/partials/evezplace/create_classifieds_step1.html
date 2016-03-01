@@ -1,0 +1,167 @@
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow switch" id="no-border-round" role="alert">
+    <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    
+        <h1 style="color: #e51385">Create classified/listing home page</h1>
+
+        <p>Welcome to Classified creation page. If you are a store owner, you can create an ad for your store - be it deals, new product or service. If you are a consumer, you can create your favourite product or service as a poster for promotion. This is a structured way of creating and promoting and building a campaign...you can stream to your evezown community or share it with your friends or cusomers on social networks. All In 3 simple steps! Start here by choosing the type of classified and the category/sub-category you would like it to be listed under.</p>
+</div>
+
+<div ng-include src='"partials/evezplace/create_classifieds_menu.html"' ng-controller="CreateClassifiedsCtrl"></div>
+
+<div class="create-store-section" ng-controller="CreateClassifiedsCtrl">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 style="color: #e51385">Choose Classified Type</h3>
+        </div>
+    </div>
+    <form role="form"
+          name="customOptionsForm"
+          ng-submit="saveClassifiedsStep1()"
+          ng-fab-form-options="customFormOptions">
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label for="classifiedFor">You want to create classified for</label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <input type="radio"
+                               id="classifiedFor"
+                               name="classifiedFor"
+                               value="1"
+                               ng-model="addClassified.classified_for"
+                               required>
+                        Existing Store
+                    </label>
+                </div>
+
+                <div class="col-md-offset-6 col-md-4">
+                    <label>
+                        <input type="radio"
+                               name="classifiedFor"
+                               value="2"
+                               ng-model="addClassified.classified_for"
+                               required>
+                        Existing Event (Woice)
+                    </label>
+                </div>
+                <div class="col-md-offset-6 col-md-4">
+                    <label>
+                        <input type="radio"
+                               name="classifiedFor"
+                               value="3"
+                               ng-model="addClassified.classified_for"
+                               required>
+                        New Classifieds
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label for="classifiedCategory">Category</label>
+                </div>
+                <div class="col-md-4">
+                    <select name="classifiedCategory"
+                            id="classifiedCategory"
+                            class="form-control"
+                            ng-model="addClassified.classified_category_id"
+                            style="font-weight: 700"
+                            default-option="Choose Category"
+                            ng-options="category.id as category.category_name for category in categories"
+                            ng-change="GetSubCategories(addClassified.classified_category_id)"
+                            required>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label for="classifiedSubcategory">Subcategory</label>
+                </div>
+                <div class="col-md-4">
+                    <select name="classifiedCategory"
+                            id="classifiedSubcategory"
+                            class="form-control"
+                            ng-model="addClassified.classified_subcategory_id"
+                            style="font-weight: 700"
+                            default-option="Choose Subcategory"
+                            ng-options="subcategory.id as subcategory.subcategory_name for subcategory in subcategories"
+                            required>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label for="classifiedSpecify">Specify</label>
+                </div>
+                <div class="col-md-4">
+                    <select name="classifiedSpecify"
+                            id="classifiedSpecify"
+                            class="form-control"
+                            ng-model="addClassified.classified_type"
+                            style="font-weight: 700"
+                            default-option="Choose Specify"
+                            ng-options="specify.id as specify.name for specify in specifyItems"
+                            required>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label for="classifiedDuration">Duration (Choose Date Range)</label>
+                </div>
+                <div class="col-md-4">
+                    <input date-range-picker
+                           options="{format: 'MMM/DD/YYYY', timePicker: true, timePickerIncrement: 30}"
+                           id="classifiedDuration" class="form-control date-picker"
+                           type="text"
+                           ng-model="addClassified.classifiedDateRange" style="font-weight: 600"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label>Tag Keywords</label>
+                </div>
+                <div class="col-md-4">
+                    <tags-input
+                            ng-model="addClassified.tags"
+                            placeholder="Add a classified tag"
+                            on-tag-removed="tagRemoved($tag)"
+                            display-property="name">
+                        <auto-complete source="loadTags($query)"></auto-complete>
+                    </tags-input>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px">
+            <div class="col-md-4 col-md-offset-6">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color: #e50880">
+                    <i class="fa fa-arrow-right"></i> Next
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="row" style="margin-top: 20px">
+        <div class="col-md-4 col-md-offset-6">
+            <a ng-click="discardClassified()" class="btn btn-link btn-block">
+                Discard
+            </a>
+        </div>
+    </div>
+</div>

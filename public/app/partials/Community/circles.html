@@ -1,0 +1,132 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}">Evezsite</a>
+            </li>
+            <li><a class="{{isActive[1]}}" href="#circles">Circles</a></li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+<div class="col-md-2 user-menu-btns">
+    <div class="btn-group-vertical square" id="responsive">
+        <a href="#community" class="btn btn-default">
+            <p>Connect</p>
+        </a>
+        <a href="#advertise" class="btn btn-default btn-block">
+            <p>Advertise</p>
+        </a>
+        <a href="#circles" class="btn btn-default btn-block  active">
+            <p>Circles</p>
+        </a>
+        <a href="#friends/invite" class="btn btn-default">
+            <p>Invite Evez</p>
+        </a>
+        <a href="#invitehistory" class="btn btn-default">
+            <p>Invite History</p>
+        </a>
+    </div>
+</div>
+<div class="col-md-10 user-menu user-pad" ng-controller="circles">
+    <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+        <div class="fragment">
+            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+            <h4>Circles</h4>
+            <p>
+                Seggregate your eve community into different circles.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 panel-heading" style="padding-left: 0px">
+        <div class="col-md-2" style="padding-left: 0px">
+            <h4>
+                Circles ({{myCircles.length}})
+            </h4>
+        </div>
+        
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="search circles" ng-model="circlesearch" />
+
+        
+    </div>
+        <div class="col-md-2 col-md-offset-4 pull-right custom-create-circle-button">
+            <a href class="btn btn-primary"  ng-click="CreateCircle()"><span class="fa fa-plus"></span> Create Circle</a>
+        </div>
+    </div>
+    <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px;margin-top:40px;">
+        <ul class="row circle-grid">
+            <li ng-repeat="circle in FilteredCircle = (myCircles | filter:circlesearch) | orderBy:'title':true">
+                <a href="#circle/details/{{circle.id}}">
+                    <div class="circle-item circle-back-img">
+                        <div class="circle-text">
+                         <h5>{{circle.title}} ({{circle.friends.length}})</h5>   
+                        </div>
+                        <div class="circle-info">
+                            <h3>{{circle.title}} ({{circle.friends.length}})</h3>
+                            <a href ng-click="DeleteCircle(circle)" class="info" ng-if="loggedInUserId == circle.user_id">delete</a>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li ng-hide= "FilteredCircle.length">No circles found</li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<script type="text/ng-template" id="templateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="circles">
+        <h4>Add Circle</h4>
+        <input class="form-control" type="text" placeholder="Circle Title"
+               id="circle" ng-model="circle" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="12"/>
+        <textarea class="form-control" rows="4" placeholder="Circle Description (optional)"
+                  ng-model="description" maxlength="255"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="SaveCircle()">Add</button>
+    </div>
+</script>

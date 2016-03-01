@@ -1,0 +1,220 @@
+
+<ul class="breadcrumb">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#admin/album">Gallery</a></li>
+</ul>
+<div ng-controller="albums" class="custom-album-details">
+    <div class="col-md-12 circle-section custom-album-header" style="padding-right: 0px; padding-left: 0px">
+        <div class="col-md-12 panel-heading">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <h4 style="text-transform:capitalize;">
+                    {{ selectedAlbum.title }} ({{selectedAlbum.images.length}})
+                </h4>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-4">
+                <!--<input type="text" class="form-control" placeholder="search friends" ng-model="friendsearch"/>-->
+            </div>
+            <div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-2 pull-right fileUpload">
+                <a href class="btn btn-primary btn-block"><span class="fa fa-plus"></span> add images</a>
+                <input type="file" class="upload" name="image" nv-file-select uploader="uploader" multiple/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 eve-panel-body custom-album-features" style="padding: 5px">
+        <div class="row">
+            <div class="col-md-3" ng-if="selectedAlbum.owner_id ==loggedInUserId">
+                <a class="btn btn-link" ng-click="EditAlbum();"><i class="fa fa-pencil"></i> edit album</a>
+            </div>
+            <div class="col-md-3" ng-if="selectedAlbum.owner_id ==loggedInUserId">
+                <a class="btn btn-link" ng-click="WoiceIt();"><i class="fa fa-share-square-o"></i> Stream It</a>
+            </div>
+            <div class="col-md-3" ng-if="selectedAlbum.owner_id !=loggedInUserId">
+                <a class="btn btn-link" ng-click="WoiceIt();"><i class="fa fa-share-square-o"></i> Stream It</a>
+            </div>
+            <div class="col-md-3" ng-if="selectedAlbum.owner_id ==loggedInUserId">
+                <a href class="btn btn-link" ng-click="EditAlbum();"><i class="glyphicon glyphicon-tag" ng-model="showVisibility">Visibility : {{showVisibility.type}}</i></a> 
+            </div>
+            <div class="col-md-3 custom-album-delete" ng-if="selectedAlbum.owner_id ==loggedInUserId">
+                <a class="btn btn-link pull-right" style="color: darkred" ng-click="DeleteAlbum(selectedAlbum)"><i class="fa fa-trash-o"></i> delete album</a>
+
+            </div>
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="col-md-1" style="padding-top: 20px;">
+                    <bold style="font-size: 12px">Grade It</bold>
+                </div>
+                <div class="col-md-2 rating-back custom-album-rating">
+                    <div class="text-center ratingStyle" ng-app="Duo">
+                <span duo-stars max="4"
+                      data-ng-model="albumGrade" ng-click="UpdateAlbumGrade(albumGrade,selectedAlbum.id)"></span>
+                        <p>
+                            <small style="font-size: 12px">Current {{albumGrade}} Levels</small>
+                        </p>
+                    </div>
+                    <!--<div class="text-center" ng-app="Duo" ng-if="selectedAlbum.grades.length == 0">-->
+                <!--<span duo-stars value="0" max="4"-->
+                      <!--data-ng-model="stars" ng-click="UpdateAlbumGrade(stars,selectedAlbum.id)"></span>-->
+                        <!--<p>-->
+                            <!--<small style="font-size: 12px">Current {{stars}} Levels</small>-->
+                        <!--</p>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 user-menu user-pad custom-album-images">
+        <!-- Image upload queue section start -->
+        <div class="col-sm-12" style="margin-bottom: 10px; margin-top: 10px; padding-left: 0px"
+             ng-if="uploader.queue.length > 0">
+            <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px">
+                <div class="col-sm-10 progress" style="">
+                    <div class="progress-bar" role="progressbar" id="upload-progress-bar"
+                         ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-warning btn-sm" ng-click="uploader.cancelAll()"
+                            ng-disabled="!uploader.isUploading">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                    </button>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="uploader.clearQueue()"
+                            ng-disabled="!uploader.queue.length">
+                        <span class="glyphicon glyphicon-trash"></span> Remove all
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-3" ng-repeat="item in uploader.queue">
+
+                <!-- Image preview -->
+                <!--auto height-->
+                <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                <!--auto width-->
+                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 500 }"></div>
+                <!--fixed width and height -->
+                <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                <div class="text-center">
+                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()"
+                                ng-disabled="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image upload queue section end -->
+        </div>
+        <div class="col-sm-12 text-center fileUpload" style="background: #e6e4e4; height: 100px" ng-if="selectedAlbum.images.length == 0">
+            <h4 class="custom-album-noimages-text" style="margin-top: 45px; color: #444444">Album don't have any images</h4>
+            <!--<a href="#friends/invite" class="btn btn-primary" style="font-size: 20px; border-radius: 5px; margin-top: 20px">-->
+            <!--<span class="fa fa-plus"></span> Add Images-->
+            <!--</a>-->
+            <!--<input type="file" class="upload" name="image" nv-file-select uploader="uploader"/>-->
+        </div>
+
+        <div class="col-md-12 friends-section" ng-if="selectedAlbum.images.length > 0" style="padding-left: 0px;">
+            <ul class="row" style="padding-left: 0px">
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 10px; padding-right: 10px; padding-top:10px " ng-repeat="image in selectedAlbum.images track by $index">
+                    <a href ng-click="openLightBox(selectedAlbum.images,$index)">
+                        <center>
+                            <div class="profile-img-crop">
+                                <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                                     class="img-thumbnail"/>
+                            </div>
+                            <h5><a href ng-click="DeleteImageFromAlbum(selectedAlbum,image.image_id)"> Delete </a></h5>
+                            <h5><a href ng-click="ShowAlbumComments(selectedAlbum,image.image_id)"> Comments ({{image.comments.length}}) </a></h5>
+                            <!--<h5><a href ng-click="ShowAlbumComments(selectedAlbum,image.image_id)" ng-if="image.comments.count == 0"> Comments ({{0}}) </a></h5>-->
+
+                        </center>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="col-md-12 commentLoadSection custom-album-comments" ng-repeat="comment in selectedAlbum.comments">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 deleteSection" ng-if="selectedAlbum.owner_id ==loggedInUserId">
+                    <a href ng-click="DeleteAlbumComment(comment)" style="color:#E50880;">X</a>
+                </div>
+                <div class="col-md-12 deleteSection" ng-if="selectedAlbum.owner_id !=loggedInUserId">
+                    <a href>.</a>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-1 commentdetailsSection">
+                    <img ng-src="{{service_url+'image/show/'+comment.profile.profile_image.large_image_url}}"
+                         alt=""
+                         class="img-thumbnail"/>
+                </div>
+                <div class="col-md-9 zero-padding-left-right commentdetailsSection">
+                    <h5>{{comment.profile.firstname}}&nbsp;{{comment.profile.lastname}}
+                        <small> says...</small>
+                    </h5>
+                </div>
+                <div class="times-ago1 col-md-2 custom-album-comment-time text-right">
+                    <h5><time class="relative" without-suffix datetime="{{comment.created_at}}"></time></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 zero-padding-left-right commentvalues" ng-if="comment.comment != ''">
+                    <div class="col-md-12">
+                        <p>{{comment.comment;}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row custom-album-add-comments" class="col-md-12">
+        <div class="col-md-10 commentSection" style="margin-top: 10px;">
+            <textarea class="form-control" rows="2" placeholder="Add comment?"  data-ng-model="addedcomment"/>
+        </div>
+        <div class="col-md-2 commentSection" style="margin-top: 10px;">
+            <a href class="btn btn-primary btn-block" id="btn-comment" ng-click="CreateAlbumComment(selectedAlbum)">Add Comment</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="EdittemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="albums">
+        <h4>Edit album</h4>
+        <input class="form-control" type="text" placeholder="Album Title"
+               id="circle" ng-model="selectedAlbum.title" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="15"/>
+        <textarea class="form-control" rows="4" placeholder="Album Description (optional)"
+                  ng-model="selectedAlbum.description" maxlength="100"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="UpdateAlbum(selectedAlbum)">Save</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="WoicetemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="albums">
+        <h4>Stream album</h4>
+        <input class="form-control" type="text" placeholder="Stream Title"
+               id="woiceTitle" ng-model="WoiceTitle" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <textarea class="form-control" rows="4" placeholder="Description (optional)"
+                  ng-model="Woicedescription"/>
+
+        <button class="btn primary pull-right form-control" type="button" ng-click="CreateWoice(selectedAlbum)">Save</button>
+    </div>
+</script>

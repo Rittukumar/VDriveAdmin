@@ -1,0 +1,101 @@
+
+
+<ul class="breadcrumb">
+    <li><a href="#home">Home</a></li>
+    <li ng-if="isProfile == false"><a href="#albums/details/{{selectedAlbum.id}}">{{selectedAlbum.title}}</a></li>
+    <li ng-if="isProfile == true"><a href="#myalbumdetails/{{selectedAlbum.id}}/{{currentUserId}}">{{selectedAlbum.title}}</a></li>
+</ul>
+<div class="custom-album-image-comment" ng-controller="albums">
+    <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px">
+        <div class="col-md-12 panel-heading">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <h4>
+                    {{ selectedAlbum.title }}
+                </h4>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-4">
+                <!--<input type="text" class="form-control" placeholder="search friends" ng-model="friendsearch"/>-->
+            </div>
+            <div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-2 pull-right">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 user-menu user-pad">
+        <div class="col-md-3 friends-section center-block" style="padding-left: 0px; ">
+        </div>
+        <div class="col-md-6 friends-section center-block" style="padding-left: 0px; ">
+            <img ng-src="{{service_url+'image/show/'+selectedImage.large_image_url}}"
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-3 friends-section center-block" style="padding-left: 0px; ">
+
+        </div>
+        <div class="col-md-12" style="padding-top: 20px;">
+            <div class="col-md-4" style="padding-top: 20px;"></div>
+        <div class="col-md-1" style="padding-top: 20px;">
+            <bold style="font-size: 12px">Grade It</bold>
+        </div>
+            <div class="col-md-2 rating-back">
+            <div class="text-center ratingStyle" ng-app="Duo" ng-if="selectedImage.grades.length > 0">
+                <span duo-stars max="4"
+                      data-ng-model="imagegrade" ng-click="UpdateImageGrade(albumGrade,selectedImage.image_id)"></span>
+                <p>
+                    <small style="font-size: 12px">Current {{imagegrade}} Levels</small>
+                </p>
+            </div>
+            <div class="text-center ratingStyle" ng-app="Duo" ng-if="selectedImage.grades.length == 0">
+                <span duo-stars value="0" max="4"
+                      data-ng-model="stars" ng-click="UpdateImageGrade(stars,selectedImage.image_id)"></span>
+                <p>
+                    <small style="font-size: 12px">Current {{stars}} Levels</small>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4" style="padding-top: 20px;">
+
+        </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 commentLoadSection" ng-repeat="comment in selectedImage.comments">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 deleteSection" ng-if="comment.commenter_id==loggedInUserId">
+                    <a href ng-click="DeleteClick(comment)" style="color:#E1077D;">X</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 commentdetailsSection">
+                    <img ng-src="{{service_url+'image/show/'+comment.profile.profile_image.large_image_url}}"
+                         alt=""
+                         class="img-thumbnail"/>
+                </div>
+                <div class="col-md-9 zero-padding-left-right commentdetailsSection">
+                    <h5>{{comment.profile.firstname}}&nbsp;{{comment.profile.lastname}}
+                        <small> says...</small>
+                    </h5>
+                </div>
+                <div class="times-ago1 col-md-2 text-right custom-image-comment">
+                    <h5><time class="relative" without-suffix datetime="{{comment.created_at}}"></time></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 zero-padding-left-right commentvalues" ng-if="comment.comment != ''">
+                    <div class="col-md-12">
+                        <p>{{comment.comment;}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row custom-album-add-image-comment" class="col-md-12">
+        <div class="col-md-10 commentSection" style="margin-top: 10px;">
+            <textarea class="form-control" rows="2" placeholder="Add comment?"  data-ng-model="addedcomment"/>
+        </div>
+        <div class="col-md-2 commentSection" style="margin-top: 10px;">
+            <a href class="btn btn-primary btn-block" id="btn-comment" ng-click="CreateComment(selectedImage)">Add Comment</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,329 @@
+<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#evezplace">Evezplace</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<div ng-include src='"partials/evezplace/manage/store/manage_store_left_menu.html"'></div>
+
+<!--Description starts-->
+<div class="col-sm-9 jumbotron alert alert-dismissible inner-jumbotron shadow"  id="no-border-round" role="alert" style="padding:0px 28px 10px 16px;font-size:12px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Store Promotion</h1>
+
+    <p style="text-align:justify;font-size:16px;">You can edit the Store Front here. You can remove, change pictures, edit the store title and description. You can change the category or sub-category of your store listing. Paid stores can change key words provided for searching the stores. Click on Save after edit the information.
+    </p>
+</div>
+<!--Description Ends-->
+
+<div class="col-sm-9">
+    <div class="row">
+
+        <div class="create-store-section" ng-controller="CreateStoreController">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h5 style="color: #e51385; font-weight: 700; font-size: 1.2em">Store Front - Promotion</h5>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-4">
+                        <label for="uploadSlideImages">Update your own advert or classified </label>
+                        <p>(it will appear in dynamic window on the store front)</p>
+                    </div>
+                    <div class="col-md-4">
+                        <!--<div class="fileUpload btn btn-primary">-->
+                            <!--&lt;!&ndash;<span><i class="fa fa-camera"></i> Select photos</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<input type="file" class="upload" id="uploadClassifiedImages" name="uploadClassifiedImages" nv-file-select="" uploader="uploader4"&ndash;&gt;-->
+                                   <!--&lt;!&ndash;multiple/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <a ng-click="CropSlideImage()"
+                           class="btn btn-primary" id="uploadSlideImages">
+                            <span><i class="fa fa-camera"></i> Select slide image 1</span>
+                        </a>
+
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addStores.slideImage.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addStores.slideImage.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
+                        </div>
+                        <!--<div class="fileUpload btn btn-primary">-->
+                        <!--&lt;!&ndash;<span><i class="fa fa-camera"></i> Select photos</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="file" class="upload" id="uploadClassifiedImages" name="uploadClassifiedImages" nv-file-select="" uploader="uploader4"&ndash;&gt;-->
+                        <!--&lt;!&ndash;multiple/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <a ng-click="CropSlideImage1()"
+                           class="btn btn-primary" id="uploadSlideImages2">
+                            <span><i class="fa fa-camera"></i> Select slide image 2</span>
+                        </a>
+
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addStores.slideImage1.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addStores.slideImage1.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
+                        </div>
+                        <!--<div class="fileUpload btn btn-primary">-->
+                        <!--&lt;!&ndash;<span><i class="fa fa-camera"></i> Select photos</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="file" class="upload" id="uploadClassifiedImages" name="uploadClassifiedImages" nv-file-select="" uploader="uploader4"&ndash;&gt;-->
+                        <!--&lt;!&ndash;multiple/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <a ng-click="CropSlideImage2()"
+                           class="btn btn-primary" id="uploadSlideImages3">
+                            <span><i class="fa fa-camera"></i> Select slide image 3</span>
+                        </a>
+
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addStores.slideImage2.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addStores.slideImage2.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
+                        </div>
+                        <!--<div class="fileUpload btn btn-primary">-->
+                        <!--&lt;!&ndash;<span><i class="fa fa-camera"></i> Select photos</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<input type="file" class="upload" id="uploadClassifiedImages" name="uploadClassifiedImages" nv-file-select="" uploader="uploader4"&ndash;&gt;-->
+                        <!--&lt;!&ndash;multiple/>&ndash;&gt;-->
+                        <!--</div>-->
+                        <a ng-click="CropSlideImage3()"
+                           class="btn btn-primary" id="uploadSlideImages1">
+                            <span><i class="fa fa-camera"></i> Select slide image 4</span>
+                        </a>
+
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addStores.slideImage3.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addStores.slideImage3.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div ng-if="uploader4.queue.length > 0">-->
+                        <!--&lt;!&ndash; Image upload queue section start &ndash;&gt;-->
+                        <!--<div class="progress" style="">-->
+                            <!--<div class="progress-bar" role="progressbar" id="upload-cover3-bar"-->
+                                 <!--ng-style="{ 'width': uploader4.progress + '%' }"></div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; Image upload queue section end &ndash;&gt;-->
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-6">
+                        <input type="text" placeholder="Price (Optional)" class="form-control" id="classifiedPrice" name="classifiedPrice"
+                               ng-model="formData.classifiedPrice">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-6">
+                        <input type="text" placeholder="Tagline" class="form-control" id="classifiedTagline" name="classifiedTagline"
+                               ng-model="formData.classifiedTagline">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-6">
+                <textarea rows="4" placeholder="Description" class="form-control" id="classifiedDescription" name="classifiedDescription"
+                          ng-model="formData.classifiedDescription"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 40px">
+                <div class="col-md-4 col-md-offset-6">
+                    <a href ng-click="EditStoreStep5(formData)" class="btn btn-primary btn-lg btn-block"> Save <span class="fa fa-arrow-right"></span></a>
+                </div>
+            </div>
+    </div>
+
+</div>
+</div>
+<script type="text/ng-template" id="cropSlideImageDialogId">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop promotion slide Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select slide image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadSlideImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="cropSlideImageDialogId1">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop promotion slide Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select slide image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage1.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage1.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage1.src"
+                     ratio={{slideImage1.cropConfig.aspectRatio}}
+                     box-width={{slideImage1.boxWidth}}
+                     selected='slideImage1.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadSlideImage1()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="cropSlideImageDialogId2">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop promotion slide Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select slide image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage2.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage2.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage2.src"
+                     ratio={{slideImage2.cropConfig.aspectRatio}}
+                     box-width={{slideImage2.boxWidth}}
+                     selected='slideImage2.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadSlideImage2()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<script type="text/ng-template" id="cropSlideImageDialogId3">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop promotion slide Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select slide image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage3.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage3.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage3.src"
+                     ratio={{slideImage3.cropConfig.aspectRatio}}
+                     box-width={{slideImage3.boxWidth}}
+                     selected='slideImage3.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadSlideImage3()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+<script type="text/ng-template" id="imagePreviewDialogId">
+    <div class="ngdialog-buttons popuptemplate">
+        <img src="{{imagePath}}" alt="" class="img-responsive" width="100%"/>
+    </div>
+</script>
+<script type="text/ng-template" id="imagePreviewDialogId1">
+    <div class="ngdialog-buttons popuptemplate">
+        <img src="{{imagePath1}}" alt="" class="img-responsive" width="100%"/>
+    </div>
+</script>
+<script type="text/ng-template" id="imagePreviewDialogId2">
+    <div class="ngdialog-buttons popuptemplate">
+        <img src="{{imagePath2}}" alt="" class="img-responsive" width="100%"/>
+    </div>
+</script>
+<script type="text/ng-template" id="imagePreviewDialogId3">
+    <div class="ngdialog-buttons popuptemplate">
+        <img src="{{imagePath3}}" alt="" class="img-responsive" width="100%"/>
+    </div>
+</script>

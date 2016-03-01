@@ -1,0 +1,9 @@
+<div id="store-info-menu">
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation" ng-repeat="navLink in createStoreNavLinks"
+            ng-class="createStoreNavClass('store/create/{{navLink.Title}}')">
+            <a ng-if="navLink.Title != '#'" href='#store/create/{{navLink.Title}}'>{{navLink.LinkText}}</a>
+            <a ng-if="navLink.Title == '#'">{{navLink.LinkText}}</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,152 @@
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow switch" id="no-border-round" role="alert">
+    <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    
+        <h1 style="color: #e51385">Step 1</h1>
+
+        <p>Create your store front in 6 easy steps. Provide the following basic information to get started</p>
+</div>
+
+<ul class="breadcrumb create-store-breadcrumb">
+    <li><a href="#evezplace">Evezplace</a></li>
+    <li><a href="#whatdoiget">Create Store Info</a></li>
+    <li>Create Store Front</li>
+</ul>
+
+<div ng-include src='"partials/evezplace/create_store_menu.html"' ng-controller="CreateStoreController"></div>
+
+<div class="create-store-section" ng-controller="CreateStoreController">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 style="color: #e51385">Basic Info</h3>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="title">Store Title *</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="title" name="name" ng-model="formData.title" required>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="storeAboutUs">Store Description *</label>
+            </div>
+            <div class="col-md-4">
+                <textarea rows="4" placeholder="About Us" class="form-control" id="storeAboutUs" name="storeAboutUs"
+                          ng-model="formData.storeDescription"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px" ng-repeat="owner in owners">
+        <div class="form-group" ng-if="$index == 0">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="owner1">Owner's Info *</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control" id="owner1" name="name" placeholder="{{ 'Owner ' + ($index + 1)}}" ng-model="owner.title" required>
+            </div>
+        </div>
+        <div class="form-group" ng-if="$index != 0">
+            <div class="col-md-4 col-md-offset-6">
+                <input type="text" class="form-control" id="owner{{($index + 1)}}" name="name" placeholder="{{ 'Owner ' + ($index + 1) }}" ng-model="owner.title">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <a href="" class="btn btn-link pull-right" style="padding: 0px; color: #e51385" ng-click="addMoreOwner()">add more owners</a>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="address">Registered Address *</label>
+            </div>
+            <div class="col-md-4">
+                <textarea cols="3" class="form-control" id="address" name="address" ng-model="formData.address" required/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="isPhysicalStore">Do you own a physical office, store, shop?</label>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" style="width: 16px; height: 16px" id="isPhysicalStore" name="isPhysicalStore" ng-model="formData.isPhysicalStore">
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="licenseInfo">Licence info, in case of physical store</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="licenseInfo" class="form-control" name="licenseInfo" ng-model="formData.licenseInfo">
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px" ng-show="formData.isPhysicalStore">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="storeAddress">Store Address</label>
+            </div>
+            <div class="col-md-4">
+                <textarea cols="3" class="form-control" id="storeAddress" name="storeAddress" ng-model="formData.storeAddress"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px" ng-show="formData.isPhysicalStore">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="cityStateCountry">City, State, Country</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="cityStateCountry" class="form-control" name="cityStateCountry" placeholder="location"  g-places-autocomplete ng-model="formData.cityStateCountry" />
+                <!--<pre>{{formData.cityStateCountry}}</pre>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px" ng-show="formData.isPhysicalStore">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="pincode">Pincode</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="pincode" onkeypress="return isNumberKey(event)" class="form-control" name="pincode" ng-model="formData.pincode">
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 40px">
+        <div class="col-md-4 col-md-offset-6">
+            <a href ng-click="SaveStoreStep1(formData,owners)" class="btn btn-primary btn-lg btn-block" >Next <span class="fa fa-arrow-right"></span></a>
+        </div>
+    </div>
+</div>
+ <SCRIPT language=Javascript>
+      
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+     
+   </SCRIPT>

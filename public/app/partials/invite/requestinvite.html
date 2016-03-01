@@ -1,0 +1,97 @@
+<div class="container" ng-controller="inviteController">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-md-8 col-md-offset-2"  ng-if="!isInviteSuccess">
+                <div class="panel-title">
+                    <h1 class="text-center login-title">{{model.title}}</h1>
+                </div>
+
+                <div class="form-wall">
+                    <form class="form-invite" ng-submit="requestInvite()">
+                        <input type="text" class="form-control" ng-model="inviteData.name" placeholder="Name" required
+                               autofocus>
+                        <input type="text" class="form-control" ng-model="inviteData.surname" placeholder="Surname"
+                               required autofocus>
+                        <input type="email" class="form-control" ng-model="inviteData.email" placeholder="Email"
+                               required autofocus>
+
+                        <div class="col-md-3" style="margin-top: 12px; padding-left: 0px; padding-right: 0px">
+                            <label class="control-label">DOB:</label>
+                        </div>
+                        <div class="col-md-3" style="padding-left: 0px; padding-right: 0px">
+                            <select ng-model="inviteData.day" class="form-control"
+                                    style="margin-bottom: 5px; height: 45px" default-option="Day">
+                                <option ng-repeat="i in getNumber(days) track by $index">{{$index+1}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" style="padding-left: 0px; padding-right: 0px">
+                            <select ng-model="inviteData.month" class="form-control"
+                                    style="margin-bottom: 5px; height: 45px" default-option="Month">
+                                <option ng-repeat="month in months">{{month}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3" style="padding-left: 0px; padding-right: 0px">
+                            <select ng-model="inviteData.year" class="form-control"
+                                    style="margin-bottom: 5px; height: 45px" default-option="Year">
+                                <option ng-repeat="year in years">{{year}}</option>
+                            </select>
+                        </div>
+                        <input type="text" class="form-control" ng-model="inviteData.referrer_name"
+                               placeholder="Referrer Name" required autofocus>
+                        <input type="email" class="form-control" ng-model="inviteData.referrer_email"
+                               placeholder="Referrer Email" required>
+
+                        <div class="checkbox checkbox-primary">
+                            <input type="checkbox" ng-model="inviteData.is_evezown_member" id="isEvezownMember">
+                            <label for="isEvezownMember">
+                                Is referrer a member of evezown?
+                            </label>
+                        </div>
+                        <input type="text"
+                                placeholder="Choose Location"
+                                class="form-control"
+                                name="cityState"
+                                g-places-autocomplete
+                                ng-model="inviteData.location" required>
+                        <select ng-model="inviteData.profession" class="form-control input-lg"
+                                style="margin-bottom: 5px; height: 45px" default-option="Choose Profession">
+                            <option value="homemaker">Homemaker / Consumer</option>
+                            <option value="corporate">Corporate Person</option>
+                            <option value="brand">Brand Evangelist</option>
+                            <option value="service">Service Professional</option>
+                            <option value="entrepreneur">Entrepreneur</option>
+                            <option value="business">Business Woman</option>
+                            <option value="organization">Organisation / Association</option>
+                            <option value="industry">Industry Body</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <select ng-model="inviteData.how_hear_evezown" class="form-control input-lg"
+                                style="margin-bottom: 5px; height: 45px" default-option="Where did you hear of Evezown">
+                            <option value="web">Web</option>
+                            <option value="ad">Ad</option>
+                            <option value="word">Word of Mouth</option>
+                            <option value="friends">Friends(Friends/colleagues)</option>
+                            <option value="social">Other social sites</option>
+                            <option value="other">other</option>
+                        </select>
+                        <input type="text" class="form-control" ng-model="inviteData.facebook_link"
+                               placeholder="Facebook link or name (optional)">
+                        <input type="text" class="form-control" ng-model="inviteData.linkedin_link"
+                               placeholder="Linkedin link or name (optional)" style="margin-bottom: 10px">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                            Request Invite
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-12" ng-if="isInviteSuccess">
+                <div ng-include src='"views/invite/success.html"'></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

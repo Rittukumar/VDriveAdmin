@@ -1,0 +1,8 @@
+<div id="store-info-menu">
+    <ul class="nav nav-pills nav-justified">
+        <li role="presentation" ng-repeat="navLink in createStoreNavLinks"
+            ng-class="createStoreNavClass('classifieds/create/{{navLink.Title}}')">
+            <a href='#classifieds/create/{{navLink.Title}}'>{{navLink.LinkText}}</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,272 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}">Evezsite</a>
+            </li>
+            <li><a href="#myblogs/{{currentUserId}}" class="{{isActive[1]}}">Blogs</a>
+            </li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+
+<ul class="breadcrumb">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#myblogs/{{currentUserId}}">Blogs</a></li>
+    <!-- <li ng-if="isProfile == true"><a href="#myblogs/{{currentUserId}}">Blogs</a></li> -->
+    <!-- <li ng-if="isProfile == false"><a href="#blogs">Blogs</a></li> -->
+</ul>
+
+<div class="col-md-8 blog-content-section" ng-controller="blogCntrl">
+
+    <article class="blog-content-details">
+
+        <div>
+
+            <figure class="text-center">
+                <div class="col-sm-12" style="background: #000000; width: 100%; padding: 2px">
+                    <div ng-if="selectedBlog.author.user_id == loggedInUserId">
+                        <div class="pull-left" ng-controller="BlogCoverImageCrop">
+                            <a href class="btn btn-primary" ng-click="ChangeBlogCover();" id="ChangeBlogCover" style="background-color:#e50880;color:#ffffff;position:absolute;opacity:0.6">Change Cover</a>
+                        </div>
+                    </div>
+                    <img ng-src="{{coverImage}}" alt="" class="img-responsive"/>
+                </div>
+            </figure>
+            <section>
+                <header>
+                    <h2 style="font-size:20px;"><a href="" rel="bookmark"
+                           title="{{selectedBlog.title}}" property="name">{{selectedBlog.title}}</a></h2>
+                </header>
+                <div class="clearfix"></div>
+            </section>
+        </div>
+
+        <ul class="pmd clearfix" style="padding-left: 0px">
+            <li class="a">By <a rel="author" class="poa"
+                                href=""
+                                title="Posts by {{selectedBlog.author.firstname}} {{selectedBlog.author.lastname}}">{{selectedBlog.author.firstname}}
+                {{selectedBlog.author.lastname}}</a>
+            </li>
+            <li class="date" ng-bind="convertToDate(selectedBlog.updated_date.date) | date:'medium'"><span
+                    class="glyphicon glyphicon-time"></span>
+            </li>
+            <li class="tags">
+                <a href="">
+                    {{selectedBlog.subcategory.category.category_name}}</a>
+            </li>
+            <li class="tags">
+                <a href="">
+                    {{selectedBlog.subcategory.subcategory_name}}</a>
+            </li>
+            <li class="comments">
+                <a href=""><span class="glyphicon glyphicon-comment"></span> {{selectedBlog.comments.length}} Comments</a>
+            </li>
+        </ul>
+        <!--streaming a blog-->
+        <div class="col-md-12 eve-panel-body" style="padding: 5px" ng-if="selectedBlog.author.user_id != loggedInUserId">
+            <div class="col-md-3">
+                    <a class="btn btn-link custom-blog-features" ng-click="WoiceIt()"><i class="fa fa-share-square-o"></i> Stream It</a>
+            </div>
+        </div>
+        <!--blog options(only for author) -->
+        <div class="col-md-12 eve-panel-body" style="padding: 5px" ng-if="selectedBlog.author.user_id == loggedInUserId">
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="btn btn-link custom-blog-features" ng-click="EditBlog(selectedBlog)"><i class="fa fa-pencil"></i> edit blog</a>
+                </div>
+                <div class="col-md-3">
+                    <a class="btn btn-link custom-blog-features" ng-click="WoiceIt()"><i class="fa fa-share-square-o"></i> Stream It</a>
+                </div>
+                <div class="col-md-3">
+                    <a href class="btn btn-link custom-blog-features" ng-click="EditBlog(selectedBlog)"><i class="glyphicon glyphicon-tag" ng-model="showVisibility">Visibility : {{showVisibility.type}}</i></a>
+                </div>
+                <div class="col-md-3 custom-delete-blog">
+                    <a class="btn btn-link pull-right custom-blog-features" style="color: darkred" ng-click="DeleteBlog(selectedBlog)"><i class="fa fa-trash-o"></i> delete blog</a>
+                </div>
+            </div>
+        </div>
+        <ANY ng-bind-html="selectedBlog.content" style="text-align:justify;">
+        </ANY>
+
+
+    </article>
+
+        <div class="col-md-12" style="padding-top: 10px;padding-bottom: 10px;">
+            <div class="col-md-3" style="padding-top: 20px;">
+                <bold style="font-size: 12px">Grade It</bold>
+            </div>
+            <div class="col-md-2 rating-back">
+                <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars max="4"
+                      ng-model="blogGrade" ng-click="UpdateBlogGrade(blogGrade,selectedBlog.id)"></span>
+                    <p>
+                        <small style="font-size: 12px">Current {{blogGrade}} Levels</small>
+                    </p>
+                </div>
+                <!--<div class="text-center" ng-app="Duo" ng-if="selectedAlbum.grades.length == 0">-->
+                <!--<span duo-stars value="0" max="4"-->
+                <!--data-ng-model="stars" ng-click="UpdateAlbumGrade(stars,selectedAlbum.id)"></span>-->
+                <!--<p>-->
+                <!--<small style="font-size: 12px">Current {{stars}} Levels</small>-->
+                <!--</p>-->
+                <!--</div>-->
+            </div>
+            <!--</li>-->
+            <!--</ul>-->
+        </div>
+
+    <!-- Show comments -->
+    <div id="discussion" class="blog-comments-section subtab-pages">
+
+        <h2>Comments:</h2>
+
+        <div id="show-comments">
+            <ol id="comments-overview" class="cl">
+                <li class="comment clearfix" ng-repeat="comment in selectedBlog.comments">
+                    <div class="c">
+                        <div class="cau clearfix">
+                            <img alt=""
+                                 src="{{service_url+'image/show/'+comment.profile.profile_image.large_image_url}}/32/32"
+                                 data-gravatar-url="{{service_url+'image/show/'+comment.profile.profile_image.large_image_url}}/32/32"
+                                 class="avatar img-thumbnail avatar-38 photo">
+
+                            <div class="aum">
+                                <h3>{{comment.profile.firstname}}</h3>
+				<span class="dati">
+					<a title=""
+                       href ng-bind="convertToDate(comment.updated_at) | date:'medium'">
+                    </a>
+				</span>
+                            </div>
+                        </div>
+                        <div class="ctx">
+                            <p>{{comment.comment}}</p>
+                        </div>
+
+                        <div class="ctx">
+                            <a href ng-click="DeleteComment(comment.id)"
+                               ng-if="comment.profile.user_id == loggedInUserId">delete</a>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+            <button class="btn btn-lg btn-block btn-blue" ng-if="selectedBlog.comments.length > 5">Load more comments
+            </button>
+        </div>
+        <div class="col-md-12">
+            <textarea class="form-control" rows="2" placeholder="Add comment?" data-ng-model="addedcomment"/>
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-block" style="margin-top: 5px;"
+                    ng-click="AddBlogComment(selectedBlog,addedcomment)">Add Comment
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="col-md-4 text-center">
+    <div class="bio  clearfix">
+        <a href="#profile/{{selectedBlog.author.user_id}}">
+            <div>
+                <div class="round-avatar-crop col-md-offset-3 col-sm-offset-5 col-xs-offset-2 text-center">
+                    <img alt="" style="padding-left: 0px; padding-right: 0px" class="img-thumbnail"
+                         src="{{service_url+'image/show/'+selectedBlog.author.profile_image.large_image_url}}">
+                </div>
+            </div>
+
+            <div class="about col-md-12">
+                <div>
+                    <a href="#profile/{{selectedBlog.author.user_id}}" class="poa"
+                       title="Posts by {{selectedBlog.author.firstname}} {{selectedBlog.author.lastname}}">{{selectedBlog.author.firstname}}
+                        {{selectedBlog.author.lastname}}</a>
+
+                    <p style="text-align:justify;">{{selectedBlog.author.about_me}}</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<script type="text/ng-template" id="WoicetemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="blogCntrl">
+        <h4>Stream blog</h4>
+        <input class="form-control" type="text" placeholder="Stream Title"
+               id="woiceTitle" ng-model="WoiceTitle" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <textarea class="form-control" rows="4" placeholder="Description (optional)"
+                  ng-model="Woicedescription"/>
+
+        <button class="btn primary pull-right form-control" type="button" ng-click="CreateWoice(selectedBlog)">Save</button>
+    </div>
+</script>
+
+<!--Crop Blog Cover Image-->
+<script type="text/ng-template" id="BlogCover">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Cover Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Blog Cover</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="ChangeBlogCoverImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+
+

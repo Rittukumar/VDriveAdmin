@@ -1,0 +1,231 @@
+<div class="container">
+    <span us-spinner="{radius:6, width:2, length: 2,color: '#e50880'}" spinner-key="spinner-1"
+          spinner-start-active="true">
+    </span>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-9 bhoechie-tab-container">
+            <div class="col-lg-2 col-md-2 col-sm-2 bhoechie-tab-menu">
+                <div ng-include src='"partials/admin/adminLeftMenu.html"'></div>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab" ng-controller="articlesCtrl">
+                <tabset justified="true">
+                    <tab heading="News">
+                        <div ng-include src='"partials/admin/articles/news.html"'></div>
+                    </tab>
+                    <tab heading="Articles">
+                        <div ng-include src='"partials/admin/articles/articles.html"'></div>
+                    </tab>
+                    <tab heading="Interviews">
+                        <div ng-include src='"partials/admin/articles/interviews.html"'></div>
+                    </tab>
+                    <tab heading="Videos">
+                        <div ng-include src='"partials/admin/articles/videos.html"'></div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="addNewsTemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="articlesCtrl">
+        <p>Add News<p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="addNews.title" style="margin-bottom: 10px;"/>
+        <textarea class="form-control" rows="4" placeholder="Description"
+                  ng-model="addNews.description" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="News Link"
+               ng-model="addNews.link" style="margin-bottom: 10px;"/>
+        <p><input type="checkbox" ng-model="addNews.priority" ng-true-value="'1'" ng-false-value="'0'"> Show news item on home page?</p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="createNews(addNews)">Add</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="addArticleTemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="articlesCtrl">
+        <p>Add Article</p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="addArticle.title" style="margin-bottom: 10px;"/>
+        <textarea class="form-control" rows="4" placeholder="Description"
+                  ng-model="addArticle.description" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="Article Link"
+               ng-model="addArticle.link" style="margin-bottom: 10px;"/>
+        <p><input type="checkbox" ng-model="addArticle.priority" ng-true-value="'1'" ng-false-value="'0'"> Show article on home page?</p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="createArticle(addArticle)">Add</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="addInterviewTemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="articlesCtrl">
+        <p>Add Interview</p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="addInterview.title" style="margin-bottom: 10px;"/>
+        <textarea class="form-control" rows="4" placeholder="Description"
+                  ng-model="addInterview.description" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="Interview Link"
+               ng-model="addInterview.link" style="margin-bottom: 10px;"/>
+        <p><input type="checkbox" ng-model="addInterview.priority" ng-true-value="'1'" ng-false-value="'0'"> Show interview on home page?</p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="createInterview(addInterview)">Add</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="addVideoTemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="articlesCtrl">
+        <p>Add Video</p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="addVideo.title" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="Video Link"
+               ng-model="addVideo.link" style="margin-bottom: 10px;"/>
+        <embed-video width="100%" data-ng-href="{{addVideo.link}}" controls=1><a
+                href="{{addVideo.link}}">Watch</a>
+        </embed-video>
+        <p><input type="checkbox" ng-model="addVideo.priority"
+                  ng-true-value="'1'" ng-false-value="'0'"> Show video on home page?
+        </p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="createVideo(addVideo)">Add</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="updateNewsTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Update News<p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="newsItem.title" style="margin-bottom: 10px;"/>
+        <textarea class="form-control" rows="4" placeholder="Description"
+                  ng-model="newsItem.description" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="News Link"
+               ng-model="newsItem.link" style="margin-bottom: 10px;"/>
+        <p><input type="checkbox" ng-model="newsItem.priority" ng-true-value="'1'" ng-false-value="'0'"> Show news item on home page?</p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="updateNews(newsItem)">Update</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="updateArticleTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Update Article<p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="articleItem.title" style="margin-bottom: 10px;"/>
+        <textarea class="form-control" rows="4" placeholder="Description"
+                  ng-model="articleItem.description" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="Article Link"
+               ng-model="articleItem.link" style="margin-bottom: 10px;"/>
+        <p><input type="checkbox" ng-model="articleItem.priority" ng-true-value="'1'" ng-false-value="'0'"> Show article on home page?</p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="updateArticle(articleItem)">Update</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="updateInterviewTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Update Interview</p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="interviewItem.title" style="margin-bottom: 10px;"/>
+        <textarea class="form-control" rows="4" placeholder="Description"
+                  ng-model="interviewItem.description" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="Article Link"
+               ng-model="interviewItem.link" style="margin-bottom: 10px;"/>
+        <p><input type="checkbox" ng-model="interviewItem.priority" ng-true-value="'1'" ng-false-value="'0'"> Show interview on home page?</p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="updateInterview(interviewItem)">Update</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="updateVideoTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Update Video</p>
+        <input class="form-control" type="text" placeholder="Title"
+               ng-model="videoItem.title" style="margin-bottom: 10px;"/>
+        <input class="form-control" type="text" placeholder="Video Link"
+               ng-model="videoItem.link" style="margin-bottom: 10px;"/>
+        <embed-video width="100%" data-ng-href="{{videoItem.link}}" controls=1><a
+                href="{{videoItem.link}}">Watch</a>
+        </embed-video>
+        <p><input type="checkbox" ng-model="videoItem.priority"
+                  ng-true-value="'1'" ng-false-value="'0'"> Show video on home page?
+        </p>
+
+        <button class="btn btn-primary pull-right form-control" type="button"
+                ng-click="updateVideo(videoItem)">Update</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="deleteNewsTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Are you sure you want to delete the news item?</p>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <button class="btn btn-primary pull-right form-control" type="button"
+                        ng-click="deleteNews()">Delete</button>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn pull-right form-control" type="button"
+                        ng-click="cancelDeleteNews()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/ng-template" id="deleteArticleTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Are you sure you want to delete the article?</p>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <button class="btn btn-primary pull-right form-control" type="button"
+                        ng-click="deleteArticle()">Delete</button>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn pull-right form-control" type="button"
+                        ng-click="cancelDeleteArticle()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/ng-template" id="deleteInterviewTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Are you sure you want to delete the interview?</p>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <button class="btn btn-primary pull-right form-control" type="button"
+                        ng-click="deleteInterview()">Delete</button>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn pull-right form-control" type="button"
+                        ng-click="cancelDeleteInterview()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+<script type="text/ng-template" id="deleteVideoTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Are you sure you want to delete the video?</p>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <button class="btn btn-primary pull-right form-control" type="button"
+                        ng-click="deleteVideo()">Delete</button>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn pull-right form-control" type="button"
+                        ng-click="cancelDeleteVideo()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</script>

@@ -1,0 +1,49 @@
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round" role="alert" ng-controller="WoiceController">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <h1>Woice</h1>
+
+    <p>Woman can create their identity. Connect with friends, colleagues, customers, partners, employees or just about
+        any woman. You can also promote and accelerate your business digitally within your private circles as well as
+        publicly on the website. Create independent circles; promote your reccos, preferences as well as your own
+        stores, services or ideas. You can create your events, groups; participate in forums and many more. Make your
+        voice heard.
+    </p>
+</div>
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+            <ul class="nav navbar-nav" >
+                <li ng-class="{ active: isActive('/trending')}"><a  href="#trending" class="active">Trending</a></li>
+                <li ng-class="{ active: isActive('/community')}" ><a href="#community">Build Community</a></li>
+                <li ng-class="{ active: isActive('/wopportunity')}"><a  href="#wopportunity">Recco it</a></li>
+                <li ng-class="{ active: isActive('/explore')}">
+                    <!-- Template which needs to be shown on click -->
+                    <script type="text/ng-template" id="explore">
+                        <div class="triangle"></div>
+                        <div class="ns-popover-tooltip">
+                            <ul>
+                                <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                                <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                            </ul>
+                        </div>
+                    </script>
+
+                    <a ns-popover
+                       ns-popover-template="explore"
+                       ns-popover-trigger="click"
+                       ns-popover-theme="ns-popover-list-theme">
+                        Explore
+                    </a>
+                </li>
+                <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                          id="search">Search&nbsp;<span
+                        class="fa fa-search" id="searchIcon"></span></a>
+                </li>
+            </ul>
+    </div>
+</nav>
+
+
+
+

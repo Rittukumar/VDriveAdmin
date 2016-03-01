@@ -1,0 +1,193 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-9 bhoechie-tab-container">
+            <div class="col-lg-2 col-md-2 col-sm-2 bhoechie-tab-menu">
+                <div
+                        ng-include src='"partials/admin/adminLeftMenu.html"'>
+                </div>
+            </div>
+
+            <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab">
+                <!-- flight section -->
+
+                <div class="bhoechie-tab-content active">
+                  
+						<div ng-controller="AdminListUsers">
+							<div class="col-md-12 user-menu user-pad">
+							    <div class="signup-section">
+							        <form>
+							            <div class="row">
+							            	 <div class="col-xs-12 col-sm-8 col-md-12">
+                                                <center><h4 style="margin-top: 22px; margin-bottom: 20px; color: #800080; font-weight: 400; font-size: 22px">Edit User Information</h4></center>
+                                            </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="firstname" id="firstname" class="form-control input-lg"
+							                               placeholder="Firstname" tabindex="1" ng-model="profile.firstname" required>
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="lastname" id="lastname" class="form-control input-lg"
+							                               placeholder="Lastname" tabindex="2" ng-model="profile.lastname" required>
+							                    </div>
+							                </div>
+							
+							            </div>
+							            <div class="row">
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="phonenumber" id="phonenumber" class="form-control input-lg"
+							                               placeholder="Phone Number" tabindex="3" ng-model="profile.phone">
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <input type="email" name="email" id="email" class="form-control input-lg"
+							                           placeholder="Email Address" tabindex="4" ng-model="profile.email" required>
+							                </div>
+							            </div>
+							            <div class="row">
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="country" id="country" class="form-control input-lg"
+							                               placeholder="Country" tabindex="5" ng-model="profile.country">
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="state" id="state"
+							                               class="form-control input-lg" placeholder="State" tabindex="6" ng-model="profile.state">
+							                    </div>
+							                </div>
+							            </div>
+							            <div class="form-group">
+							                <textarea rows="2" name="stressAddress" id="stressAddress" class="form-control input-lg"
+							                       placeholder="Street Address" tabindex="7" ng-model="profile.streetAddress">
+							                </textarea>
+							            </div>
+							            <div class="row">
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="city" id="city" class="form-control input-lg"
+							                               placeholder="City" tabindex="8" ng-model="profile.city">
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="zip" id="zip" class="form-control input-lg"
+							                               placeholder="Pincode" tabindex="9" ng-model="profile.zip">
+							                    </div>
+							                </div>
+							            </div>
+							            <h4 style="margin-top: 20px; margin-bottom: 20px; color: #800080; font-weight: 400; font-size: 22px">Educational Qualifications</h4>
+							            <div class="row">
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="education" id="education1"
+							                               class="form-control input-lg" placeholder="Education 1" tabindex="10" ng-model="profile.education1">
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="education" id="education2"
+							                               class="form-control input-lg" placeholder="Education 2" tabindex="11" ng-model="profile.education2">
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="education" id="education3"
+							                               class="form-control input-lg" placeholder="Education 3" tabindex="12" ng-model="profile.education3">
+							                    </div>
+							                </div>
+							            </div>
+							            <h4 style="margin-top: 20px; margin-bottom: 20px; color: #800080; font-weight: 400; font-size: 22px">Skills</h4>
+							            <div class="row">
+							                <div class="col-xs-12">
+							                    <div class="form-group">
+							                        <input type="text" name="skills" id="skills" class="form-control input-lg"
+							                               placeholder="Skills" tabindex="13" ng-model="profile.skills">
+							                    </div>
+							                </div>
+							            </div>
+							
+							            <h4 style="margin-top: 20px; margin-bottom: 20px; color: #800080; font-weight: 400; font-size: 22px">Languages Known</h4>
+							            <div class="row">
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="language1" id="language1" class="form-control input-lg"
+							                               placeholder="Language 1" tabindex="14" ng-model="profile.language1">
+							                    </div>
+							                    <div class="form-group">
+							                        <input type="text" name="language2" id="language2" class="form-control input-lg"
+							                               placeholder="Language 2" tabindex="15" ng-model="profile.language2">
+							                    </div>
+							                    <div class="form-group">
+							                        <input type="text" name="language3" id="language3" class="form-control input-lg"
+							                               placeholder="Language 3" tabindex="16" ng-model="profile.language3">
+							                    </div>
+							                </div>
+							            </div>
+							            <h4 style="margin-top: 20px; margin-bottom: 20px; color: #800080; font-weight: 400; font-size: 22px">Employment  / professional details</h4>
+							            <div class="row">
+							                <div class="col-xs-12">
+							                    <div class="form-group">
+							                        <select ng-model="profile.profession" class=" form-control"
+							                                id="profession" style="height: 40px;" tabindex="17" >
+							                            <option value="homemaker">Homemaker</option>
+							                            <option value="corporate">Corporate person</option>
+							                            <option value="govt">Govt official</option>
+							                            <option value="service">Service Professional</option>
+							                            <option value="entrepreneur">Entrepreneur</option>
+							                            <option value="business">Business woman</option>
+							                            <option value="business">Student</option>
+							                            <option value="other">other</option>
+							                        </select>
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="organization" id="organization" class="form-control input-lg"
+							                               placeholder="Name of the organization" tabindex="18" ng-model="profile.name_organization1">
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="designation" id="designation"
+							                               class="form-control input-lg" placeholder="Designation" tabindex="19" ng-model="profile.designation1">
+							                    </div>
+							                </div>
+							            </div>
+							            <div class="row">
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="experience" id="experience" class="form-control input-lg"
+							                               placeholder="Total work experience" tabindex="20" ng-model="profile.work_experience1">
+							                    </div>
+							                </div>
+							                <div class="col-xs-12 col-sm-8 col-md-6">
+							                    <div class="form-group">
+							                        <input type="text" name="other" id="other"
+							                               class="form-control input-lg" placeholder="Other Info" tabindex="21" ng-model="profile.other_info1">
+							                    </div>
+							                </div>
+							            </div>
+							            <div class="row">
+							                <div class="col-xs-12 col-md-4 col-md-offset-8" style="margin-top: 10px">
+							                    <button
+							                            class="btn btn-primary btn-block btn-lg"
+							                            tabindex="22" ng-click="savePersonalInfo(profile)" style="height: 40px">Save</button>
+							                </div>
+							            </div>
+							
+							        </form>
+							        <!--<pre>form = {{user | json}}</pre>-->
+							        <!--<pre>master = {{master | json}}</pre>-->
+							    </div>
+							</div>
+						</div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

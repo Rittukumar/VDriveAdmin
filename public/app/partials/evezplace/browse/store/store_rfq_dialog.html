@@ -1,0 +1,187 @@
+<div class="ngdialog-buttons popuptemplate" style="padding: 5px">
+    <h4 style="color: #692668; margin-bottom: 10px">RFQ Form</h4>
+    <input class="form-control" type="text" placeholder="Name"
+           id="name" ng-model="rfqData.name" style="margin-bottom: 10px;"/>
+    <input class="form-control" type="text" placeholder="Mobile Number"
+           id="mobile" ng-model="rfqData.mobileNumber" style="margin-bottom: 10px;"/>
+    <input class="form-control" type="text" placeholder="Email Id"
+           id="email" ng-model="rfqData.email" style="margin-bottom: 10px;"/>
+    <input g-places-autocomplete
+           class="form-control"
+           type="text"
+           placeholder="City"
+           id="city"
+           ng-model="rfqData.city"
+           style="margin-bottom: 10px;"/>
+
+    <div class="form-group row">
+        <div class="col-sm-8">
+            <label for="isContactEmail" style="font-weight: 300"> Contact me on email?</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="checkbox"
+                   id="isContactEmail" class="pull-right" ng-model="rfqData.isContactEmail"
+                   style="margin-bottom: 10px;"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-8">
+            <label for="isContactMobile" style="font-weight: 300; width: 100%"> Contact me on mobile?</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="checkbox"
+                   id="isContactMobile" class="pull-right" ng-model="rfqData.isContactMobile"
+                   style="margin-bottom: 10px;"/>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-sm-12" style="border:1px solid #692668; border-radius: 5px">
+            <h5 style="color: #692668">Add Product/Service</h5>
+
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <select ng-model="selectedProduct.productLine"
+                            class="form-control"
+                            ng-options="productLine as productLine.title for productLine in productLines"
+                            default-option="Choose Product/Service Line"
+                            ng-change="selectProductLine(selectedProduct.productLine)"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <select ng-model="selectedProduct.product"
+                            class="form-control"
+                            ng-options="product.title for product in products"
+                            default-option="Choose Product/Service"></select>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label for="expectedDeliveryDate" style="font-weight: 300">Required Date of Delivery</label>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                   ng-model="selectedProduct.deliveryDate"
+                                   id="expectedDeliveryDate"
+                                   is-open="datepickers.expectedDeliveryDate" min-date="minDate"
+                                   datepicker-options="dateOptions"
+                                   ng-required="true" close-text="Close"/>
+                              <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"
+                                            ng-click="open($event, 'expectedDeliveryDate')"><i
+                                            class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                              </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <input type="number"
+                           id="quantity" ng-model="selectedProduct.quantity"
+                           class="form-control"
+                           placeholder="Quantity"
+                           style="margin-bottom: 10px;"/>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label for="expectedPurchaseDate" style="font-weight: 300">Likely Date of Purchase
+                            (Optional)</label>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                   ng-model="selectedProduct.purchaseDate"
+                                   id="expectedPurchaseDate"
+                                   is-open="datepickers.expectedPurchaseDate" min-date="minDate"
+                                   datepicker-options="dateOptions"
+                                   ng-required="true" close-text="Close"/>
+                              <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default"
+                                            ng-click="open($event, 'expectedPurchaseDate')"><i
+                                            class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                              </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <input g-places-autocomplete
+                           type="text"
+                           id="deliveryCity"
+                           ng-model="selectedProduct.deliveryCity"
+                           class="form-control"
+                           placeholder="Delivery City"
+                           style="margin-bottom: 10px;"/>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-primary btn-sm pull-right form-control" type="button"
+                            ng-click="addProduct(selectedProduct)">Add Product
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 rfq-table-section">
+                    <p>{{rfqData.enquiryProducts.length}} of 12 products added</p>
+                    <hr>
+                    <table ng-table="tableParams" class="table ng-table-responsive rfq-table">
+                        <tbody>
+                        <tr ng-repeat="product in rfqData.enquiryProducts">
+                            <td data-title="'Product Name'" style="font-size: 12px; padding: 10px">
+                                {{product.title}}
+                            </td>
+                            <td data-title="'Qty'" style="font-size: 12px; padding: 10px">
+                                {{product.quantity}}
+                            </td>
+                            <td data-title="'Reqd Delivery Date'" style="font-size: 12px; padding: 10px">
+                                {{product.delivery_date}}
+                            </td>
+                            <td data-title="''" style="font-size: 12px">
+                                <button ng-click="removeProduct(product)" class="btn btn-link btn-xs">remove</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+                <textarea class="form-control" rows="3" placeholder="Any other information"
+                          ng-model="rfqData.otherInfo" style="margin-bottom: 10px;"></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+                <textarea class="form-control" rows="3"
+                          placeholder="Explain your interest/conditions/any other feedback related to purchase"
+                          ng-model="rfqData.feedbackPurchase" style="margin-bottom: 10px;"></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+                <textarea class="form-control" rows="3" placeholder="Comments"
+                          ng-model="rfqData.comments" style="margin-bottom: 10px;"></textarea>
+        </div>
+    </div>
+
+    <button class="btn btn-primary pull-right form-control" type="button" ng-click="saveStoreRfqDetails()">Send</button>
+</div>

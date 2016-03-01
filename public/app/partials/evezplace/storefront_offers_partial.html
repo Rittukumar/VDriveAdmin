@@ -1,0 +1,33 @@
+<div class="row feedback-section" style="margin-bottom: 20px">
+    <div style="height: 315px" ng-hide="isPromotionHidden">
+        <flex-slider flex-slide="slide in slides" >
+            <li>
+                <img ng-src="{{slide}}">
+            </li>
+        </flex-slider>
+    </div>
+    <div class="text-center" style="margin-top: 100px">
+        <h5 style="text-transform: uppercase; margin-bottom: 10px"><b>In the Spotlight</b></h5>
+        <hr style="margin: 0px 80px">
+        <h1 style="text-transform: uppercase"><b>new trending styles</b></h1>
+    </div>
+    <div class="row" ng-hide="isTrendingHidden">
+        <div class="col-sm-12">
+            <div class="col-sm-4" ng-repeat="offerImage in offerImages">
+                <div style="width: 100%; height: 350px; overflow: hidden;">
+                    <a href="#store/products/{{offerImage.id}}">
+                        <img ng-src="{{offerImage.imageName}}" alt="{{offerImage.title}}" style="width: 100%"/>
+                    </a>
+                </div>
+                <div class="col-sm-12" style="margin-top: 10px; font-weight: 600">
+                    <div class="col-sm-6">
+                        <p>{{offerImage.title}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="pull-right">&#8377; {{offerImage.price}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

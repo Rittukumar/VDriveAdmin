@@ -1,0 +1,41 @@
+<div class="create-store-section text-center" ng-controller="CreateStoreController">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 style="color: #e51385; font-weight: 700; font-size: 2.0em; margin-bottom: 20px">Store Front Created Successfully.</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="fa-stack fa-lg fa-4x">
+              <i class="fa fa-circle fa-stack-2x" style="color: #ffffff"></i>
+              <i class="fa fa-check fa-stack-1x fa-inverse" style="color: #009966"></i>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding: 20px 80px">
+            <p style="font-weight: 400; font-size: 1.2em">Your store front is complete. We have added buttons to <span
+                    style="color: #e51385; font-weight: 600">Woice It, Recco It, Comment</span> and <span
+                    style="color: #e51385; font-weight: 600">Grade It</span>, so that you can get feedback from your
+                customers, it helps in promotion too.</p>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-md-6  col-md-offset-3">
+            <a href="#store/{{currentStrId}}" class="btn btn-primary btn-lg btn-block"><span
+                    class="fa fa-eye"></span> Preview Store Front</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-md-6  col-md-offset-3">
+            <a href="#store/{{currentStrId}}/manage/store_info" class="btn btn-primary btn-lg btn-block"><span
+                    class="fa fa-edit"></span> Edit/Delete Store Front</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px; margin-bottom: 20px">
+        <div class="col-md-6  col-md-offset-3">
+            <a href="#store/{{currentStrId}}/manage/product_catalogue" class="btn btn-primary btn-lg btn-block">Manage Products</a>
+        </div>
+    </div>
+</div>
+

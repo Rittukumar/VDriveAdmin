@@ -1,0 +1,9 @@
+<div class="col-sm-3  user-menu-btns" ng-controller="ManageStoreMenuCtrl">
+    <div class="btn-group-vertical square" id="responsive">
+        <a class="btn btn-block btn-default"
+           ng-repeat="menuItem in manageStoreMenuItems" href="#/{{menuItem.link}}"
+           ng-class="navClass('{{menuItem.link}}')">
+            <p>{{ menuItem.name }}</p>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,383 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}" >Evezsite</a>
+            </li>
+            <li><a class="{{isActive[1]}}" href="#mygroups/{{userId}}" >Groups</a>
+            </li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+
+<ul class="breadcrumb">
+    <li><a href="#home">Home</a></li>
+    <li ng-if="isProfile == false"><a href="#groups">Groups</a></li>
+    <li ng-if="isProfile == true"><a href="#mygroups/{{currentUserId}}">Groups</a></li>
+</ul>
+<div ng-controller="groups" class="custom-group-section">
+<div class="col-md-12" style="padding: 0px; margin-bottom: 20px">
+    <div class="col-md-3" style="padding: 0px">
+        <div class="panel-heading text-center" style="height: 280px; background: #f5f5f5; padding: 0px; ">
+            <div class="col-md-12">
+                <h3 style="font-weight: bold; margin-top: 40px;text-transform:capitalize;">
+                    {{selectedGroup.title}}
+                </h3>
+            </div>
+            <div class="col-md-12" style="padding: 0px">
+                <h5 style="text-align:justify;padding: 10px;">
+                    {{selectedGroup.description}}
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9" style="padding: 0px;background: #FFFFFF">
+        <div class="col-md-9" style="width: 100%; padding: 2px">
+        <div ng-if="selectedGroup.owner_id == currentUserId">
+            <div class="pull-left" ng-controller="GroupCoverImageChange">
+                <a href class="btn btn-primary" ng-click="ChangeGroupCover();" id="ChangeGroupCover" style="background-color:#e50880;color:#ffffff;position:absolute;opacity:0.6">Change Cover</a>
+            </div>
+        </div>
+        <img ng-src="{{coverImage}}" alt="" class="img-responsive"/>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-9 user-menu" style="padding: 0px;">
+    <div class="col-md-12 circle-section custom-group-header" style="padding: 0px;">
+        <div class="col-md-12 panel-heading">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <h5>
+                    Activities ({{allGroupActivities.length}})
+                </h5>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-4">
+                <input type="text" class="form-control" placeholder="search activites" ng-model="activitysearch"/>
+            </div>
+            <div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-2" ng-if="loggedInUserId == currentUserId">
+                <a href ng-click="AddActivity()" class="btn btn-primary pull-right custom-group-activity-button"><span class="fa fa-plus"></span> add
+                    activity</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 eve-panel-body" style="padding: 5px" ng-if="selectedGroup.owner_id ==loggedInUserId">
+        <div class="row">
+            <div class="col-md-4" ng-if="selectedGroup.owner_id ==loggedInUserId">
+                <a class="btn btn-link" ng-click="EditGroup();"><i class="fa fa-pencil"></i> edit group</a>
+            </div>
+            <div class="col-md-4" ng-if="selectedGroup.owner_id ==loggedInUserId">
+                <a href class="btn btn-link" ng-click="EditGroup();"><i class="glyphicon glyphicon-tag" ng-model="showVisibility">Visibility : {{showVisibility.type}}</i></a>
+                <!--<a class="btn btn-link" ng-click="WoiceIt();"><i class="fa fa-share-square-o"></i> woice it</a>-->
+            </div>
+            <div class="col-md-4" ng-if="selectedGroup.owner_id !=loggedInUserId">
+                <!--ng-if="loggedInUserId == currentUserId"-->
+                <!--<a class="btn btn-link" ng-click="WoiceIt();"><i class="fa fa-share-square-o"></i> woice it</a>-->
+            </div>
+            <div class="col-md-4 custom-group-delete" ng-if="selectedGroup.owner_id ==loggedInUserId">
+                <a class="btn btn-link pull-right" style="color: darkred" ng-click="DeleteGroup(selectedGroup)"><i class="fa fa-trash-o"></i> delete group</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 text-center custom-no-activities-text" style="background: #e6e4e4; min-height: 200px"
+         ng-if="allGroupActivities.length == 0">
+        <h4 style="margin-top: 30px; color: #444444">Group don't have any activities</h4>
+        <a href ng-click="AddActivity()" class="btn btn-primary"
+           style="font-size: 20px; border-radius: 5px; margin-top: 20px" ng-if="loggedInUserId == currentUserId">
+            <span class="fa fa-plus"></span> add activity
+        </a>
+    </div>
+
+    <div class="col-md-12 trending-section" ng-if="allGroupActivities.length > 0" style="padding-left: 0px;"
+         ng-repeat="activities in allGroupActivities | filter:activitysearch">
+        <!--<ul class="row" style="padding-left: 0px">-->
+        <!--<li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 10px; padding-right: 10px; padding-top:10px ">-->
+        <div class="col-md-12 zero-padding-left-right custom-activity-userdetail">
+
+            <div class="col-md-5 custom-activity-username">
+                <h5 style="text-transform:capitalize">{{activities.user_profile.firstname}}&nbsp;{{activities.user_profile.lastname}}
+                </h5>
+            </div>
+            <div class="times-ago col-md-3 col-md-offset-4 pull-right">
+                <h5>
+                    <time class="relative" without-suffix datetime="{{activities.updated_date.date}}"></time>
+                </h5>
+            </div>
+        </div>
+        <div class="col-md-12 friends-section" ng-if="activities.images.length > 0" style="padding-left: 0px;">
+            <ul class="row" style="padding-left: 0px">
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 10px; padding-right: 10px; padding-top:10px " ng-repeat="image in activities.images track by $index">
+                    <a href ng-click="openLightBox(activities.images,$index)">
+                        <center>
+                            <div class="profile-img-crop">
+                                <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                         alt="125x125">
+                            </div>
+                        </center>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 zero-padding-left-right reco-brand-section">
+            <div class="col-md-4" ng-if="activities.title != ''">
+                <h4 style="text-transform:capitalize">{{activities.title}}
+                </h4>
+            </div>
+        </div>
+        <div class="col-md-12 reco-testimonial" ng-if="activities.description != ''" style="text-align:justify;">
+            {{activities.description}}
+        </div>
+        <div class="col-md-12 zero-padding-left-right reco-brand-section">
+            <div class="col-md-4 col-md-offset-8 text-right" ng-if="activities.links.length > 0">
+                <span class="fa fa-link"></span><a href="{{activities.links[0].url_link}}"><b style="color: #4cb1ca;">
+                {{activities.links[0].url_link}}</b></a>
+            </div>
+        </div>
+        <div class="col-md-12 no-right-pad">
+            <div class="col-md-2 commentStyle custom-comment-style">
+                <!--<span class="glyphicon glyphicon-comment"></span>-->
+                <a href="#groups/activities/{{currentUserId}}/{{activities.id}}/{{isProfile}}"><span style="font-size: 12px; font-weight: bold">Comments ({{activities.comments.length}})</span></a>
+            </div>
+
+        </div>
+
+</div>
+</div>
+<div class="col-md-3 custom-group-friends" style="padding: 0px;">
+    <div>
+        <div class="col-md-12" style="padding-right: 0px" ng-if="selectedGroup.owner_id == loggedInUserId">
+            <!-- Search members -->
+            <div class="panel" style="background: #f7f7f7;">
+                <div class="panel-heading">
+                    <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">friends
+                        ({{friendList.length}})</h5>
+                </div>
+                <div class="panel-heading">
+                    <input type="text" placeholder="Search friends" ng-model="queryMembers" class="form-control"/>
+                </div>
+                <ul class="list-group"
+                    ng-repeat="member in friendList | limitTo:5 | filter:queryMembers | orderBy:'firstname':true">
+                    <li class="list-group-item col-sm-12">
+                        <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
+                            <a href="#profile/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                                                                  class="img-thumbnail" style="width: 32px; height: 32px"
+                                                                  alt=""/> {{member.profile.firstname}}, {{member.profile.lastname}}</a>
+                        </div>
+                        <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px">
+                            <a href ng-click="AddFriendsToGroup(member.friend_user_id,selectedGroup.id)"
+                               class="btn btn-link btn-sm"><span class="fa fa-check"></span> Invite</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-12" style="padding-right: 0px">
+            <!-- Search members -->
+            <div class="panel" style="background: #f7f7f7;">
+                <div class="panel-heading">
+                    <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Members
+                        ({{selectedGroup.members.length}})</h5>
+                </div>
+                <div class="panel-heading" ng-if="selectedGroup.members.length > 0">
+                    <input type="text" placeholder="Search Group Members" ng-model="queryGroupMembers"
+                           class="form-control"/>
+                </div>
+                <ul class="list-group" ng-repeat="member in selectedGroup.members | limitTo:5 | filter:queryGroupMembers">
+                    <li class="list-group-item col-sm-12">
+                        <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
+                            <a href="#profile/{{member.profile.user_id}}"><img
+                                    ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                                    class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>
+                                {{member.profile.firstname}}, {{member.profile.lastname}}</a>
+                        </div>
+                        <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px"
+                             ng-if="selectedGroup.owner_id == loggedInUserId">
+                            <a href ng-click="RemoveFriendFromGroup(member.profile.user_id,selectedGroup.id)"
+                               class="btn btn-link btn-sm"><span class="fa fa-check"></span>Remove</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/ng-template" id="templateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="groups">
+        <div class="form-group postingContainer">
+            <div class="col-md-12" id="postingArea">
+                <h4 style="padding: 0px 0px 5px 2px">Create an activity</h4>
+
+                <div class="col-md-12 zero-padding-left-right trending-title">
+                    <input type="text" class="form-control" placeholder="Activity title"
+                           style="height: 45px; font-size: 16px" ng-model="aTitle" required/>
+                </div>
+                <div class="col-md-12 zero-padding-left-right trending-whats-recommendation">
+                    <textarea class="form-control" rows="4" placeholder="Whats your description?"
+                              ng-model="adescription" required/>
+                </div>
+                <div class="col-md-12 zero-padding-left-right trending-whats-recommendation">
+                    <input class="form-control" type="text" placeholder="eg: www.mywebsite.com"
+                           ng-model="url_link" style="height: 45px; font-size: 16px"/>
+                </div>
+                <div class="row zero-padding-left-right heading">
+                    <div class="col-sm-8">
+                        <div class="fileUpload btn btn-primary">
+                            <span><i class="fa fa-camera"></i> Select photos</span>
+                            <input type="file" class="upload" name="image" nv-file-select="" uploader="uploader"
+                                   multiple/>
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-1 no-padding text-right">-->
+                    <!--<i class="fa fa-link fa-reco-link"></i>-->
+                    <!--</div>-->
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary" id="btn-activity"
+                                ng-click="CreateActivity(uploader,selectedGroup)" ng-disabled="uploader.isUploading">Add
+                            activity
+                        </button>
+                    </div>
+                </div>
+                <!-- Image upload queue section start -->
+                <div class="col-sm-12" style="margin-bottom: 5px; margin-top: 5px; padding-left: 0px"
+                     ng-if="uploader.queue.length > 0">
+                    <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px">
+                        <div class="col-sm-6 progress" style="">
+                            <div class="progress-bar-info" role="progressbar" id="upload-progress-bar"
+                                 ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-warning btn-sm" ng-click="uploader.cancelAll()"
+                                    ng-disabled="!uploader.isUploading">
+                                <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                            </button>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="button" class="btn btn-danger btn-sm" ng-click="uploader.clearQueue()"
+                                    ng-disabled="!uploader.queue.length">
+                                <span class="glyphicon glyphicon-trash"></span> Remove all
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" ng-repeat="item in uploader.queue">
+
+                        <!-- Image preview -->
+                        <!--auto height-->
+                        <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                        <!--auto width-->
+                        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 200 }"></div>
+                        <!--fixed width and height -->
+                        <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                        <div class="text-center">
+                            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                            <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                        </div>
+                        <!--<div class="col-sm-12">-->
+                        <!--<div class="col-sm-6">-->
+                        <!--<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()"-->
+                        <!--ng-disabled="!item.isUploading">-->
+                        <!--<span class="glyphicon glyphicon-ban-circle"></span> Cancel-->
+                        <!--</button>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-6">-->
+                        <!--<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">-->
+                        <!--<span class="glyphicon glyphicon-trash"></span> Remove-->
+                        <!--</button>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+
+                    <!-- Image upload queue section end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/ng-template" id="EdittemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="groups">
+        <h4>Update Group</h4>
+        <input class="form-control" type="text" placeholder="Group Title"
+               id="group" ng-model="selectedGroup.title" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="18"/>
+        <textarea class="form-control" rows="4" placeholder="Group Description (optional)"
+                  ng-model="selectedGroup.description" maxlength="255"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="UpdateGroup(selectedGroup)">Add</button>
+    </div>
+</script>
+
+<!--Change/crop Group Cover Image-->
+<script type="text/ng-template" id="GroupCover">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Cover Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Group Cover</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="ChangeGroupCoverImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>

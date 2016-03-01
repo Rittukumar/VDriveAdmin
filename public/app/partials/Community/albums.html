@@ -1,0 +1,130 @@
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}" class="{{isActive[1]}}">Evezsite</a>
+            </li>
+            <li ng-class="{ active: isActive('/community')}"><a href="#community" >Build Community</a>
+            </li>
+            
+            <li ng-class="{ active: isActive('/streamit')}"><a href="#streamit">Stream It</a></li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="col-md-2 user-menu-btns">
+    <div class="btn-group-vertical square" id="responsive">
+        <a href="#community" class="btn btn-default">
+            <p>Connect</p>
+        </a>
+        <a href="#circles" class="btn btn-default">
+            <p>Circles</p>
+        </a>
+        <a href="#albums" class="btn btn-default btn-block  active">
+            <p>Gallery</p>
+        </a>
+        <a href="#groups" class="btn btn-default">
+            <p>Groups</p>
+        </a>
+        <a href="#events" class="btn btn-default">
+            <p>Events</p>
+        </a>
+        <a href="#blogs" class="btn btn-default">
+            <p>Blogs</p>
+        </a>
+        <a href="#forums" class="btn btn-default">
+            <p>Discussion</p>
+        </a>
+    </div>
+</div>
+<div class="col-md-10 user-menu user-pad"  ng-controller="albums">
+    <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+        <div class="fragment">
+            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+            <h4>Gallery</h4>
+            <p>
+                Publish your pictures and images. Create different albums and segregate your collection
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 panel-heading custom-album-panel-heading" style="padding-left: 0px">
+        <div class="col-md-2" style="padding-left: 0px">
+            <h4>
+                Albums ({{myAlbums.length}})
+            </h4>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="search albums" ng-model="albumsearch"/>
+        </div>
+        <div class="col-md-2 col-md-offset-4 pull-right custom-create-album-button">
+            <a href ng-click="CreateAlbum()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Album</a>
+        </div>
+
+    </div>
+    <div class="col-md-12 album-section" style="margin-top:30px;">
+        <!-- Row 1-->
+        <div class="col-md-4 custom-show-albums" style="padding-left: 0px; padding-right: 0px" ng-repeat="album in myAlbums | filter:albumsearch">
+            <div class="view view-first">
+                <img ng-if="album.images.length == 0" src="http://creativethoughts.co.in/evezown/api/public/v1/image/show/2015-02-27-05:22:10-evezown_album.jpg" class="img-responsive"/>
+                <img ng-if="album.images.length > 0" src="{{service_url}}image/show/{{album.images[0].large_image_url}}" class="img-responsive"/>
+                <div class="mask">
+                    <h2>{{album.title}}</h2>
+                    <p>{{album.description}}</p>
+                    <a href="#albums/details/{{album.id}}" class="info">view album</a>
+                    <a href ng-click="DeleteAlbum(album)" class="info">Delete album</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="templateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="albums">
+        <h4>Add album</h4>
+        <input class="form-control" type="text" placeholder="Album Title"
+               id="circle" ng-model="album" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="15"/>
+        <textarea class="form-control" rows="4" placeholder="Album Description (optional)"
+                  ng-model="description" maxlength="100"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="SaveAlbum()">Add</button>
+    </div>
+</script>

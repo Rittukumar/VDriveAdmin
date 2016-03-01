@@ -1,0 +1,141 @@
+<div class="container">
+    <span us-spinner="{radius:6, width:2, length: 2,color: '#e50880'}" spinner-key="spinner-1" spinner-start-active="true">
+    </span>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-9 bhoechie-tab-container">
+            <div class="col-lg-2 col-md-2 col-sm-2 bhoechie-tab-menu">
+                <div 
+                ng-include src='"partials/admin/adminLeftMenu.html"'>
+                </div>
+            </div>
+
+            <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab">
+                <!-- flight section -->
+
+                <div class="bhoechie-tab-content active">
+                    <center>
+                        <div class="table-responsive" ng-controller="grouplists" ng-cloak="">
+                           <table ng-table="groupAdminTableParams" template-pagination="custom/pager" class="table table-bordred table-striped">
+
+                        <tr ng-repeat="group in groups" class="text-center">
+                        <td data-title="'Group Name'">{{group.title}} </td>
+                        <td data-title="'Group created by'">{{group.group_owner.firstname}} {{group.group_owner.lastname}}</td>
+                        <td data-title="'Group member'">{{group.members.length}} </td>
+                        <td data-title="'Group ID'">{{group.id}} </td>
+                        <td>
+                            <p> <span ><a href ng-click="EditGroup(group)" class="topic-link">edit group</a>|</span>
+                            </p>
+                        </td>
+                        <td>
+                        <p> <span ><a href ng-click="DeleteGroupDialog(group.id)" class="topic-link">Delete</a>|</span>
+                                            </p>
+                        </td>
+                        </table>
+                        <script type="text/ng-template" id="custom/pager">
+                            <ul class="pager ng-cloak">
+                            <li ng-repeat="page in pages"
+                            ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+                            ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+                            <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
+                            <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+                            </li>
+                            <li>
+                            <div class="btn-group">
+                            <button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>
+                            <button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>
+                            <button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>
+                            <button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>
+                            </div>
+                            </li>
+                            </ul>
+                        </script>   
+                        </div>
+                       </div>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/ng-template" id="EdittemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="grouplists">
+        <h4>Update Group</h4>
+        <div>Group Title</div>
+        <input class="form-control" type="text" placeholder="Group Title"
+               id="group" ng-model="currentGroup.title" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <div>Group Description</div>
+        <textarea class="form-control" rows="4" placeholder="Group Description (optional)"
+                  ng-model="currentGroup.description"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                ng-options="visibility as visibility.type for visibility in visibilties"
+                data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="UpdateGroup(currentGroup)">Add</button>
+    </div>
+</script>
+<script type="text/ng-template" id="deleteGroupTemplateId">
+    <div class="ngdialog-buttons popuptemplate">
+        <p>Are you sure you want to delete the Blog?</p>
+        <div class="col-sm-12">
+            <div class="col-sm-6">
+                <button class="btn btn-primary pull-right form-control" type="button"
+                        ng-click="deleteGroup()">Delete</button>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn pull-right form-control" type="button"
+                        ng-click="cancelDeleteGroup()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

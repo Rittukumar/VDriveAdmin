@@ -1,0 +1,41 @@
+<div class="ngdialog-buttons popuptemplate" ng-controller="addBrandCntr">
+    <h4>Add a new brand</h4>
+    <input class="form-control" type="text" placeholder="brand Name"
+           id="brandname" ng-model="brandname" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+
+            <textarea class="form-control" rows="4" placeholder="Description"
+                  ng-model="description"/>
+        <div class="row" style="padding-bottom: 10px">
+            <div class="col-md-6" style="margin-top: 10px; height: 50px; font-size: 18px">
+                <label for="category-type">choose category?</label>
+            </div>
+            <div class="col-md-6" style="margin-top: 10px; height: 50px; font-size: 18px">
+                <select class="form-control" id="category-type"
+                        ng-options="category as category.category_name for category in categories"
+                        ng-change="GetSubCategories()" data-ng-model="selectedOption">
+                </select>
+            </div>
+        </div>
+        <div class="row"  style="padding-bottom: 10px;" >
+            <div class="col-md-6" style="margin-top: 10px; height: 50px; font-size: 18px">
+                <label for="sub-category-type">choose sub category?</label>
+            </div>
+            <div class="col-md-6" style="margin-top: 10px; height: 50px; font-size: 18px">
+                <select class="form-control" id="sub-category-type"
+                        ng-options="subcategory as subcategory.subcategory_name for subcategory in subcategories"
+                        data-ng-model="selectedsubcategories" ng-change="ReloadBrand()">
+                </select>
+            </div>
+
+        </div>
+
+
+
+
+    <div ng-file-drop ng-file-select ng-model="files" ng-model-rejected="rejFiles"
+         drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+         ng-multiple="true" allow-dir="true" ng-accept="'image/*'">
+        Drop Image <div>or click to select</div>
+    </div>
+
+</div>

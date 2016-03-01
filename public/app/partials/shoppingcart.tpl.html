@@ -1,0 +1,75 @@
+<div class="empty-shoppingcart text-center" ng-if="isShoppingCartEmpty">
+    <h5 style="color: #333333; margin: 20px 0px">Your shopping Cart is empty</h5>
+    <a href="#store/browse" style="margin-bottom: 20px" class="btn btn-primary btn-lg">Browse Stores Now</a>
+</div>
+<div class="shoppingcart" ng-if="!isShoppingCartEmpty">
+    <div class="row">
+        <div class="col-xs-12">
+            <p style="color: #2d9db8; font-weight: 400">CART ({{shoppingCartCount}})</p>
+        </div>
+    </div>
+    <hr style="margin-top: 5px; margin-bottom: 5px">
+    <div class="row" ng-repeat="shoppingCartStore in shoppingCartItems" style="margin-bottom: 5px">
+        <div class="col-sm-12">
+            <a style="text-decoration: none" href="#store/{{shoppingCartStore.storeId}}">
+                <h5 style="font-weight: 300; background-color: #e50880; color: #ffffff; padding: 10px 5px">
+                    Store Name: <span>{{shoppingCartStore.storeTitle}}</span>
+                </h5>
+            </a>
+            <div class="row" ng-repeat="shoppingCartItem in shoppingCartStore.products">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-4 text-center">
+                            <img src="{{imageUrl}}image/show/{{shoppingCartItem.image.image.large_image_url}}/175" alt=""
+                                 class="img-responsive"
+                                 style="margin-bottom: 10px"/>
+                        </div>
+                        <div class="col-xs-8 pull-right">
+                            <h5 style="font-weight: 500; margin-top: 0px; margin-bottom: 2px">{{shoppingCartItem.title}}</h5>
+
+                            <p style="font-weight: 200">{{shoppingCartItem.store.title}}</p>
+                            <h4 style="font-weight: 100">price: &#8377;{{shoppingCartItem.price}}</h4>
+                            <p>Quantity: <span style="font-weight: bold">{{shoppingCartItem.quantity}}</span></p>
+                        </div>
+                    </div>
+                    <hr ng-if="$index != shoppingCartStore.products.length - 1" style="margin-top: 5px; margin-bottom: 5px">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top: 5px; margin-bottom: 5px">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h4 style="font-weight: 400" class="pull-right">Total:</h4>
+                </div>
+                <div class="col-xs-4">
+                    <h4 style="font-weight: 400" class="pull-right"> &#8377; {{totalPrice}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <h5 style="font-weight: 400" class="pull-right">Shipping:</h5>
+                </div>
+                <div class="col-xs-4">
+                    <h5 style="font-weight: 400" class="pull-right"> &#8377; {{totalShipping}}</h5>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="#store/cart" class="btn btn-default btn-lg" style="border-radius: 3px">view cart</a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="#store/order/place" class="btn btn-primary btn-lg pull-right" style="border-radius: 3px">checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

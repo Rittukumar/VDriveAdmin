@@ -1,0 +1,111 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}">Evezsite</a>
+            </li>
+            <li><a class="active" href="#invitehistory">Invite History</a></li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+<div class="col-md-2 user-menu-btns">
+    <div class="btn-group-vertical square" id="responsive">
+        <a href="#community" class="btn btn-default">
+            <p>Connect</p>
+        </a>
+        <a href="#dvertise" class="btn btn-default btn-block">
+            <p>Advertise</p>
+        </a>
+        <a href="#circles" class="btn btn-default btn-block">
+            <p>Circles</p>
+        </a>
+        <a href="#friends/invite" class="btn btn-default">
+            <p>Invite Evez</p>
+        </a>
+        <a href="#invitehistory" class="btn btn-default btn-block active">
+            <p>Invite History</p>
+        </a>
+    </div>
+</div>
+<div class="col-md-10 user-menu user-pad" ng-controller="inviteHistory">
+    <div class="col-md-12 panel-heading" style="padding-left: 0px">
+        <div class="col-md-2" style="padding-left: 0px">
+            <h4>
+                Invite History
+            </h4>
+        </div> 
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Invite send to</th>
+            <th>Referrer Email</th>
+            <th>Referrer Name</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="invite in getInvites">
+            <td>{{ $index+1}}</td>
+            <td>{{invite.email}}</td>
+            <td>{{invite.referrer_email}}</td>
+            <td>{{invite.referrer_name}}</td>
+            <!-- <td ng-if="invite.claimed_at != null"><p style="color:green">Accepted</p></td>
+            <td ng-if="invite.claimed_at == null"><p style="color:red">Pending</p></td> -->
+            <td>
+            <label>
+            <font color="green">{{ invite.claimed_at != null ? 'Accepted':''}} </font>
+            <font color="red">{{ invite.claimed_at == null ? 'Pending':''}} </font>
+            </label>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <!-- <uib-pager total-items="totalItems" ng-model="currentPage"></uib-pager> -->
+    <uib-pagination ng-show="getInvites.length > 0" total-items="invitePagination.total"
+                                ng-model="currentInvitePage"
+                                max-size="maxSize"
+                                class="pagination-custom pagination-sm pull-right"
+                                rotate="false"
+                                num-pages="numPages"
+                                ng-change="pageChanged()">
+                            </uib-pagination>
+</div>

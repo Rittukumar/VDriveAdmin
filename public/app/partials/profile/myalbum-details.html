@@ -1,0 +1,302 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}" >Evezsite</a>
+            </li>
+            <li><a href="#myalbums/{{userId}}" class="active">Albums</a>
+            </li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+    <!--/.nav-collapse -->
+</nav>
+<div class="col-md-12">
+<div class="row user-menu-container square">
+<div class="row cover-section" ng-controller="profileCtrl">
+    <div class="col-md-4 small-cover-pic">
+        <div class="small-cover-pic-top">
+            <div>
+                <img ng-src="{{leftCoverImage}}" src="http://placehold.it/393x220"
+                     class="img-responsive thumbnail"/>
+                <!--<img ng-src="http://www.turquoiseandgold.com/images/store_bng1.jpg" class="img-responsive" alt=""/>-->
+            </div>
+        </div>
+        <div class="small-cover-pic-bottom">
+            <img ng-src="{{bottomCoverImage}}" src="http://placehold.it/393x220"
+                 class="img-responsive thumbnail"/>
+            <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
+            <!--class="img-responsive" alt=""/>-->
+        </div>
+    </div>
+    <div class="col-md-8 large-cover-pic custom-user-right-coverpic">
+        <img ng-src="{{rightCoverImage}}" src="http://placehold.it/803x452"
+             class="img-responsive thumbnail"/>
+        <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
+        <!--class="img-responsive" alt=""/>-->
+        <!--<button class="btn btn-primary btn-sm btn-cover-pic-left"><span class="fa fa-camera"></span> Change Pic-->
+        <!--</button>-->
+
+    </div>
+</div>
+<div class="col-md-12 user-details"  ng-controller="profileCtrl">
+    <div class="row coralbg white custom-profile-userpic">
+        <div class="col-md-3 top-margin">
+            <div class="user-image biothumb">
+                <img ng-src="{{currentProfileImage}}" src="http://placehold.it/300x450"
+                     class="img-responsive thumbnail" />
+            </div>
+        </div>
+
+
+        <div class="col-md-9 no-pad">
+            <div class="user-pad-profile">
+                <!--name-->
+                <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
+                <!--Location-->
+                <div ng-hide="city == '' || country =='' || city == null || country == null">
+                    <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{locationDetails}}</h4>
+                </div>
+                <!--job and company-->
+                <div ng-hide="designation == '' || organization =='' || designation == null || organization == null">
+                    <h4 style="text-transform: capitalize;">
+                        <i class="fa fa-briefcase"></i> {{designation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{organization}}
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href ng-controller="community">
+                        <div class="col-md-2  well text-center" id="user-profile">
+                            <h3>{{friendList.length}}</h3>
+                            <h4>Eves</h4>
+                        </div>
+                    </a>
+
+                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="circles">
+                        <h3>{{myCircles.length}}</h3>
+                        <h4>Circles</h4>
+                    </div>
+                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="eventCtrl">
+                        <h3>{{myEvents.length}}</h3>
+                        <h4>Events</h4>
+                    </div>
+                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="blogCntrl">
+                        <h3>{{myBlogs.length}}</h3>
+                        <h4>Blogs</h4>
+                    </div>
+                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="albums">
+                        <h3>{{myAlbums.length}}</h3>
+                        <h4>Albums</h4>
+                    </div>
+                    <div class="col-md-2  well text-center" id="user-more">
+                        <h3><i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h3>About Me</h3>
+
+            <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-2 user-menu-btns" 
+ng-include src='"partials/profile/profileLeftMenu.html"'>
+    
+</div>
+
+<ul class="breadcrumb" ng-controller="albums">
+    <li><a href="#profile/{{currentUserId}}">Home</a></li>
+    <li><a href="#myalbums/{{currentUserId}}">Gallery</a></li>
+</ul>
+<div class="col-md-10 eve-panel-body" style="padding: 5px">
+        <div class="col-md-2" ng-if="selectedAlbum.owner_id ==loggedInUserId">
+            <a class="btn btn-link" ng-click="EditAlbum();"><i class="fa fa-pencil"></i> edit album</a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-link" ng-click="WoiceIt();"><i class="fa fa-share-square-o"></i> Stream It</a>
+        </div>
+        <div class="col-md-2" ng-if="selectedAlbum.owner_id ==loggedInUserId">
+            <a class="btn btn-link pull-right" style="color: darkred" ng-click="DeleteAlbum(selectedAlbum)"><i class="fa fa-trash-o"></i> delete album</a>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-4 text-right" style="padding-top: 20px;">
+                <bold style="font-size: 12px">Grade It</bold>
+            </div>
+            <div class="col-md-4 rating-back">
+                <div class="text-center ratingStyle" ng-app="Duo">
+                <span duo-stars max="4"
+                      data-ng-model="albumGrade" ng-click="UpdateAlbumGrade(albumGrade,selectedAlbum.id)"></span>
+                    <p>
+                        <small style="font-size: 12px">Current {{albumGrade}} Levels</small>
+                    </p>
+                </div>
+                <!--<div class="text-center" ng-app="Duo" ng-if="selectedAlbum.grades.length == 0">-->
+                <!--<span duo-stars value="0" max="4"-->
+                <!--data-ng-model="stars" ng-click="UpdateAlbumGrade(stars,selectedAlbum.id)"></span>-->
+                <!--<p>-->
+                <!--<small style="font-size: 12px">Current {{stars}} Levels</small>-->
+                <!--</p>-->
+                <!--</div>-->
+            </div>
+        </div>
+</div>
+<div ng-controller="albums">
+    <div class="col-md-10 circle-section" style="padding-right: 0px; padding-left: 0px">
+        <div class="col-md-12 panel-heading">
+            <div class="col-md-3">
+                <h4>
+                    {{ selectedAlbum.title }} ({{selectedAlbum.images.length}})
+                </h4>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-4">
+                <!--<input type="text" class="form-control" placeholder="search friends" ng-model="friendsearch"/>-->
+            </div>
+            <div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-2 pull-right fileUpload" ng-if="loggedInUserId == currentUserId">
+                <a href class="btn btn-primary btn-block"><span class="fa fa-plus"></span> add images</a>
+                <input type="file" class="upload" name="image" nv-file-select uploader="uploader" multiple/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 user-menu user-pad-profile">
+        <!-- Image upload queue section start -->
+        <div class="col-sm-12" style="margin-bottom: 10px; margin-top: 10px; padding-left: 0px"
+             ng-if="uploader.queue.length > 0">
+            <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px">
+                <div class="col-sm-10 progress" style="">
+                    <div class="progress-bar" role="progressbar" id="upload-progress-bar"
+                         ng-style="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-warning btn-sm" ng-click="uploader.cancelAll()"
+                            ng-disabled="!uploader.isUploading">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                    </button>
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="uploader.clearQueue()"
+                            ng-disabled="!uploader.queue.length">
+                        <span class="glyphicon glyphicon-trash"></span> Remove all
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-3" ng-repeat="item in uploader.queue">
+
+                <!-- Image preview -->
+                <!--auto height-->
+                <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                <!--auto width-->
+                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 500 }"></div>
+                <!--fixed width and height -->
+                <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                <div class="text-center">
+                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()"
+                                ng-disabled="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image upload queue section end -->
+        </div>
+        <div class="col-sm-12 text-center fileUpload" style="background: #e6e4e4; height: 400px" ng-if="selectedAlbum.images.length == 0">
+            <h4 style="margin-top: 150px; color: #444444">You don't have any images</h4>
+            <!--<a href="#friends/invite" class="btn btn-primary" style="font-size: 20px; border-radius: 5px; margin-top: 20px">-->
+            <!--<span class="fa fa-plus"></span> Add Images-->
+            <!--</a>-->
+            <!--<input type="file" class="upload" name="image" nv-file-select uploader="uploader"/>-->
+        </div>
+
+        <div class="col-md-12 friends-section" ng-if="selectedAlbum.images.length > 0" style="padding-left: 0px;">
+            <ul class="row" style="padding-left: 0px">
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 10px; padding-right: 10px; padding-top:10px " ng-repeat="image in selectedAlbum.images track by $index">
+                    <a href ng-click="openLightBox(selectedAlbum.images,$index)">
+                        <center>
+                            <div class="profile-img-crop">
+                                <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                                     class="img-thumbnail"/>
+                            </div>
+                            <h5><a href ng-click="DeleteImageFromAlbum(selectedAlbum,image.image_id)" ng-if="loggedInUserId == currentUserId"> Delete </a></h5>
+                            <h5><a href ng-click="ShowAlbumCommentsProfile(selectedAlbum,image.image_id)"> Comments ({{image.comments.length}}) </a></h5>
+                        </center>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script type="text/ng-template" id="EdittemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="albums">
+        <h4>Edit album</h4>
+        <input class="form-control" type="text" placeholder="Album Title"
+               id="circle" ng-model="selectedAlbum.title" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <textarea class="form-control" rows="4" placeholder="Album Description (optional)"
+                  ng-model="selectedAlbum.description"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="UpdateAlbum(selectedAlbum)">Save</button>
+    </div>
+
+</script>
+<script type="text/ng-template" id="WoicetemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="albums">
+        <h4>Stream album</h4>
+        <input class="form-control" type="text" placeholder="Stream Title"
+               id="woiceTitle" ng-model="WoiceTitle" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <textarea class="form-control" rows="4" placeholder="Description (optional)"
+                  ng-model="Woicedescription"/>
+
+        <button class="btn primary pull-right form-control" type="button" ng-click="CreateWoice(selectedAlbum)">Save</button>
+    </div>
+</script>
+

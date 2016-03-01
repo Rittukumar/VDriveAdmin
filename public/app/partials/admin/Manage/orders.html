@@ -1,0 +1,148 @@
+<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#admin/store">Admin</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<div ng-include src='"partials/admin/Manage/manage_store_left_menu.html"'></div>
+
+<div class="col-sm-9" ng-controller="ManageOrdersCtrl">
+    <h4>Manage Orders</h4>
+
+    <div class="row" ng-repeat="order in orders">
+        <div class="col-sm-12">
+            <h4 style="padding: 10px 5px; background: #692668; color: #ffffff;
+                                font-weight: 300">Transaction ID: <span>{{order.transaction_id}}</span></h4>
+        </div>
+        <div class="col-sm-12">
+            <div ng-repeat="orderItem in order.order_items.data">
+                <div class="col-sm-12 well well-sm">
+                    <div class="row">
+                        <div class="col-sm-2 col-md-2 col-lg-2 vcenter">
+                            <img
+                                    ng-src="{{service_url}}image/show/{{orderItem.productSku.image.large_image_url}}/80"
+                                    class="img-responsive img-thumbnail"
+                                    alt="{{orderItem.productSku.title}}"/>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 vcenter">
+                            {{orderItem.productSku.title}}
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 vcenter">
+                            <a class="btn btn-primary btn-sm pull-right" ng-click="isCollapsed = !isCollapsed">
+                                <span ng-if="isCollapsed">show details</span>
+                                <span ng-if="!isCollapsed">hide details</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="show-section" uib-collapse="isCollapsed">
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2 vcenter">
+                                <p style="font-weight: bold;">Price : </p>INR {{orderItem.price}}
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2 vcenter">
+                                <p style="font-weight: bold;">Quantity :</p>{{orderItem.quantity}}
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 vcenter">
+                                <!--expected_shipping_date-->
+                                <p style="font-weight: bold;">Expected shipping date :</p>
+                                {{orderItem.expected_shipping_date}}
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 vcenter">
+                                <!--expected_delivery_date-->
+                                <p style="font-weight: bold;">Expected delivery date :</p>
+                                {{orderItem.expected_delivery_date}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-6 vcenter">
+                                <p style="font-weight: bold;">Comments : </p>
+                            <textarea rows="4"
+                                      placeholder="Comment"
+                                      class="form-control"
+                                      id="orderItemComment"
+                                      name="orderItemComment"
+                                      ng-model="orderItem.order_item_status[orderItem.order_item_status.length-1].status_comment">
+                            </textarea>
+                            </div>
+
+                            <div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-bottom: 10px;">
+                                <p style="font-weight: bold;">Update Order Item Status :</p><select class="form-control" id="orderitemstatus1"
+                                                                                                    ng-options="orderitemstatus.id as orderitemstatus.status for orderitemstatus in orderstatuses"
+                                                                                                    data-ng-model="orderItem.order_item_status[orderItem.order_item_status.length-1].status_id"
+                                                                                                    style="margin-top: 10px;margin-bottom: 10px;">
+                            </select>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-top: 20px;">
+                                <p style="font-weight: bold;">Delivery Within :</p>
+                                <input type="text"
+                                       placeholder="No of days"
+                                       class="form-control"
+                                       id="orderItemDays"
+                                       name="orderItemDays"
+                                       ng-model="orderItem.deliveryDays"/>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-top: 20px;">
+                                <p style="font-weight: bold;">Shipped Within :</p>
+                                <input type="text"
+                                       placeholder="No of days"
+                                       class="form-control"
+                                       id="orderItemShippedDays"
+                                       name="orderItemDays"
+                                       ng-model="orderItem.shippingDays"/>
+                            </div>
+                            <div class="row" style="margin-top: 40px;margin-bottom: 20px;">
+                                <div class="col-md-6 col-md-offset-6">
+                                    <a href class="btn btn-primary btn-block" ng-click="UpdateOrderItem(orderItem.id,orderItem.order_item_status[orderItem.order_item_status.length-1].status_id,orderItem.order_item_status[orderItem.order_item_status.length-1].status_comment,GetDateFromDaysUnformatted(orderItem.deliveryDays),GetDateFromDaysUnformatted(orderItem.shippingDays),order.id)">Update Item</a>
+                                </div>
+                            </div>
+                            <!--<div class="row" style="margin-top: 40px;margin-bottom: 20px;" ng-if="orderItem.order_item_status.length == 0">
+                                <div class="col-md-6 col-md-offset-6">
+                                    <a href class="btn btn-primary btn-block" ng-click="UpdateOrderItem(orderItem.id,UpdateOrder.selectedItemStatus.id,UpdateOrder.orderComment)">Update Item</a>
+                                </div>
+                            </div>-->
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 col-lg-4 vcenter">
+                                <p style="font-weight: bold;">Buyer email : </p>{{order.buyer.email}}
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 vcenter">
+                                <p style="font-weight: bold;">Buyer Phone :</p>{{order.buyer.phone}}
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 vcenter">
+                                <!--expected_shipping_date-->
+                                <p style="font-weight: bold;">Buyer code :</p>{{order.buyer.code}}
+                            </div>
+                        </div>
+                        <hr>
+                        <!--<div class="row">-->
+                        <!--<div class="col-sm-2 col-md-2 col-lg-6 vcenter">-->
+                        <!--<p style="font-weight: bold;">Comments : </p><textarea rows="4" placeholder="Comment"-->
+                        <!--class="form-control" id="orderComment"-->
+                        <!--name="orderComment"-->
+                        <!--ng-model="UpdateOrder.orderComment"></textarea>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-bottom: 10px;">-->
+                        <!--<p style="font-weight: bold;">Update Order Status :</p><select class="form-control" id="orderstatus"-->
+                        <!--ng-options="orderstatus.id as orderstatus.status for orderstatus in orderstatuses"-->
+                        <!--data-ng-model="UpdateOrder.selectedStatus.id"-->
+                        <!--style="margin-top: 10px;margin-bottom: 10px;">-->
+
+                        <!--</select>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <hr>
+                        <!--<div class="row" style="margin-top: 40px;margin-bottom: 20px;">-->
+                        <!--<div class="col-md-6 col-md-offset-6">-->
+                        <!--<a href class="btn btn-primary btn-block" ng-click="updateOrder(UpdateOrder.selectedStatus.id,UpdateOrder.orderComment,orderItem.expected_delivery_date,orderItem.expected_shipping_date)">Update Order</a>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

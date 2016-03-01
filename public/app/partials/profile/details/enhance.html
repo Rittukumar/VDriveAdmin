@@ -1,0 +1,285 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="#profile/{{userId}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
+            </li>
+            <li>
+                <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Manage Evezsite</a>
+            </li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced" id="search">Search&nbsp;
+            <span class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="col-md-12" ng-controller="profileCtrl">
+<div class="row user-menu-container square">
+<div class="col-md-12 user-details">
+    <div class="row coralbg white">
+        <div class="col-md-3 top-margin">
+            <div class="user-image biothumb">
+                <img ng-src="{{profileImage}}" src="http://placehold.it/300x450"
+                     class="img-responsive thumbnail"/>
+
+                <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
+                    <ul class="list-unstyled text-center">
+                        <li><a href>Update Evezsite Image</a></li>
+                        <input type="file" class="upload" name="image" nv-file-select uploader="uploader"/>
+
+                        <div ng-if="uploader.queue.length > 0">
+                            <!-- Image upload queue section start -->
+                            <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" id="upload-progress-bar"
+                                     ng-style="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                            <!-- Image upload queue section end -->
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 no-pad">
+            <div class="user-pad-profile">
+                <!--name-->
+                <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
+                <!--Location-->
+                <div ng-hide="city == '' || country =='' || city == null || country == null">
+                    <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{locationDetails}}</h4>
+                </div>
+                <!--job and company-->
+                <div ng-hide="designation == '' || organization =='' || designation == null || organization == null">
+                    <h4 style="text-transform: capitalize;">
+                        <i class="fa fa-briefcase"></i> {{designation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{organization}}
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <a href="#" ng-controller="community">
+                        <div class="col-md-2 col-xs-2 well text-center" id="user-profile">
+                            <h3>{{friendList.length}}</h3>
+                            <h4>Eves</h4>
+                        </div>
+                    </a>
+
+                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="circles">
+                        <h3>{{myCircles.length}}</h3>
+                        <h4>Circles</h4>
+                    </div>
+                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="eventCtrl">
+                        <h3>{{myEvents.length}}</h3>
+                        <h4>Events</h4>
+                    </div>
+                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="blogCntrl">
+                        <h3>{{myBlogs.length}}</h3>
+                        <h4>Blogs</h4>
+                    </div>
+                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="albums">
+                        <h3>{{myAlbums.length}}</h3>
+                        <h4>Albums</h4>
+                    </div>
+                    <div class="col-md-2 col-xs-2 well text-center" id="user-more">
+                        <h3><i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                            <i class="fa fa-circle"></i>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h3>About Me</h3>
+
+            <p>{{ aboutme }}</p>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-12" style="margin-top: 10px;">
+    <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+        <li><a href="#home">Home</a> <span class="divider"></span></li>
+        <li><a href="#profile/{{userId}}">Profile</a></li>
+        <li class="active">Details</li>
+    </ul>
+</div>
+<div class="col-md-2 user-menu-btns">
+    <div class="btn-group-vertical square" id="responsive">
+        <a href="#profile/{{userId}}/personalinfo" class="btn btn-block btn-default ">
+            <p>Personal Info Basic</p>
+        </a>
+        <a href="#profile/{{userId}}/change_password" class="btn btn-default">
+            <p>Change Password</p>
+        </a>
+        <a href="#profile/{{userId}}/enhance" class="btn btn-block btn-default active">
+            <p>Enhance Profile Page</p>
+        </a>
+        <a href="#profile/{{userId}}/myonline" class="btn btn-default ">
+            <p>My Online Presence </p>
+        </a>
+        <a href="#profile/favorites" class="btn btn-default">
+            <p>Favorites-Topics /</br>Areas of Interest </p>
+        </a>
+        <a href="#profile/{{userId}}/reference" class="btn btn-default">
+            <p>My Reference info </p>
+        </a>
+        <a href="#profile/{{userId}}/participation" class="btn btn-default">
+            <p>My Participation in </br>EvezPlace </p>
+        </a>
+        <a href="#profile/{{userId}}/other" class="btn btn-default">
+            <p>Other EvezOwn services </p>
+        </a>
+        <a href="#profile/partnering" class="btn btn-default">
+            <p>Partnering with EvezOwn </p>
+        </a>
+        <a href="#profile/feedback" class="btn btn-default">
+            <p>Feedback/suggestions </p>
+        </a>
+    </div>
+</div>
+
+<div class="col-md-10 user-menu user-pad" ng-controller="profileDetailsCtrl">
+    <div class="signup-section">
+        <form>
+            <div class="form-group">
+                <textarea placeholder="About me" name="aboutme" id="aboutme" class="form-control input-lg"
+                          tabindex="5" ng-model="enhancedProfile.aboutme">
+                </textarea>
+            </div>
+            <div class="row">
+                <div class="form-horizontal col-md-12">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <label for="profilePageType">Do you want a profile page – personal one, corporate one or both?</label>
+                        </div>
+                        <div class="col-md-3">
+                            <select name="profilePageType" id="profilePageType" ng-model="enhancedProfile.profilePageType" class="form-control pull-right">
+                                <option ng-selected="true" disabled>--Choose profile type--</option>
+                                <option value="personal">personal</option>
+                                <option value="corporate">corporate</option>
+                                <option value="both">both</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <h4 style="margin-top: 20px; margin-bottom: 20px; color: #800080; font-weight: 400; font-size: 18px">
+                Specifics - Hobbies, Talent, Achievements, Interests</h4>
+
+            <div class="form-group">
+                <input type="text" placeholder="Hobbies" name="hobbies"
+                          id="hobbies" class="form-control input-lg"
+                          tabindex="5" ng-model="enhancedProfile.hobbies">
+                </input>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Talents" name="talents"
+                          id="talents" class="form-control input-lg"
+                          tabindex="5" ng-model="enhancedProfile.talents">
+                </input>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Achievements" name="achievements"
+                          id="achievements" class="form-control input-lg"
+                          tabindex="5" ng-model="enhancedProfile.achievements">
+                </input>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Interests" name="interests"
+                          id="interests" class="form-control input-lg"
+                          tabindex="5" ng-model="enhancedProfile.interests">
+                </input>
+            </div>
+            <div class="col-xs-12 form-group">
+                <div class="fileUpload btn btn-primary">
+                    <span><i class="fa fa-cloud-upload"></i>Any special uploads you want to show case </span>
+                    <input type="file" class="upload" name="image" nv-file-select="" uploader="uploader"
+                           multiple/>
+                </div>
+            </div>
+            <div class="col-xs-12 checkbox checkbox-primary">
+
+                <ul class="list-group">
+                    <li style="margin-bottom: 10px">
+                        <input type="checkbox" name="interestedInContentCreation"
+                               id="interestedInContentCreation" value="1"
+                               ng-model="enhancedProfile.interestedInContentCreation"/>
+                        <label for="interestedInContentCreation">
+                            Would you be interested in contributing to EvezOwn content creation?
+                        </label>
+                    </li>
+                    <li style="margin-bottom: 10px">
+                        <input type="checkbox" name="needEnhancedProfile" id="needEnhancedProfile" value="1"
+                               ng-model="enhancedProfile.needEnhancedProfile"/>
+                        <label for="needEnhancedProfile">
+                            Do you need customized /enhanced profile page/any additional features?
+                        </label>
+                    </li>
+                    <li style="margin-bottom: 10px">
+                        <input type="checkbox" name="interest" id="needMarketingSupport" value="1"
+                               ng-model="enhancedProfile.needMarketingSupport"/>
+                        <label for="needMarketingSupport">
+                            Do you need marketing support for your Profile Page - professional or personal?
+                        </label>
+                    </li>
+                    <li style="margin-bottom: 10px">
+                        <input type="checkbox" name="interest" id="needProfessionalWebsiteLink" value="1"
+                               ng-model="enhancedProfile.needProfessionalWebsiteLink"/>
+                        <label for="needProfessionalWebsiteLink">
+                            Do you need a hyperlink to your other professional/business website?
+                        </label>
+
+                        <input ng-if="enhancedProfile.needProfessionalWebsiteLink" type="text"
+                               ng-model="enhancedProfile.professionalWebsiteLink"
+                               placeholder="Provide professional website link"
+                               class="form-control" style="margin-top: 10px"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 checkbox checkbox-primary">
+                    <input type="checkbox" name="visibility" id="resumeVisibility"
+                           ng-model="enhancedProfile.resumeVisibility"/>
+                    <label for="resumeVisibility">
+                        Do you want resume visibility on profile page?
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-4 col-md-offset-8" style="margin-top: 10px">
+                    <button
+                            class="btn btn-primary btn-block btn-lg"
+                            tabindex="7" ng-click="saveEnhancedProfile(enhancedProfile)" style="height: 40px">Save
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!--<pre>form = {{user | json}}</pre>-->
+        <!--<pre>master = {{master | json}}</pre>-->
+    </div>
+</div>
+</div>
+</div>

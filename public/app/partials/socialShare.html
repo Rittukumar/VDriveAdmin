@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="list-inline">
+            <li ng-if="facebook">
+                <a socialshare
+                   socialshare-provider="facebook"
+                   socialshare-text="{{title}}"
+                   socialshare-media="{{sharemedia}}"
+                   socialshare-url="{{sharelink}}">
+                    <img src="img/social/ic_facebook.png" style="width: 40px; height: 40px"
+                         class="img-responsive" alt="share on facebook"
+                            />
+                </a>
+                <!--<a-->
+                   <!--socialshare-->
+                   <!--socialshare-provider="facebook"-->
+                   <!--socialshare-type="feed"-->
+                   <!--socialshare-via="145634995501895"-->
+                   <!--socialshare-to=""-->
+                   <!--socialshare-from=""-->
+                   <!--socialshare-ref=""-->
+                   <!--socialshare-display="popup"-->
+                   <!--socialshare-media="{{sharemedia}}"-->
+                   <!--socialshare-source=""-->
+                   <!--socialshare-description="{{title}}"-->
+                   <!--socialshare-text="{{title}}"-->
+                   <!--socialshare-caption="{{title}}"-->
+                   <!--socialshare-url="{{sharelink}}"-->
+                   <!--socialshare-redirect-uri="https://developers.facebook.com/tools/explorer">-->
+                    <!--<img src="img/social/ic_facebook.png" style="width: 40px; height: 40px"-->
+                         <!--class="img-responsive" alt="share on facebook"-->
+                            <!--/>-->
+                </a>
+            </li>
+            <li ng-if="twitter">
+                <a socialshare
+                   socialshare-provider="twitter"
+                   socialshare-text="{{title}} - "
+                   socialshare-url="{{sharelink}}"
+                   socialshare-hashtags="woa, wonderful, interesting">
+                    <img src="img/social/ic_twitter.png" style="width: 40px; height: 40px" class="img-responsive"
+                         alt="share on twitter"/>
+                </a>
+            </li>
+            <li ng-if="googleplus">
+                <a socialshare
+                   socialshare-provider="google+"
+                   socialshare-text="{{title}}"
+                   socialshare-url={{sharelink}}>
+                    <img src="img/social/ic_google_plus.png" style="width: 40px; height: 40px" class="img-responsive"
+                         alt="share on google plus"/>
+                </a>
+            </li>
+            <li ng-if="linkedin">
+                <a socialshare
+                   socialshare-provider="linkedin"
+                   socialshare-text="{{title}}"
+                   socialshare-url="{{sharelink}}">
+                    <img src="img/social/ic_linkedin.png" style="width: 40px; height: 40px"
+                         class="img-responsive" alt="share on linkedin"/>
+                </a>
+            </li>
+            <li ng-if="email">
+                <a ng-click="sendEmail()">
+                    <img src="img/social/ic_mail.png" style="width: 40px; height: 40px"
+                         class="img-responsive" alt="share on email"/>
+                </a>
+            </li>
+            <!--<li ng-if="gmail">-->
+            <!--<a>-->
+            <!--<img src="img/social/ic_google.png" style="width: 40px; height: 40px"-->
+            <!--class="img-responsive" alt="share on gmail"/>-->
+            <!--</a>-->
+            <!--</li>-->
+            <li ng-if="whatsapp">
+                <!--<a href="whatsapp://send" data-text="Check this out!"-->
+                <!--data-href="www.evezown.com">-->
+                <!--<img src="img/social/ic_whatsapp.png" style="width: 40px; height: 40px" class="img-responsive" alt="share on whatsapp"/>-->
+                <!--</a>-->
+                <a href="whatsapp://send" data-text="{{title}}: " data-href="" class="wa_btn wa_btn_l"
+                   style="display: none;">
+                    <!--<img src="img/social/ic_whatsapp.png" style="width: 40px; height: 40px" class="img-responsive" alt="share on whatsapp"/>-->
+                    Share
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

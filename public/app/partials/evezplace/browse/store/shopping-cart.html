@@ -1,0 +1,101 @@
+<div class="col-xs-12">
+    <h3>Shopping Cart</h3>
+</div>
+
+
+<div class="col-sm-12" ng-if="isShoppingCartEmpty">
+    <div class="row" style="margin-top: 120px; margin-bottom: 120px">
+        <div class="no-shopping-item text-center">
+            <p>Your shopping cart is currently empty</p>
+            <a href="#store/browse" class="btn btn-primary btn-lg">browse stores now</a>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-if="!isShoppingCartEmpty">
+    <div class="col-sm-12">
+        <div class="col-sm-8">
+            <div class="row" ng-repeat="shoppingCartStore in shoppingCartItems">
+                <div class="col-sm-12">
+                    <h4 style="padding: 10px 5px; background: #692668; color: #ffffff;
+                                font-weight: 300">Store: <span>{{shoppingCartStore.storeTitle}}</span></h4>
+                </div>
+                <div class="col-sm-12">
+                    <table
+                            class="table table-condensed" style="vertical-align: middle" id="shoppingCartTable">
+                        <tr ng-repeat="shoppingCartItem in shoppingCartStore.products" class="text-center">
+
+                            <td class="col-sm-2 col-md-2 col-lg-2" data-title="'Product'">
+                                <a href="#store/products/{{shoppingCartItem.product_id}}">
+                                    <img
+                                        ng-src="{{imageUrl}}image/show/{{shoppingCartItem.image.image.large_image_url}}/175"
+                                        class="img-responsive img-thumbnail"
+                                        alt="{{shoppingCartItem.title}}"/>
+                                </a>
+                            </td>
+                            <td class="col-sm-2 col-md-2 col-lg-2" data-title="''">
+                                <a style="text-decoration: none" href="#store/products/{{shoppingCartItem.product_id}}">
+                                    <span style="font-weight: 600; color: #692668;">{{shoppingCartItem.title}}</span>
+                                </a>
+                            </td>
+                            <td data-title="'Price'">{{shoppingCartItem.price}}</td>
+                            <td data-title="'Quantity'">
+                                <div fs-counter value="shoppingCartItem.quantity"
+                                     data-min="0"
+                                     data-max="20"
+                                     data-step="1"
+                                     data-width="130px"
+                                     data-editable
+                                     style="margin-top: 5px"></div>
+                            </td>
+                            <td data-title="'Total'">&#x20b9; {{+shoppingCartItem.quantity * +shoppingCartItem.price}}
+                            </td>
+                            <td class="col-sm-2 col-md-2 col-lg-2" data-title="''">
+                                <a ng-click="removeFromCart(shoppingCartItem)" class="btn btn-link pull-right"><span
+                                        style="color: #e51385">remove</span></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="verticalLine">
+            </div>
+        </div>
+        <div class="col-sm-4" id="shoppingCartTotal">
+            <div class="cart-sidebar actions">
+                <div class="cart_totals ">
+                    <div class="col-xs-12">
+                        <h4 style="font-weight: bold">Cart Totals</h4>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <h4>Subtotal <span class="pull-right"
+                                           style="font-weight: 300">&#x20b9;&nbsp;{{totalPrice}}</span></h4>
+                    </div>
+                    <div class="col-xs-12">
+                        <h4>Shipping <span class="pull-right"
+                                           style="font-weight: 300">&#x20b9;&nbsp;{{totalShipping}}</span></h4>
+                    </div>
+
+                    <div class="col-xs-12" style="border-top: thin dashed #777777;">
+                        <h4>Total <span style="font-weight: bold"
+                                        class="pull-right">&#x20b9;&nbsp;{{ +totalPrice + +totalShipping}}
+                                    </span>
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="col-sm-12" style="margin-top: 40px; margin-bottom: 20px">
+                    <a ng-click="placeOrder()" class="btn btn-primary btn-block btn-lg">Place Order</a>
+                </div>
+
+                <div class="col-sm-12">
+                    <a href="#store/browse" class="btn btn-block btn-primary btn-lg">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,657 @@
+<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#admin/store">Admin</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<div ng-include src='"partials/admin/Manage/manage_store_left_menu.html"'></div>
+
+<!--Description starts-->
+<div class="col-sm-9 jumbotron alert alert-dismissible inner-jumbotron shadow" id="no-border-round" role="alert"
+     style="padding:0px 28px 10px 16px;font-size:12px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Product catalogue</h1>
+
+    <p style="text-align:justify;font-size:16px;">Through this section you can completely manage your products and or
+        services lines. To create a product or service line, provide title for the product or service line, add
+        description and indicate if it is a product or a service. Once you have created this, you can build the
+        individual product or service unit. You can edit the same any time.
+    </p>
+</div>
+<!--Description Ends-->
+
+<div class="col-sm-9" ng-controller="ManageStoreCtrl">
+    <div class="row">
+        <div class="create-store-section">
+
+            <div style="border: 1px solid #ffffff; border-radius: 5px" ng-if="AllProductLines.length < 4">
+                <div class="row">
+                    <div class="col-md-9 col-md-offset-1">
+                        <h4 style="color: #e51385">Create Product/Service Lines</h4>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-5">
+                            <label for="productLineTitle">Title</label>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="text" placeholder="Enter Product/Service Line Title" class="form-control"
+                                   id="productLineTitle" name="productLineTitle"
+                                   ng-model="formData.productLineTitle">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-5">
+                            <label for="productTitleDesc">Description</label>
+                        </div>
+                        <div class="col-md-5">
+                <textarea rows="4" placeholder="Enter Product/Service Line Description" class="form-control"
+                          id="productTitleDesc" name="productTitleDesc"
+                          ng-model="formData.productLineDesc"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-5">
+                            <label for="storeType">Product or Service Line</label>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-control" id="sub-visibilities-type" id="storeType"
+                                    ng-options="produtLineType as produtLineType.name for produtLineType in productLineTypes"
+                                    ng-model="selectedProductLineType"
+                                    ng-change="SetProductLineType(selectedProductLineType)">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px; margin-bottom: 20px">
+                    <div class="col-md-3 col-sm-offset-8">
+                        <a href ng-click="AddProductLine(formData)" class="btn btn-primary btn-block">Add
+                            Product/Service</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border: 1px solid #ffffff; border-radius: 5px; margin-top: 20px">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <h5 style="color: #e51385; font-weight: 600">Product/Service Lines - <a href
+                                                                                                ng-click="ShowAddProduct()">(Add
+                            Product/Service)</a></h5>
+                        <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
+                        <table ng-table class="table table-productlines table-bordered">
+                            <tr ng-repeat="productLine in AllProductLines" class="text-center">
+                                <td data-title="'#'">{{productLine.id}}</td>
+                                <td data-title="'Product Line'">{{productLine.title}}</td>
+                                <td data-title="'Product Line Type'" ng-if="productLine.type == 0">Product (<a href
+                                                                                                               ng-click="ViewProducts(productLine)">
+                                    View Products </a>)
+                                </td>
+                                <td data-title="'Product Line Type'" ng-if="productLine.type == 1">Services (<a href
+                                                                                                                ng-click="ViewServices(productLine)">
+                                    View Services </a>)
+                                </td>
+                                <td data-title="''"><a href ng-click="EditProductLine(productLine)"
+                                                       class="btn btn-link"><span
+                                        style="color: #e51385">edit</span></a>
+                                </td>
+                                <td data-title="''"><a href ng-click="DeleteProductLine(productLine.id)"
+                                                       class="btn btn-link"><span
+                                        style="color: #e51385">delete</span></a>
+                                </td>
+                            </tr>
+                        </table>
+                        <p class="pull-right">{{AllProductLines.length}} of {{productLineTableParams.count()}} product
+                            lines added (<a
+                                    href=""><span style="color: #e51385">upgrade</span></a> to add more)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border: 1px solid #ffffff; border-radius: 5px; margin-top: 20px" ng-show="isAddProductHidden">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <h4 style="color: #e51385">Build Individual Units</h4>
+                        <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
+                        <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Product/Service Title" class="form-control"
+                                           id="productTitle" name="productTitle"
+                                           ng-model="productSKU.productTitle">
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-control" id="sub-product-line" id="productLine"
+                                            ng-options="productLine as productLine.title for productLine in AllProductLines"
+                                            ng-model="selectedProductLine"
+                                            ng-change="SetProductLine(selectedProductLine)">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Price in INR" class="form-control"
+                                           id="productPrice" name="productPrice"
+                                           ng-model="productSKU.productPrice">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Discount (If Applicable)" class="form-control"
+                                           id="productDiscount" name="productDiscount"
+                                           ng-model="productSKU.productDiscount">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Shipment Charges (INR)" class="form-control"
+                                           id="productShipmentCharges" name="productShipmentCharges"
+                                           ng-model="productSKU.productShipmentCharges">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <div class="col-sm-12" ng-if="product.productPrice">
+                                    <p class="pull-right" style="font-weight: 600">Total Price: &#x20b9;
+                                        {{parseDouble(product.productPrice) +
+                                        parseDouble(product.productShipmentCharges) + (parseDouble(product.productPrice)
+                                        * parseDouble(product.productDiscount)/100) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
+                        <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Add Size (if applicable)" class="form-control"
+                                           id="productSize" name="productSize"
+                                           ng-model="productSKU.productSize">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input colorpicker="hex" type="text"
+                                           placeholder="Choose Color in Hex Code (If Applicable)"
+                                           class="form-control"
+                                           id="productColor" name="productColor"
+                                           ng-model="productSKU.productColor">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Add Weight in Kg (If Applicable)"
+                                           class="form-control"
+                                           id="productWeight" name="productWeight"
+                                           ng-model="productSKU.productWeight">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Add Volume in ml (If Applicable)"
+                                           class="form-control"
+                                           id="productVolume" name="productVolume"
+                                           ng-model="productSKU.productVolume">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <!--<div class="col-md-offset-2 col-md-4">-->
+                                <!--<label for="productExpiry">Expiry Date (Optional)</label>-->
+                                <!--</div>-->
+                                <div class="col-md-6">
+                                    <input date-range-picker
+                                           options="{format: 'MMM/DD/YYYY', timePicker: true, timePickerIncrement: 30}"
+                                           id="productExpiry" class="form-control date-picker"
+                                           type="text"
+                                           ng-model="productSKU.productExpiry"
+                                           placeholder="Date of packing/Expiry (If Applicable)"/>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="Add available stock (Default 0)"
+                                           class="form-control"
+                                           id="productStock" name="productStock"
+                                           ng-model="productSKU.productStock">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 15px; margin-bottom: 20px">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <h5 style="font-weight: 600">Product/Service Images</h5>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="fileUpload btn btn-default btn-block">
+                                        <span><i class="fa fa-camera"></i> Upload Product Image (4 Max)</span>
+                                        <input type="file" class="upload" id="productImages" name="productImages"
+                                               nv-file-select="" uploader="uploader"
+                                               multiple/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                            <div class="col-sm-6 col-sm-offset-6 progress" style="" ng-if="uploader.queue.length > 0">
+                                <div class="progress-bar" role="progressbar" id="upload-progress-bar"
+                                     ng-style="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                        </div>
+                        <h4 style="color: #e51385">Product Description</h4>
+                        <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                        <textarea rows="4" placeholder="Product Description" class="form-control"
+                                  id="productDeliveryConditions" name="productDescription"
+                                  ng-model="productSKU.productDescription"></textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row" style="margin-top: 20px; margin-bottom: 20px">
+                            <div class="col-md-3">
+                                <a href ng-click="SaveProduct(productSKU)" class="btn btn-primary btn-block">Add
+                                    Product</a>
+
+                            </div>
+                            <div class="col-md-3 col-sm-offset-6">
+                                <a href ng-click="HideAddProduct()" class="btn btn-blue btn-block">Cancel</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="border: 1px solid #ffffff; border-radius: 5px; margin-top: 20px">
+                <div class="row" ng-show="isProductSKUHidden">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-sm-3">
+                                <h5 style="color: #e51385; font-weight: 600">Products/Services</h5>
+                            </div>
+                            <div class="col-sm-3">
+                                <!--<select class="form-control"  id="product-line" id="selectproductLine"-->
+                                <!--ng-options="productLine as productLine.title for productLine in AllProductLines"-->
+                                <!--ng-model="selectedProductLine" ng-change="SelectProductLine(selectedProductLine)">-->
+                                <!--</select>-->
+                            </div>
+                            <div class="col-sm-3">
+                                <!--<a href="" class="btn btn-primary btn-sm btn-block">Set What's New Products</a>-->
+                            </div>
+                        </div>
+
+                        <table ng-table="productCatalogueTableParams" template-pagination="custom/pager"
+                               class="table table-productlines table-bordered">
+                            <tr ng-repeat="product in AllProducts" class="text-center">
+                                <td data-title="'#'">{{$index+1}}</td>
+                                <td data-title="'Title'">{{product.title}}</td>
+                                <td data-title="'Description'">{{product.description}}</td>
+                                <td data-title="'Variants'">
+                                    <div>({{product['product_sk_u'].length}}) | <a href
+                                                                                   ng-click="GetProductSKU(product)">View</a>
+                                        / <a href ng-click="AddProductVariant(product)">Add</a></div>
+                                </td>
+                                <td data-title="''"><a href ng-click="UpdateProduct(product)" class="btn btn-link"><span
+                                        style="color: #e51385">update</span></a>
+                                </td>
+                                <td data-title="''"><a href ng-click="DeleteProduct(product.id)"
+                                                       class="btn btn-link"><span
+                                        style="color: #e51385">delete</span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ng-show="AllProducts.length==0" colspan="6" align="center">
+                                    <p style="color: #e51385; font-weight: 600">No data found
+
+                                    <p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="ngdialog-buttons popuptemplate" ng-show="showAddVariant">
+                            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Price in INR" class="form-control"
+                                               id="productPrice" name="productPrice"
+                                               ng-model="product.productPrice">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Discount (If Applicable)" class="form-control"
+                                               id="productDiscount" name="productDiscount"
+                                               ng-model="product.productDiscount">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Shipment Charges (INR)" class="form-control"
+                                               id="productShipmentCharges" name="productShipmentCharges"
+                                               ng-model="product.productShipmentCharges">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                                <div class="form-group">
+                                    <div class="col-sm-12" ng-if="product.productPrice">
+                                        <p class="pull-right" style="font-weight: 600">Total Price: &#x20b9;
+                                            {{parseDouble(product.productPrice) +
+                                            parseDouble(product.productShipmentCharges) +
+                                            (parseDouble(product.productPrice) *
+                                            parseDouble(product.productDiscount)/100) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
+                            <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Add Size (if applicable)" class="form-control"
+                                               id="productSize" name="productSize"
+                                               ng-model="product.productSize">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input colorpicker="hex" type="text"
+                                               placeholder="Choose Color in Hex Code (If Applicable)"
+                                               class="form-control"
+                                               id="productColor" name="productColor"
+                                               ng-model="product.productColor">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Add Weight in Kg (If Applicable)"
+                                               class="form-control"
+                                               id="productWeight" name="productWeight"
+                                               ng-model="product.productWeight">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Add Volume in ml (If Applicable)"
+                                               class="form-control"
+                                               id="productVolume" name="productVolume"
+                                               ng-model="product.productVolume">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                                <div class="form-group">
+                                    <!--<div class="col-md-offset-2 col-md-4">-->
+                                    <!--<label for="productExpiry">Expiry Date (Optional)</label>-->
+                                    <!--</div>-->
+                                    <div class="col-md-6">
+                                        <input date-range-picker
+                                               options="{format: 'MMM/DD/YYYY', timePicker: true, timePickerIncrement: 30}"
+                                               id="productExpiry" class="form-control date-picker"
+                                               type="text"
+                                               ng-model="product.productExpiry"
+                                               placeholder="Date of packing/Expiry (If Applicable)"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" placeholder="Add available stock (Default 0)"
+                                               class="form-control"
+                                               id="productStock" name="productStock"
+                                               ng-model="product.productStock">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 15px; margin-bottom: 20px">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <h5 style="font-weight: 600">Product/Service Images</h5>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="fileUpload btn btn-default btn-block">
+                                            <span><i class="fa fa-camera"></i> Upload Product Image (4 Max)</span>
+                                            <input type="file" class="upload" id="productImages" name="productImages"
+                                                   nv-file-select="" uploader="uploader"
+                                                   multiple/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                                <div class="col-sm-6 col-sm-offset-6 progress" style=""
+                                     ng-if="uploader.queue.length > 0">
+                                    <div class="progress-bar" role="progressbar" id="upload-progress-bar"
+                                         ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                </div>
+                            </div>
+                            <!--<h4 style="color: #e51385">Product Description</h4>-->
+                            <!--<hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>-->
+                            <!--<div class="row" style="margin-top: 10px; margin-bottom: 10px">-->
+                            <!--<div class="form-group">-->
+                            <!--<div class="col-sm-12">-->
+                            <!--<textarea rows="4" placeholder="Product Description" class="form-control"-->
+                            <!--id="productDeliveryConditions" name="productDescription"-->
+                            <!--ng-model="product.productDescription"></textarea>-->
+                            <!--</div>-->
+
+                            <!--</div>-->
+
+                            <!--</div>-->
+                            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <button class="btn primary pull-right form-control" type="button"
+                                                ng-click="AddProductSKU(product)">Add Variant
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button class="btn primary pull-right form-control" type="button"
+                                                ng-click="Cancel()">Cancel
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <!--<div class="col-sm-3 col-sm-offset-9" ng-show="showvariantlist" style="margin-bottom: 10px;">-->
+                        <!--<a href="" class="btn btn-primary btn-sm btn-block">Set Trending Products</a>-->
+                        <!--</div>-->
+                        <table ng-table="productTableParams" template-pagination="custom/pager"
+                               class="table table-productlines table-bordered" ng-show="showvariantlist">
+                            <tr ng-repeat="productsku in AllProductSKU" class="text-center">
+                                <td data-title="'Is Trending'"><input type="checkbox" id="trendingchx" name="tredingchx"
+                                                                      ng-model="productsku.is_trending"
+                                                                      ng-true-value="'1'"
+                                                                      ng-false-value="'0'"
+                                                                      ng-change="UpdateTrending(productsku)"/></td>
+                                <td data-title="'#'">{{$index+1}}</td>
+                                <td data-title="'Image'"><img
+                                        ng-src="{{service_url+'image/show/'+productsku['product_images'][0]['image']['large_image_url']}}/40/40"
+                                        class="img-thumbnail"/></td>
+                                <td data-title="'Price'">{{productsku.price}}</td>
+                                <td data-title="'Stock'">
+                                    {{productsku.product_stock.quantity}}
+                                </td>
+                                <td data-title="''"><a href ng-click="UpdateProductSKU(productsku)"
+                                                       class="btn btn-link"><span
+                                        style="color: #e51385">update</span></a>
+                                </td>
+                                <td data-title="''"><a href ng-click="DeleteProductSKU(productsku.id)"
+                                                       class="btn btn-link"><span
+                                        style="color: #e51385">delete</span></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" data-title="'#'">
+                                    <button class="btn primary pull-right form-control" type="button"
+                                            ng-click="CancelShow()">Cancel
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--<script type="text/ng-template" id="custom/pager">-->
+                        <!--<ul class="pager ng-cloak">-->
+                        <!--<li ng-repeat="page in AllProductSKU"-->
+                        <!--ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"-->
+                        <!--ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">-->
+                        <!--<a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>-->
+                        <!--<a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                        <!--<div class="btn-group">-->
+                        <!--<button type="button" ng-class="{'active':params.count() == 5}" ng-click="params.count(5)" class="btn btn-default">5</button>-->
+                        <!--<button type="button" ng-class="{'active':params.count() == 10}" ng-click="params.count(10)" class="btn btn-default">10</button>-->
+                        <!--<button type="button" ng-class="{'active':params.count() == 25}" ng-click="params.count(25)" class="btn btn-default">25</button>-->
+                        <!--<button type="button" ng-class="{'active':params.count() == 50}" ng-click="params.count(50)" class="btn btn-default">50</button>-->
+                        <!--<button type="button" ng-class="{'active':params.count() == 100}" ng-click="params.count(100)" class="btn btn-default">100</button>-->
+                        <!--</div>-->
+                        <!--</li>-->
+                        <!--</ul>-->
+                        <!--</script>-->
+                        <!--<p class="pull-right">{{AllProductSKU.length}} of {{productCount}} products added (<a-->
+                        <!--href=""><span style="color: #e51385">upgrade</span></a> to add more)</p>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="templateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="ManageStoreCtrl">
+        <h4>Edit Product line</h4>
+        <input class="form-control" type="text" placeholder="Product line Title"
+               id="circle" ng-model="editProductLine.title" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <textarea class="form-control" rows="4" placeholder="Product line Description"
+                  ng-model="editProductLine.description"/>
+
+        <div class="col-sm-12">
+            <h5>Product line type</h5>
+            <select class="form-control" id="sub-visibilities-type" id="storeType"
+                    ng-options="produtLineType as produtLineType.name for produtLineType in productLineTypes"
+                    ng-model="selectedType" ng-change="SetStoreSubscription(selectedType)">
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button"
+                ng-click="SaveProductLine(selectedProductLine)">Save
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editProduct">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="ManageStoreCtrl">
+        <h4>Edit Product</h4>
+        <input class="form-control" type="text" placeholder="Product Title"
+               id="product" ng-model="currentProduct.title" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <textarea class="form-control" rows="4" placeholder="Product Description"
+                  ng-model="currentProduct.description"/>
+
+        <div class="col-sm-12">
+            <h5>Product line type</h5>
+            <select ng-model="currentProductLine.id" class="form-control"
+                    ng-options="productLine.id as productLine.title for productLine in AllProductLines">
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="SubmitProductEdit(currentProduct)">
+            Save
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="editProductSKU">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="ManageStoreCtrl">
+        <h4>Edit Product</h4>
+        <input class="form-control" type="text" placeholder="Product Price"
+               id="productprice" ng-model="currentProductSKU.price"
+               style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <input class="form-control" type="text" placeholder="Product Discount"
+               id="productdiscount" ng-model="currentProductSKU.discount"
+               style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <input class="form-control" type="text" placeholder="Shipment Charges"
+               id="productshipment" ng-model="currentProductSKU.shipping_charge"
+               style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <input class="form-control" type="text" placeholder="Add Size"
+               id="productSize" ng-model="currentProductSKU.size"
+               style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <input colorpicker="hex" type="text" placeholder="Choose Color in Hex Code (If Applicable)"
+               class="form-control"
+               id="color" name="color"
+               ng-model="currentProductSKU.color" style="margin-bottom: 10px; height: 50px; font-size: 18px">
+        <input type="text" placeholder="Add Weight in Kg (If Applicable)" class="form-control"
+               id="productWeight" name="productWeight"
+               ng-model="currentProductSKU.weight" style="margin-bottom: 10px; height: 50px; font-size: 18px">
+        <input type="text" placeholder="Add Volume in ml (If Applicable)" class="form-control"
+               id="productVolume" name="productVolume"
+               ng-model="currentProductSKU.volume" style="margin-bottom: 10px; height: 50px; font-size: 18px">
+        <table border="1" align="center" width="70%">
+            <tr>
+                <td colspan="2">
+                    <div class="fileUpload btn btn-default btn-block">
+                        <span><i class="fa fa-camera"></i> Upload Product Image</span>
+                        <input type="file" class="upload" id="productImages" name="productImages"
+                               nv-file-select="" uploader="uploader"
+                               multiple/>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-6 progress" style="" ng-if="uploader.queue.length > 0">
+                        <div class="progress-bar" role="progressbar" id="upload-progress-bar"
+                             ng-style="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr ng-repeat="image in currentProductSKU.product_images">
+                <td align="center"><a
+                        href="{{service_url+'image/show/'+currentProductSKU['product_images'][$index]['image']['large_image_url']}}/70/70"
+                        target="_blank">
+                    <img ng-src="{{service_url+'image/show/'+currentProductSKU['product_images'][$index]['image']['large_image_url']}}/70/70"
+                         alt="Product Image {{$index}}" title="Product Image {{$index}}" border="2" width="70"
+                         height="70" hspace="10"/></a></td>
+                <td align="center"><a href
+                                      ng-click="DeleteProductImage(currentProductSKU['product_images'][$index]['product_image_id'],$index,currentProductSKU['product_images'])">delete</a>
+                </td>
+            </tr>
+        </table>
+        <button class="btn primary pull-right form-control" type="button"
+                ng-click="SubmitProductSKUEdit(currentProductSKU)">Save
+        </button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="showProducts">
+    <table ng-table="productCatalogueTableParams" template-pagination="custom/pager"
+           class="table table-productlines table-bordered" ng-controller="productList">
+        <tr ng-repeat="product in AllProducts" class="text-center">
+            <td data-title="'#'">{{$index+1}}</td>
+            <td data-title="'Title'">{{product.title}}</td>
+            <td data-title="'Description'">{{product.description}}</td>
+            <td data-title="'Variants'">
+                <div>({{product['product_sk_u'].length}}) | <a href ng-click="ShowVariants(product['product_sk_u'])">View</a>
+                    / <a href ng-click="AddProductVariant(product)">Add</a></div>
+            </td>
+            <td data-title="''"><a href ng-click="UpdateProduct(product)" class="btn btn-link"><span
+                    style="color: #e51385">update</span></a>
+            </td>
+            <td data-title="''"><a href ng-click="DeleteProduct(product.id)" class="btn btn-link"><span
+                    style="color: #e51385">delete</span></a>
+            </td>
+        </tr>
+    </table>
+</script>

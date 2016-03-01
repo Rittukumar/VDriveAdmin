@@ -1,0 +1,161 @@
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+<!-- Static navbar -->
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}" class="{{isActive[1]}}">Evezsite</a>
+            </li>
+            <li ng-class="{ active: isActive('/community')}"><a href="#community" >Build Community</a>
+            </li>
+           
+            <li ng-class="{ active: isActive('/streamit')}"><a href="#streamit">Stream It</a></li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="col-md-2 user-menu-btns">
+    <div class="btn-group-vertical square" id="responsive">
+        <a href="#community" class="btn btn-default">
+            <p>Connect</p>
+        </a>
+        <a href="#circles" class="btn btn-default">
+            <p>Circles</p>
+        </a>
+        <a href="#albums" class="btn btn-default">
+            <p>Gallery</p>
+        </a>
+        <a href="#groups" class="btn btn-default">
+            <p>Groups</p>
+        </a>
+        <a href="#events" class="btn btn-default btn-block  active">
+            <p>Events</p>
+        </a>
+        <a href="#blogs" class="btn btn-default">
+            <p>Blogs</p>
+        </a>
+        <a href="#forums" class="btn btn-default">
+            <p>Discussion</p>
+        </a>
+    </div>
+</div>
+<div class="col-md-7 user-menu user-pad" ng-controller="eventCtrl">
+    <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+        <div class="fragment">
+            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+            <h4>Events</h4>
+            <p>
+                Create your events here.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 panel-heading" style="padding-left: 0px">
+        <div class="col-md-2" style="padding-left: 0px">
+            <h5>
+                Events ({{myEvents.length}})
+            </h5>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
+        </div>
+        <div class="col-md-2 col-md-offset-4 pull-right custom-create-event-button">
+            <a href="#createevent" class="btn btn-primary pull-right"><span class="fa fa-plus"></span> Create Event</a>
+        </div>
+    </div>
+    <div class="col-md-12 circle-section custom-event-section" style="margin-top:60px;">
+        <ul class="row event-list">
+            <!-- Row 1 -->
+            <li class="col-md-6" ng-repeat="event in myEvents | filter:search">
+                <article>
+                    <a class="box" href="#eventdetails/{{event.id}}">
+                        <div class="img" ng-if="event.event_image == null"><img
+                                alt="{{event.title}}"
+                                src="img/event.png">
+                        </div>
+                        <div class="img" ng-if="event.event_image != null"><img
+                                alt="{{event.title}}"
+                                src="{{service_url}}image/show/{{event.event_image.large_image_url}}">
+                        </div>
+                        <div class="detail">
+                            <time class="event-info" datetime="{{event.start_date}}">{{event.start_date}} {{event.start_time}}</time>
+                            <h4>{{event.title | strLimit: 18}}</h4>
+
+                            <div class="tease"><p>{{event.description | strLimit: 100}}</p></div>
+                        </div>
+                    </a>
+                </article>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="col-md-3 custom-event-request" style="padding-right: 0px" ng-controller="eventCtrl">
+<!-- Friend requests -->
+<div class="panel" style="background: #f7f7f7;">
+    <div class="panel-heading">
+        <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Event Requests ({{allEventInvites.length}})</h5>
+    </div>
+    <ul class="list-group" ng-repeat="request in allEventInvites">
+        <li class="list-group-item custom-event-request-actions col-sm-12">
+            <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
+                <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
+                <a href="#eventdetails/{{request.event.id}}"> {{request.event.title}}</a>
+            </div>
+            <div class="col-sm-2 custom-event-request-accept" style="padding-left: 0px; padding-right: 0px">
+                <a href ng-click="SetInviteStatus('yes',request.event.id)"><span class="fa fa-check"></span></a>
+            </div>
+            <div class="col-sm-2 custom-event-request-reject" style="padding-left: 0px; padding-right: 0px">
+                <a href="" ng-click="SetInviteStatus('no',request.event.id)"><span class="fa fa-times"></span></a>
+            </div>
+            <div class="col-sm-2 custom-event-request-maybe" style="padding-left: 0px; padding-right: 0px">
+                <a href="" ng-click="SetInviteStatus('maybe',request.event.id)" class="pull-right"><span>maybe</span></a>
+            </div>
+
+        </li>
+    </ul>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <!--<ul class="pagination pagination-sm pull-right">-->
+                <!--<li class="disabled"><a href="javascript:void(0)">«</a></li>-->
+                <!--<li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a>-->
+                <!--</li>-->
+                <!--<li><a href="">2</a></li>-->
+                <!--<li><a href="javascript:void(0)">»</a></li>-->
+                <!--</ul>-->
+            </div>
+        </div>
+    </div>
+</div>
+</div>

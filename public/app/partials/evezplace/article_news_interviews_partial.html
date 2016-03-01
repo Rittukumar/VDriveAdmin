@@ -1,0 +1,79 @@
+<div class="col-sx-12 col-sm-3" ng-controller="ArticlesNewsInterviewsCtrl">
+    <!--Articles-->
+    <div class="panel panel-primary panel-custom">
+        <div class="panel-heading panel-heading-custom">
+            <h3 class="panel-title">Blogs</h3>
+        </div>
+        <div class="panel-body panel-body-custom">
+            <div class="interviews-section">
+                <div class="row" ng-repeat="blog in relatedBlogs | limitTo:5">
+                    <div class="col-md-12">
+                        <div class="trending_box">
+                            <a href="#/blogs/{{blog.id}}">
+                                <img ng-if="blog.blog_image != null"
+                                     ng-src="{{imagePath}}{{blog.blog_image.large_image_url}}/300"
+                                     src="{{imagePath}}{{blog.blog_image.large_image_url}}/300"
+                                     class="img-responsive" alt=""/>
+                                <img ng-if="blog.blog_image == null"
+                                     ng-src="http://placehold.it/258x145/692668/ffffff"
+                                     src="http://placehold.it/258x145/692668/ffffff"
+                                     class="img-responsive" alt=""/>
+                                <span class="trending_label_box">
+                                    <span class="trending_label">{{blog.subcategory.subcategory_name}}</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="trending_desc">
+                            <span class="trending_title"><a href="#/blogs/{{blog.id}}">{{blog.title}}</a></span>
+                            <span class="trending_author">by <a href="#profile/{{blog.author.id}}">{{blog.author.firstname}},
+                                {{blog.author.lastname}}</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Interviews-->
+    <div class="panel panel-primary panel-custom">
+        <div class="panel-heading panel-heading-custom">
+            <h3 class="panel-title">Events</h3>
+        </div>
+        <div class="panel-body panel-body-custom">
+            <div class="interviews-section">
+                <div class="row" ng-repeat="event in relatedEvents | limitTo:5">
+                    <div class="col-md-12">
+                        <div class="trending_desc">
+                            <span class="trending_title"><a
+                                    href="#/eventdetails/{{event.id}}">{{event.title}}</a></span>
+                            <span class="trending_author">by <a href="#profile/{{event.owner.id}}">{{event.owner.firstname}},
+                                {{event.owner.lastname}}</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--News-->
+    <div class="panel panel-primary panel-custom">
+        <div class="panel-heading panel-heading-custom">
+            <h3 class="panel-title">Forums</h3>
+        </div>
+        <div class="panel-body panel-body-custom">
+            <div class="interviews-section">
+                <div class="row" ng-repeat="forum in relatedForums | limitTo:5">
+                    <div class="col-md-12">
+                        <div class="trending_desc">
+                            <span class="trending_title"><a
+                                    href="#/forums/{{forum.id}}">{{forum.topic_title}}</a></span>
+                            <span class="trending_author">by <a href="#profile/{{forum.created_by.id}}">{{forum.created_by.firstname}},
+                                {{forum.created_by.lastname}}</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

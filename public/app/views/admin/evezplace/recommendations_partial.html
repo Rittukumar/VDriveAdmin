@@ -1,0 +1,167 @@
+<div style="background: #692668; padding: 5px 10px; color: #ffffff; margin-top: 5px">
+    <div class="row">
+        <div class="col-sm-12">
+            <select class="form-control"
+                    ng-model="selectedSectionId"
+                    style="font-weight: 700"
+                    default-option="Choose Evezplace Section"
+                    ng-change="chooseSectionRecommendations(selectedSectionId)"
+                    ng-options="section.id as section.name for section in sections"
+                    required>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" style="margin-top: 20px">
+        <div class="row">
+            <div class="col-sm-10">
+                <h5 style="font-weight: 600">All Recommendations</h5>
+            </div>
+            <div class="col-sm-2">
+                <a href class="btn btn-primary btn-sm pull-right" ng-click="toggleRecommendation()">Add</a>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <div class="col-sm-12" ng-if="isAddRecommendation">
+        <div class="row">
+            <div class="col-sm-6">
+                <img ng-src="{{newRecommendation.update_image.large_image_url}}"
+                     class="img-responsive" alt="" style="width: 100%"/>
+                <a href ng-click="showRecommendationImageDialog()" class="btn btn-primary"
+                   style="position: absolute; bottom: 5px; right: 20px; opacity: 0.8">Upload</a>
+            </div>
+            <div class="col-sm-6">
+                <h5>Title</h5>
+                <input type="text" class="form-control"
+                       ng-model="newRecommendation.title" required>
+                <h5>Description</h5>
+                        <textarea class="form-control" placeholder="optional"
+                                  ng-model="newRecommendation.description"
+                                  rows="2">
+                        </textarea>
+                <h5>Recommendation Link</h5>
+                <input type="text" class="form-control"
+                       ng-model="newRecommendation.link" required>
+                </input>
+                <h5>Priority</h5>
+                <input type="number" class="form-control"
+                       ng-model="newRecommendation.priority" placeholder="optional">
+                </input>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <hr>
+            <div class="row">
+                <div class="col-sm-offset-6 col-sm-2">
+                    <button ng-click="discardRecommendationDetails()" class="btn btn-default btn-block">Discard</button>
+                </div>
+                <div class="col-sm-2">
+                    <button ng-click="saveRecommendationDetails(newRecommendation)" class="btn btn-primary btn-block">
+                        Save
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <button ng-click="doneRecommendationDetails(newRecommendation)" class="btn btn-primary btn-block">
+                        Done
+                    </button>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="row" ng-if="recommendations.length == 0">
+            <div class="col-sm-12 text-center">
+                <h5 style="border: 1px solid #e50880; padding: 120px 0px;
+                font-weight: 700">No recommendations exist</h5>
+            </div>
+        </div>
+
+        <div class="row" ng-if="recommendations.length > 0">
+            <div class="col-sm-12">
+                <div class="row" ng-repeat="recommendations4 in recommendations">
+                    <div class="col-sm-3 text-center" ng-repeat="recommendation in recommendations4">
+                        <img ng-if="recommendation.image != null"
+                             src="{{imageUrl}}image/show/{{recommendation.image.large_image_url}}/215/215"
+                             class="img-responsive" alt="{{recommendation.title}}">
+                        <img ng-if="recommendation.image == null" src="http://placehold.it/215x215/692668/ffffff"
+                             class="img-responsive" alt="{{recommendation.title}}">
+                        <h4>{{recommendation.title}}</h4>
+                        <h5>{{recommendation.link}}</h5>
+                        <a href ng-click="toggleRecommendationUpdate(recommendation, recommendations4)"
+                           class="btn btn-link" ng-class="{active : recommendation.isEditActive}">
+                            <span ng-if="recommendation.isEditActive"
+                                  style="font-size: 24px; color: #a540a4; position: relative;"
+                                  class="fa fa-caret-up"></span>
+                            <span ng-if="!recommendation.isEditActive" class="fa fa-edit"> edit</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-12" ng-if="recommendations4.isEditRecommendation" style="border: 1px solid #a540a4;
+                                    margin-bottom: 10px; padding: 10px">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <img ng-src="{{newRecommendation.update_image.large_image_url}}"
+                                     class="img-responsive" alt="" style="width: 100%"/>
+                                <a href ng-click="showRecommendationImageDialog()" class="btn btn-primary"
+                                   style="position: absolute; bottom: 5px; right: 20px; opacity: 0.8">Upload</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5>Title</h5>
+                                <input type="text" class="form-control"
+                                       ng-model="newRecommendation.title" required>
+                                <h5>Description</h5>
+                        <textarea class="form-control" placeholder="optional"
+                                  ng-model="newRecommendation.description"
+                                  rows="2">
+                        </textarea>
+                                <h5>Trending Item Link</h5>
+                                <input type="text" class="form-control"
+                                       ng-model="newRecommendation.link" required>
+                                </input>
+                                <h5>Priority</h5>
+                                <input type="number" class="form-control"
+                                       ng-model="newRecommendation.priority" placeholder="optional">
+                                </input>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-offset-8 col-sm-2">
+                                    <button ng-click="saveRecommendationDetails(newRecommendation)"
+                                            class="btn btn-primary btn-block">Save
+                                    </button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button ng-click="doneUpdateRecommendationDetails(newRecommendation, recommendations4)"
+                                            class="btn btn-primary btn-block">Done
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <uib-pagination
+                            total-items="recommendationMeta.pagination.total"
+                            ng-model="recommendationMeta.pagination.current_page"
+                            items-per-page="recommendationMeta.pagination.per_page"
+                            max-size="recommendationMeta.pagination.count"
+                            class="pagination-sm  pull-right"
+                            force-ellipses="false"
+                            ng-change="getEvezplaceRecommendationsForPage(recommendationMeta.pagination.current_page)"
+                            boundary-link-numbers="true"
+                            rotate="true">
+
+                    </uib-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

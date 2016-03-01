@@ -1,0 +1,482 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="#profile/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
+            </li>
+            <li>
+                <a href="#profile/{{userId}}" class="{{isActive[2]}}" ng-class="{ active: isActive('/profile/{{userId}}')}">Recent Activity</a>
+            </li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced" id="search">Search&nbsp;
+                <span class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Construct Your Evezsite</h1>
+
+    <p style="text-align:justify">This is your website on Evezown and captures the essence of your business and
+        personality. You can create your profile in-depth, build community to connect with friends, colleagues,
+        customers, partners, employees or other women you wish to connect with. You can promote yourself or your
+        business digitally within your circles privately or publicly using features such as events, blogs, recco, forums
+        and groups.
+    </p>
+
+    <p style="text-align:justify">For more visit <a href style="text-decoration:none;">Evezsite FAQs</a>.</p>
+</div>
+<div class="col-md-12">
+    <div class="container col-md-12" ng-controller="profileCtrl">
+        <div class="row user-menu-container square">
+            <div class="row cover-section custom-profile-covers">
+                <div class="col-md-4 small-cover-pic">
+                    <!--left cover-->
+                    <div class="small-cover-pic-top" ng-controller="ProfileImageCrop">
+                        <div class="overlay text-center" ng-if="userId == loggedInUserId">
+                            <a href class="btn btn-primary" ng-click="CropProfileLeft()" id="ProfileLeft">Change Left Cover</a>
+                        </div>
+                        <div>
+                            <img ng-src="{{leftCoverImage}}" src="http://placehold.it/393x220"
+                                 class="img-responsive thumbnail"/>
+                        </div>
+                    </div>
+                    <!--Bottom cover-->
+                    <div class="small-cover-pic-bottom" ng-controller="ProfileImageCrop">
+                        <div class="overlay text-center" ng-if="userId == loggedInUserId">
+                            <a href class="btn btn-primary" ng-click="CropProfileBottom()" id="ProfileBottom">Change Bottom Cover</a>
+                        </div>
+                        <div>
+                            <img ng-src="{{bottomCoverImage}}" src="http://placehold.it/393x220"
+                                 class="img-responsive thumbnail"/>
+                        </div>
+                    </div>
+                </div>
+                <!--Right Cover-->
+                <div class="col-md-8 large-cover-pic custom-user-right-coverpic" ng-controller="ProfileImageCrop">
+                    <div class="overlay text-center" ng-if="userId == loggedInUserId">
+                        <a href class="btn btn-primary" ng-click="CropProfileRight()" id="ProfileRight">Change Right Cover</a>
+                    </div>
+                    <img ng-src="{{rightCoverImage}}" src="http://placehold.it/803x452"
+                         class="img-responsive thumbnail"/>
+                </div>
+            </div>
+            <div class="col-md-12 user-details">
+                <div class="row coralbg white custom-profile-userpic">
+                    <div class="col-md-3 top-margin">
+                        <div class="user-image biothumb" ng-controller="ProfileImageCrop">
+                            <img ng-src="{{profileImage}}" src="http://placehold.it/300x200"
+                                 class="img-responsive thumbnail"/>
+
+                            <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
+                                <ul class="list-unstyled text-center">
+                                    <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Evezsite
+                                        Image</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-9 no-pad">
+                        <div class="col-md-12 user-pad-profile custom-profile-user-details">
+                        <!--name-->
+                        <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
+                        <!--Location-->
+                        <div ng-hide="city == '' || country =='' || city == null || country == null">
+                            <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{locationDetails}}</h4>
+                        </div>
+                        <!--job and company-->
+                        <div ng-hide="designation == '' || organization =='' || designation == null || organization == null">
+                            <h4 style="text-transform: capitalize;">
+                                <i class="fa fa-briefcase"></i> {{designation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{organization}}
+                            </h4>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="community">
+                                    <h3>{{friendList.length}}</h3>
+                                    <h4>Eves</h4>
+                                </div>
+
+                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="circles">
+                                    <h3>{{myCircles.length}}</h3>
+                                    <h4>Circles</h4>
+                                </div>
+                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="eventCtrl">
+                                    <h3>{{myEvents.length}}</h3>
+                                    <h4>Events</h4>
+                                </div>
+                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="blogCntrl">
+                                    <h3>{{myBlogs.length}}</h3>
+                                    <h4>Blogs</h4>
+                                </div>
+                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="albums">
+                                    <h3>{{myAlbums.length}}</h3>
+                                    <h4>Albums</h4>
+                                </div>
+                                <div class="col-md-2 well text-center" id="user-more">
+                                    <h3><i class="fa fa-circle"></i>
+                                        <i class="fa fa-circle"></i>
+                                        <i class="fa fa-circle"></i>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3>About Me</h3>
+
+                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
+                </div>
+            </div>
+            <div class="col-md-2 user-menu-btns"
+                 ng-include src='"partials/profile/profileLeftMenu.html"'>
+
+            </div>
+
+            <div class="col-md-10 user-menu user-pad" ng-controller="trending">
+                <h3 style="font-size: 1.5em">
+                    Recent activity
+                </h3>
+
+
+                <div class="col-md-12 trending-section" ng-repeat="post in myposts ">
+                    <div class="col-md-12 zero-padding-left-right">
+                        <div class="col-md-1">
+                            <img ng-src="{{imagePath+'image/show/'+post.user.profile_image.large_image_url}}"
+                                 alt=""
+                                 class="img-thumbnail"/>
+                        </div>
+                        <div class="col-md-2">
+                            <h4 style="padding: 0px 0px 5px 2px">{{post.user.firstname}}&nbsp;{{post.user.lastname}}
+                                <small> says...</small>
+                            </h4>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" ng-hide="loggedInUser != post.user.id"
+                                    id="sub-visibilities-type"
+                                    ng-options="visibility as visibility.type for visibility in visibilties"
+                                    ng-model="selectedVisibility"
+                                    ng-init="selectedVisibility = GetVisibilityOfWoice(post.visibility_id,visibilties)"
+                                    ng-change="UpdateWoiceVisibility(post,selectedVisibility)">
+                            </select>
+                        </div>
+                        <div class="times-ago col-md-2 col-md-offset-5 text-right">
+                            <h5>
+                                <time class="relative" without-suffix datetime="{{post.publish_date.date}}"></time>
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" ng-if="post.title != ''"><h4
+                            style="color: #4cb1ca; font-weight: 100; font-size: 1.2em; text-align:justify;">
+                        {{post.title}}</h4></div>
+
+                    <div class="col-md-12 friends-section" ng-if="post.images.length > 0" style="padding-left: 0px;">
+                        <ul class="row" style="padding-left: 0px">
+                            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"
+                                style="padding-left: 10px; padding-right: 10px; padding-top:10px "
+                                ng-repeat="image in post.images track by $index">
+                                <a href ng-click="openLightBox(post.images,$index)">
+                                    <center>
+                                        <div class="profile-img-crop">
+                                            <img ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
+                                                 alt="125x125">
+                                        </div>
+                                    </center>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--Brand and location div starts-->
+                    <!--Both Brand and location / show this div-->
+                    <div class="col-md-12 zero-padding-left-right reco-brand-section"
+                         ng-if="post.location != null && post.brand.id != 1">
+                        <div class="col-md-4">
+                            <img ng-src="{{imagePath+'image/show/'+ post.brand.image_name + '/24/24'}}"
+                                 alt=""
+                                 class="img-thumbnail"/>
+                            <span style="color:#eb9c38">{{post.brand.title}}</span>
+                        </div>
+                        <div class="col-md-6 col-md-offset-2 text-right">
+                            <p>
+                                Location: <b>{{post.location.locality}} , {{post.location.city}},
+                                {{post.location.state}}</b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Location only / show this div-->
+                    <div class="col-md-12 zero-padding-left-right reco-brand-section"
+                         ng-if="post.brand.id == 1 && post.location != null">
+                        <div class="col-md-6 col-md-offset-6 text-right">
+                            <p>
+                                Location: <b>{{post.location.locality}} , {{post.location.city}},
+                                {{post.location.state}}</b>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Brand only / show this div-->
+                    <div class="col-md-12 zero-padding-left-right reco-brand-section"
+                         ng-if="post.brand.id != 1 && post.brand != null && post.location == null">
+                        <div class="col-md-4">
+                            <img ng-src="{{imagePath+'image/show/'+ post.brand.image_name + '/24/24'}}"
+                                 alt=""
+                                 class="img-thumbnail"/>
+                            <span style="color:#eb9c38">{{post.brand.title}}</span>
+                        </div>
+                    </div>
+                    <!--Brand and location div Ends-->
+
+                    <div class="col-md-12 zero-padding-left-right" ng-if="post.description != ''">
+                        <div class="col-md-12">
+                            <p style="text-align:justify;">{{post.description}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+                        <div class="col-md-2" ng-if="post.price_range != ''">
+                            <p>
+                                Price: &#8377; <b>{{post.price_range}}</b>
+                            </p>
+                        </div>
+                        <div class="col-md-4 col-md-offset-6 text-right"
+                             ng-if="post.links.length > 0 && post.price_range != ''">
+                            <span class="fa fa-link"></span><a target="_blank" href="{{post.links[0].url_link}}"><b
+                                style="color: #4cb1ca;">
+                            read more</b></a>
+                        </div>
+                        <div class="col-md-4 col-md-offset-8 text-right"
+                             ng-if="post.links.length > 0 && post.price_range == ''">
+                            <span class="fa fa-link"></span><a target="_blank" href="{{post.links[0].url_link}}"><b
+                                style="color: #4cb1ca;">
+                            read more</b></a>
+                        </div>
+                    </div>
+                    <div class="col-md-12 reco-testimonial" ng-if="post.testimonial != ''" style="text-align:justify;">
+                        &#34;<i> {{post.testimonial}} </i>&#34;
+                    </div>
+                    <div class="col-md-12 no-right-pad">
+                        <div class="col-md-2 commentStyle">
+                            <span class="glyphicon glyphicon-comment"></span>
+            <span style="font-size: 12px;">{{post.commentsCount}} <a href
+                                                                     ng-click="LoadComments(post)">Comments</a></span>
+                        </div>
+                        <div class="col-md-2 col-md-offset-2 rating-back">
+                            <div class="ratingStyle text-center" ng-app="Duo">
+                                <bold style="font-size: 12px">Grade It :</bold><span duo-stars
+                                                                                     value="{{GetLevelsByUserId(post)}}"
+                                                                                     max="4"
+                                                                                     ng-click="UpdateLevels(stars,post)"
+                                                                                     data-ng-model="stars"></span>
+
+                                <p>
+                                    <small style="font-size: 12px" ng-if="post.avgGrade == ''">Average: 0 &nbsp;&nbsp;&nbsp;
+                                        Total:{{post.grades.length}}
+                                    </small>
+
+                                    <small style="font-size: 12px" ng-if="post.avgGrade > 0">Average: {{post.avgGrade}}
+                                        &nbsp;&nbsp;&nbsp;Total: {{post.grades.length}}
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-md-offset-2 rewoiceStyle">
+                            <span class="fa fa-share-square"></span>
+                <span style="font-size: 12px;">{{post.rewoicesCount}}
+                    <a href ng-click="AddRewoiceForRecentActivity(post)">Restream</a>
+                </span>
+                        </div>
+                        <div ng-if="post.post_type_id == 1" class="col-md-2 reco-tag">
+                            <bold style="font-size: 12px">Share/Ask</bold>
+                        </div>
+                        <div ng-if="post.post_type_id == 2" class="col-md-2 generic-tag">
+                            <bold style="font-size: 12px">I Recommend</bold>
+                        </div>
+                        <div ng-if="post.post_type_id == 3" class="col-md-2 finds-tag">
+                            <bold style="font-size: 12px">My Find</bold>
+                        </div>
+                        <div ng-if="post.post_type_id == 4" class="col-md-2 caution-tag">
+                            <bold style="font-size: 12px">Be Cautious</bold>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div ng-hide="myposts.length > 0" class="text-center" style="margin-top: 120px; color: #e50880;">
+                        <p>No recent activity</p>
+                    </div>
+                    <button class="btn btn-primary btn-block" href ng-class="nextPageDisabledClass()"
+                            ng-click="loadMore()" ng-show="myposts.length > 5">Load More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="leftProfilePicUploadTemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="profileCtrl">
+        <a type="file" name="image" class="btn btn-default" ngf-select ngf-change="onFileSelect($files)">Choose
+            Image</a>
+        <image-cropper image="{{image}}"
+                       dest-width="640"
+                       dest-height="480"
+                       show-controls="showControls"
+                       cropped-image="imageResult"
+        ></image-cropper>
+    </div>
+</script>
+
+<!--Left Cover Image-->
+<script type="text/ng-template" id="CropLeftImage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Left Cover Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Left Cover</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="LeftCoverImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<!--Bottom Cover Image-->
+<script type="text/ng-template" id="CropBottomImage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Bottom Cover Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Bottom Cover</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="BottomCoverImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<!--Right cover Image-->
+<script type="text/ng-template" id="CropRightImage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Right Cover Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Right Cover</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="RightCoverImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<!--Profile cover Image-->
+<script type="text/ng-template" id="EvezsiteImage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Profile Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Profile image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="UpdateEvezsiteImage()" class="btn btn-primary pull-right">Upload</a>
+            <br/>
+        </form>
+    </div>
+</script>

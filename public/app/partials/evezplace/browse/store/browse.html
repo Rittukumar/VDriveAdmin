@@ -1,0 +1,96 @@
+<div class="container">
+    <ul class="breadcrumb" style="background: transparent; padding-left: 0px">
+        <li><a href="#home">Home</a> <span class="divider"></span></li>
+        <li><a href="#evezplace">Evezplace</a></li>
+        <li class="active">Browse Stores</li>
+    </ul>
+
+    <div class="row" style="margin-bottom: 40px">
+        <div ng-include src='"partials/evezplace/browse/browse_store_menu.html"'
+             ng-controller="BrowseStoreMenuController"></div>
+
+        <div class="col-md-9 user-menu user-pad" ng-controller="BrowseStoreCtrl">
+
+            <div class="browse-items">
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-sm-12">
+                        <div class="input-group add-on">
+                            <div class="icon-addon addon-md">
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Search Store"
+                                       name="search-store"
+                                       ng-model="searchText"
+                                       id="search-store">
+                                <label for="search-store" class="fa fa-search" rel="tooltip" title="email"></label>
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default btn-popover"
+                                        ng-click="isAdvancedSearch = !isAdvancedSearch">
+                                    <i class="fa fa-caret-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <a style="color: #E50880; font-size: 12px; margin-top: 5px" href class="pull-right"
+                                   ng-click="isAdvancedSearch = !isAdvancedSearch">
+                                    advanced search
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-include src='"views/templates/store_search.html"' ng-if="isAdvancedSearch"></div>
+                <div class="row">
+                    <div class="col-md-6" ng-repeat="item in browseItems | filter:searchText">
+                        <div class="browse-item">
+                            <div class="store-browse-title">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <h5 style="padding: 10px">{{item.title}}</h5>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="#store/{{item.id}}" class="pull-right"
+                                           style="color: #ffffff; margin-top: 16px; margin-right: 5px">Explore Store
+                                            <span class="fa fa-chevron-right"></span></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="store-image-frame" ng-if="item.profile_images.large_image_url.length > 0">
+                                <img ng-src="{{item.profile_images.large_image_url}}" alt=""
+                                     style="width: 100%"/>
+                            </div>
+                            <div class="store-image-frame" ng-if="item.profile_images.large_image_url == ''">
+                                <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg"
+                                     alt="" style="width: 100%"/>
+                            </div>
+                            <div class="store-image-frame" ng-if="item.profile_images.large_image_url == null">
+                                <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg"
+                                     alt="" style="width: 100%"/>
+                            </div>
+                            <div class="store-browse-desc">
+                                <p>{{item.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <uib-pagination ng-show="browseItems.length > 0" total-items="storePagination.total"
+                                ng-model="currentStorePage"
+                                max-size="maxSize"
+                                class="pagination-custom pagination-sm pull-right"
+                                boundary-links="true"
+                                rotate="false"
+                                num-pages="numPages"
+                                ng-change="pageChanged()">
+                </uib-pagination>
+            </div>
+            <div class="empty-section text-center" ng-if="browseItems.length == 0">
+                <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                <h3 style="font-weight: 200">No stores exist under this category!</h3>
+            </div>
+        </div>
+    </div>
+</div>

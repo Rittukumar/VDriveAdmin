@@ -1,0 +1,18 @@
+<div class="create-browse-section" ng-controller="createBrowseController">
+    <div class="row" id="store-button-section" ng-if="!isClassified">
+        <div class="col-md-6">
+             <a href="#whatdoiget" id="btn-create-store" class="btn btn-block">Create Your {{storeType}} <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+        </div>
+        <div class="col-md-6">
+             <a href="#store/browse" id="btn-browse-store" class="btn btn-block">Browse Existing {{storeType}}s <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+        </div>
+    </div>
+    <div class="row" id="classifiedsButtonSection">
+        <div class="col-md-6">
+             <a href="#classifieds/create/step1" id="btn-create-classifieds" class="btn btn-block">Create Your Classifieds <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+        </div>
+        <div class="col-md-6">
+             <a href="#classifieds/browse" id="btn-browse-classifieds" class="btn btn-block">Browse Existing Classifieds <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+        </div>
+    </div>
+</div>

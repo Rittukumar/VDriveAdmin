@@ -1,0 +1,352 @@
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow switch" id="no-border-round" role="alert">
+    <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    
+        <h1 style="color: #e51385">Step 3</h1>
+
+        <p>Choose how you would like to use the classified, both on evezown.com and other social network sites. You can choose where you would like it steamed on evezown.com and on other social network sites. If you would like to receive enquiries, tick the enquiry button. Choose the kind of analytics you would like for your classified for eg., no of enquiries or grade it etc., You can choose one or more options.</p>
+</div>
+
+
+<div ng-include src='"partials/evezplace/create_classifieds_menu.html"' ng-controller="CreateClassifiedsCtrl"></div>
+
+<div class="create-store-section" ng-controller="CreateClassifiedsCtrl">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 style="color: #e51385">Choose Layout of Classifieds</h3>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label>Your Target Audience (send to)</label>
+            </div>
+            <div class="col-md-4">
+                <label>Your Personal Circles</label>
+            </div>
+        </div>
+    </div>
+    <form role="form"
+          name="customOptionsForm"
+          ng-submit="saveClassifiedsStep3()"
+          ng-fab-form-options="customFormOptions">
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isMyEves"
+                           name="isMyEves"
+                           ng-model="addClassified.step3.is_my_eves"
+                           ng-checked="addClassified.step3.is_my_eves"
+                           style="width: 16px; height: 16px"> <label
+                        for="isMyEves">My Eves</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isMyCircles"
+                           name="isMyCircles"
+                           value="isMyCircles"
+                           ng-model="addClassified.step3.is_my_circles"
+                           ng-checked="addClassified.step3.is_my_circles"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isMyCircles">My Circles</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isOnlyMe"
+                           name="isOnlyMe"
+                           value="isOnlyMe"
+                           ng-model="addClassified.step3.is_only_me"
+                           ng-checked="addClassified.step3.is_only_me"
+                           style="width: 16px; height: 16px"> <label
+                        for="isOnlyMe">Only Me</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-2">
+                    <input type="checkbox"
+                           id="isReccoItChannel"
+                           name="isReccoItChannel"
+                           value="isReccoItChannel"
+                           ng-model="addClassified.step3.is_recco_it_channel"
+                           ng-checked="addClassified.step3.is_recco_it_channel"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isReccoItChannel">Recco It Channel</label>
+                </div>
+                <div class="col-md-2">
+                    <a href="" class="btn btn-primary btn-sm btn-block">Subscribe to Recco It</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isOpenToPublic"
+                           name="isOpenToPublic"
+                           value="isOpenToPublic"
+                           ng-model="addClassified.step3.is_open_to_public"
+                           ng-checked="addClassified.step3.is_open_to_public"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isOpenToPublic">Open to Public</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label>Add Enquiry Button</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox"
+                           id="isAddEnquiryButton"
+                           name="isAddEnquiryButton"
+                           value="isAddEnquiryButton"
+                           ng-model="addClassified.step3.is_add_enquiry"
+                           ng-checked="addClassified.step3.is_add_enquiry"
+                           style="width: 16px; height: 16px">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label>Promote to other sites</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox"
+                           id="isFacebook"
+                           name="isFacebook"
+                           value="isFacebook"
+                           ng-model="addClassified.step3.is_facebook_share"
+                           ng-checked="addClassified.step3.is_facebook_share"
+                           style="width: 16px; height: 16px"> <label
+                        for="isFacebook">Facebook</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isWhatsApp"
+                           name="isWhatsApp"
+                           value="isWhatsApp"
+                           ng-model="addClassified.step3.is_watsapp_share"
+                           ng-checked="addClassified.step3.is_watsapp_share"
+                           style="width: 16px; height: 16px"> <label
+                        for="isWhatsApp">What's App</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isGooglePlus"
+                           name="isGooglePlus"
+                           value="isGooglePlus"
+                           ng-model="addClassified.step3.is_googleplus_share"
+                           ng-checked="addClassified.step3.is_googleplus_share"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isGooglePlus">Google Plus</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isTwitter"
+                           name="isTwitter"
+                           value="isTwitter"
+                           ng-model="addClassified.step3.is_twitter_share"
+                           ng-checked="addClassified.step3.is_twitter_share"
+                           style="width: 16px; height: 16px"> <label
+                        for="isTwitter">Twitter</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isDirectMessages"
+                           name="isDirectMessages"
+                           value="isDirectMessages"
+                           ng-model="addClassified.step3.is_direct_message_share"
+                           ng-checked="addClassified.step3.is_direct_message_share"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isTwitter">Direct Messages (SMS)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isGmail"
+                           name="isGmail"
+                           value="isGmail"
+                           ng-model="addClassified.step3.is_gmail_share"
+                           ng-checked="addClassified.step3.is_gmail_share"
+                           style="width: 16px; height: 16px"> <label
+                        for="isGmail">Gmail</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isLinkedIn"
+                           name="isLinkedIn"
+                           value="isLinkedIn"
+                           ng-model="addClassified.step3.is_linkedin_share"
+                           ng-checked="addClassified.step3.is_linkedin_share"
+                           style="width: 16px; height: 16px"> <label
+                        for="isLinkedIn">Linked In</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isEmail"
+                           name="isEmail"
+                           value="isEmail"
+                           ng-model="addClassified.step3.is_email_share"
+                           ng-checked="addClassified.step3.is_email_share"
+                           style="width: 16px; height: 16px"> <label
+                        for="isEmail">Email</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label>Choose Analytics Reports</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox"
+                           id="isNoOfViews"
+                           name="isNoOfViews"
+                           value="isNoOfViews"
+                           ng-model="addClassified.step3.is_views_analytics"
+                           ng-checked="addClassified.step3.is_views_analytics"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isNoOfViews">No. of Views</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isNoOfEnquires"
+                           name="isNoOfEnquires"
+                           value="isNoOfEnquires"
+                           ng-model="addClassified.step3.is_enquires_analytics"
+                           ng-checked="addClassified.step3.is_enquires_analytics"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isNoOfEnquires">No. of Enquiries</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isNoOfSends"
+                           name="isNoOfSends"
+                           value="isNoOfSends"
+                           ng-model="addClassified.step3.is_sends_analytics"
+                           ng-checked="addClassified.step3.is_sends_analytics"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isNoOfSends">No. of Sends</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="checkbox"
+                           id="isNoOfGradeIt"
+                           name="isNoOfGradeIt"
+                           value="isNoOfGradeIt"
+                           ng-model="addClassified.step3.is_gradeit_analytics"
+                           ng-checked="addClassified.step3.is_gradeit_analytics"
+                           style="width: 16px; height: 16px">
+                    <label
+                            for="isNoOfGradeIt">No. of Grade It</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <label>Do you want visibility of summary on classified page</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox"
+                           id="isVisibilityOfSummaryOnClassified"
+                           name="isVisibilityOfSummaryOnClassified"
+                           value="isVisibilityOfSummaryOnClassified"
+                           ng-model="addClassified.step3.is_visibility_summary_analytics"
+                           ng-checked="addClassified.step3.is_visibility_summary_analytics"
+                           style="width: 16px; height: 16px">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px">
+            <div class="col-md-4 col-md-offset-2">
+                <a href="" class="btn btn-primary btn-lg btn-block">Preview Classified</a>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color: #e50880">
+                    <i class="fa fa-arrow-right"></i> Finish
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,118 @@
+<ul class="breadcrumb" ng-controller="activity">
+    <li><a href="#home">Home</a></li>
+    <li ng-if="!isFromProfile"><a href="#groups/{{selectedActivity.group_id}}">Groups</a></li>
+    <li ng-if="isFromProfile"><a href="#groups/{{selectedActivity.group_id}}/{{currentUserId}}">Groups</a></li>
+</ul>
+<div class="col-md-12 trending-section" ng-controller="activity">
+    <div class="col-md-12 zero-padding-left-right">
+
+        <div class="col-md-6">
+            <h5>{{selectedActivity.user_profile.firstname}}&nbsp;{{selectedActivity.user_profile.lastname}}
+            </h5>
+        </div>
+        <div class="times-ago col-md-2 col-md-offset-4 text-right">
+            <h5><time class="relative" without-suffix datetime="{{selectedActivity.updated_date.date}}"></time></h5>
+        </div>
+    </div>
+
+    <div class="col-md-12 friends-section" ng-if="selectedActivity.images.length > 0" style="padding-left: 0px;">
+        <ul class="row" style="padding-left: 0px">
+            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 10px; padding-right: 10px; padding-top:10px " ng-repeat="image in selectedActivity.images track by $index">
+                <a href ng-click="openLightBox(selectedActivity.images,$index)">
+                    <center>
+                        <div class="profile-img-crop">
+                            <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                     alt="125x125">
+                        </div>
+                    </center>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-4" ng-if="selectedActivity.title != ''">
+            <h4>{{selectedActivity.title}}
+            </h4>
+        </div>
+    </div>
+    <div class="col-md-12 reco-testimonial" ng-if="selectedActivity.description != ''" style="text-align:justify;">
+        <i class="fa fa-quote-left"></i><i> {{selectedActivity.description}}</i><i class="fa fa-quote-right"></i>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-4 col-md-offset-8 text-right" ng-if="selectedActivity.links.length > 0">
+            <span class="fa fa-link"></span><a href="{{selectedActivity.links[0]}}"><b style="color: #4cb1ca;">
+            selectedActivity.links[0]</b></a>
+        </div>
+    </div>
+    <div class="col-md-12 no-right-pad">
+        <div class="col-md-2 commentStyle">
+            <!--<span class="glyphicon glyphicon-comment"></span>-->
+            <span style="font-size: 12px; font-weight: bold">Comments ({{selectedActivity.comments.length}})</span>
+        </div>
+        <div class="col-md-7" style="padding-top: 20px;padding-bottom:10px;">
+            <div class="col-md-3" style="padding-top: 20px;">
+                <bold style="font-size: 12px">Grade It</bold>
+            </div>
+            <div class="col-md-4 rating-back">
+                <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars max="4"
+                      ng-model="groupActivityGrade" ng-click="UpdateGroupActivityGrade(groupActivityGrade,selectedActivity.id)"></span>
+                    <p>
+                        <small style="font-size: 12px">Current {{groupActivityGrade}} Levels</small>
+                    </p>
+                </div>
+                <!--<div class="text-center" ng-app="Duo" ng-if="selectedAlbum.grades.length == 0">-->
+                <!--<span duo-stars value="0" max="4"-->
+                <!--data-ng-model="stars" ng-click="UpdateAlbumGrade(stars,selectedAlbum.id)"></span>-->
+                <!--<p>-->
+                <!--<small style="font-size: 12px">Current {{stars}} Levels</small>-->
+                <!--</p>-->
+                <!--</div>-->
+            </div>
+            <!--</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+</div>
+<div class="custom-group-activities-comments" ng-controller="activity">
+<div class="col-md-12 commentLoadSection" ng-repeat="comment in selectedActivity.comments">
+    <div class="col-md-12">
+        <div class="row" >
+            <div class="col-md-12 deleteSection">
+                <a href ng-click="DeleteClick(comment)"><span ng-if="comment.profile.user_id == currentUserId" style="color:#E50880;">X</span></a>
+                <a href><span ng-if="comment.profile.user_id != currentUserId">.</span></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 commentdetailsSection">
+                <img ng-src="{{service_url+'image/show/'+comment.profile.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>
+            </div>
+            <div class="col-md-9 zero-padding-left-right commentdetailsSection">
+                <h5>{{comment.profile.firstname}}&nbsp;{{comment.profile.lastname}}
+                    <small> says...</small>
+                </h5>
+            </div>
+            <div class="times-ago1 custom-activities-times col-md-2 text-right">
+                <h5><time class="relative" without-suffix datetime="{{comment.updated_at}}"></time></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 zero-padding-left-right commentvalues" ng-if="comment.comment != ''">
+                <div class="col-md-12">
+                    <p>{{comment.comment}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row custom-group-activities-add-comment" class="col-md-12" ng-controller="activity">
+    <div class="col-md-10 commentSection">
+        <textarea class="form-control" rows="2" placeholder="Add comment?"  data-ng-model="addedcomment"/>
+    </div>
+    <div class="col-md-2 commentSection">
+        <a href class="btn btn-primary btn-block" id="btn-comment" ng-click="CreateComment(selectedActivity.id)">Add Comment</a>
+    </div>
+</div>

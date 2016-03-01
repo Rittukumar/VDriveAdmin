@@ -1,0 +1,30 @@
+<div class="create-store-section text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <h5 style="color: #e51385; font-weight: 700; font-size: 2.0em; margin-bottom: 20px">You have placed the order successfully.</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span class="fa-stack fa-lg fa-4x">
+              <i class="fa fa-circle fa-stack-2x" style="color: #ffffff"></i>
+              <i class="fa fa-check fa-stack-1x fa-inverse" style="color: #009966"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="padding: 20px 80px">
+            <p style="font-weight: 400; font-size: 1.2em">Store will contact you soon</p>
+            <p style="font-weight: 400; font-size: 1.2em">Transaction code are as follows:</p>
+            <p style="font-weight: 600; color: #e51385 ;font-size: 1.4em" ng-repeat="transactionId in transactions track by $index">{{transactionId}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <a href="#store/browse" class="btn btn-primary btn-lg">Back to Evezplace</a>
+        </div>
+    </div>
+
+</div>

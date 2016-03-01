@@ -1,0 +1,147 @@
+<div class="col-md-12 trending-section" ng-controller="trending">
+    <div class="col-md-12 zero-padding-left-right">
+        <div class="col-md-1">
+            <img ng-src="{{imagePath+'image/show/'+post.user.profile_image.large_image_url}}"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div>
+        <div class="col-md-2">
+            <h5>{{post.user.firstname}}&nbsp;{{post.user.lastname}}
+                <small> says...</small>
+            </h5>
+        </div>
+        <div class="col-md-2">
+            <!--<select class="form-control" id="sub-visibilities-type" ng-options="visibility as visibility.type for visibility in visibilties" data-ng-model = "selectedVisibility">-->
+
+            <!--</select>-->
+        </div>
+        <div class="times-ago col-md-2 col-md-offset-5 text-right">
+            <h5><time class="relative" without-suffix datetime="{{post.publish_date.date}}"></time></h5>
+        </div>
+    </div>
+    <div ng-if="post.images.length > 0"  class="col-xs-12 spec center-block reco-image-gallery">
+        <div class="col-xs-3 reco-image" ng-repeat="image in post.images | limitTo:4">
+            <a ng-click="openLightBox(post.images,$index)" class="thumbnail">
+                <img ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
+                     alt="125x125">
+            </a>
+        </div>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <!-- <div class="col-md-1 reco-brand-logo">
+            <img ng-src="http://cdn2.blisstree.com/wp-content/uploads/2014/03/47-Brand-Logo.png"
+                 alt=""
+                 class="img-thumbnail"/>
+        </div> -->
+        <div class="col-md-4" ng-if="post.title != ''">
+            <h5>{{post.title}}
+            </h5>
+        </div>
+        <div class="col-md-4 col-md-offset-4 text-right" ng-if="post.location != Null">
+            <p>
+                Location: <b>{{post.location.locality}} , {{post.location.city}},
+                {{post.location.state}}</b>
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12 reco-testimonial" ng-if="post.testimonial != ''">
+        <i class="fa fa-quote-left"></i><i> {{post.testimonial}}</i><i class="fa fa-quote-right"></i>
+
+    </div>
+    <div class="col-md-12 zero-padding-left-right reco-brand-section">
+        <div class="col-md-2" ng-if="post.price_range != ''">
+            <p>
+                Price: <b>{{post.price_range}}</b>
+            </p>
+        </div>
+        <div class="col-md-4 col-md-offset-8 text-right">
+            <span class="fa fa-link"></span><a target="_blank" href="{{post.links[0].url_link}}" style="text-decoration:none;"><b style="color: #4cb1ca;">
+            read more</b></a>
+        </div>
+    </div>
+    <div class="col-md-12 zero-padding-left-right" ng-if="post.description != ''">
+        <div class="col-md-12">
+            <p>{{post.description}}</p>
+        </div>
+    </div>
+    <div class="col-md-12 no-right-pad">
+        <div class="col-md-2 commentStyle">
+            <span class="glyphicon glyphicon-comment"></span>
+            <span style="font-size: 12px;">{{commentsCount}} Comments</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1 " style="padding-top: 20px;">
+            <bold style="font-size: 12px">Grade It</bold>
+        </div>
+    <div>
+        <div class="col-md-2 rating-back">
+            <div class="ratingStyle text-center" ng-app="Duo">
+                <span duo-stars value="{{GetLevelsByUserId(post)}}" max="5" ng-click="UpdateLevels(stars,post)" data-ng-model="stars"></span>
+                <p>
+                    <small style="font-size: 12px" ng-if="post.avgGrade == null">Current 0 Levels</small>
+                    <small style="font-size: 12px" ng-if="post.avgGrade > 0">Current {{post.avgGrade}} Levels</small>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-2 col-md-offset-2 rewoiceStyle">
+            <span class="fa fa-share-square"></span>
+            <span style="font-size: 12px;">{{post.rewoicesCount}} <a href ng-click="AddRewoice(post)">Rewoices</a></span>
+        </div>
+    </div>
+        <div ng-if="post.post_type_id == 1" class="col-md-2 reco-tag">
+            <bold style="font-size: 12px">Share / Ask</bold>
+        </div>
+        <div ng-if="post.post_type_id == 2" class="col-md-2 generic-tag">
+            <bold style="font-size: 12px">Spread the word</bold>
+        </div>
+        <div ng-if="post.post_type_id == 3" class="col-md-2 finds-tag">
+            <bold style="font-size: 12px">my finds</bold>
+        </div>
+        <div ng-if="post.post_type_id == 4" class="col-md-2 caution-tag">
+            <bold style="font-size: 12px">Be careful</bold>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 commentLoadSection" ng-repeat="comment in comments">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12 deleteSection">
+                <a href ng-click="DeleteClick(comment.comment)" style="color:#E50880;">X</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 commentdetailsSection">
+                <img ng-src="{{imagePath+'image/show/'+post.user.profile_image.large_image_url}}"
+                     alt=""
+                     class="img-thumbnail"/>
+            </div>
+            <div class="col-md-9 zero-padding-left-right commentdetailsSection">
+                    <h5>{{comment.user.firstname}}&nbsp;{{comment.user.lastname}}
+                        <small> says...</small>
+                    </h5>
+            </div>
+            <div class="times-ago1 col-md-2 text-right">
+                    <h5><time class="relative" without-suffix datetime="{{comment.comment.created_at}}"></time></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 zero-padding-left-right commentvalues" ng-if="comment.comment.comment != ''">
+                <div class="col-md-12">
+                    <p>{{comment.comment.comment;}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</div>
+
+<div class="row" class="col-md-12 ">
+<div class="col-md-10 commentSection">
+    <textarea class="form-control" rows="2" placeholder="Add comment?"  data-ng-model="addedcomment"/>
+</div>
+<div class="col-md-2 commentSection">
+    <a href class="btn btn-primary btn-block" id="btn-comment" ng-click="CreateComment()">Add Comment</a>
+</div>
+</div>

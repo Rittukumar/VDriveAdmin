@@ -1,0 +1,282 @@
+<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#admin/store">Admin</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<div ng-include src='"partials/admin/Manage/manage_store_left_menu.html"'></div>
+
+<!--Description starts-->
+<div class="col-sm-9 jumbotron alert alert-dismissible inner-jumbotron shadow"  id="no-border-round" role="alert" style="padding:0px 28px 10px 16px;font-size:12px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Store Front</h1>
+
+    <p style="text-align:justify;font-size:16px;">You can edit the Store Front here. You can remove, change pictures, edit the store title and description. You can change the category or sub-category of your store listing. Paid stores can change key words provided for searching the stores. Click on Save after edit the information.
+    </p>
+</div>
+<!--Description Ends-->
+<div class="col-sm-9">
+
+    <div class="row">
+
+        <div class="create-store-section" ng-controller="CreateStoreController">
+            <div class="row">
+                <div class="col-md-9 col-md-offset-1">
+                    <h4 style="color: #e51385">Improve your Store Front</h4>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-5">
+                        <label for="storeTitle">Store title/Name plus byline</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" placeholder="Store Title" class="form-control" id="storeTitle" name="storeTitle"
+                               ng-model="formData.storeTitle">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-5">
+                        <label for="collagePic1">Upload Collage Pictures - 3 pictures *</label>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="fileUpload btn btn-primary">
+                            <span><i class="fa fa-camera"></i> Select photos</span>
+                            <input type="file" class="upload" id="collagePic1" name="collagePic1" nv-file-select="" uploader="uploader1"
+                                   single/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="uploader1.queue.length > 0">
+                    <!-- Image upload queue section start -->
+                    <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" id="upload-cover3-bar"
+                             ng-style="{ 'width': uploader1.progress + '%' }"></div>
+                    </div>
+                    <!-- Image upload queue section end -->
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="form-group">
+                    <div class="col-md-offset-6 col-md-5">
+                        <div class="fileUpload btn btn-primary">
+                            <span><i class="fa fa-camera"></i> Select photos</span>
+                            <input type="file" class="upload" name="collagePic2" nv-file-select="" uploader="uploader2"
+                                   single/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="uploader2.queue.length > 0">
+                    <!-- Image upload queue section start -->
+                    <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" id="upload-cover4-bar"
+                             ng-style="{ 'width': uploader2.progress + '%' }"></div>
+                    </div>
+                    <!-- Image upload queue section end -->
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="form-group">
+                    <div class="col-md-offset-6 col-md-5">
+                        <div class="fileUpload btn btn-primary">
+                            <span><i class="fa fa-camera"></i> Select photos</span>
+                            <input type="file" class="upload" name="collagePic3" nv-file-select="" uploader="uploader3"
+                                   single/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="uploader3.queue.length > 0">
+                    <!-- Image upload queue section start -->
+                    <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" id="upload-cover4-bar"
+                             ng-style="{ 'width': uploader3.progress + '%' }"></div>
+                    </div>
+                    <!-- Image upload queue section end -->
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 15px; margin-bottom: 15px">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-5">
+                        <label for="storeProfilePic">Upload Profile - shop logo/picture *</label>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="fileUpload btn btn-primary">
+                            <span><i class="fa fa-camera"></i> Select photos</span>
+                            <input type="file" class="upload" id="storeProfilePic" name="storeProfilePic" nv-file-select="" ng-model="formData.storeProfilePic" uploader="uploader"
+                                   single/>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="uploader.queue.length > 0">
+                    <!-- Image upload queue section start -->
+                    <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" id="upload-cover4-bar"
+                             ng-style="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                    <!-- Image upload queue section end -->
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+
+                    <div class="col-md-offset-1 col-md-5">
+                        <label for="storeAboutUs">Store Description</label>
+                    </div>
+                    <div class="col-md-5">
+                        <p>About Us</p>
+                        <textarea rows="4" placeholder="About Us" class="form-control" id="storeAboutUs" name="storeAboutUs"
+                                  ng-model="formData.storeAboutUs"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--<div class="row" style="margin-top: 10px; margin-bottom: 10px">-->
+            <!--<div class="form-group">-->
+            <!--<div class="col-md-5 col-md-offset-6">-->
+            <!--<input type="text" placeholder="Owner's Info" class="form-control" id="storeOwnerInfo"-->
+            <!--name="storeOwnerInfo"-->
+            <!--ng-model="formData.storeOwnerInfo">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <p>Target Audience</p>
+                        <textarea rows="4" placeholder="Target Audience" class="form-control" id="storeTargetAudience"
+                                  name="storeTargetAudience"
+                                  ng-model="formData.storeTargetAudience"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <p>Offerings</p>
+                        <textarea rows="4"  placeholder="Offerings" class="form-control" id="storeOfferings"
+                                  name="storeOfferings"
+                                  ng-model="formData.storeOfferings"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <p>Motto</p>
+                        <textarea rows="4" placeholder="Motto" class="form-control" id="storeMotto" name="storeMotto"
+                                  ng-model="formData.storeMotto"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <p>Vision</p>
+                        <textarea rows="4" placeholder="Vision" class="form-control" id="storeVision" name="storeVision"
+                                  ng-model="formData.storeVision"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <p>Purpose</p>
+                        <textarea rows="4" placeholder="Purpose" class="form-control" id="storePurpose" name="storePurpose"
+                                  ng-model="formData.storePurpose"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-9 col-md-offset-1">
+                    <h4 style="color: #e51385;">Improve Searchability</h4>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-5">
+                        <label for="storeType">Listing Information</label>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="form-control" id="storeType"
+                                ng-options="listing as listing.name for listing in storeListing"
+                                ng-model="selectedStoreListing" default-option="Choose Store Type">
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <select class="form-control" id="storeCategory"
+                                ng-options="category as category.category_name for category in categories"
+                                ng-model="selectedOption" ng-change="GetSubCategories()" default-option="Choose Category">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <select class="form-control" id="storeSubCategory"
+                                ng-options="subcategory as subcategory.subcategory_name for subcategory in subcategories"
+                                ng-model="selectedSubCategory" default-option="Choose Subcategory">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-5 col-md-offset-6">
+                        <input type="text" placeholder="Select City" class="form-control" id="storeCity" name="storeCity"
+                               ng-model="formData.storeCity">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-5">
+                        <label for="storeTitle">Keyword attach (Paid Store Fronts only)</label>
+                    </div>
+                    <div class="col-md-5">
+                        <tags-input ng-model="tags">
+                            <auto-complete source="loadTags($query)"></auto-complete>
+                        </tags-input>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 40px">
+                <div class="col-md-3 col-md-offset-6">
+                    <a href="#store/{{currentStoreId}}" class="btn btn-primary btn-block"><span class="fa fa-eye"></span> Preview Store</a>
+                </div>
+                <div class="col-md-2">
+                    <a href ng-click="EditStoreStep3(formData)" class="btn btn-primary btn-block">Save</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

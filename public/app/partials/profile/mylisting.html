@@ -1,0 +1,179 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
+            </li>
+            
+            <li>
+                <a href="#mylisting/{{userId}}" class="{{isActive[1]}}" ng-class="{ active: isActive('/mylisting/{{userId}}')}">Classifieds</a>
+            </li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"  id="search">Search&nbsp;
+                <span class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="col-md-12" ng-controller="profileCtrl">
+    <div class="row user-menu-container square">
+        <div class="row cover-section custom-profile-covers">
+            <div class="col-md-4 small-cover-pic">
+                <div class="small-cover-pic-top">
+                    <div>
+                        <img ng-src="{{leftCoverImage}}" src="http://placehold.it/393x220"
+                             class="img-responsive thumbnail"/>
+                        <!--<img ng-src="http://www.turquoiseandgold.com/images/store_bng1.jpg" class="img-responsive" alt=""/>-->
+                    </div>
+                </div>
+                <div class="small-cover-pic-bottom">
+                    <img ng-src="{{bottomCoverImage}}" src="http://placehold.it/393x220"
+                         class="img-responsive thumbnail"/>
+                    <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
+                    <!--class="img-responsive" alt=""/>-->
+                </div>
+            </div>
+            <div class="col-md-8 large-cover-pic custom-user-right-coverpic">
+                <img ng-src="{{rightCoverImage}}" src="http://placehold.it/803x452"
+                     class="img-responsive thumbnail"/>
+                <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
+                <!--class="img-responsive" alt=""/>-->
+                <!--<button class="btn btn-primary btn-sm btn-cover-pic-left"><span class="fa fa-camera"></span> Change Pic-->
+                <!--</button>-->
+
+            </div>
+        </div>
+        <div class="col-md-12 user-details">
+            <div class="row coralbg white custom-profile-userpic">
+                <div class="col-md-3 top-margin">
+                    <div class="user-image biothumb">
+                        <img ng-src="{{currentProfileImage}}" src="http://placehold.it/300x450"
+                             class="img-responsive thumbnail" />
+                    </div>
+                </div>
+
+
+                <div class="col-md-9 no-pad">
+                    <div class="user-pad-profile">
+                        <!--name-->
+                        <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
+                        <!--Location-->
+                        <div ng-hide="city == '' || country =='' || city == null || country == null">
+                            <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{locationDetails}}</h4>
+                        </div>
+                        <!--job and company-->
+                        <div ng-hide="designation == '' || organization =='' || designation == null || organization == null">
+                            <h4 style="text-transform: capitalize;">
+                                <i class="fa fa-briefcase"></i> {{designation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{organization}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href ng-controller="community">
+                                <div class="col-md-2  well text-center" id="user-profile">
+                                    <h3>{{friendList.length}}</h3>
+                                    <h4>Eves</h4>
+                                </div>
+                            </a>
+
+                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="circles">
+                                <h3>{{myCircles.length}}</h3>
+                                <h4>Circles</h4>
+                            </div>
+                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="eventCtrl">
+                                <h3>{{myEvents.length}}</h3>
+                                <h4>Events</h4>
+                            </div>
+                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="blogCntrl">
+                                <h3>{{myBlogs.length}}</h3>
+                                <h4>Blogs</h4>
+                            </div>
+                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="albums">
+                                <h3>{{myAlbums.length}}</h3>
+                                <h4>Albums</h4>
+                            </div>
+                            <div class="col-md-2  well text-center" id="user-more">
+                                <h3><i class="fa fa-circle"></i>
+                                    <i class="fa fa-circle"></i>
+                                    <i class="fa fa-circle"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3>About Me</h3>
+
+                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
+            
+        </div>
+        <div class="col-md-10 user-menu user-pad">
+            <div class="col-md-12 panel-heading">
+
+            </div>
+            <div class="col-md-12">
+                <div class="row" style="margin-bottom: 40px">
+                    <div class="col-md-12 user-menu user-pad" ng-controller="classifiedProfileCtrl">
+                        <div class="empty-section text-center" ng-if="browseItems.length == 0">
+                            <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                            <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
+                        </div>
+                        <div class="browse-items">
+                            <div class="row">
+                                <div class="col-md-12" ng-repeat="item in browseItems">
+                                    <div class="browse-item">
+                                        <div class="store-browse-title">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <a href="#classifieds/{{item.id}}"  style="color: #ffffff;"><h5 style="padding: 10px">{{item.title}}</h5></a>
+                                                </div>
+                                                <div class="col-xs-6" ng-if="currentUserId == loggedInUserId">
+                                                    <a href="#classified/{{item.id}}/manage/classified_type" class="pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">Manage Classifieds<span class="fa fa-chevron-right"></span></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="store-image-frame">
+                                            <img ng-src="{{ImageUrlPath}}{{item.images[0].title_image_name}}" alt="" style="width: 100%"/>
+                                        </div>
+                                        <div class="store-browse-desc">
+                                            <p>{{item.description}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

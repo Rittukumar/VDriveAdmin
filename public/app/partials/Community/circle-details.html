@@ -1,0 +1,167 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}">Evezsite</a>
+            </li>
+            <li><a class="active" href="#circles">Circles</a></li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced" id="search">Search&nbsp;
+                <span class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+
+<ul class="breadcrumb">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#circles">Circles</a></li>
+</ul>
+<div ng-controller="circles">
+    <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px">
+        <div class="col-md-12 panel-heading custom-circles">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <h4>
+                    {{ selectedCircle.title }} ({{selectedCircle.friends.length}})
+                </h4>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-4">
+                <input type="text" class="form-control" placeholder="search friends" ng-model="friendsearch"/>
+            </div>
+            <div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-2">
+                <!--<a href="/circle/friends/add" class="btn btn-primary"><span class="fa fa-plus"></span> add members</a>-->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-9 user-menu user-pad">
+        <div class="col-md-12 eve-panel-body" style="padding: 5px" ng-if="selectedCircle.user_id ==loggedInUserId">
+            <div class="row">
+                <div class="col-md-3" ng-if="selectedCircle.user_id ==loggedInUserId">
+                    <a href class="btn btn-link" ng-click="EditCircle()"><i class="fa fa-pencil"></i> edit circle</a>
+                </div>
+                <div class="col-md-3"  ng-if="selectedCircle.user_id ==loggedInUserId">
+                    <a href class="btn btn-link" ng-click="EditCircle()"><i class="glyphicon glyphicon-tag" ng-model="showVisibility">Visibility : {{showVisibility.type}}</i></a>
+
+                </div>
+                <div class="col-md-3">
+                    <!--<a class="btn btn-link text-center"><i class="fa fa-envelope-o"></i> message attendees</a>-->
+                </div>
+                <div class="col-md-3 custom-delete-circle-button" ng-if="selectedCircle.user_id ==loggedInUserId">
+                    <a class="btn btn-link pull-right" style="color: darkred" ng-click="DeleteCircle(selectedCircle)"><i class="fa fa-trash-o"></i> delete circle</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-center custom-no-friends" style="background: #e6e4e4; height: 100px"
+             ng-if="selectedCircle.friends.length == 0">
+            <h4 style="margin-top: 50px; color: #444444">Circle don't have any friends</h4>
+            <!--<a href="#friends/invite" class="btn btn-primary" style="font-size: 20px; border-radius: 5px; margin-top: 20px">-->
+            <!--<span class="fa fa-plus"></span> Invite Eves Now-->
+            <!--</a>-->
+        </div>
+        <div class="col-md-12 friends-section custom-friends-circle" ng-if="selectedCircle.friends.length > 0" style="padding-left: 0px;">
+            <ul class="row" style="padding-left: 0px">
+                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"
+                    style="padding-left: 10px; padding-right: 10px; padding-top:10px "
+                    ng-repeat="friend in selectedCircle.friends | filter:friendsearch | orderBy:'firstname':true">
+                    <a href="#profile/{{friend.friend_user_id}}">
+                        <center>
+                            <div class="profile-img-crop">
+                                <img ng-src="{{service_url+'image/show/'+friend.profile.profile_image.large_image_url}}"
+                                     class="img-thumbnail"/>
+
+                            </div>
+                            <h5>{{friend.profile.firstname}} {{friend.profile.lastname}}<a href ng-click="DeleteFriendFromCircle(selectedCircle,friend.friend_user_id)">
+                                (X) </a></h5>
+                        </center>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-3 custom-add-friends-circle" style="padding-right: 0px">
+        <!-- Search members -->
+        <div class="panel" style="background: #f7f7f7;">
+            <div style="background: #2d9db8; padding: 8px">
+                <p style="color: #ffffff; margin-bottom: 0px">Add friends to circle</p>
+            </div>
+            <div class="panel-heading">
+                <div class="form-group has-feedback" style="margin-bottom: 0px">
+                    <input type="text" placeholder="Search friends" ng-model="queryMembers" class="form-control"
+                           id="inputSuccess2"/>
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                </div>
+            </div>
+            <ul class="list-group"
+                ng-repeat="member in friendList | limitTo:5 | filter:queryMembers | orderBy:'firstname':true">
+                <li class="list-group-item col-sm-12">
+                    <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
+                        <a href="#profile/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                                                              class="img-thumbnail" style="width: 32px; height: 32px"
+                                                              alt=""/> {{member.profile.firstname}}, {{member.profile.lastname}}</a>
+                    </div>
+                    <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px">
+                        <a href ng-click="AddFriendsToCircle(member)" class="btn btn-link btn-sm"><span
+                                class="fa fa-check"></span> Add</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="panel-footer" style="min-height: 200px">
+                <div class="row">
+                    <div class="col-md-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/ng-template" id="EdittemplateId">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="circles">
+        <h4>Edit Circle</h4>
+        <input class="form-control" type="text" placeholder="Circle Title"
+               id="circle" ng-model="selectedCircle.title" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="12"/>
+        <textarea class="form-control" rows="4" placeholder="Circle Description (optional)"
+                  ng-model="selectedCircle.description" maxlength="255"/>
+        <div class="col-sm-12" >
+            <h5>Visibility Settings</h5>
+            <select class="form-control" id="sub-visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility" style="margin-top: 10px; margin-bottom: 10px; height: 50px; font-size: 18px">
+
+            </select>
+        </div>
+        <button class="btn primary pull-right form-control" type="button" ng-click="UpdateCircle(selectedCircle)">Save</button>
+    </div>
+</script>

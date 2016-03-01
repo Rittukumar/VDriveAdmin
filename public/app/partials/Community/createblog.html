@@ -1,0 +1,124 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#profile/{{userId}}" >Evezsite</a>
+            </li>
+            <li ><a href="#myblogs/{{userId}}" class="{{isActive[1]}}">Blogs</a>
+            </li>
+            <li ng-class="{ active: isActive('/explore')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+
+<ul class="breadcrumb">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#myblogs/{{userId}}">Blogs</a></li>
+</ul>
+<div ng-controller="blogCntrl">
+<div class="col-md-12">
+<div class="row" style="padding-bottom: 10px">
+<div class="col-md-2">
+    <label for="category-type">choose category?</label>
+</div>
+<div class="col-md-2">
+    <select class="form-control" id="category-type"
+            ng-options="category as category.category_name for category in categories"
+            ng-change="GetSubCategories()" data-ng-model="selectedOption">
+    </select>
+</div>
+</div>
+<div class="row"  style="padding-bottom: 10px">
+<div class="col-md-2">
+    <label for="sub-category-type">choose sub category?</label>
+</div>
+<div class="col-md-2">
+    <select class="form-control" id="sub-category-type"
+            ng-options="subcategory as subcategory.subcategory_name for subcategory in subcategories"
+            data-ng-model="selectedsubcategories" ng-change="ReloadBrand()">
+    </select>
+</div>
+</div>
+<div class="row"  style="padding-bottom: 10px">
+     <div class="col-md-2">
+        <label for="visibility-type">visibility settings</label>
+     </div>
+     <div class="col-md-2">
+        <select class="form-control" id="visibility-type"
+                    ng-options="visibility as visibility.type for visibility in visibilties"
+                    data-ng-model="selectedVisibility">
+
+       </select>
+    </div>
+</div>
+
+
+
+    <!--<div class="col-sm-12">-->
+        <!--<h5>Visibility Settings</h5>-->
+        <!--<select class="form-control" id="sub-visibility-type"-->
+                <!--ng-options="visibility as visibility.type for visibility in visibilties"-->
+                <!--data-ng-model="selectedVisibility" style="margin-top: 10px; height: 50px; font-size: 18px">-->
+
+        <!--</select>-->
+    <!--</div>-->
+    <div class="row"  style="padding-bottom: 10px">
+        <div class="col-md-12">
+            <input class="form-control" type="text" placeholder="Title"
+               id="title" maxlength="255" ng-model="title" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+            <span class="pull-right">{{255 - title.length}}</span>
+        </div>
+    </div>
+
+    <div class="row"  style="padding-bottom: 10px">
+        <div class="col-md-12">
+            <text-angular ng-model="htmlVariable"></text-angular>
+        </div>
+    </div>
+
+    <div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
+        <button class="btn btn-primary btn-block" id="btn-publish"
+                ng-click="SaveBlog(true)">Publish</button>
+    </div>
+<div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
+    <button class="btn btn-primary btn-block" id="btn-Save"
+            ng-click="SaveBlog(false)">Save as draft</button>
+</div>
+</div>
+</div>

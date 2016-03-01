@@ -1,0 +1,11 @@
+<div class="list-group" ng-controller="AdminMenuCtrl">
+    <a class="list-group-item text-center"
+       ng-repeat="menuItem in adminMenuItems" href="#/{{menuItem.link}}"
+       ng-class="navClass('{{menuItem.link}}')">
+        <p>{{ menuItem.name }}</p>
+    </a>
+</div>
+
+
+
+

@@ -1,0 +1,138 @@
+<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#admin/store">Admin</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<div ng-include src='"partials/admin/Manage/manage_store_left_menu.html"'></div>
+
+<div class="col-sm-9"  ng-controller="CreateStoreController">
+
+    <!--Description starts-->
+    <div class="jumbotron alert alert-dismissible inner-jumbotron shadow"  id="no-border-round" role="alert" style="padding:0px 28px 10px 16px;font-size:12px;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h1>Store Selection Contract</h1>
+
+        <p style="text-align:justify;font-size:16px;">Through the Manage Store section, you can edit the store selection, billing information and business information here. Contract with Evezown cannot be edited online. If you desire to make any changes to the contract, please write to us at support@evezown.com
+        </p>
+    </div>
+    <!--Description Ends-->
+
+    <div class="create-store-section">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <h4 style="color: #e51385">Store Selection</h4>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-5">
+                    <label for="storeType">What type of store would you like to select</label>
+                </div>
+                <div class="col-md-5">
+                    <select class="form-control"  id="sub-visibilities-type" id="storeType"
+                            ng-options="subscription as subscription.name for subscription in storeSubscription"
+                            ng-model="selectedSubscription" ng-change="SetStoreSubscription(selectedSubscription)">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-5">
+                    <label for="panNumber">Business Information</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" placeholder="PAN Number" class="form-control" id="panNumber" name="panNumber"
+                           ng-model="formData.panNumber">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-5">
+                    <input type="text" placeholder="TIN Number" class="form-control" id="tinNumber" name="tinNumber"
+                           ng-model="formData.tinNumber">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-5">
+                    <input type="text" placeholder="VAT Number" class="form-control" id="vatNumber" name="vatNumber"
+                           ng-model="formData.vatNumber">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-5">
+                    <input type="text" placeholder="Service Tax ID" class="form-control" id="serviceTaxId"
+                           name="serviceTaxId" ng-model="formData.serviceTaxId">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-5">
+                    <input type="text" placeholder="TAN Number" class="form-control" id="tanNumber"
+                           name="tanNumber" ng-model="formData.tanNumber">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-5">
+                    <label for="evezownContract">Contract with Evezown</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="file" id="evezownContract" name="evezownContract"
+                           ng-model="formData.evezownContract">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-5">
+                    <label for="billingName">Give your billing Info (required even
+                        if you select a free store)</label>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" placeholder="Name" class="form-control" id="billingName" name="billingName"
+                           ng-model="formData.billingName">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-5 col-md-offset-6">
+                    <textarea cols="3" placeholder="Address" class="form-control" id="billingAddress" name="billingAddress"
+                              ng-model="formData.billingAddress"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-5">
+                    <input type="text" placeholder="Contact Number" class="form-control" id="billingContactNumber"
+                           name="billingContactNumber" ng-model="formData.billingContactNumber">
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 40px">
+            <div class="col-md-2 col-md-offset-9">
+                <a href ng-click="EditStoreStep2(formData)" class="btn btn-primary btn-block" >Save</a>
+            </div>
+        </div>
+    </div>
+</div>
