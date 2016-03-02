@@ -185,13 +185,13 @@
                 <div class="col-sm-8" style="padding-left: 0px; padding-right: 0px">
                     <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
                     <a href="#groups/{{request.group.id}}">{{request.group.title}}</a>
-                    <span><a href="#profile/{{request.profile.id}}">({{request.profile.firstname}} {{request.profile.lastname}})</a></span>
+                    <span><a href="#profile/{{request.group.owner.user_id}}">({{request.group.owner.firstname}} {{request.group.owner.lastname}})</a></span>
                 </div>
                 <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px;">
-                    <a href ng-click="SetRequest(request.group.id,true)"><span class="fa fa-check"></span></a>
+                    <a href ng-click="SetRequest(request,true)"><span class="fa fa-check"></span></a>
                 </div>
                 <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px">
-                    <a href="" ng-click="SetRequest(request.group.id,false)"><span class="fa fa-times"></span></a>
+                    <a href="" ng-click="SetRequest(request,false)"><span class="fa fa-times"></span></a>
                 </div>
             </li>
         </ul>
@@ -207,13 +207,13 @@
             <li class="list-group-item col-sm-12">
                 <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
                     <a href="#groups/{{request.group.id}}">{{request.group.title}}</a>
-                    <span><a href="#profile/{{request.owner.id}}">({{request.group.owner.firstname}} {{request.group.owner.lastname}})</a></span>
+                    <span><a href="#profile/{{request.user_id}}">({{request.group.owner.firstname}} {{request.group.owner.lastname}})</a></span>
                 </div>
                 <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px;">
-                    <a href ng-click="SetInviteStatus(request.group.id,true)"><span class="fa fa-check"></span></a>
+                    <a href ng-click="SetInviteStatus(request,true)"><span class="fa fa-check"></span></a>
                 </div>
                 <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px">
-                    <a href="" ng-click="SetInviteStatus(request.group.id,false)"><span class="fa fa-times"></span></a>
+                    <a href="" ng-click="SetInviteStatus(request,false)"><span class="fa fa-times"></span></a>
                 </div>
             </li>
         </ul>

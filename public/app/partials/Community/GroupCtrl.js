@@ -371,6 +371,7 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
             }).then(function()
             {
                 $scope.GetAllGroupRequests();
+                $scope.GetMyGroups();
             });
     }
 
@@ -510,6 +511,7 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
                 //$scope.GetAllGroups();
                 //$scope.GetMyGroups();
                 $scope.fetchFriends();
+                $scope.GetGroupById(groupId);
             });
     }
 
@@ -748,9 +750,9 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
     }
 
 
-    $scope.RemoveFriendFromGroup = function(memberId,groupId)
+    /*$scope.RemoveFriendFromGroup = function(memberId,groupId)
     {
-        //users/groups/member/remove'
+        
         $http.post(PATHS.api_url + 'users/groups/member/remove'
             , {
                 data: {
@@ -771,7 +773,7 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
             {
                 $scope.GetAllGroupActivities($routeParams.group_id);
             });
-    }
+    }*/
 
     $scope.openLightBox = function (images, index) {
         $scope.imagesitems = [];
