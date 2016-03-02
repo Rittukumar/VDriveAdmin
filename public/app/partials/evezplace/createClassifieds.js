@@ -261,7 +261,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
             if (data.value.status) {
                 $scope.addClassified.titleImage = {};
-                $scope.addClassified.titleImage.croppedImage = $scope.imageUrlPath+data.value.imageName;
+                $scope.addClassified.titleImage.croppedImage = data.value.imageName;
             }
 
         });
@@ -285,7 +285,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
             if (data.value.status) {
                 $scope.addClassified.bodyImage1 = {};
-                $scope.addClassified.bodyImage1.croppedImage = $scope.imageUrlPath+data.value.imageName;
+                $scope.addClassified.bodyImage1.croppedImage = data.value.imageName;
             }
         });
     };
@@ -306,7 +306,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
             if (data.value.status) {
                 $scope.addClassified.bodyImage2 = {};
-                $scope.addClassified.bodyImage2.croppedImage = $scope.imageUrlPath+data.value.imageName;
+                $scope.addClassified.bodyImage2.croppedImage = data.value.imageName;
             }
         });
     };
@@ -327,7 +327,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
             if (data.value.status) {
                 $scope.addClassified.bodyImage3 = {};
-                $scope.addClassified.bodyImage3.croppedImage = $scope.imageUrlPath+data.value.imageName;
+                $scope.addClassified.bodyImage3.croppedImage = data.value.imageName;
             }
         });
     };
@@ -348,7 +348,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
             if (data.value.status) {
                 $scope.addClassified.bodyImage4 = {};
-                $scope.addClassified.bodyImage4.croppedImage = $scope.imageUrlPath+data.value.imageName;
+                $scope.addClassified.bodyImage4.croppedImage = data.value.imageName;
             }
         });
     };
@@ -362,7 +362,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
                 className: 'ngdialog-theme-plain',
                 controller: $controller('imagePreviewController', {
                     $scope: $scope,
-                    imagePath: imagePath
+                    imagePath: $scope.imageUrlPath+imagePath
                 })
             });
     };
