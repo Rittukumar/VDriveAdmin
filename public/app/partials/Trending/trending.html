@@ -426,7 +426,7 @@
 
                 <!-- Price range-->
                 <div class="col-md-12 zero-padding-left-right reco-brand-section">
-                    <div class="col-md-12" ng-if="post.price_range != ''">
+                    <div class="col-md-12" ng-if="post.price_range != null && post.price_range != ''">
                         <p ng-show="!editing">
                             Price: &#8377; <b>{{post.price_range}}</b>
                             <span ng-hide="currentUserId != post.user.id" ng-click="editing=true" class="fa fa-edit pull-right" style="cursor:pointer;"></span>
@@ -440,7 +440,7 @@
                 </div>
 
                 <!-- Testimonial-->
-                <div  class="col-md-12 reco-testimonial" ng-if="post.testimonial != ''" style="text-align:justify;">
+                <div  class="col-md-12 reco-testimonial" ng-if="post.testimonial != null && post.testimonial != ''" style="text-align:justify;">
                     <!--read more is a custom directive, refer readmore.js in index.html and readmore in app.js-->
                     <span ng-hide="currentUserId != post.user.id || editing" ng-click="editing=true" class="fa fa-edit pull-right" style="cursor:pointer;"></span>
 
