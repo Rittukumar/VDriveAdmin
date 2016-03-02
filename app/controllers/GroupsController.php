@@ -236,22 +236,23 @@ class GroupsController extends AppController
 
             $memberId = $input_array['user_id'];
             $groupId = $input_array['group_id'];
-            $groupUser = GroupUser::where('group_id', $groupId)
-                ->where('user_id', $memberId)
-                ->where('status', 'added')
-                ->first();
 
-            if(!$groupUser)
-            {
-                $groupMember = GroupUser::create([
-                    'group_id' => $groupId,
-                    'user_id' => $memberId,
-                    'status' => 'added'
-                ]);
-            }
-            else
-            {
-                return $this->responseNotFound('Already sent a request to this user');
+            $groupMember = GroupUser::where('group_id', $groupId)
+                ->where('user_id', $memberId)
+                ->first();
+            if($groupMember != null){
+                if($groupMember->status == "added"){
+                        return $this->responseNotFound('Already sent a request to this user');
+                }else{
+                    $groupMember->status ="added";
+                    $groupMember->save();    
+                }
+            }else{
+                   $groupMember = GroupUser::create([
+                        'group_id' => $groupId,
+                        'user_id' => $memberId,
+                        'status' => 'added'
+                    ]); 
             }
 
             $successResponse = [

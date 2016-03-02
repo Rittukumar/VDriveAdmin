@@ -265,7 +265,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 zero-padding-left-right reco-brand-section">
-                        <div class="col-md-2" ng-if="post.price_range != ''">
+                        <div class="col-md-2" ng-if="post.price_range != '' && post.price_range != null">
                             <p>
                                 Price: &#8377; <b>{{post.price_range}}</b>
                             </p>
@@ -283,7 +283,7 @@
                             read more</b></a>
                         </div>
                     </div>
-                    <div class="col-md-12 reco-testimonial" ng-if="post.testimonial != ''" style="text-align:justify;">
+                    <div class="col-md-12 reco-testimonial" ng-if="post.testimonial != '' && post.testimonial != null" style="text-align:justify;">
                         &#34;<i> {{post.testimonial}} </i>&#34;
                     </div>
                     <div class="col-md-12 no-right-pad">
