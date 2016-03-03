@@ -15,6 +15,8 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
     $scope.addClassified = {};
 
+    $scope.imageUrlPath = PATHS.api_url + 'image/show/';
+
     // Set defatult classified to new classified (value = 3)
     $scope.addClassified.classified_for = 3;
 
@@ -360,7 +362,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
                 className: 'ngdialog-theme-plain',
                 controller: $controller('imagePreviewController', {
                     $scope: $scope,
-                    imagePath: imagePath
+                    imagePath: $scope.imageUrlPath+imagePath
                 })
             });
     };
