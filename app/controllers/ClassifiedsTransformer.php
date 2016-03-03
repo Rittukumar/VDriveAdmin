@@ -54,6 +54,7 @@ class ClassifiedsTransformer extends Fractal\TransformerAbstract
             'tags' => $classified->tags,
             'created_at' => $classified->created_at,
             'updated_at' => $classified->updated_at,
+            'owner_id' => $classified->user_id
         ];
     }
 }

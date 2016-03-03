@@ -13,6 +13,8 @@ evezownApp
                                                    $controller, $cookieStore) {
         var classifiedId = $routeParams.id;
 
+        $scope.SelectedClassified = $routeParams.id;
+
         $scope.loggedInUserId = $cookieStore.get('userId');
 
 
@@ -30,6 +32,7 @@ evezownApp
 
             var imageUrlPath = PATHS.api_url + 'image/show/';
             $scope.classifiedDetails = data;
+            $scope.OwnerID = data.owner_id;
 
             $scope.classifiedDetails.classified_images = [];
 
@@ -188,4 +191,40 @@ evezownApp
                 }
             });
         };
+
+        $scope.publishClassified = function() {
+        var finishClassifiedDialog = ngDialog.open(
+            {
+                template: 'finishClassifiedDialogId',
+                scope: $scope,
+                className: 'ngdialog-theme-default',
+                controller: $controller('PublishClassifiedCtrl', {
+                    $scope: $scope
+                })
+            });
+        }
     });
+
+evezownApp.controller('PublishClassifiedCtrl', function ($scope, ngDialog, $cookieStore, $routeParams,
+                                                        usSpinnerService, ClassifiedsService) {
+    $scope.classifiedId = $routeParams.id;
+
+    console.log($scope.classifiedId);
+
+    $scope.publishToRecco = false;
+    $scope.activateClassified = false;
+
+    $scope.finishClassified = function ($status) {
+
+        usSpinnerService.spin('spinner-1');
+
+        var statusData = {status: $status};
+
+        ClassifiedsService.updateStatus(statusData, $scope.classifiedId)
+            .then(function (data) {
+                usSpinnerService.stop('spinner-1');
+                toastr.success(data.message, 'Classified Updated');
+                ngDialog.close("", data);
+            });
+    }
+});

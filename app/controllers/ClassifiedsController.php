@@ -492,7 +492,7 @@ class ClassifiedsController extends AppController
             $isMyEves = $input_array['is_my_eves'];
             $isMyCircles = $input_array['is_my_circles'];
             $isOnlyMe = $input_array['is_only_me'];
-            $isReccoItChannel = $input_array['is_recco_it_channel'];
+           // $isReccoItChannel = $input_array['is_recco_it_channel'];
             $isOpenToPublic = $input_array['is_open_to_public'];
             $isAddEnquiry = $input_array['is_add_enquiry'];
             $isFacebookShare = $input_array['is_facebook_share'];
@@ -518,7 +518,7 @@ class ClassifiedsController extends AppController
             $classified->is_my_eves = $isMyEves;
             $classified->is_my_circles = $isMyCircles;
             $classified->is_only_me = $isOnlyMe;
-            $classified->is_recco_it_channel = $isReccoItChannel;
+           // $classified->is_recco_it_channel = $isReccoItChannel;
             $classified->is_open_to_public = $isOpenToPublic;
             $classified->is_add_enquiry = $isAddEnquiry;
             $classified->is_facebook_share = $isFacebookShare;

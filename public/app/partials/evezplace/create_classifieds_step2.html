@@ -115,9 +115,7 @@
                         </div>
                         <div class="col-sm-12" style="margin-top: 10px">
                             <div class="row">
-                                <img ng-src="{{imageUrlPath}}{{addClassified.titleImage.croppedImage}}"
-                                     style="width: 100%;"
-                                     alt=""/>
+                                <img ng-show="addClassified.titleImage.croppedImage" ng-src="{{imageUrlPath}}{{addClassified.titleImage.croppedImage}}" style="width: 100%;" alt=""/>
                             </div>
                         </div>
                     </div>
@@ -134,7 +132,7 @@
                             <div class="row">
                                 <a ng-click="CropBodyImage1()"
                                    class="btn btn-primary" id="bodyImages">
-                                    <span><i class="fa fa-camera"></i> Select body image 1</span>
+                                    <span><i class="fa fa-camera"></i> Select slide image 1</span>
                                 </a>
                                 <a ng-click="ImagePreview(addClassified.bodyImage1.croppedImage)"
                                    ng-show="addClassified.bodyImage1.croppedImage" class="btn btn-link"
@@ -149,7 +147,7 @@
                             <div class="row">
                                 <a ng-click="CropBodyImage2()"
                                    class="btn btn-primary">
-                                    <span><i class="fa fa-camera"></i> Select body image 2</span>
+                                    <span><i class="fa fa-camera"></i> Select slide image 2</span>
                                 </a>
                                 <a ng-click="ImagePreview(addClassified.bodyImage2.croppedImage)"
                                    ng-show="addClassified.bodyImage2.croppedImage" class="btn btn-link"
@@ -164,7 +162,7 @@
                             <div class="row">
                                 <a ng-click="CropBodyImage3()"
                                    class="btn btn-primary">
-                                    <span><i class="fa fa-camera"></i> Select body image 3</span>
+                                    <span><i class="fa fa-camera"></i> Select slide image 3</span>
                                 </a>
                                 <a ng-click="ImagePreview(addClassified.bodyImage3.croppedImage)"
                                    ng-show="addClassified.bodyImage3.croppedImage" class="btn btn-link"
@@ -179,7 +177,7 @@
                             <div class="row">
                                 <a ng-click="CropBodyImage4(addClassified.bodyImage4)"
                                    class="btn btn-primary">
-                                    <span><i class="fa fa-camera"></i> Select body image 4</span>
+                                    <span><i class="fa fa-camera"></i> Select slide image 4</span>
                                 </a>
                                 <a ng-click="ImagePreview(addClassified.bodyImage4.croppedImage)"
                                    ng-show="addClassified.bodyImage4.croppedImage" class="btn btn-link"

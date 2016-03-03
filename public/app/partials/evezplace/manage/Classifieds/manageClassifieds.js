@@ -131,7 +131,7 @@ evezownApp
                 $scope.addClassified.step3.is_my_circles = data.is_my_circles;
                 $scope.addClassified.step3.is_only_me = data.is_only_me;
                 $scope.addClassified.step3.is_open_to_public = data.is_open_to_public;
-                $scope.addClassified.step3.is_recco_it_channel = data.is_recco_it_channel;
+                //$scope.addClassified.step3.is_recco_it_channel = data.is_recco_it_channel;
                 $scope.addClassified.step3.is_add_enquiry = data.is_add_enquiry;
                 $scope.addClassified.step3.is_sends_analytics = data.is_sends_analytics;
                 $scope.addClassified.step3.is_views_analytics = data.is_views_analytics;
