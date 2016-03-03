@@ -4,9 +4,8 @@
 'use strict';
 
 evezownApp
-    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, AUTH_EVENTS,
-                                             AuthService, ngDialog, usSpinnerService) {
-
+    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, $http, PATHS, AUTH_EVENTS,AuthService, ngDialog, usSpinnerService) {
+      
         $scope.title = "Login to Evezown";
 
 
