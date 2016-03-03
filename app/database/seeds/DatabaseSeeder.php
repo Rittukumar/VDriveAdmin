@@ -63,6 +63,8 @@ class DatabaseSeeder extends Seeder {
         
         $this->call('OrderStatusEnumTableSeeder');
        
+        $this->call('ImageTableAvatarImageSeeder');
+        
         
        // -- Following Seeder are not required. This is for testing purpose. -- 
        // BlogTableSeeder

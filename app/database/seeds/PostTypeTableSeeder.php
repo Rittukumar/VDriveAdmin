@@ -8,19 +8,19 @@ class PostTypeTableSeeder extends Seeder {
 	public function run()
 	{
 		PostType::create([
-			'type' => 'Just Sharing',
+			'type' => 'I Recommend',
             'Post_Type' => 0
 		]);
 		PostType::create([
-            'type' => 'Spread The Word',
+            'type' => 'Share / Ask',
             'Post_Type' => 0
 		]);
 		PostType::create([
-            'type' => 'My Finds',
+            'type' => 'My Find',
             'Post_Type' => 0
 		]);
 		PostType::create([
-            'type' => 'Be Careful',
+            'type' => 'Be Cautious',
             'Post_Type' => 0
 		]);
         PostType::create([
