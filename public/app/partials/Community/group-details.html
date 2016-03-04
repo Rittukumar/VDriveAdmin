@@ -73,7 +73,8 @@
                 <a href class="btn btn-primary" ng-click="ChangeGroupCover();" id="ChangeGroupCover" style="background-color:#e50880;color:#ffffff;position:absolute;opacity:0.6">Change Cover</a>
             </div>
         </div>
-        <img ng-src="{{coverImage}}" alt="" class="img-responsive"/>
+        <img  ng-src="{{coverImage}}" ng-if="coverImage != null" alt="" class="img-responsive"/>
+        <img src="img/community-groups-header.jpg" ng-if="coverImage == null" alt="" class="img-responsive"/>
         </div>
     </div>
 </div>
