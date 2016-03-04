@@ -253,7 +253,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
     $routeProvider
 
             .when('/admin/evezplace/trending', {
-                templateUrl: 'views/admin/evezplace/manage_recommendations.html',
+                templateUrl: 'views/admin/evezplace/manage_trending_items.html',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
                 }
