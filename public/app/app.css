@@ -1016,6 +1016,7 @@ ul#strength {
 /*  bhoechie tab */
 div.bhoechie-tab-container{
     z-index: 10;
+    padding-left:0px;
     background-color: #ffffff;
     border-radius: 0px;
     -moz-border-radius: 4px;
