@@ -69,11 +69,13 @@ evezownApp
                 {
                     toastr.error("Invalid User");
                     usSpinnerService.stop('spinner-1');
+                    Session.destroy();
                 }
                 else if(user.blocked == 1)
                 {
                     toastr.error('Your account has been blocked, please contact the administrator');
                     usSpinnerService.stop('spinner-1');
+                    Session.destroy();
                 }
                 else
                 {
