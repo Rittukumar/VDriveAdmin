@@ -70,7 +70,7 @@ evezownApp
     uploader.onSuccessItem = function(fileItem, response, status, headers)
     {
         if($scope.isUploadingBrand)
-        {alert("hh");
+        {//alert("hh");
                         $http.post(PATHS.api_url + 'admin/'+ $cookieStore.get('userId') +'/brand/add'
                 , { 
                     data: {
