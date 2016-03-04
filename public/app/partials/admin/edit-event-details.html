@@ -1,83 +1,59 @@
-<!-- Main component for a primary marketing message or call to action -->
-<div ng-include src='"partials/description/woice.html"'>
-</div>
-<!-- Static navbar -->
-<nav class="navbar navbar-default" id="navContainer">
-    <div id="navbar1">
-        <ul class="nav navbar-nav">
-            <li ng-class="{ active: isActive('/community')}"><a href="#community" >Build Community</a>
-            </li>
-            <li ng-class="{ active: isActive('/trending')}"><a href="#trending">Woice It</a></li>
-
-            <li ng-class="{ active: isActive('/streamit')}"><a href="#streamit">Recco it</a></li>
-            <li ng-class="{ active: isActive('/explore')}">
-                <!-- Template which needs to be shown on click -->
-                <script type="text/ng-template" id="explore">
-                    <div class="triangle"></div>
-                    <div class="ns-popover-tooltip">
-                        <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
-                        </ul>
-                    </div>
-                </script>
-
-                <a ns-popover
-                   ns-popover-template="explore"
-                   ns-popover-trigger="click"
-                   ns-popover-theme="ns-popover-list-theme">
-                    Explore
-                </a>
-            </li>
-            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
-                                                                      id="search">Search&nbsp;<span
-                    class="fa fa-search" id="searchIcon"></span></a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<ul class="breadcrumb">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#eventdetails/{{currentEvent.id}}">{{currentEvent.title}}</a></li>
-</ul>
-<div ng-controller="eventlists">
-    <div class="row" style="padding-bottom: 5px">
-        <div class="col-md-11">
-            <input class="form-control" type="text" placeholder="Title"
-           id="title" ng-model="currentEvent.title" style="margin-top: 10px;margin-bottom: 10px;"/>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-9 bhoechie-tab-container">
+            <div class="col-lg-2 col-md-2 col-sm-2 bhoechie-tab-menu">
+                <div
+                        ng-include src='"partials/admin/adminLeftMenu.html"'>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab">
+                <!-- flight section -->
+                <div class="bhoechie-tab-content active">
+					<div ng-controller="eventlists">
+						<div class="col-xs-12 col-sm-8 col-md-12">
+                            <center><h4 style="margin-top: 22px; margin-bottom: 20px; color: #800080; font-weight: 400; font-size: 22px">Edit Event Details </h4></center>
+                        </div>
+					    <div class="row" style="padding-bottom: 5px">
+					        <div class="col-md-10">
+					            <input class="form-control" type="text" placeholder="Title"
+					           id="title" ng-model="currentEvent.title" style="margin-top: 10px;margin-bottom: 10px;"/>
+					        </div>
+					        <div class="col-md-2">
+					            <pre class="form-control" style="margin-top: 10px;margin-bottom: 10px;">{{255 - currentEvent.title.length}}</pre>
+					        </div>
+					    </div>
+					    <textarea class="form-control" rows="4" placeholder="Description"
+					              ng-model="currentEvent.description" style="margin-bottom: 10px;"/>
+					    <select class="form-control" id="sub-visibility-type"
+					            ng-options="visibility as visibility.type for visibility in visibilties"
+					            data-ng-model="selectedVisibility" style="margin-top: 10px;margin-bottom: 10px;">
+					
+					    </select>
+					    <div class="row"  style="padding-bottom: 10px">
+					        <div class="col-md-1">
+					            <label  style="margin-top: 10px;font-size: 13px">Duration</label>
+					        </div>
+					        <div class="col-md-4">
+					            <input date-range-picker
+					                       options="{format: 'MMM/DD/YYYY h:mm A', timePicker: true, timePickerIncrement: 30, minDate: date}"
+					                       id="classifiedDuration" options="{timePicker: 1}" class="form-control date-picker" type="text"
+					                       ng-model="duration" style="font-weight: 600"/>
+					        </div>
+					        <div class="col-md-1">
+					            <label  style="margin-top: 10px;font-size: 13px">Location</label>
+					        </div>
+					        <div class="col-md-4">
+					            <input type="text" class="form-control" placeholder="location"  g-places-autocomplete ng-model="location" />
+					        </div>
+					    </div>
+					    <div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
+					        <button class="btn btn-primary btn-block" id="btn-Save"
+					                ng-click="UpdateEvent(currentEvent,location)">Save event</button>
+					    </div>
+					</div>
+               </div>
+            </div>
         </div>
-        <div class="col-md-1">
-            <pre class="form-control" style="margin-top: 10px;margin-bottom: 10px;">{{255 - currentEvent.title.length}}</pre>
-        </div>
-    </div>
-    <textarea class="form-control" rows="4" placeholder="Description"
-              ng-model="currentEvent.description" style="margin-bottom: 10px;"/>
-    <select class="form-control" id="sub-visibility-type"
-            ng-options="visibility as visibility.type for visibility in visibilties"
-            data-ng-model="selectedVisibility" style="margin-top: 10px;margin-bottom: 10px;">
-
-    </select>
-    <div class="row"  style="padding-bottom: 10px">
-        <div class="col-md-1">
-            <label  style="margin-top: 10px;font-size: 13px">Duration</label>
-        </div>
-        <div class="col-md-4">
-            <input date-range-picker
-                       options="{format: 'MMM/DD/YYYY h:mm A', timePicker: true, timePickerIncrement: 30, minDate: date}"
-                       id="classifiedDuration" options="{timePicker: 1}" class="form-control date-picker" type="text"
-                       ng-model="duration" style="font-weight: 600"/>
-        </div>
-        <div class="col-md-1">
-            <label  style="margin-top: 10px;font-size: 13px">Location</label>
-        </div>
-        <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="location"  g-places-autocomplete ng-model="location" />
-        </div>
-    </div>
-    <div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
-        <button class="btn btn-primary btn-block" id="btn-Save"
-                ng-click="UpdateEvent(currentEvent,location)">Save event</button>
     </div>
 </div>
 

@@ -216,7 +216,6 @@ $scope.GetEventById = function()
 
                         }).then(function (data) {
                             $scope.GetAllEvents();
-                            $scope.GetMyEvents();
                             $location.path('/admin/events');
                         });
                     }
