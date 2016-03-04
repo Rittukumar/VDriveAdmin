@@ -2,7 +2,7 @@
     <div id="product-menu">
         <ul class="nav nav-pills nav-justified">
             <li role="presentation" ng-repeat="navLink in productNavLinks" ng-class="navClass('{{navLink.Title}}')">
-                <a href ng-click="GetIndex($index);">{{navLink.LinkText}}</a>
+                <a href ng-click="GetIndex($index);" style="background-color:#F6B77F;margin-right:2px;border-radius:0px;">{{navLink.LinkText}}</a>
             </li>
         </ul>
     </div>
