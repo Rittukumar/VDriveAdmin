@@ -91,7 +91,6 @@
                         <img ng-if="recommendation.image == null" src="http://placehold.it/215x215/692668/ffffff"
                              class="img-responsive" alt="{{recommendation.title}}">
                         <h4>{{recommendation.title}}</h4>
-                        <h5>{{recommendation.link}}</h5>
                         <a href ng-click="toggleRecommendationUpdate(recommendation, recommendations4)"
                            class="btn btn-link" ng-class="{active : recommendation.isEditActive}">
                             <span ng-if="recommendation.isEditActive"

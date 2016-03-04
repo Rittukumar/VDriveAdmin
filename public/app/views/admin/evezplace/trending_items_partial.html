@@ -89,7 +89,6 @@
                         <img ng-if="trendingItem.image == null" src="http://placehold.it/215x215/692668/ffffff"
                              class="img-responsive" alt="{{trendingItem.title}}">
                         <h4>{{trendingItem.title}}</h4>
-                        <h5>{{trendingItem.link}}</h5>
                         <a href ng-click="toggleTrendingItemUpdate(trendingItem, trendingItems4)"
                            class="btn btn-link" ng-class="{active : trendingItem.isEditActive}">
                             <span ng-if="trendingItem.isEditActive"
