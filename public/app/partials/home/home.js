@@ -65,11 +65,23 @@ evezownApp
             }
             AuthService.login(credentials).then(function (user)
             {
+                if(user.deleted == 1)
+                {
+                    toastr.error("Invalid User");
+                    usSpinnerService.stop('spinner-1');
+                }
+                else if(user.blocked == 1)
+                {
+                    toastr.error('Your account has been blocked, please contact the administrator');
+                    usSpinnerService.stop('spinner-1');
+                }
+                else
+                {
                     $cookieStore.put('api_key', Session.api_key);
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     toastr.success('Login', 'You have logged in successfully');
-                    //$location.path('/streamit');
                     $location.path('/profile/'+ $cookieStore.get('userId'));
+                }
             }, function (res)
             {
                 usSpinnerService.stop('spinner-1');

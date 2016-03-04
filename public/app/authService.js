@@ -23,7 +23,7 @@ evezownApp
                         res.data.data.role,
                         res.data.data.role_id,
                         res.data.data.token);
-                    return res.data.user;
+                    return res.data.data;
                 });
         };
 
