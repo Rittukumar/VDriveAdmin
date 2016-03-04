@@ -2,8 +2,10 @@
     <div id="product-menu">
         <ul class="nav nav-pills nav-justified">
             <li role="presentation" ng-repeat="navLink in productNavLinks"
-                ng-click="selectMenu($index)" ng-class="navClass($index)"><a
-                    >{{navLink.LinkText}}</a></li>
+                ng-click="selectMenu($index)" ng-class="navClass($index)">
+                <a style="background-color:#F6B77F;margin-right:2px;border-radius:0px;"    >{{navLink.LinkText}}
+                </a>
+            </li>
         </ul>
     </div>
 </div>

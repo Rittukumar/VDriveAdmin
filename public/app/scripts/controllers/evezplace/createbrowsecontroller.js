@@ -16,7 +16,7 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, SE
 
         console.log('create browse store section - selected section index ' + index);
 
-        if(index == SECTIONS.product) {
+        if(index == SECTIONS.products) {
             $scope.storeType = "Product"
         }
 
@@ -34,5 +34,6 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, SE
 
         // Check if the section is classifieds.
         $scope.isClassified = index == SECTIONS.classifieds;
+        $scope.isProductPlusService = index == SECTIONS.productPlusServices;
     });
 });

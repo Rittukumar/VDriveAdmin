@@ -324,8 +324,9 @@
     color: #ffffff;
     text-align: left;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     padding: 20px 20px;
+    margin-bottom: 10px;
 }
 
 #btn-browse-store {
@@ -333,8 +334,9 @@
     color: #ffffff;
     text-align: left;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     padding: 20px 20px;
+    margin-bottom: 10px;
 }
 
 #btn-create-classifieds {
@@ -342,8 +344,9 @@
     color: #ffffff;
     text-align: left;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     padding: 20px 20px;
+    margin-bottom: 10px;
 }
 
 #btn-browse-classifieds {
@@ -351,8 +354,9 @@
     color: #ffffff;
     text-align: left;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     padding: 20px 20px;
+    margin-bottom: 10px;
 }
 
 .fa-2x {

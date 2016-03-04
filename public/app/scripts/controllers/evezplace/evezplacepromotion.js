@@ -8,9 +8,11 @@
  * Controller of the appApp
  */
 evezownApp
-    .controller('evezplacePromotionCtrl', function ($scope, EvezplaceHomeService, PATHS, $rootScope) {
+    .controller('evezplacePromotionCtrl', function ($scope, EvezplaceHomeService, PATHS, $rootScope, $http, $cookieStore) {
 
         $scope.currentSelectedSectionIndex = 0;
+
+        $scope.loggedInUser = $cookieStore.get('userId');
 
         $rootScope.$on('selectedEvezplaceSectionIndex', function (event, args) {
             $scope.currentSelectedSectionIndex = args.index;
@@ -100,6 +102,17 @@ evezownApp
                 }
             });
         }
+
+        $scope.getRole = function ($userId) {
+        $http.get(PATHS.api_url +  'users/' + $userId)
+            .success(function(data){
+                $scope.CheckRole = data.data.role;
+            })
+            .error(function(err){
+                console.log('Error retrieving user');
+            });
+        }
+        $scope.getRole($scope.loggedInUser);
 
         getEvezplacePromotion();
     });
