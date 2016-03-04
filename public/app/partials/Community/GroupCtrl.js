@@ -786,9 +786,20 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
         Lightbox.baseURI = '';
         Lightbox.openModal($scope.imagesitems, index);
     }
+
+    //Get group cover image
     ImageService.getImage(PATHS.api_url + 'users/groups/' + $routeParams.group_id + '/cover_image/current').success(function(data){
-        $rootScope.coverImage = PATHS.api_url +'image/show/'+data;
+        
+        if(data == "NoCoverImage")
+        {
+            $rootScope.coverImage = null;
+        }
+        else
+        {
+            $rootScope.coverImage = PATHS.api_url +'image/show/'+data;
+        }
     });
+
     $scope.GetVisibility();
     //$scope.GetAllGroups();
     $scope.GetMyGroups();

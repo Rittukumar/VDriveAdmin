@@ -633,7 +633,15 @@ evezownApp.controller('blogCntrl' ,function($scope, PATHS,$cookieStore,$http,$ro
 
 
     ImageService.getImage(PATHS.api_url + 'users/blogs/' + $routeParams.blog_id + '/cover_image/current').success(function(data){
-        $rootScope.coverImage = PATHS.api_url +'image/show/'+data;
+        
+        if(data == "NoCoverImage")
+        {
+            $rootScope.coverImage = null;
+        }
+        else
+        {
+            $rootScope.coverImage = PATHS.api_url +'image/show/'+data;
+        }
     });
     $scope.GetVisibility();
     //$scope.GetAllBlogs();

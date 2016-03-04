@@ -93,7 +93,7 @@ class GroupsController extends AppController
 //                 return "2015-02-17-04:36:11-eve-avatar.png";
                 // for test site.
 
-                return "2015-02-17-04:36:11-eve-avatar.png";
+                return "NoCoverImage";
             }
             else
             {
@@ -104,7 +104,7 @@ class GroupsController extends AppController
                 }
                 else
                 {
-                    return "2015-02-17-04:36:11-eve-avatar.png";
+                    return "NoCoverImage";
                 }
             }
 

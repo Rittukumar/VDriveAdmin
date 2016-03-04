@@ -59,8 +59,8 @@
                     <a href class="btn btn-primary" ng-click="ChangeEventCover();" id="ChangeEventCover" style="background-color:#e50880;color:#ffffff;position:absolute;opacity:0.6">Change Cover</a>
                 </div>
             </div>
-            <img ng-src="{{coverImage}}" alt=""
-                 class="img-responsive"/>
+            <img  ng-src="{{coverImage}}" ng-if="coverImage != null" alt="" class="img-responsive"/>
+            <img src="img/event.png" ng-if="coverImage == null" alt="" class="img-responsive"/>
         </div>
         <h4 style="position:absolute; padding-left:10px; bottom: 0px; color: #ffffff; z-index: 2;">
             <span class="fa fa-glass custom-event-title"> {{selectedEvent.title}}</span>
