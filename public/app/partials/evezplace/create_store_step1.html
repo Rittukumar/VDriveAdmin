@@ -24,7 +24,7 @@
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-4">
-                <label for="title">Store Title *</label>
+                <label for="title">Store Title <b style="color:red;">*</b></label>
             </div>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="title" name="name" ng-model="formData.title" required>
@@ -34,7 +34,7 @@
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-4">
-                <label for="storeAboutUs">Store Description *</label>
+                <label for="storeAboutUs">Store Description <b style="color:red;">*</b></label>
             </div>
             <div class="col-md-4">
                 <textarea rows="4" placeholder="About Us" class="form-control" id="storeAboutUs" name="storeAboutUs"
@@ -46,7 +46,7 @@
     <div class="row" style="margin-top: 10px; margin-bottom: 10px" ng-repeat="owner in owners">
         <div class="form-group" ng-if="$index == 0">
             <div class="col-md-offset-2 col-md-4">
-                <label for="owner1">Owner's Info *</label>
+                <label for="owner1">Owner's Info <b style="color:red;">*</b></label>
             </div>
             <div class="col-md-4">
                 <input type="text" class="form-control" id="owner1" name="name" placeholder="{{ 'Owner ' + ($index + 1)}}" ng-model="owner.title" required>
@@ -68,7 +68,7 @@
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
         <div class="form-group">
             <div class="col-md-offset-2 col-md-4">
-                <label for="address">Registered Address *</label>
+                <label for="address">Registered Address <b style="color:red;">*</b></label>
             </div>
             <div class="col-md-4">
                 <textarea cols="3" class="form-control" id="address" name="address" ng-model="formData.address" required/>
