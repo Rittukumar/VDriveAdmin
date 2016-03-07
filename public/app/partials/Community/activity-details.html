@@ -1,7 +1,8 @@
 <ul class="breadcrumb" ng-controller="activity">
     <li><a href="#home">Home</a></li>
-    <li ng-if="!isFromProfile"><a href="#groups/{{selectedActivity.group_id}}">Groups</a></li>
-    <li ng-if="isFromProfile"><a href="#groups/{{selectedActivity.group_id}}/{{currentUserId}}">Groups</a></li>
+    <!-- <li ng-if="!isFromProfile"><a href="#groups/{{selectedActivity.group_id}}">Groups</a></li>
+    <li ng-if="isFromProfile"><a href="#groups/{{selectedActivity.group_id}}/{{currentUserId}}">Groups</a></li> -->
+    <li><a href="#groups/{{selectedActivity.group_id}}/{{currentUserId}}">Groups</a></li>
 </ul>
 <div class="col-md-12 trending-section" ng-controller="activity">
     <div class="col-md-12 zero-padding-left-right">

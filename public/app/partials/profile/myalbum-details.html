@@ -5,7 +5,11 @@
             <li ng-class="">
                 <a href="#profile/{{userId}}" >Evezsite</a>
             </li>
-            <li><a href="#myalbums/{{userId}}" class="active">Albums</a>
+            <li ng-if="loggedInUserId == currentUserId">
+                <a href="#myalbums/{{userId}}" class="active">Albums</a>
+            </li>
+            <li ng-if="loggedInUserId != currentUserId">
+                <a href="#community" class="active" ng-class="{ active: isActive('/community')}">Build Community</a>
             </li>
             <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->

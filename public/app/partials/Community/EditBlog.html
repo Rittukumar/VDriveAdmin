@@ -13,7 +13,6 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
                         </ul>
@@ -49,7 +48,7 @@
 
 <ul class="breadcrumb">
     <li><a href="#home">Home</a></li>
-    <li><a href="#myblogs/{{currentUserId}}">Blogs</a></li>
+    <li><a href="#blogs/{{selectedBlog.id}}/{{currentUserId}}">Blogs</a></li>
 </ul>
 <div ng-controller="EditBlogCtrl">
     <div class="row" style="padding-bottom: 10px">

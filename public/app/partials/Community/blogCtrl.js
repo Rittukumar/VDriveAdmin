@@ -238,7 +238,7 @@ evezownApp.controller('blogCntrl' ,function($scope, PATHS,$cookieStore,$http,$ro
                     }
                     else
                     {
-                        $location.path('/blogs');
+                        $location.path('/blogs/'+$scope.Blog_Id);
                     }
                 });
         }
