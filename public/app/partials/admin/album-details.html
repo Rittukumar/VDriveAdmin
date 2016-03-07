@@ -23,7 +23,7 @@
     <div class="col-md-12 eve-panel-body custom-album-features" style="padding: 5px">
         <div class="row">
             <div class="col-md-3" ng-if="selectedAlbum.owner_id ==loggedInUserId">
-                <a class="btn btn-link" ng-click="EditAlbum();"><i class="fa fa-pencil"></i> edit album</a>
+                <a class="btn btn-link" ng-click="EditAlbum();"><i class="fa fa-pencil"></i> edit Gallery</a>
             </div>
             <div class="col-md-3" ng-if="selectedAlbum.owner_id ==loggedInUserId">
                 <a class="btn btn-link" ng-click="WoiceIt();"><i class="fa fa-share-square-o"></i> Stream It</a>
@@ -115,7 +115,7 @@
             <!-- Image upload queue section end -->
         </div>
         <div class="col-sm-12 text-center fileUpload" style="background: #e6e4e4; height: 100px" ng-if="selectedAlbum.images.length == 0">
-            <h4 class="custom-album-noimages-text" style="margin-top: 45px; color: #444444">Album don't have any images</h4>
+            <h4 class="custom-album-noimages-text" style="margin-top: 45px; color: #444444">Gallery don't have any images</h4>
             <!--<a href="#friends/invite" class="btn btn-primary" style="font-size: 20px; border-radius: 5px; margin-top: 20px">-->
             <!--<span class="fa fa-plus"></span> Add Images-->
             <!--</a>-->

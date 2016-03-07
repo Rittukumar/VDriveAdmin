@@ -21,7 +21,7 @@ evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $lo
     }, {
         Index: 3,
         Title: 'classifieds',
-        LinkText: 'Classifieds'
+        LinkText: 'Ads & Campaigns'
     }];
 
     $scope.selectedIndex = 0;

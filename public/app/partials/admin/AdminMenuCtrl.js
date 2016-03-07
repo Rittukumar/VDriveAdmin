@@ -37,7 +37,7 @@ evezownApp
             link : 'admin/store' 
 
         },{
-            name: 'Opportunities',
+            name: 'Jobs',
             link : 'admin/opportunities' 
 
         },{
@@ -61,15 +61,15 @@ evezownApp
             link : 'admin/newsletter' 
 
         },{
-            name: 'Evezplace Promotions',
+            name: 'Marketplace Promotions',
             link : 'admin/evezplace/promotion'
 
         },{
-            name: 'Evezplace Recommendations',
+            name: 'Marketplace Recommendations',
             link : 'admin/evezplace/recommendations'
 
         },{
-            name: 'Evezplace Trending Items',
+            name: 'Marketplace Trending Items',
             link : 'admin/evezplace/trending'
 
         });

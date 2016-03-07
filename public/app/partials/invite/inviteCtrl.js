@@ -23,7 +23,7 @@ evezownApp
         $scope.years = range;
 
         $scope.model = {
-            title: "Create Signup Invite (exclusively for women)"
+            title: "Signup"
         };
         // loading variable to show the spinning loading icon
         $scope.loading = true;

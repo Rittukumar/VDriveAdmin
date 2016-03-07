@@ -2,9 +2,9 @@
     <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     
-        <h1 style="color: #e51385">Create classified/listing home page</h1>
+        <h1 style="color: #e51385">Create Ads & Campaigns/listing home page</h1>
 
-        <p>Welcome to Classified creation page. If you are a store owner, you can create an ad for your store - be it deals, new product or service. If you are a consumer, you can create your favourite product or service as a poster for promotion. This is a structured way of creating and promoting and building a campaign...you can stream to your evezown community or share it with your friends or cusomers on social networks. All In 3 simple steps! Start here by choosing the type of classified and the category/sub-category you would like it to be listed under.</p>
+        <p>Welcome to Ads & Campaigns creation page. If you are a store owner, you can create an ad for your store - be it deals, new product or service. If you are a consumer, you can create your favourite product or service as a poster for promotion. This is a structured way of creating and promoting and building a campaign...you can stream to your evezown community or share it with your friends or cusomers on social networks. All In 3 simple steps! Start here by choosing the type of Ads & Campaigns and the category/sub-category you would like it to be listed under.</p>
 </div>
 
 <div ng-include src='"partials/evezplace/create_classifieds_menu.html"' ng-controller="CreateClassifiedsCtrl"></div>
@@ -12,7 +12,7 @@
 <div class="create-store-section" ng-controller="CreateClassifiedsCtrl">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h3 style="color: #e51385">Choose Classified Type</h3>
+            <h3 style="color: #e51385">Choose Ads & Campaigns Type</h3>
         </div>
     </div>
     <form role="form"
@@ -22,7 +22,7 @@
         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-4">
-                    <label for="classifiedFor">You want to create classified for</label>
+                    <label for="classifiedFor">You want to create Ads & Campaigns for</label>
                 </div>
                 <div class="col-md-4">
                     <label>
@@ -140,7 +140,7 @@
                 <div class="col-md-4">
                     <tags-input
                             ng-model="addClassified.tags"
-                            placeholder="Add a classified tag"
+                            placeholder="Add a Ads & Campaigns tag"
                             on-tag-removed="tagRemoved($tag)"
                             display-property="name">
                         <auto-complete source="loadTags($query)"></auto-complete>

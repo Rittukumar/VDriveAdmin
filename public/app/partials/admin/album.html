@@ -21,10 +21,10 @@
             <input type="text" class="form-control" placeholder="search albums" ng-model="albumsearch"/>
         </div>
         <div class="col-md-2 col-md-offset-4 pull-right custom-create-album-button">
-            <a href ng-click="CreateAlbum()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Album</a>
+            <a href ng-click="CreateAlbum()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Gallery</a>
         </div>
         <div>
-        <a href="#/admin/albums" class="topic-link">View all albums</a>
+        <a href="#/admin/albums" class="topic-link">View all gallery</a>
         </div>
 <div class="col-md-12 album-section" style="margin-top:30px;">
         <!-- Row 1-->
@@ -35,8 +35,8 @@
                 <div class="mask">
                     <h2>{{album.title}}</h2>
                     <p>{{album.description}}</p>
-                    <a href="#admin/albums/details/{{album.id}}" class="info">view album</a>
-                    <a href ng-click="DeleteAlbum(album)" class="info">Delete album</a>
+                    <a href="#admin/albums/details/{{album.id}}" class="info">view Gallery</a>
+                    <a href ng-click="DeleteAlbum(album)" class="info">Delete Gallery</a>
                 </div>
             </div>
         </div>
@@ -71,10 +71,10 @@
 
 <script type="text/ng-template" id="templateId">
     <div class="ngdialog-buttons popuptemplate" ng-controller="albums">
-        <h4>Add album</h4>
-        <input class="form-control" type="text" placeholder="Album Title"
+        <h4>Add Gallery</h4>
+        <input class="form-control" type="text" placeholder="Gallery Title"
                id="circle" ng-model="album" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="15"/>
-        <textarea class="form-control" rows="4" placeholder="Album Description (optional)"
+        <textarea class="form-control" rows="4" placeholder="Gallery Description (optional)"
                   ng-model="description" maxlength="100"/>
         <div class="col-sm-12" >
             <h5>Visibility Settings</h5>

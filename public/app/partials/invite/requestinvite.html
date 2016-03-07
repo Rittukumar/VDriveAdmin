@@ -3,10 +3,16 @@
         <div class="row">
             <div class="col-sm-8 col-md-8 col-md-offset-2"  ng-if="!isInviteSuccess">
                 <div class="panel-title">
-                    <h1 class="text-center login-title">{{model.title}}</h1>
+                    <h1 class="text-center login-title"><b>{{model.title}}</b></h1>
                 </div>
 
                 <div class="form-wall">
+                     <div class="contentcontainer med left" style="float: right">
+                            Already a member?
+                            <a href="#login">Sign In</a>
+
+                        </div>
+                        <br>
                     <form class="form-invite" ng-submit="requestInvite()">
                         <input type="text" class="form-control" ng-model="inviteData.name" placeholder="Name" required
                                autofocus>
@@ -81,7 +87,7 @@
                                placeholder="Linkedin link or name (optional)" style="margin-bottom: 10px">
                         <button class="btn btn-lg btn-primary btn-block" type="submit">
                             Request Invite
-                        </button>
+                        </button>  
                     </form>
                 </div>
             </div>

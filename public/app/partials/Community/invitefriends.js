@@ -12,7 +12,7 @@ evezownApp.filter('offset', function () {
 evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn,
                                                      $cookieStore, $http, PATHS, $auth, AuthService,$location) {
 
-    $scope.sectionTitle = "Invite Eves";
+    $scope.sectionTitle = "Invite People";
     $scope.loggedInUserId = $cookieStore.get('userId');
     $scope.email = $cookieStore.get('email');
     $scope.linkedinConnections = [];
