@@ -243,7 +243,7 @@ class AdminController extends AppController
     public function sendMail()
     {
         $buyer = array(
-            'email' => 'vish@creativethoughtstech.in',
+            'email' => 'radhakrishnan.radha@gmail.com',
             'phone' => '9845982178'
         );
 
@@ -265,7 +265,7 @@ class AdminController extends AppController
 //        });
 
         $store = array(
-            'email' => 'vish@creativethoughtstech.in'
+            'email' => 'radhakrishnan.radha@gmail.com'
         );
 
         Mail::send('emails.store-order', $data, function ($message) use ($store) {
