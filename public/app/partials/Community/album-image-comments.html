@@ -1,24 +1,17 @@
-<!-- Main component for a primary marketing message or call to action -->
-<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
-     role="alert" ng-controller="ApplicationCtrl">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-    </button>
-    <h1>Build Community</h1>
-
-    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
-    </p>
-</div>
 <!-- Static navbar -->
 <nav class="navbar navbar-default" id="navContainer">
     <div id="navbar1">
         <ul class="nav navbar-nav">
-            <li ng-class="">
-                <a href="#profile/{{userId}}" class="{{isActive[1]}}">Evezsite</a>
+            <li>
+                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
             </li>
-            <li ng-class="{ active: isActive('/community')}"><a href="#community" >Build Community</a>
+            
+            <li ng-if="loggedInUserId == currentUserId">
+                <a href="#myalbums/{{userId}}" class="active" ng-class="{ active: isActive('/myalbums/{{userId}}')}">Gallery</a>
             </li>
-
-            <li ng-class="{ active: isActive('/streamit')}"><a href="#streamit">Stream It</a></li>
+            <li ng-if="loggedInUserId != currentUserId">
+                <a href="#community" class="active" ng-class="{ active: isActive('/community')}">Build Community</a>
+            </li>
             <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
                 <script type="text/ng-template" id="explore">
@@ -38,18 +31,26 @@
                     Explore
                 </a>
             </li>
-            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
-                                                                      id="search">Search&nbsp;<span
-                    class="fa fa-search" id="searchIcon"></span></a>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"  id="search">Search&nbsp;
+                <span class="fa fa-search" id="searchIcon"></span></a>
             </li>
         </ul>
     </div>
 </nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Evez, Circles, Groups, Events, Blogs and Discussions to interact with your community and grow it. These features are linked to WoiceIt, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
 
 <ul class="breadcrumb">
     <li><a href="#home">Home</a></li>
-    <li ng-if="isProfile == false"><a href="#albums/details/{{selectedAlbum.id}}">{{selectedAlbum.title}}</a></li>
-    <li ng-if="isProfile == true"><a href="#myalbumdetails/{{selectedAlbum.id}}/{{currentUserId}}">{{selectedAlbum.title}}</a></li>
+    <li><a href="#myalbumdetails/{{selectedAlbum.id}}/{{currentUserId}}">{{selectedAlbum.title}}</a></li>
 </ul>
 <div class="custom-album-image-comment" ng-controller="albums">
     <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px">

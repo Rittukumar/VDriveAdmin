@@ -5,7 +5,7 @@
             <li ng-class="">
                 <a href="#profile/{{userId}}" >Evezsite</a>
             </li>
-            <li><a class="{{isActive[1]}}" href="#mydiscussion/{{userId}}" >Discussions</a>
+            <li><a class="{{isActive[1]}}" href="#mydiscussion/{{currentUserId}}" >Discussions</a>
             </li>
             <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
@@ -13,7 +13,6 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
                         </ul>
@@ -37,8 +36,7 @@
 
 <ul class="breadcrumb" ng-controller="activity">
     <li><a href="#home">Home</a></li>
-    <li ng-if="isProfile == true"><a href="#mydiscussion/{{currentUserId}}">Discussion</a></li>
-    <li ng-if="isProfile == false"><a href="#forums">Discussion</a></li>
+    <li><a href="#mydiscussion/{{currentUserId}}">Discussion</a></li>
 </ul>
 <div class="custom-forum-details-section">
 <div class="col-md-12 trending-section custom-forum-header" ng-controller="forums">

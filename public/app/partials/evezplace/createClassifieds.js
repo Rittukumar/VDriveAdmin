@@ -213,7 +213,15 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
     /* Save create classified step 2 */
     $scope.saveClassifiedsStep2 = function () {
-        if(!$scope.addClassified.titleImage.croppedImage)
+
+        var Email = $scope.addClassified.contactDetails.email;
+        var CheckEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!CheckEmail.test(Email))
+        {
+            toastr.error("please enter a valid Email")
+        }
+
+        else if(!$scope.addClassified.titleImage.croppedImage)
         {
             toastr.error('Please upload a title image')
         }

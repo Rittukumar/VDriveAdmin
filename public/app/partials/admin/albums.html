@@ -12,21 +12,21 @@
             <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
             <h4>Gallery</h4>
             <p>
-                Publish your pictures and images. Create different albums and segregate your collection
+                Publish your pictures and images. Create different Gallery and segregate your collection
             </p>
         </div>
     </div>
     <div class="col-md-12 panel-heading custom-album-panel-heading" style="padding-left: 0px">
         <div class="col-md-2" style="padding-left: 0px">
             <h4>
-                Albums ({{myAlbums.length}})
+                Gallery ({{myAlbums.length}})
             </h4>
         </div>
         <div class="col-md-4">
             <input type="text" class="form-control" placeholder="search albums" ng-model="albumsearch"/>
         </div>
         <div class="col-md-2 col-md-offset-4 pull-right custom-create-album-button">
-            <a href ng-click="CreateAlbum()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Album</a>
+            <a href ng-click="CreateAlbum()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Gallery</a>
         </div>
 
     </div>
@@ -39,8 +39,8 @@
                 <div class="mask">
                     <h2>{{album.title}}</h2>
                     <p>{{album.description}}</p>
-                    <a href="#albums/details/{{album.id}}" class="info">view album</a>
-                    <a href ng-click="DeleteAlbum(album)" class="info">Delete album</a>
+                    <a href="#albums/details/{{album.id}}" class="info">view Gallery</a>
+                    <a href ng-click="DeleteAlbum(album)" class="info">Delete Gallery</a>
                 </div>
             </div>
         </div>

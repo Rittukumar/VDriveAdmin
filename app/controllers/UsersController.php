@@ -64,10 +64,10 @@ class UsersController extends AppController
                     'code' => $user->confirmation_code
                 );
 
-                Mail::send('emails.confirmation', $data, function ($message) use ($emailUser) {
+                /*Mail::send('emails.confirmation', $data, function ($message) use ($emailUser) {
                     $message->from('admin@evezown.com', 'Evezown Team');
                     $message->to($emailUser['email'], $emailUser['name'])->subject('Evezown Account Confirmation');
-                });
+                });*/
 
             } else {
                 $error = $user->errors()->all(':message');

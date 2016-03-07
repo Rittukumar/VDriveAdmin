@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li id="step1"  data-toggle="tab" data-slide-to="0">
-                <a href="#profile/{{userId}}" class="{{isActive[1]}}">Evezsite</a>
+                <a href="#profile/{{userId}}" class="{{isActive[1]}}">Mysite</a>
             </li>
             <li id="step2"  data-toggle="tab" data-slide-to="1">
                 <a href="#community" ng-class="{ active: isActive('/community')}">Build Community</a>
@@ -14,9 +14,8 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">MarketPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Jobs</a></li>
                         </ul>
                     </div>
                 </script>
@@ -56,7 +55,7 @@
 <div class="col-md-12" style="margin-top: 10px;">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
         <li><a href="#home">Home</a> <span class="divider"></span></li>
-        <li><a href="#profile/{{userId}}">Evezsite</a></li>
+        <li><a href="#profile/{{userId}}">Mysite</a></li>
         <li class="active">Build Community</li>
     </ul>
 </div>
@@ -64,7 +63,7 @@
 <div class="col-md-2 user-menu-btns">
     <div class="btn-group-vertical square" id="responsive">
         <a id="step3"  data-toggle="tab" data-slide-to="2" href="#community" class="btn btn-block btn-default active">
-            <p>Connect</p>
+            <p>Connects</p>
         </a>
         <a id="step4"  data-toggle="tab" data-slide-to="3" href="#advertise" class="btn btn-default">
             <p>Advertise</p>
@@ -73,7 +72,7 @@
             <p>Circles</p>
         </a>
         <a id="step6"  data-toggle="tab" data-slide-to="4" href="#friends/invite" class="btn btn-default">
-            <p>Invite Evez</p>
+            <p>Invite people</p>
         </a>
         <a id="step6"  data-toggle="tab" data-slide-to="4" href="#invitehistory" class="btn btn-default">
             <p>Invite History</p>
@@ -86,27 +85,27 @@
             <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
             <h4>Connect</h4>
             <p>
-                Connect with women through inviting them to join your community. Send invite code over email or through phone (SMS or What’sAPP).
+                Connect with people through inviting them to join your community. Send invite code over email or through phone (SMS or What’sAPP).
             </p>
         </div>
     </div>
     <div class="col-md-12 panel-heading  custom-invite-eves" style="padding-left: 0px">
         <div class="col-md-2" style="padding-left: 0px">
             <h5 style="color: #337ab7; font-weight: 600; font-size: 16px">
-                Eves ({{friendList.length}})
+                Friends ({{friendList.length}})
             </h5>
         </div>
         <div class="col-md-4">
-            <input type="text" class="form-control" placeholder="search eves" ng-model="evesearch"/>
+            <input type="text" class="form-control" placeholder="search friends" ng-model="evesearch"/>
         </div>
         <div class="col-md-2 col-md-offset-4 pull-right custom-invite-eves-button">
-            <a href="#friends/invite" class="btn btn-primary"><span class="fa fa-plus"></span> invite eves</a>
+            <a href="#friends/invite" class="btn btn-primary"><span class="fa fa-plus"></span> invite people</a>
         </div>
     </div>
     <div class="col-sm-12 text-center" style="background: #e6e4e4; height: 400px;margin-top:30px;" ng-if="friendList.length == 0">
         <h4 style="margin-top: 150px; color: #444444">Don' have any friends yet?</h4>
         <a href="#friends/invite" class="btn btn-primary" style="font-size: 20px; border-radius: 5px; margin-top: 20px">
-            <span class="fa fa-plus"></span> Invite Eves Now
+            <span class="fa fa-plus"></span> Invite people Now
         </a>
     </div>
     <div class="col-md-12 friends-section custom-friends-section" ng-if="friendList.length > 0" style="padding-left: 0px;margin-top:10px;">
@@ -161,7 +160,7 @@
     <!-- Friend requests -->
     <div class="panel" style="background: #f7f7f7;">
         <div class="panel-heading">
-            <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Eve Requests ({{memberRequests.length}})</h5>
+            <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Member Requests ({{memberRequests.length}})</h5>
         </div>
         <ul class="list-group" ng-repeat="request in memberRequests | limitTo:10 | orderBy:'firstname':true">
             <li class="list-group-item col-sm-12">

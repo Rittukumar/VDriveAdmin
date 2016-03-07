@@ -2,11 +2,17 @@
 <nav class="navbar navbar-default" id="navContainer">
     <div id="navbar1">
         <ul class="nav navbar-nav">
-            <li>
+            <li ng-if="loggedInUserId == currentUserId">
                 <a href="#profile/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
             </li>
-            <li>
-                <a href="#profile/{{userId}}" class="{{isActive[2]}}" ng-class="{ active: isActive('/profile/{{userId}}')}">Recent Activity</a>
+            <li ng-if="loggedInUserId != currentUserId">
+                <a href="#profile/{{loggedInUserId}}">Evezsite</a>
+            </li>
+            <li ng-if="loggedInUserId == currentUserId">
+                <a href="#community" class="{{isActive[2]}}" ng-class="{ active: isActive('/community')}">Build Community</a>
+            </li>
+            <li ng-if="loggedInUserId != currentUserId">
+                <a href="#community" class="active" ng-class="{ active: isActive('/community')}">Build Community</a>
             </li>
             <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
@@ -14,7 +20,6 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
                         </ul>
@@ -201,22 +206,36 @@
                             style="color: #4cb1ca; font-weight: 100; font-size: 1.2em; text-align:justify;">
                         {{post.title}}</h4></div>
 
-                    <div class="col-md-12 friends-section" ng-if="post.images.length > 0" style="padding-left: 0px;">
-                        <ul class="row" style="padding-left: 0px">
-                            <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"
-                                style="padding-left: 10px; padding-right: 10px; padding-top:10px "
-                                ng-repeat="image in post.images track by $index">
-                                <a href ng-click="openLightBox(post.images,$index)">
-                                    <center>
-                                        <div class="profile-img-crop">
-                                            <img ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
-                                                 alt="125x125">
-                                        </div>
-                                    </center>
-                                </a>
-                            </li>
-                        </ul>
+                    <!-- Images-->
+               <div ng-if="post.images.length > 0" class="col-sm-12 col-xs-12 spec center-block reco-image-gallery">
+                    <div class="col-lg-3 col-sm-6 col-xs-3" ng-repeat="image in post.images | slice:0:1">
+                        <a  href ng-click="openLightBox(post.images,$index)" class="thumbnail" style="min-height:116px;">
+                            <img ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
+                                 alt="125x125">
+                        </a>
                     </div>
+                    <div class="col-lg-3 col-sm-6 col-xs-3" ng-repeat="image in post.images | slice:1:2">
+                        <a  href ng-click="openLightBox(post.images,$index + 1)" class="thumbnail" style="min-height:116px;">
+                            <img ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
+                                 alt="125x125">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-xs-3" ng-repeat="image in post.images | slice:2:3">
+                        <a href ng-click="openLightBox(post.images,$index + 2)" class="thumbnail" style="min-height:116px;">
+                            <img ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
+                                 alt="125x125">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-xs-3" ng-repeat="image in post.images | slice:3:4">
+                        <a href ng-click="openLightBox(post.images,$index + 3)" class="thumbnail" style="min-height:116px;">
+                            <img ng-if="post.images.length > 4" ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
+                                 alt="125x125" style="opacity:0.7">
+                            <i class="custom-text-over-image" ng-if="post.images.length > 4">+{{post.images.length - 4}}</i>
+                            <img  ng-if="post.images.length <= 4"ng-src="{{imagePath+'image/show/'+image.large_image_url}}"
+                                 alt="125x125">
+                        </a>
+                    </div>
+                </div>
 
                     <!--Brand and location div starts-->
                     <!--Both Brand and location / show this div-->

@@ -6,8 +6,11 @@
                 <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
             </li>
             
-            <li>
+            <li ng-if="loggedInUserId == currentUserId">
                 <a href="#mystores/{{userId}}" class="{{isActive[1]}}" ng-class="{ active: isActive('/mystores/{{userId}}')}">Stores</a>
+            </li>
+            <li ng-if="loggedInUserId != currentUserId">
+                <a href="#community" class="{{isActive[1]}}" ng-class="{ active: isActive('/community')}">Build Community</a>
             </li>
             <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
@@ -15,7 +18,6 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
                             <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
                         </ul>

@@ -14,9 +14,9 @@
             <div id="top-nav" class="top-nav">
                 <div class="row">
                     <ul class="nav navbar-nav">
-                        <li ng-class="{ active: isActive('/profile/{{userId}}')}"><a href="#profile/{{userId}}">Evezown</a></li>
-                        <li ng-class="{ active: isActive('/evezplace')}"><a href="#evezplace">EvezPlace</a></li>
-                        <li ng-class="{ active: isActive('/wopportunity')}"><a href="#wopportunity">Wopportunity</a>
+                        <li ng-class="{ active: isActive('/profile/{{userId}}')}"><a href="#profile/{{userId}}">Mysite</a></li>
+                        <li ng-class="{ active: isActive('/evezplace')}"><a href="#evezplace">MarketPlace</a></li>
+                        <li ng-class="{ active: isActive('/wopportunity')}"><a href="#wopportunity">Jobs</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -29,7 +29,7 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#profile/{{userId}}">Manage Evezsite</a></li>
+                                <li><a href="#profile/{{userId}}">Manage Mysite</a></li>
                                 <li><a href="#profile/{{userId}}/personalinfo">Update Profile</a></li>
                                 <li ng-if="roleId == 1"><a href="#admin">Admin</a></li>
                                 <li><a>Settings</a></li>
