@@ -228,7 +228,7 @@ evezownApp
         }
 
         $scope.UploadCoverImage1 = function (files) {
-            alert('test');
+            //alert('test');
             $scope.imageTag = 1;
             files.uploader.uploadAll();
         }

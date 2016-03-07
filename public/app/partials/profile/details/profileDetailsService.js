@@ -57,7 +57,7 @@ evezownApp.factory('ProfileDetailsService', ['$http', '$q', 'PATHS' ,function ($
 
     ProfileDetailsService.saveInterestProfile = function ($profile) {
         var deferred = $q.defer();
-        alert($profile);
+        //alert($profile);
         $http.post(PATHS.api_url +  'users/interest_profile/save', $profile)
             .success(function(data){
                 deferred.resolve(data);
