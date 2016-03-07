@@ -48,10 +48,10 @@ evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $lo
             $rootScope.storeType = "Service"
         }
         else if (index == 2) {
-            $rootScope.currentSection = 5;
+            $rootScope.currentSection = 6;
         }
         else if (index == 3) {
-            $rootScope.currentSection = 6;
+            $rootScope.currentSection = 5;
         }
 
         return index == $scope.selectedIndex ? 'active' : '';
@@ -68,10 +68,10 @@ evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $lo
             $scope.currentSection = 4;
         }
         else if ($scope.selectedIndex == 2) {
-            $scope.currentSection = 5;
+            $scope.currentSection = 6;
         }
         else if ($scope.selectedIndex == 3) {
-            $scope.currentSection = 6;
+            $scope.currentSection = 5;
         }
 
         EvezplaceHomeService.getCategories($scope.currentSection)
