@@ -16,7 +16,7 @@ evezownApp
        
         if($scope.loggedInUserId == $routeParams.id)
         {
-            $scope.profileMenuItems.push({name: 'Manage Evezsite',
+            $scope.profileMenuItems.push({name: 'Manage Mysite',
             link : 'profile/' + $scope.loggedInUserId + '/personalinfo'},
             {
             name: 'Build Community',
@@ -31,7 +31,7 @@ evezownApp
             name: 'Stores',
             link : 'mystores/' + $routeParams.id
         },{
-            name: 'Classifieds',
+            name: 'Ads & Campaigns',
             link : 'mylisting/' + $routeParams.id
         },{
             name: 'Blogs',

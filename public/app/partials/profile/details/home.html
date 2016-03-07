@@ -3,10 +3,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li id="step1"  data-toggle="tab" data-slide-to="0">
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
+                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li id="step10"  data-toggle="tab" data-slide-to="9">
-                <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Manage Evezsite</a>
+                <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Manage Mysite</a>
             </li>
             <li id="step11"  data-toggle="tab" data-slide-to="10" ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
@@ -14,8 +14,8 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">MarketPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Jobs</a></li>
                         </ul>
                     </div>
                 </script>
@@ -45,7 +45,7 @@
                      class="img-responsive thumbnail" />
                 <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
                     <ul class="list-unstyled text-center">
-                        <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Evezsite
+                        <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Mysite
                             Image</a>
                         </li>
                     </ul>
@@ -76,7 +76,7 @@
                     <a href="#" ng-controller="community">
                         <div class="col-md-2 col-xs-2 well text-center" id="user-profile">
                             <h3>{{friendList.length}}</h3>
-                            <h4>Eves</h4>
+                            <h4>Connects</h4>
                         </div>
                     </a>
 
@@ -94,7 +94,7 @@
                     </div>
                     <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="albums">
                         <h3>{{myAlbums.length}}</h3>
-                        <h4>Albums</h4>
+                        <h4>Gallery</h4>
                     </div>
                     <div class="col-md-2 col-xs-2 well text-center" id="user-more">
                         <h3><i class="fa fa-circle"></i>
@@ -149,7 +149,7 @@
             <p>My Reference info </p>
         </a>
         <a id="step6"  data-toggle="tab" data-slide-to="5" href="#profile/{{userId}}/participation" class="btn btn-default">
-            <p>My Participation in </br>EvezPlace </p>
+            <p>My Participation in </br>MarketPlace </p>
         </a>
         <a id="step7"  data-toggle="tab" data-slide-to="6" href="#profile/{{userId}}/other" class="btn btn-default">
             <p>Other EvezOwn services </p>

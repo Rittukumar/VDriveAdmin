@@ -3,10 +3,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="">
-                <a href="#profile/{{userId}}" >Evezsite</a>
+                <a href="#profile/{{userId}}" >Mysite</a>
             </li>
             <li ng-if="loggedInUserId == currentUserId">
-                <a href="#myalbums/{{userId}}" class="active">Albums</a>
+                <a href="#myalbums/{{userId}}" class="active">Gallery</a>
             </li>
             <li ng-if="loggedInUserId != currentUserId">
                 <a href="#community" class="active" ng-class="{ active: isActive('/community')}">Build Community</a>
@@ -17,9 +17,8 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#profile/{{userId}}">Evezsite</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">MarketPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Jobs</a></li>
                         </ul>
                     </div>
                 </script>
@@ -97,7 +96,7 @@
                     <a href ng-controller="community">
                         <div class="col-md-2  well text-center" id="user-profile">
                             <h3>{{friendList.length}}</h3>
-                            <h4>Eves</h4>
+                            <h4>Connects</h4>
                         </div>
                     </a>
 
@@ -115,7 +114,7 @@
                     </div>
                     <div class="col-md-2  well text-center" id="user-profile" ng-controller="albums">
                         <h3>{{myAlbums.length}}</h3>
-                        <h4>Albums</h4>
+                        <h4>Gallery</h4>
                     </div>
                     <div class="col-md-2  well text-center" id="user-more">
                         <h3><i class="fa fa-circle"></i>
@@ -151,7 +150,7 @@ ng-include src='"partials/profile/profileLeftMenu.html"'>
             <a class="btn btn-link" ng-click="WoiceIt();"><i class="fa fa-share-square-o"></i> Stream It</a>
         </div>
         <div class="col-md-2" ng-if="selectedAlbum.owner_id ==loggedInUserId">
-            <a class="btn btn-link pull-right" style="color: darkred" ng-click="DeleteAlbum(selectedAlbum)"><i class="fa fa-trash-o"></i> delete album</a>
+            <a class="btn btn-link pull-right" style="color: darkred" ng-click="DeleteAlbum(selectedAlbum)"><i class="fa fa-trash-o"></i> delete Gallery</a>
         </div>
         <div class="col-md-6">
             <div class="col-md-4 text-right" style="padding-top: 20px;">

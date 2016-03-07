@@ -3,10 +3,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
+                <a href="#profile/{{userId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li>
-                <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Manage Evezsite</a>
+                <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Manage Mysite</a>
             </li>
             <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
@@ -14,8 +14,8 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">MarketPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Jobs</a></li>
                         </ul>
                     </div>
                 </script>
@@ -43,7 +43,7 @@
                              class="img-responsive thumbnail" />
                         <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
                             <ul class="list-unstyled text-center">
-                                <li><a href>Update Evezsite Image</a></li>
+                                <li><a href>Update Mysite Image</a></li>
                                 <input type="file" class="upload" name="image" nv-file-select uploader="uploader"/>
                                 <div ng-if="uploader.queue.length > 0">
                                     <!-- Image upload queue section start -->
@@ -78,7 +78,7 @@
                             <a href="#" ng-controller="community">
                                 <div class="col-md-2 col-xs-2 well text-center" id="user-profile">
                                     <h3>{{friendList.length}}</h3>
-                                    <h4>Eves</h4>
+                                    <h4>Connects</h4>
                                 </div>
                             </a>
 
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="albums">
                                 <h3>{{myAlbums.length}}</h3>
-                                <h4>Albums</h4>
+                                <h4>Gallery</h4>
                             </div>
                             <div class="col-md-2 col-xs-2 well text-center" id="user-more">
                                 <h3><i class="fa fa-circle"></i>
@@ -143,7 +143,7 @@
                     <p>My Reference info </p>
                 </a>
                 <a href="#profile/{{userId}}/participation" class="btn btn-default ">
-                    <p>My Participation in </br>EvezPlace </p>
+                    <p>My Participation in </br>MarketPlace </p>
                 </a>
                 <a href="#profile/{{userId}}/other" class="btn btn-default">
                     <p>Other EvezOwn services </p>

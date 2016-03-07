@@ -3,10 +3,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-if="loggedInUserId == currentUserId">
-                <a href="#profile/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
+                <a href="#profile/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId != currentUserId">
-                <a href="#profile/{{loggedInUserId}}">Evezsite</a>
+                <a href="#profile/{{loggedInUserId}}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId == currentUserId">
                 <a href="#community" class="{{isActive[2]}}" ng-class="{ active: isActive('/community')}">Build Community</a>
@@ -20,8 +20,8 @@
                     <div class="triangle"></div>
                     <div class="ns-popover-tooltip">
                         <ul>
-                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">EvezPlace</a></li>
-                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Wopportunity</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">MarketPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Jobs</a></li>
                         </ul>
                     </div>
                 </script>
@@ -44,16 +44,16 @@
      role="alert" ng-controller="ApplicationCtrl">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
-    <h1>Construct Your Evezsite</h1>
+    <h1>Build Mysite</h1>
 
     <p style="text-align:justify">This is your website on Evezown and captures the essence of your business and
         personality. You can create your profile in-depth, build community to connect with friends, colleagues,
-        customers, partners, employees or other women you wish to connect with. You can promote yourself or your
+        customers, partners, employees or any one you wish to connect with. You can promote yourself or your
         business digitally within your circles privately or publicly using features such as events, blogs, recco, forums
         and groups.
     </p>
 
-    <p style="text-align:justify">For more visit <a href style="text-decoration:none;">Evezsite FAQs</a>.</p>
+    <p style="text-align:justify">For more visit <a href style="text-decoration:none;">Mysite FAQs</a>.</p>
 </div>
 <div class="col-md-12">
     <div class="container col-md-12" ng-controller="profileCtrl">
@@ -99,7 +99,7 @@
 
                             <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
                                 <ul class="list-unstyled text-center">
-                                    <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Evezsite
+                                    <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Myzsite
                                         Image</a>
                                     </li>
                                 </ul>
@@ -128,7 +128,7 @@
 
                                 <div class="col-md-2 well text-center" id="user-profile" ng-controller="community">
                                     <h3>{{friendList.length}}</h3>
-                                    <h4>Eves</h4>
+                                    <h4>Connects</h4>
                                 </div>
 
                                 <div class="col-md-2 well text-center" id="user-profile" ng-controller="circles">
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="col-md-2 well text-center" id="user-profile" ng-controller="albums">
                                     <h3>{{myAlbums.length}}</h3>
-                                    <h4>Albums</h4>
+                                    <h4>Gallery</h4>
                                 </div>
                                 <div class="col-md-2 well text-center" id="user-more">
                                     <h3><i class="fa fa-circle"></i>
