@@ -617,7 +617,7 @@ class ClassifiedsController extends AppController
                 'comment' => $classifiedComments,
             );
 
-            $emails = [$classifiedContact->email, 'vish@creativethoughtstech.in'];
+            $emails = [$classifiedContact->email, 'radhakrishnan.radha@gmail.com'];
 
             Mail::send('emails.classifiedRfi', $data, function ($message) use ($user, $emails) {
                 $message->from($user['email'], $user['name']);

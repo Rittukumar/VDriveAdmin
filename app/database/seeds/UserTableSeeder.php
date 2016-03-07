@@ -12,14 +12,6 @@ class UserTableSeeder extends Seeder {
 		$faker = Faker::create();
 
 		$this->createUser([
-			'email' => 'meena@creativethoughtstech.in',
-			'password' => 'test',
-			'firstname' => 'Meena',
-			'lastname' => 'Mahesh',
-			'role' => 2
-		]);
-
-		$this->createUser([
 			'email' => 'varsha.anand13@gmail.com',
 			'password' => 'test',
 			'firstname' => 'Varsha',

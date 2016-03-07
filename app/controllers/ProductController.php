@@ -968,7 +968,7 @@ class ProductController extends AppController
                     'comment' => $classifiedComments,
                 );
 
-                $emails = [$storeFrontInfo->store_contact_email, 'vish@creativethoughtstech.in'];
+                $emails = [$storeFrontInfo->store_contact_email, 'radhakrishnan.radha@gmail.com'];
 
                 Mail::send('emails.classifiedRfi', $data, function ($message) use ($user, $emails) {
                     $message->from($user['email'], $user['name']);
