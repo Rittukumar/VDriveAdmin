@@ -393,7 +393,18 @@ evezownApp
                 if (!formData.storeTitle) {
                     toastr.error('Please enter store title', 'Store');
                 }
-
+                else if (!$scope.addCollage.LeftCollageImage.croppedImage) {
+                    toastr.error('Please add Left Collage image', 'Store');
+                }
+                else if (!$scope.addCollage.RightCollageImage.croppedImage) {
+                    toastr.error('Please add Right Collage image', 'Store');
+                }
+                else if (!$scope.addCollage.BottomCollageImage.croppedImage) {
+                    toastr.error('Please add Bottom Collage image', 'Store');
+                }
+                else if (!$scope.addCollage.ProfileCollageImage.croppedImage) {
+                    toastr.error('Please add Profile Collage image', 'Store');
+                }
                 else if (!$rootScope.selectedStoreListing) {
                     toastr.error('Please select listing type', 'Store');
                 }
