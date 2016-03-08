@@ -26,6 +26,7 @@ class InterviewTransformer extends Fractal\TransformerAbstract
             'priority' => (int)$interview['priority'],
             'create_date' => $interview['created_at'],
             'update_date' => $interview['updated_at'],
+            'interview_image' => $interview['interview_image'],
         ];
     }
 }
