@@ -176,7 +176,7 @@ evezownApp
             usSpinnerService.spin('spinner-1');
             ClassifiedsService.removeTag(tag.id).then(function (data) {
                 usSpinnerService.stop('spinner-1');
-                toastr.success(data.message, 'Create Classifieds');
+                toastr.success(data.message, 'Create Ads & Campaigns');
             });
         };
 
@@ -196,7 +196,7 @@ evezownApp
                 //}
 
                 usSpinnerService.stop('spinner-1');
-                toastr.success('Classifieds updated successfully', 'Manage Classifieds');
+                toastr.success('Ads & Campaigns updated successfully', 'Manage Ads & Campaigns');
                 //$location.path('classifieds/create/step2');
             });
         }
@@ -206,7 +206,7 @@ evezownApp
             usSpinnerService.spin('spinner-1');
             ClassifiedsService.saveClassifiedsStep2($scope.addClassified, $scope.loggedInUserId).then(function (data) {
                 usSpinnerService.stop('spinner-1');
-                toastr.success('Classifieds updated successfully', 'Manage Classifieds');
+                toastr.success('Ads & Campaigns updated successfully', 'Manage Ads & Campaigns');
                 //$location.path('classifieds/create/step3');
             });
         }
@@ -216,7 +216,7 @@ evezownApp
             usSpinnerService.spin('spinner-1');
             ClassifiedsService.saveClassifiedsStep3($scope.addClassified.step3, $scope.loggedInUserId).then(function (data) {
                 usSpinnerService.stop('spinner-1');
-                toastr.success('Classifieds updated successfully', 'Manage Classifieds');
+                toastr.success('Ads & Campaigns updated successfully', 'Manage Ads & Campaigns');
                 // $location.path('classifieds/create/success');
 
             });

@@ -46,7 +46,7 @@ evezownApp
           }, function (error) {
               if (error.error.status_code == 404) {
 
-                  toastr.error(error.error.message, 'Evezplace Recommendations');
+                  toastr.error(error.error.message, 'MarketPlace Recommendations');
               }
           });
       }
@@ -63,7 +63,7 @@ evezownApp
           }, function (error) {
               if (error.error.status_code == 404) {
 
-                  toastr.error(error.error.message, 'Evezplace Recommendations');
+                  toastr.error(error.error.message, 'MarketPlace Recommendations');
               }
           });
       }

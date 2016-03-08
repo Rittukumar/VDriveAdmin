@@ -1100,7 +1100,7 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
                 },
                 {
                     element: '#step4',
-                    intro: "<b>&#10004;</b> Explore the two sections Evezplace and Wopportunity",
+                    intro: "<b>&#10004;</b> Explore the two sections Marketplace and Jobs",
                     position: 'bottom'
                 },
                 {

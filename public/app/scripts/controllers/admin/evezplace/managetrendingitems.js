@@ -72,7 +72,7 @@ evezownApp
                 $scope.sections = data;
                 $scope.selectedSectionId = $scope.sections[0].id;
             }, function (error) {
-                toastr.error(error.error.message, 'Evezplace Sections');
+                toastr.error(error.error.message, 'MarketPlace Sections');
             });
         }
 
@@ -88,7 +88,7 @@ evezownApp
             }, function (error) {
                 if (error.error.status_code == 404) {
 
-                    toastr.error(error.error.message, 'Evezplace Recommendations');
+                    toastr.error(error.error.message, 'MarketPlace Recommendations');
                 }
             });
         }
@@ -115,7 +115,7 @@ evezownApp
 
             }, function (error) {
                 if (error.error.status_code == 404) {
-                    toastr.error(error.error.message, 'Evezplace Recommendations');
+                    toastr.error(error.error.message, 'MarketPlace Recommendations');
                 }
             });
         }

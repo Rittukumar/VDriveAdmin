@@ -7,7 +7,7 @@
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
-                <a href="#mylisting/{{userId}}" class="{{isActive[1]}}" ng-class="{ active: isActive('/mylisting/{{userId}}')}">Classifieds</a>
+                <a href="#mylisting/{{userId}}" class="{{isActive[1]}}" ng-class="{ active: isActive('/mylisting/{{userId}}')}">Ads & Campaigns</a>
             </li>
             <li ng-if="loggedInUserId != currentUserId">
                 <a href="#community" class="{{isActive[1]}}" ng-class="{ active: isActive('/community')}">Build Community</a>
@@ -157,7 +157,7 @@
                                                     <a href="#classifieds/{{item.id}}"  style="color: #ffffff;"><h5 style="padding: 10px">{{item.title}}</h5></a>
                                                 </div>
                                                 <div class="col-xs-6" ng-if="currentUserId == loggedInUserId">
-                                                    <a href="#classified/{{item.id}}/manage/classified_type" class="pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">Manage Classifieds<span class="fa fa-chevron-right"></span></a>
+                                                    <a href="#classified/{{item.id}}/manage/classified_type" class="pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">Manage Ads & Campaigns<span class="fa fa-chevron-right"></span></a>
                                                 </div>
                                             </div>
 

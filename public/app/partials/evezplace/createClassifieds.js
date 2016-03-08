@@ -185,7 +185,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
         usSpinnerService.spin('spinner-1');
         ClassifiedsService.removeTag(tag.id).then(function (data) {
             usSpinnerService.stop('spinner-1');
-            toastr.success(data.message, 'Create Classifieds');
+            toastr.success(data.message, 'Create Ads & Campaigns');
         });
     };
 
@@ -206,7 +206,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
             }
 
             usSpinnerService.stop('spinner-1');
-            toastr.success(data.message, 'Create Classifieds');
+            toastr.success(data.message, 'Create Ads & Campaigns');
             $location.path('classifieds/create/step2');
         });
     }
@@ -245,7 +245,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
         usSpinnerService.spin('spinner-1');
         ClassifiedsService.saveClassifiedsStep2($scope.addClassified, $scope.loggedInUserId).then(function (data) {
             usSpinnerService.stop('spinner-1');
-            toastr.success(data.message, 'Create Classifieds');
+            toastr.success(data.message, 'Create Ads & Campaigns');
             $location.path('classifieds/create/step3');
         });
         }
@@ -256,7 +256,7 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
         usSpinnerService.spin('spinner-1');
         ClassifiedsService.saveClassifiedsStep3($scope.addClassified.step3, $scope.loggedInUserId).then(function (data) {
             usSpinnerService.stop('spinner-1');
-            toastr.success(data.message, 'Create Classifieds');
+            toastr.success(data.message, 'Create Ads & Campaigns');
             $cookieStore.remove('createClassifiedId');
             $location.path('classifieds/create/success');
 

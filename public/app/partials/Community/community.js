@@ -206,7 +206,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step11',
-                    intro: '<b>&#10004;</b> Explore the two sections Evezplace and Wopportunity'
+                    intro: '<b>&#10004;</b> Explore the two sections Marketplace and Jobs'
                 },
                 {
                     element: '#step12',
