@@ -32,9 +32,7 @@
         <h4 class="transparent-ribbon text-center" style="color: #e51385;">News</h4>
         <div class="news-section" ng-repeat="newsItem in news">
         <p style="text-align:justify;font-size:12px;">
-            <b>{{newsItem.title}}</b> - {{newsItem.description}}<br>
-            <a href="{{newsItem.link}}" target="blank">
-            <button type="button" class="Readmore">Read more</button></a>
+            <a href="{{newsItem.link}}" target="blank" style="text-decoration:none;"><b>{{newsItem.title | strLimit:35}}</b></a> - {{newsItem.description | strLimit:120 }}<br>
         </p>
         </div>
     </div>
@@ -49,9 +47,7 @@
         </div>
         <div class="col-md-8 no-padding">
             <p style="text-align:justify;font-size:12px;">
-                <b>{{interview.title}}</b> - {{interview.description}}<br>
-                <a href="{{interview.link}}" target="blank">
-                <button type="button" class="Readmore">Read more</button></a>
+                <a href="{{interview.link}}" target="blank" style="text-decoration:none;"><b>{{interview.title | strLimit:25}}</b></a> - {{interview.description | strLimit:120}}<br>
             </p>
         </div>
         </div>
