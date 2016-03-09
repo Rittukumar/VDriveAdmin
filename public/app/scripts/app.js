@@ -1505,6 +1505,12 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             .when('/store/order/buy', {
                 templateUrl: 'views/store/buy.html',
             });
+        
+        $routeProvider
+	        .when('/order/success', {
+	            templateUrl: 'views/buyer/success.html',
+	        });
+
 
         $routeProvider.when('/buyer/orders', {
             templateUrl: 'views/buyer/orders.html',
