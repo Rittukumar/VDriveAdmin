@@ -43,6 +43,14 @@
     </p>
 </div>
 
+<div class="col-md-12" style="margin-top: 10px;">
+    <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+        <li><a href="#home">Home</a> <span class="divider"></span></li>
+        <li><a href="#profile/{{userId}}">Mysite</a></li>
+        <li class="active">Build Community</li>
+    </ul>
+</div>
+
 <div class="col-md-2 user-menu-btns">
     <div class="btn-group-vertical square" id="responsive">
         <a href="#community" class="btn btn-default">
@@ -55,7 +63,7 @@
             <p>Circles</p>
         </a>
         <a href="#friends/invite" class="btn btn-default">
-            <p>Invite Evez</p>
+            <p>Invite People</p>
         </a>
         <a href="#invitehistory" class="btn btn-default">
             <p>Invite History</p>
@@ -63,9 +71,96 @@
     </div>
 </div>
 <div class="col-md-10 user-menu user-pad">
-    <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px;margin-top:40px;">
-        <h2 class="text-center">Advertise</h2>
-        <br><br><br>
-        <h4 class="text-center">Comming Soon</h4>
+    <div class="row" ng-controller="inviteFriendsCtrl">
+    <div class="col-md-12 invite-section">
+        <div class="panel panel-default" style="margin-top:30px;">
+            <div class="panel-body text-left">
+                <h1>Start building your community</h1>
+
+                <div class="col-sm-12">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                        <div class="panel panel-plain">
+                            <div class="panel-body">
+                                <button class="btn btn-block btn-social btn-lg btn-facebook"
+                                        ng-click="sendFacebookRequests()">
+                                    <i class="fa fa-facebook"></i> Invite using Facebook
+                                </button>
+                            </div>
+                            <div class="panel-body">
+                                <div class="btn-watsapp">
+                                    <a href="whatsapp://send?text={{whatsAppDescription}}"
+                                       data-action="www.evezown.com"
+                                       class="btn btn-block btn-social btn-lg btn-whatsapp">
+                                        <i class="fa fa-whatsapp"></i> Invite using Whatsapp
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="panel panel-plain">
+                                <div class="panel-body">
+                                    <button class="btn btn btn-block btn-social btn-lg btn-google-plus"
+                                            id="signInButton" ng-click="start()">
+                                        <i class=" fa fa-google-plus"></i>Invite using Google+
+                                    </button>
+                                    <div ng-show="friendslist != null && friendslist.length > 0"
+                                         class="alert alert-dismissible shadow">
+                                        <form class="col-md-10" style="padding-left: 0px; padding-right: 0px">
+                                            <input ng-model="search" type="text"
+                                                   placeholder="Search by firstname" autofocus class="form-control">
+                                        </form>
+                                        <button type="button" class="close" ng-click="resetGooglePlus()"
+                                                aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <table class="table table-condensed">
+                                            <tbody>
+                                            <tr ng-repeat="friend in friendslist | filter:search | orderBy: 'firstName' |
+                                                                    offset: currentPage1*itemsPerPage1 |
+                                                                    limitTo: itemsPerPage1">
+                                                <td> {{ friend.firstName }} <i>
+                                                    <small>({{friend.email}})</small>
+                                                </i></td>
+                                                <td>
+                                                    <button class="btn btn-primary btn-block"
+                                                            ng-click="sendInvite(friend.email)">Invite
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <tfoot>
+                                            <td colspan="4">
+                                                <nav>
+                                                    <ul class="pagination pull-right">
+                                                        <li ng-class="prevPageDisabled1()">
+                                                            <a href ng-click="prevPage1()">« Prev</a>
+                                                        </li>
+                                                        <li ng-repeat="n in range1()"
+                                                            ng-class="{active: n == currentPage1}"
+                                                            ng-click="setPage1(n)" ng-if="n >= 0">
+                                                            <a href>{{n+1}}</a>
+                                                        </li>
+                                                        <li ng-class="nextPageDisabled1()">
+                                                            <a href ng-click="nextPage1()">Next »</a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </td>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                if (typeof wabtn4fg === "undefined") {
+                    wabtn4fg = 1;
+                    h = document.head || document.getElementsByTagName("head")[0], s = document.createElement("script");
+                    s.type = "text/javascript";
+                    s.src = "custom/whatsapp/whatsapp-button.js";
+                    h.appendChild(s);
+                }
+            </script>
+        </div>
     </div>
+</div>
 </div>

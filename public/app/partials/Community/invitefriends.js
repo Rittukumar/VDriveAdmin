@@ -687,7 +687,11 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
             document.getElementById('out2').value = "";
     }
 
-    document.getElementById("ExcelInvite").onclick = function(emails) {ExcelMailInvite(emails)};
+    
+    if ($location.path() == '/friends/invite') {
+
+        document.getElementById("ExcelInvite").onclick = function(emails) {ExcelMailInvite(emails)};
+    }
 
     function ExcelMailInvite(emails) {
     var ExcelMails = document.getElementById('out2').value;
