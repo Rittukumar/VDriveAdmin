@@ -41,11 +41,11 @@ evezownApp
             link : 'admin/opportunities' 
 
         },{
-            name: 'Woice',
+            name: 'Stream It',
             link : 'admin/woice' 
 
         },{
-            name: 'Woice-flag',
+            name: 'Sgtream It-flag',
             link : 'admin/woiceflag' 
 
         },{

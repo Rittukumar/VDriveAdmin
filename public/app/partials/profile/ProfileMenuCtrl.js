@@ -22,7 +22,7 @@ evezownApp
             name: 'Build Community',
             link : 'community'
             },{
-            name: 'Streamit',
+            name: 'Stream It',
             link : 'streamit'
             });
         }
