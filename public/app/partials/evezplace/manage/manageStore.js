@@ -644,9 +644,11 @@ evezownApp
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers)
         {
+        	$scope.ImageSize = fileItem.file.size;
             $scope.productImages.push(response.imageName);
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
+        	$scope.ImageSize = fileItem.file.size;
             console.info('onErrorItem', fileItem, response, status, headers);
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
@@ -658,7 +660,15 @@ evezownApp
         };
         uploader.onCompleteAll = function()
         {
-            $scope.isImageUploadComplete = true;
+        	if($scope.ImageSize > 2000000)
+            {
+                toastr.error("Please upload image of size less than 2 MB")
+            }
+            else
+            {
+                $scope.isImageUploadComplete = true;
+            }
+            //$scope.isImageUploadComplete = true;
         };
 
 
