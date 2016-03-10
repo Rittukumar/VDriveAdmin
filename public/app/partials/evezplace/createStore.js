@@ -799,7 +799,7 @@ evezownApp
             }
  
             else if (!formData.free) {
-                toastr.error('Please Choose Recco -it subscription', 'Store');
+                toastr.error('Please Choose Stream -it subscription', 'Store');
             }
             else {
                 $http.post(PATHS.api_url + 'users/store/step6/' + $scope.loggedInUserId + '/add'

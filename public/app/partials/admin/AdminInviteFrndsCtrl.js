@@ -253,9 +253,9 @@ evezownApp.controller('AdminInviteFrndsCtrl', function ($scope, Facebook, $linke
 
         message += "EvezOwn.com is a space for woman like you to voice opinion and showcase your unique identity, personality, talent, business… anything and everything that defines you.<\"br>";
 
-        message += "EvezOwn caters to each and every woman. On this “woman’s only website”, you can create independent circles, promote products and services or just share the information or message you choose to among your evez.<\"br>";
+        message += "EvezOwn caters to each and every woman. On this “woman’s only website”, you can create independent circles, promote products and services or just share the information or message you choose to among your friends.<\"br>";
 
-        message += "Once you register, you can use the WOICE section to create your profile and use features like groups, events, listing, forums, blogs and circles for interacting with your group. You can open a store for your product or service in EvezPlace or simply search and find the career of your choice in WOpportunity, if you are a working professional.<\"br>";
+        message += "Once you register, you can use the WOICE section to create your profile and use features like groups, events, listing, forums, blogs and circles for interacting with your group. You can open a store for your product or service in MarketPlace or simply search and find the career of your choice in Jobs, if you are a working professional.<\"br>";
 
         message += "Click here to register http://evezown.com/#/requestinvite. (please put the actual link here)<\"br>";
         message += "Make EvezOwn.com your own place.<\"br>";

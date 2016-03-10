@@ -164,7 +164,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
             steps:[
                 {
                     element: '#step1',
-                    intro: "<b>&#10004;</b>Invite your evez to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)"
+                    intro: "<b>&#10004;</b>Invite your friends to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)"
                 },
                 {
                     element: '#step2',
@@ -172,7 +172,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step3',
-                    intro: '<b>&#10004;</b>Invite your evez to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)',
+                    intro: '<b>&#10004;</b>Invite your friends to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)',
                     position: 'bottom'
                 },
                 {
@@ -190,7 +190,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step7',
-                    intro: '<b>&#10004;</b> Name your event, mention the day, date and time <br><b>&#10004;</b> Add description <br><b>&#10004;</b> Specify date of closure of the event <br><b>&#10004;</b> Add images, if any <br><b>&#10004;</b> Invite other evez'
+                    intro: '<b>&#10004;</b> Name your event, mention the day, date and time <br><b>&#10004;</b> Add description <br><b>&#10004;</b> Specify date of closure of the event <br><b>&#10004;</b> Add images, if any <br><b>&#10004;</b> Invite other friends'
                 },
                 {
                     element: '#step8',
@@ -202,7 +202,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step10',
-                    intro: '<b>&#10004;</b> Create your recco <br><b>&#10004;</b> Create a title and a short description <br><b>&#10004;</b> Choose what the recco is about <br><b>&#10004;</b> Choose the category and the sub category <br><b>&#10004;</b> Add a brand name or product name (optional) <br><b>&#10004;</b> Provide price range (optional)'
+                    intro: '<b>&#10004;</b> Create your Stream It <br><b>&#10004;</b> Create a title and a short description <br><b>&#10004;</b> Choose what the strean it is about <br><b>&#10004;</b> Choose the category and the sub category <br><b>&#10004;</b> Add a brand name or product name (optional) <br><b>&#10004;</b> Provide price range (optional)'
                 },
                 {
                     element: '#step11',
