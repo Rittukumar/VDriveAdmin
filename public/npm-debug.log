@@ -1,0 +1,36 @@
+93789 silly lifecycle evezownangular@~prepublish: no script for prepublish, continuing
+93790 silly lifecycle evezownangular@~install: no script for install, continuing
+93791 silly runTopLevelLifecycles Finishing
+93792 silly install printInstalled
+93793 silly postinstall evezownangular@ C:\Work\evezown-mar9\OwnUrSite\public\evezownangular-fd656e438d33c11eefe5aab5698563b7
+93794 info lifecycle evezownangular@~postinstall: evezownangular@
+93795 silly lifecycle evezownangular@~postinstall: no script for postinstall, continuing
+93796 silly prepublish evezownangular@ C:\Work\evezown-mar9\OwnUrSite\public\evezownangular-fd656e438d33c11eefe5aab5698563b7
+93797 info lifecycle evezownangular@~prepublish: evezownangular@
+93798 silly lifecycle evezownangular@~prepublish: no script for prepublish, continuing
+93799 silly runTopLevelLifecycles Finishing
+93800 silly install printInstalled
+93801 warn EPEERINVALID grunt-karma@0.12.1 requires a peer of karma@^0.13.0 || >= 0.14.0-rc.0 but none was installed.
+93802 warn EPEERINVALID karma-jasmine@0.3.7 requires a peer of jasmine-core@* but none was installed.
+93803 warn EPEERINVALID karma-phantomjs-launcher@1.0.0 requires a peer of karma@>=0.9 but none was installed.
+93804 warn EPEERINVALID karma-phantomjs-launcher@1.0.0 requires a peer of phantomjs-prebuilt@>=1.9 but none was installed.
+93805 verbose stack Error: Callback called more than once.
+93805 verbose stack     at errorHandler (C:\Program Files\nodejs\node_modules\npm\lib\utils\error-handler.js:110:16)
+93805 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:292:7
+93805 verbose stack     at LOOP (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:7:26)
+93805 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:18:7
+93805 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:676:7
+93805 verbose stack     at Function.ls.fromTree (C:\Program Files\nodejs\node_modules\npm\lib\ls.js:101:3)
+93805 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install.js:674:8
+93805 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+93805 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\install\deps.js:123:5
+93805 verbose stack     at LOOP (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:7:26)
+93806 verbose cwd C:\Work\evezown-mar9\OwnUrSite\public
+93807 error Windows_NT 6.3.9600
+93808 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+93809 error node v5.4.1
+93810 error npm  v3.3.12
+93811 error Callback called more than once.
+93812 error If you need help, you may report this error at:
+93812 error     <https://github.com/npm/npm/issues>
+93813 verbose exit [ 1, true ]
