@@ -9,15 +9,15 @@ evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $lo
     $scope.productNavLinks = [{
         Index: 0,
         Title: 'evezplace',
-        LinkText: 'Product'
+        LinkText: 'Stores'
     }, {
         Index: 1,
         Title: 'services',
-        LinkText: 'Services'
+        LinkText: 'Business'
     }, {
         Index: 2,
         Title: 'productServices',
-        LinkText: 'Product + Services'
+        LinkText: 'Store/Business'
     }, {
         Index: 3,
         Title: 'Ads & Campaigns',
@@ -132,7 +132,7 @@ evezownApp.controller('StoreInfoController', function ($scope, $location) {
         LinkText: 'What Do I Get'
     }, {
         Title: 'typeofstores',
-        LinkText: 'Types of Eve-Stores'
+        LinkText: 'Types of Stores'
     }, {
         Title: 'faq',
         LinkText: 'FAQ'

@@ -58,7 +58,7 @@ evezownApp
             classifiedRfiDialog.closePromise.then(function (data) {
 
                 if (data.value.status) {
-                    toastr.success(data.message, 'Classified rfi submitted successfully.');
+                    toastr.success(data.message, 'Ads & Campaigns rfi submitted successfully.');
                 }
             });
         }
@@ -120,7 +120,7 @@ evezownApp
                 console.log(result);
 
                 if (result.status) {
-                    toastr.success(data.message, 'Classified Comment');
+                    toastr.success(data.message, 'Ads & Campaigns Comment');
                     loadClassifiedComments();
                 }
             });
@@ -137,7 +137,7 @@ evezownApp
                 console.log(result);
 
                 if (result.status) {
-                    toastr.success(data.message, 'Classified Comment');
+                    toastr.success(data.message, 'Ads & Campaigns Comment');
                     loadClassifiedComments();
                 }
             });
@@ -154,7 +154,7 @@ evezownApp
                 console.log(result);
 
                 if (result.status) {
-                    toastr.success(data.message, 'Classified Comment');
+                    toastr.success(data.message, 'Ads & Campaigns Comment');
                     loadClassifiedComments();
                 }
             });
@@ -170,7 +170,7 @@ evezownApp
                 console.log(result);
 
                 if (result.status) {
-                    toastr.success(data.message, 'Classified Grade');
+                    toastr.success(data.message, 'Ads & Campaigns Grade');
                     loadClassifiedGrades();
                 }
             });
@@ -185,7 +185,7 @@ evezownApp
                 console.log(result);
 
                 if (result.status) {
-                    toastr.success(data.message, 'Classified Restream');
+                    toastr.success(data.message, 'Ads & Campaigns Restream');
 
                     loadClassifiedRestreams();
                 }
@@ -223,7 +223,7 @@ evezownApp.controller('PublishClassifiedCtrl', function ($scope, ngDialog, $cook
         ClassifiedsService.updateStatus(statusData, $scope.classifiedId)
             .then(function (data) {
                 usSpinnerService.stop('spinner-1');
-                toastr.success(data.message, 'Classified Updated');
+                toastr.success(data.message, 'Ads & Campaigns Updated');
                 ngDialog.close("", data);
             });
     }
