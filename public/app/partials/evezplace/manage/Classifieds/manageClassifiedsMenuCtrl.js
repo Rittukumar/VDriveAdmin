@@ -16,22 +16,22 @@ evezownApp.controller('ManageClassifiedMenuCtrl', function ($scope, $location, $
     $scope.manageStoreMenuItems = [
         {
             id: 0,
-            name: 'Classified Type',
+            name: 'Ads & Campaigns Type',
             link: 'classified/' + $rootScope.currentClassifiedId + '/manage/classified_type'
         },
         {
             id: 1,
-            name: 'Classified Info',
+            name: 'Ads & Campaigns Info',
             link: 'classified/' + $rootScope.currentClassifiedId + '/manage/classified_info'
         },
         {
             id: 2,
-            name: 'Classified Promotion',
+            name: 'Ads & Campaigns Promotion',
             link: 'classified/' + $rootScope.currentClassifiedId + '/manage/classified_promotion'
         },
         {
             id: 3,
-            name: 'Classified RFI',
+            name: 'Ads & Campaigns RFI',
             link: 'classified/' + $rootScope.currentClassifiedId + '/manage/classified/rfi'
         }
     ];
