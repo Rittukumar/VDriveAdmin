@@ -9,7 +9,7 @@
  */
 evezownApp.controller('createBrowseController', function ($scope, $rootScope, SECTIONS) {
 
-    $scope.storeType = "Product";
+    $scope.storeType = "Stores";
 
     $rootScope.$on('selectedEvezplaceSectionIndex', function (event, args) {
         var index = args.index;
@@ -17,19 +17,19 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, SE
         console.log('create browse store section - selected section index ' + index);
 
         if(index == SECTIONS.products) {
-            $scope.storeType = "Product"
+            $scope.storeType = "Stores"
         }
 
         if(index == SECTIONS.services) {
-            $scope.storeType = "Service"
+            $scope.storeType = "Business"
         }
 
         if(index == SECTIONS.productPlusServices) {
-            $scope.storeType = "Product + Service"
+            $scope.storeType = "Store/Business"
         }
 
         if(index == SECTIONS.classifieds) {
-            $scope.storeType = "Classified"
+            $scope.storeType = "Ads & Campaigns"
         }
 
         // Check if the section is classifieds.

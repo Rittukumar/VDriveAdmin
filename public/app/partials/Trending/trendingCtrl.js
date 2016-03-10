@@ -708,7 +708,7 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
                     $scope.buttonTitle = "Stream It";
                     $scope.postTitle = "Create your Recco";
                     $scope.PageSubTitle = "Stream It";
-                    $scope.PageDescription = "Recommend or endorse a product or a service or both. It helps to create awareness and draw attention. Any member can recommend what or whom they believe in on account of direct experience with the product, service, person or place. This place is used for positive experiences as we have included ‘Be careful’ in Woice it section to voice negative experiences. It is in effect a good tool for word of mouth… spreading the word online.";
+                    $scope.PageDescription = "Promote, recommend or endorse a product or a service or both. It helps to create awareness and draw attention. Any member can recommend what or whom they believe in on account of direct experience with the product, service, person or place. This place is used for positive experiences as we have included ‘Be careful’ to voice negative experiences. It is in effect a good tool for word of mouth… spreading the word online.";
                 }
                 else
                 {
@@ -1087,15 +1087,11 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
             steps:[
                 {
                     element: '#step1',
-                    intro: "<b>&#10004;</b> Connect with your friends and other eves. Invite them to join Evezown <br><b>&#10004;</b> Segregate your eves into circles, name the circles and set the visibility(privacy setting)"
-                },
-                {
-                    element: '#step2',
-                    intro: "<b>&#10004;</b> Invite your evez to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)",
+                    intro: "<b>&#10004;</b> This is your website on Evezown. <br><b>&#10004;</b> You can create your profile in depth. Build community to connect with friends or any one you wish to connect <br><b>&#10004;</b> You can promote yourself or your business digitally within your circles privately or publicly using features such as Events, Blogs, Stream It."
                 },
                 {
                     element: '#step3',
-                    intro: '<b>&#10004;</b> Create your recco <br><b>&#10004;</b> Create a title and a short description <br><b>&#10004;</b> Choose what the recco is about <br><b>&#10004;</b> Choose the category and the sub category <br><b>&#10004;</b> Add a brand name or product name (optional) <br><b>&#10004;</b> Provide price range (optional)',
+                    intro: '<b>&#10004;</b> Promote, recommend or endorse a product or a service or both <br><b>&#10004;</b> Create a title and a short description <br><b>&#10004;</b> Choose what the Stream It is about <br><b>&#10004;</b> Choose the category and the sub category <br><b>&#10004;</b> Add a brand name or product name (optional) <br><b>&#10004;</b> Provide price range (optional)',
                     position: 'bottom'
                 },
                 {

@@ -164,7 +164,7 @@ evezownApp
                 },
                 {
                     element: '#step2',
-                    intro: 'This is an Ecommerce marketplace for showcasing women centric products and services on our ' +
+                    intro: 'This is an Ecommerce marketplace for showcasing products and business services on our ' +
                     'five key categories. If you are already in business or intend to start one, you can create your ' +
                     'store, Ads & Campaigns.',
                     position: 'bottom'
@@ -199,13 +199,13 @@ evezownApp.controller('HomeProductMenuController', function ($rootScope, $scope,
     $rootScope.categories = [];
     $scope.productNavLinks = [{
         Title: 'Product',
-        LinkText: 'Product'
+        LinkText: 'Stores'
     }, {
         Title: 'Services',
-        LinkText: 'Services'
+        LinkText: 'Business'
     }, {
         Title: 'Product + Services',
-        LinkText: 'Product + Services'
+        LinkText: 'Store/Business'
     }, {
         Title: 'Ads & Campaigns',
         LinkText: 'Ads & Campaigns'
