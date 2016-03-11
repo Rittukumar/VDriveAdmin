@@ -90,27 +90,29 @@ evezownApp
                     {
                         toastr.success(data.message, 'Register');
                         usSpinnerService.stop('spinner-1');
-                        //$location.path("/home");
-                    }).then(function(data)
-                    {
+
+                        //Auto friend implementation
                         $http.post(PATHS.api_url + 'users/autofriend'
                         ,{
                         data :
                         {
-                            UserID : data.data.UserID,
+                            UserID : data.UserID,
                             referrer : $scope.master.referrer_email
                         },
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).
                         success(function (data, status, headers, config)
                         {
-                            $location.path("/login");
+                            //toastr.success(data.message, 'AutoFriend');
                         });
-                        
+                        $location.path("/login");
+
                     }).error(function (data)
                     {
                         usSpinnerService.stop('spinner-1');
                         toastr.error(data.error.message, 'Register');
                     });
+
+                    
             }
             else
             {

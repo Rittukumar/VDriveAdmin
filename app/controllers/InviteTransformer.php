@@ -22,6 +22,7 @@ class InviteTransformer extends Fractal\TransformerAbstract
             'referrer_email' => $invite['referrer_email'],
             'claimed_at' => $invite['claimed_at'],
             'submit_date' => $invite['created_at'],
+            'reminder' => $invite['reminder']
         ];
     }
 }
