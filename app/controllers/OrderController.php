@@ -8,6 +8,7 @@ use League\Fractal\Manager;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Http\Response;
 
 class OrderController extends AppController
 {
@@ -524,6 +525,31 @@ class OrderController extends AppController
             return $hash;
         }
     }
+    
+    // Order success post method.
+   public function  orderSuccess(){
+   		try {
+   			$inputArray = Input::all();
+   			
+   			//$status=$_POST["status"];
+   			//$firstname=$_POST["firstname"];
+   		//	$amount=$_POST["amount"];
+   		//	$txnid=$_POST["txnid"];
+   			//$posted_hash=$_POST["hash"];
+   			//$key=$_POST["key"];
+   		//	$productinfo=$_POST["productinfo"];
+   			//$email=$_POST["email"];
+   			//$salt="GQs7yium"; 
+   			
+   			return Redirect::to('payupaymentsuccess/payupaymentsuccess');
+   					   			
+   			} catch (Exception $e) {
+   				$errorMessage = ['status' => false,
+   				'message' => 'Order failed. Please try again.'];
+   				//return $this->setStatusCode(500)->respondWithError($errorMessage);
+   			}
+   			
+   }
 
     public function updateOrder()
     {
