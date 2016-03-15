@@ -68,7 +68,7 @@ evezownApp.controller('AdminInviteFrndsCtrl', function ($scope, Facebook, $linke
             .success(function (data) {
                 $scope.EmailID = data.data.email;
                 $scope.Content1 = "Have a look at Evezown.com";
-                $scope.Content2 = "Evezown.com is a space for woman like you to interact and transact, voice opinion and showcase your unique identity, personality, talent and  business…....everything that defines you.";
+                $scope.Content2 = "Evezown.com is a space for people like you to interact and transact, voice opinion and showcase your unique identity, personality, talent and  business…....everything that defines you.";
                 $scope.Content3 = "Please press create sign up invite for registration, You can give my email id " + $scope.EmailID + " as reference id. I have already registered as a member.";
                 $scope.Content4 = "Look forward to meeting you inside:";
             })
