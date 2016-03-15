@@ -38,10 +38,10 @@
                                             href="http://evezown.com/#/"
                                             target="_blank">www.evezown.com</a> is successful.</p>
 
-                                <p>You can now access WOICE section create your profile and use features like groups,
-                                    events, listing, forums, blogs and circles for interacting with your group. You can
-                                    open a store for your product or service in EvezPlace or simply search and find the
-                                    career of your choice in WOpportunity, if you are a working professional.</p>
+                                <p>You can now access Mysite section create your profile and use features like groups,
+                                    events, listing, discussion, blogs and circles for interacting with your group. You can
+                                    open a store for your product or service in MarketPlace or simply search and find the
+                                    career of your choice in Jobs section, if you are a working professional.</p>
 
                                 <p>Please share any feedback and suggestions you may have for improving <a
                                             href="http://evezown.com/#/"

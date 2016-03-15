@@ -35,7 +35,7 @@ evezownApp.controller('AdminInviteFrndsCtrl', function ($scope, Facebook, $linke
             $scope.whatsAppDescription = "Hi, " +
 
                 "Have a look at Evezown.com. " +
-                "Evezown.com is a space for woman like you to interact and transact, voice opinion and showcase your" +
+                "Evezown.com is a space for people like you to interact and transact, voice opinion and showcase your" +
                 " unique identity, personality, talent and  business..." +
                 "everything that defines you. " +
 
@@ -251,11 +251,7 @@ evezownApp.controller('AdminInviteFrndsCtrl', function ($scope, Facebook, $linke
 
         message += "I would like to invite you to join www.evezown.com <\"br>";
 
-        message += "EvezOwn.com is a space for woman like you to voice opinion and showcase your unique identity, personality, talent, business… anything and everything that defines you.<\"br>";
-
-        message += "EvezOwn caters to each and every woman. On this “woman’s only website”, you can create independent circles, promote products and services or just share the information or message you choose to among your friends.<\"br>";
-
-        message += "Once you register, you can use the WOICE section to create your profile and use features like groups, events, listing, forums, blogs and circles for interacting with your group. You can open a store for your product or service in MarketPlace or simply search and find the career of your choice in Jobs, if you are a working professional.<\"br>";
+        message += "Once you register as a member, you can use the Mysite section to create your profile and use features like blogs, groups, events, ads & campaigns, discussion, for interacting with your friends and circle of friends who are also members on evezown. You can open a store for your product or business service in our MarketPlace or if you are a working professional, simply search and find the career of your choice in Jobs.<\"br>";
 
         message += "Click here to register http://evezown.com/#/requestinvite. (please put the actual link here)<\"br>";
         message += "Make EvezOwn.com your own place.<\"br>";

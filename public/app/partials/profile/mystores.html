@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Evezsite</a>
+                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -95,7 +95,7 @@
                             <a href ng-controller="community">
                                 <div class="col-md-2  well text-center" id="user-profile">
                                     <h3>{{friendList.length}}</h3>
-                                    <h4>Eves</h4>
+                                    <h4>Friends</h4>
                                 </div>
                             </a>
 
@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-md-2  well text-center" id="user-profile" ng-controller="albums">
                                 <h3>{{myAlbums.length}}</h3>
-                                <h4>Albums</h4>
+                                <h4>Gallery</h4>
                             </div>
                             <div class="col-md-2  well text-center" id="user-more">
                                 <h3><i class="fa fa-circle"></i>

@@ -94,7 +94,7 @@ evezownApp
         //  Eg: evezplace section (product, service etc) and priority.
         $scope.showInEvezplaceDialog = function (forum) {
 
-            console.log('Click show in evezplace');
+            console.log('Click show in marketplace');
             var showInEvezplaceDialog = ngDialog.open(
                 {
                     template: 'showForumInEvezplaceTemplateId',
@@ -112,7 +112,7 @@ evezownApp
                 console.log(data);
 
                 if (data.value.status) {
-                    toastr.success(data.value.message, 'Forum added to evezplace section');
+                    toastr.success(data.value.message, 'Discussion added to marketplace section');
                 }
             });
 
@@ -249,7 +249,7 @@ evezownApp.controller('showForumEvezplaceCtrl', function ($scope, ForumService, 
             $scope.sections = data;
             $scope.selectedSectionId = $scope.sections[0].id;
         }, function (error) {
-            toastr.error(error.error.message, 'Evezplace Sections');
+            toastr.error(error.error.message, 'Marketplace Sections');
         });
     }
 

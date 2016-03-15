@@ -3,7 +3,7 @@
  */
 evezownApp
     .controller('OpenStoreController', function($scope,$interval){
-        $scope.title = "Unique Opportunity EvezPlace";
+        $scope.title = "Unique Opportunity MarketPlace";
         $scope.article = "1";
 
         $interval(function(){
