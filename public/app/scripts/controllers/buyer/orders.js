@@ -26,8 +26,8 @@ evezownApp
       
 //      $scope.surl = "http://evezown.com/success";
 //      $scope.furl = "http://evezown.com/failure";
-      $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/order/success/posturl";
-      $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/order/success/posturl";
+      $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
+      $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
       $scope.loggedInUserId = $cookieStore.get('userId');
       $scope.service_url = PATHS.api_url;
       $scope.usertoken = $cookieStore.get('userToken');
