@@ -168,7 +168,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step2',
-                    intro: "<b>&#10004;</b>Connect with your friends and other eves. Invite them to join Evezown <br><b>&#10004;</b> Segregate your eves into circles, name the circles and set the visibility(privacy setting)",
+                    intro: "<b>&#10004;</b>Connect with your friends and other people. Invite them to join Evezown <br><b>&#10004;</b> Segregate your friends into circles, name the circles and set the visibility(privacy setting)",
                 },
                 {
                     element: '#step3',
@@ -177,7 +177,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step4',
-                    intro: "<b>&#10004;</b>You can see your member friends in your Eve-community <br><b>&#10004;</b> Segregate them in circles, name the circles and set visibility (privacy setting) for each circle",
+                    intro: "<b>&#10004;</b>You can see your member friends in your community <br><b>&#10004;</b> Segregate them in circles, name the circles and set visibility (privacy setting) for each circle",
                     position: 'bottom'
                 },
                 {
@@ -186,7 +186,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step6',
-                    intro: '<b>&#10004;</b> Groups can be built around interests, hobbies, topics, offline activities <br><b>&#10004;</b> You can update, add activities and keep the groups dynamic and active <br><b>&#10004;</b> Woice it and stream your updates to your group members <br><b>&#10004;</b> Groups are private or closed only'
+                    intro: '<b>&#10004;</b> Groups can be built around interests, hobbies, topics, offline activities <br><b>&#10004;</b> You can update, add activities and keep the groups dynamic and active <br><b>&#10004;</b> Stream it and stream your updates to your group members <br><b>&#10004;</b> Groups are private or closed only'
                 },
                 {
                     element: '#step7',

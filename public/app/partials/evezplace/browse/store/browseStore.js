@@ -77,13 +77,13 @@ evezownApp
 
         $scope.storeTypes = [{
             Index: 0,
-            Title: 'Products'
+            Title: 'Stores'
         }, {
             Index: 1,
-            Title: 'Services'
+            Title: 'Business'
         }, {
             Index: 2,
-            Title: 'Products + Services'
+            Title: 'Stores + Business'
         }];
 
         $scope.getSearchCategories = function ($storeType) {

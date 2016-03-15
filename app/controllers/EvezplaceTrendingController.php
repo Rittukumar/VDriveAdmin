@@ -271,7 +271,7 @@ class EvezplaceTrendingController extends AppController
             $successResponse = [
                 'status' => true,
                 'id' => $evezplaceTrendingItem->id,
-                'message' => 'Trending blog added to evezplace successfully!'
+                'message' => 'Trending blog added to Marketplace successfully!'
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);
@@ -320,7 +320,7 @@ class EvezplaceTrendingController extends AppController
             $successResponse = [
                 'status' => true,
                 'id' => $evezplaceTrendingItem->id,
-                'message' => 'Trending blog added to evezplace successfully!'
+                'message' => 'Trending blog added to marketplace successfully!'
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);
@@ -368,7 +368,7 @@ class EvezplaceTrendingController extends AppController
             $successResponse = [
                 'status' => true,
                 'id' => $evezplaceTrendingItem->id,
-                'message' => 'Trending forum added to evezplace successfully!'
+                'message' => 'Trending discussion added to marketplace successfully!'
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);
@@ -442,7 +442,7 @@ class EvezplaceTrendingController extends AppController
 
             if(! $events)
             {
-                return $this->responseNotFound('Forums Not Found!');
+                return $this->responseNotFound('Discussion Not Found!');
             }
 
             $fractal = new Manager();

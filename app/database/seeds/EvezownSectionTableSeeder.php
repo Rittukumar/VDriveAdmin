@@ -5,19 +5,19 @@ class EvezownSectionTableSeeder extends Seeder {
 	public function run()
 	{
 		EvezownSection::create([
-			'name' => 'Woice'
+			'name' => 'Stream It'
 		]);
 
 		EvezownSection::create([
-			'name' => 'Wopportunity'
+			'name' => 'Jobs'
 		]);
 
 		EvezownSection::create([
-			'name' => 'Products'
+			'name' => 'Stores'
 		]);
 
         EvezownSection::create([
-            'name' => 'Services'
+            'name' => 'Business'
         ]);
 
         EvezownSection::create([
@@ -25,7 +25,7 @@ class EvezownSectionTableSeeder extends Seeder {
         ]);
 
         EvezownSection::create([
-            'name' => 'ProductPlusService'
+            'name' => 'Stores Plus Business'
         ]);
 	}
 }
