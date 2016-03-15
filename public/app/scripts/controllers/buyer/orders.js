@@ -64,15 +64,10 @@ evezownApp
 
       $scope.getHash = function(orderItem,order)
       {
-
-//          $scope.surl = "http://evezown.com/order/"+order.transaction_id+"/success";
-//          $scope.furl = "http://evezown.com/order/"+order.transaction_id+"/failure";
-    	  				
-    	  
-    	  $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/paymentstatus/paymentstatus";
-        //$scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/order/success/posturl"; // (laravel)
-        $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/paymentstatus/paymentstatus";
-          $scope.curl = "http://www.evezown.com/order/"+order.transaction_id+"/cancel";
+    	  $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
+    	  //$scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/order/success/posturl"; // (laravel)
+    	  $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
+          $scope.curl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
           $scope.udf1 = "";
           $scope.udf2 = "";
           $scope.udf3 = "";
@@ -83,10 +78,6 @@ evezownApp
           $scope.udf8 = "";
           $scope.udf9 = "";
           $scope.udf10 = "";
-          //productinfo : angular.toJson(orderItem),
-          //angular.toJson([{"name":"Test product", "description":"Desc", "value":"1"}]),
-          //var hashSequence = $scope.MERCHANT_KEY+"|"+order.transaction_id+"|"+orderItem.price+"|"+angular.toJson(orderItem)+"|"+order.buyer.code+"|"+order.buyer.email+"|"+order.buyer.phone+"|"+$scope.surl+"|"+$scope.furl+"|"+$scope.udf1+"|"+$scope.udf2+"|"+$scope.udf3+"|"+$scope.udf4+"|"+$scope.udf5+"|"+$scope.udf6+"|"+$scope.udf7+"|"+$scope.udf8+"|"+$scope.udf9+"|"+$scope.udf10+"|"+$scope.SALT;
-          //productinfo : angular.toJson([{"name": orderItem.productSku.product.title,"value":orderItem.price,"isRequired":"true","settlementEvent": "EmailConfirmation"}]),
           $http.post(PATHS.api_url + 'orders/payu/hash'
               , {
                   data:
