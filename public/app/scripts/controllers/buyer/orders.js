@@ -68,8 +68,10 @@ evezownApp
 //          $scope.surl = "http://evezown.com/order/"+order.transaction_id+"/success";
 //          $scope.furl = "http://evezown.com/order/"+order.transaction_id+"/failure";
     	  				
-        $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/order/success/posturl"; // (laravel)
-        $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/order/success/posturl";
+    	  
+    	  $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/paymentstatus/paymentstatus";
+        //$scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/order/success/posturl"; // (laravel)
+        $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/v1/paymentstatus/paymentstatus";
           $scope.curl = "http://www.evezown.com/order/"+order.transaction_id+"/cancel";
           $scope.udf1 = "";
           $scope.udf2 = "";

@@ -16,9 +16,11 @@ use Intervention\Image\Facades\Image;
 Route::get('/', function () {
     return View::make('hello');
 });
-Route::get('payupaymentsuccess/payupaymentsuccess', function () {
-	return View::make('payupaymentsuccess');
-});
+ Route::post('paymentstatus/paymentstatus', function () {
+ 	$inputArray = Input::all();
+	return View::make('paymentstatus')->with('data',$inputArray);
+}); 
+
 
 Route::group(array('prefix' => 'v1'), function () {
 
