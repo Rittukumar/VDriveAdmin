@@ -368,7 +368,7 @@ class UsersController extends AppController
                     {
                       $value->status = 'Pending';
                     }else{
-                      $value->status = 'Registerd';
+                      $value->status = 'Registered';
                     }
                   }
                }
