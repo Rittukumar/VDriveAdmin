@@ -43,12 +43,20 @@
     </p>
 </div>
 
+<div class="col-md-12" style="margin-top: 10px;">
+    <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+        <li><a href="#home">Home</a> <span class="divider"></span></li>
+        <li><a href="#profile/{{userId}}">Mysite</a></li>
+        <li class="active">Build Community</li>
+    </ul>
+</div>
+
 <div class="col-md-2 user-menu-btns">
     <div class="btn-group-vertical square" id="responsive">
         <a href="#community" class="btn btn-default">
             <p>Connect</p>
         </a>
-        <a href="#dvertise" class="btn btn-default btn-block">
+        <a href="#advertise" class="btn btn-default btn-block">
             <p>Advertise</p>
         </a>
         <a href="#circles" class="btn btn-default btn-block">
@@ -72,30 +80,42 @@
     </div>
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th>#</th>
-            <th>Invite send to</th>
-            <th>Referrer Email</th>
-            <th>Referrer Name</th>
-            <th>Status</th>
-        </tr>
+            <tr>
+                <th>#</th>
+                <th>Invite send to</th>
+                <th>Referrer Email</th>
+                <th>Referrer Name</th>
+                <th>Status</th>
+            </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="invite in getInvites">
-            <td>{{ $index+1}}</td>
-            <td>{{invite.email}}</td>
-            <td>{{invite.referrer_email}}</td>
-            <td>{{invite.referrer_name}}</td>
-            <!-- <td ng-if="invite.claimed_at != null"><p style="color:green">Accepted</p></td>
-            <td ng-if="invite.claimed_at == null"><p style="color:red">Pending</p></td> -->
-            <td>
-            <label>
-            <font color="green">{{ invite.claimed_at != null ? 'Accepted':''}} </font>
-            <font color="red">{{ invite.claimed_at == null ? 'Pending':''}} </font>
-            </label>
-            </td>
-        </tr>
-
+            <tr ng-repeat="invite in getInvites">
+                <td>{{ $index+1}}</td>
+                <td>{{invite.email}}</td>
+                <td>{{invite.referrer_email}}</td>
+                <td>{{invite.referrer_name}}</td>
+                <td ng-if="invite.claimed_at != null">
+                    <p style="color:green">Accepted</p>
+                </td>
+                <td ng-if="invite.claimed_at == null">
+                    <p style="color:#DB1800">Pending</p>
+                </td>
+                <td>
+                    <a href ng-if="invite.claimed_at == null"><i class="fa fa-trash" style="color:#DB1800;" title="Delete" ng-click="InviteDelete(invite.email)"></i></a>
+                </td>
+                <td>
+                    <a href style="text-decoration:none;" ng-if="invite.claimed_at == null">
+                        <i class="glyphicon glyphicon-share-alt" title="Resend" style="color:green" ng-click="ResendInvite(invite.email)"></i>
+                        <a style="text-decoration:none;font-size:10px;" ng-if="invite.reminder > '0'">({{invite.reminder}})</a>
+                    </a>
+                </td>
+               <!--  <td>
+                <label>
+                <font color="green">{{ invite.claimed_at != null ? 'Accepted':''}} </font>
+                <font color="red">{{ invite.claimed_at == null ? 'Pending':''}} </font>
+                </label>
+                </td> -->
+            </tr>
         </tbody>
     </table>
     <!-- <uib-pager total-items="totalItems" ng-model="currentPage"></uib-pager> -->
@@ -108,3 +128,11 @@
                                 ng-change="pageChanged()">
                             </uib-pagination>
 </div>
+
+<script type="text/ng-template" id="DeleteHistory">
+    <div class="ngdialog-buttons popuptemplate" ng-controller="inviteHistory">
+        <h4>Are you sure you want to Delete this invite ?</h4>
+        <button class="btn primary pull-right form-control" type="button" ng-click="DeleteInvite()">Delete</button>
+        <button class="btn primary pull-right form-control" type="button" ng-click="CancelDeleteInvite()">Cancel</button>
+    </div>
+</script>

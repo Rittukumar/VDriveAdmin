@@ -118,7 +118,7 @@
                             <img ng-src="{{service_url+'image/show/'+friend.profile.profile_image.large_image_url}}"
                                  class="img-thumbnail"/>
                         </div>
-                        <h5>{{friend.profile.firstname}} {{friend.profile.lastname}}</h5>
+                        <h5>{{friend.profile.firstname  | strLimit:12}}<!--  {{friend.profile.lastname | strLimit:6}} --></h5>
                     </center>
                 </a>
             </li>

@@ -316,6 +316,134 @@ class InviteController extends AppController {
 	}
 
 	/**
+	 * Remainder invite
+	 * sending invite again
+	 *
+	 */
+	public function sendRemainderInvite()
+	{
+		try {
+
+			$invite = Input::all();
+
+			$inviteArray = $invite['data'];
+
+			$emailString = $inviteArray['emailIds'];
+
+			$referrer_id = $inviteArray['referrer_id'];
+
+			$referrerUser = User::with('profile')->where('id', $referrer_id)->first();
+
+			$Check = User::where('email', $emailString)->first();
+
+			if($Check)
+			{
+				$successResponse = [
+					'status' => true,
+					'message' => 'It seems this user registered through other invite'
+				];
+
+				return $this->setStatusCode(200)->respond($successResponse);
+			}
+			else
+			{
+				//get the invite
+				$GetInvite = Invite::where('referrer_email', $referrerUser->email)
+					->where('email', '=', $emailString)
+					->where('claimed_at', '=', null)
+					->first();
+
+				$data = array(
+						'name'	=> $GetInvite->email,
+						'inviteCode'	=> $GetInvite->code
+					);
+
+				$user = array(
+					'email' => $GetInvite->email,
+					'name' => $GetInvite->email,
+					'fromUser' => $GetInvite->referrer_email
+					);
+
+				
+
+				//send remainder invite
+				Mail::send('emails.emailInvite', $data, function($message) use ($user)
+					{
+						$message->from($user['fromUser'], $user['fromUser']);
+						$message->to($user['email'], 'Evezown')->subject('Evezown Request Invite!');
+					});
+
+				//increment remainder count
+				$GetInvite->reminder = $GetInvite->reminder + 1;
+
+            	$GetInvite->save();
+
+				$successResponse = [
+					'status' => true,
+					'message' => 'Remainder sent successfully!'
+				];
+
+				return $this->setStatusCode(200)->respond($successResponse);
+			}
+
+		} catch (Exception $e) {
+			return $this->setStatusCode(500)->respondWithError($e);
+		}
+	}
+
+	/**
+	 * Delete Invite
+	 * Delete the invite
+	 *
+	 */
+	public function DeleteInvite()
+	{
+		try {
+
+			$invite = Input::all();
+
+			$inviteArray = $invite['data'];
+
+			$emailString = $inviteArray['emailIds'];
+
+			$referrer_id = $inviteArray['referrer_id'];
+
+			$referrerUser = User::with('profile')->where('id', $referrer_id)->first();
+
+			//get the invite
+			$GetInvite = Invite::where('referrer_email', $referrerUser->email)
+				->where('email', '=', $emailString)
+				->where('claimed_at', '=', null)
+				->first();
+
+				if(!$GetInvite)
+				{
+					$successResponse = [
+					'status' => true,
+					'message' => 'Something went wrong. Please try again later.'
+					];
+
+					return $this->setStatusCode(200)->respond($successResponse);
+				}
+				else
+				{
+					//delete the invite from database
+					$GetInvite->delete();
+
+					$successResponse = [
+					'status' => true,
+					'message' => 'Invite Deleted successfully!'
+					];
+
+					return $this->setStatusCode(200)->respond($successResponse);
+				}
+
+		} catch (Exception $e) {
+			return $this->setStatusCode(500)->respondWithError($e);
+		}
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 * GET /invite/create
 	 *

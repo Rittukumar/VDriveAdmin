@@ -515,7 +515,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             });
         $routeProvider
 
-            .when('/advertise', {
+            .when('/advertisement', {
                 templateUrl: 'partials/staticpages/advertise.html',
                 controller: 'ApplicationCtrl',
                 data: {

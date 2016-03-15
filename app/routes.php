@@ -188,6 +188,8 @@ Route::group(array('prefix' => 'v1'), function () {
 
     Route::post('invite/request', 'InviteController@requestInvite');
     Route::post('invite/email', 'InviteController@sendEmailInvite');
+    Route::post('invite/remainder', 'InviteController@sendRemainderInvite');
+    Route::post('invite/delete', 'InviteController@DeleteInvite');
     Route::post('newsletter/email', 'NewsletterController@sendNewsletter');
     Route::get('getinvitecode/{email}', 'InviteController@getInviteCode');
     Route::get('invite/{code}', 'InviteController@getInvite');

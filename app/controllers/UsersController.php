@@ -36,53 +36,61 @@ class UsersController extends AppController
                 return $this->setStatusCode(404)->respondWithError("The invite code in not valid for the email.");
             }
 
-            $repo = App::make('UserRepository');
-            $user = $repo->signup($inputs_array);
+            $isEmailExist = User::where('email', $email)->first();
 
-            // Add default avatar image for user.
-            UserProfileImage::create([
-                'user_id' => $user->id,
-                'image_id' => 360
-            ]);
+            if (is_null($isEmailExist)) {
 
-            // Claim the code so that it will not be misused by someone else.
-            $invite = Invite::where('code', $code)->first();
+                $repo = App::make('UserRepository');
+                $user = $repo->signup($inputs_array);
 
-            $invite->claimed_at = new DateTime('today');
+                // Add default avatar image for user.
+                UserProfileImage::create([
+                    'user_id' => $user->id,
+                    'image_id' => 360
+                ]);
 
-            $invite->save();
+                // Claim the code so that it will not be misused by someone else.
+                $invite = Invite::where('code', $code)->first();
 
-            if ($user->id) {
-                // Send confirmation email to user.
-                $emailUser = array(
-                    'email' => $user->email,
-                    'name' => $user->email
-                );
+                $invite->claimed_at = new DateTime('today');
 
-                $data = array(
-                    'name' => $user->email,
-                    'code' => $user->confirmation_code
-                );
+                $invite->save();
 
-                /*Mail::send('emails.confirmation', $data, function ($message) use ($emailUser) {
-                    $message->from('admin@evezown.com', 'Evezown Team');
-                    $message->to($emailUser['email'], $emailUser['name'])->subject('Evezown Account Confirmation');
-                });*/
+                if ($user->id) {
+                    // Send confirmation email to user.
+                    $emailUser = array(
+                        'email' => $user->email,
+                        'name' => $user->email
+                    );
 
-            } else {
-                $error = $user->errors()->all(':message');
+                    $data = array(
+                        'name' => $user->email,
+                        'code' => $user->confirmation_code
+                    );
 
-                return $this->setStatusCode(500)->respondWithError($error);
+                    /*Mail::send('emails.confirmation', $data, function ($message) use ($emailUser) {
+                        $message->from('admin@evezown.com', 'Evezown Team');
+                        $message->to($emailUser['email'], $emailUser['name'])->subject('Evezown Account Confirmation');
+                    });*/
+
+                } else {
+                    $error = $user->errors()->all(':message');
+
+                    return $this->setStatusCode(500)->respondWithError($error);
+                }
+
+                $successResponse = [
+                    'status' => true,
+                    'message' => 'User registered successfully!',
+                    'UserID' => $user->id
+                ];
+
+                return $this->setStatusCode(200)->respond($successResponse);
             }
-
-            $successResponse = [
-                'status' => true,
-                'message' => 'User registered successfully!',
-                'UserID' => $user->id
-            ];
-
-            return $this->setStatusCode(200)->respond($successResponse);
-
+            else
+            {
+                return $this->setStatusCode(500)->respondWithError("The account already exists with the e-mail: " .$email);
+            }
         } catch (Exception $e) {
             return $this->setStatusCode(500)->respondWithError($e);
         }
