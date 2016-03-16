@@ -546,12 +546,12 @@
         <div class="col-sm-12">
             <h5>Product line type</h5>
             <select class="form-control" id="sub-visibilities-type" id="storeType"
-                    ng-options="produtLineType as produtLineType.name for produtLineType in productLineTypes"
-                    ng-model="selectedType" ng-change="SetStoreSubscription(selectedType)">
+                    ng-options="EditProductLineType as EditProductLineType.name for EditProductLineType in EditProductLineTypes"
+                    ng-model="EditProductLineType" ng-change="SetStoreSubscription(selectedType)">
             </select>
         </div>
         <button class="btn primary pull-right form-control" type="button"
-                ng-click="SaveProductLine(selectedProductLine)">Save
+                ng-click="SubmitEditProductLine(editProductLine.title,editProductLine.description,EditProductLineType)">Save
         </button>
     </div>
 </script>

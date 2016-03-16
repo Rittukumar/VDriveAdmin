@@ -182,7 +182,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
                 },
                 {
                     element: '#step5',
-                    intro: '<b>&#10004;</b>Use the gallery to post your pictures <br><b>&#10004;</b> Post privately to personal circles or for all eves <br><b>&#10004;</b> Visibility can be set'
+                    intro: '<b>&#10004;</b>Use the gallery to post your pictures <br><b>&#10004;</b> Post privately to personal circles or for all friends <br><b>&#10004;</b> Visibility can be set'
                 },
                 {
                     element: '#step6',

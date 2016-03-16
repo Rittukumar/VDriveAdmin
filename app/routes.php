@@ -298,7 +298,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('stores/product/productSKU/{productSKUId}/delete', 'ProductController@DeleteProductSKU');
     Route::get('stores/productline/products/{productlineId}/get', 'ProductController@getAllProducts');
     Route::get('stores/products/{productId}/get', 'ProductController@getProductById');
-    Route::get('stores/productline/products/{productLineId}/get', 'ProductController@getProductsByProductLineId');
+    //Route::get('stores/productline/products/{productLineId}/get', 'ProductController@getProductsByProductLineId');
     Route::post('stores/products/{product_id}/variants', 'ProductController@getProductVariants');
     Route::post('stores/product/trendingproduct/{productSKUId}/update', 'ProductController@UpdateTrendingProduct');
     Route::post('stores/products/{product_id}/rfi/create', 'ProductController@createRequestInfo');
