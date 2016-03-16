@@ -12,7 +12,7 @@ evezownApp
         $scope.productImages = [];
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.service_url = PATHS.api_url;
-        $scope.AllProductLines = [];
+        $rootScope.AllProductLines = [];
         //$rootScope.currentProductLine = null;
         $scope.isImageUploadComplete = false;
         $scope.isAddProductHidden = false;
@@ -270,7 +270,7 @@ evezownApp
             $http.get(PATHS.api_url + 'stores/productline/'+$rootScope.currentStoreId+'/get').
                 success(function (data, status, headers, config)
                 {
-                    $scope.AllProductLines = data;
+                    $rootScope.AllProductLines = data;
 
                 }).error(function (data)
                 {
@@ -672,20 +672,12 @@ evezownApp
         };
 
 
-
+        //editing product line(popup template with data)
         $scope.EditProductLine = function(selectedProductLine)
         {
             $rootScope.editProductLine = selectedProductLine;
-            if(selectedProductLine.type == "0")
-            {
-
-                $rootScope.selectedType = $scope.productLineTypes[0];
-            }
-            else
-            {
-                $rootScope.selectedType = $scope.productLineTypes[1];
-            }
-            $scope.productLineTypes = [
+            
+            $rootScope.EditProductLineTypes = [
                 {
                     id: 0,
                     name: 'Product'
@@ -694,9 +686,65 @@ evezownApp
                     id: 1,
                     name: 'Services'
                 }];
-            ngDialog.open({ template: 'templateId' });
+
+                if(selectedProductLine.type == "0")
+                {
+
+                    $rootScope.EditProductLineType = $scope.EditProductLineTypes[0];
+                }
+                else
+                {
+                    $rootScope.EditProductLineType = $scope.EditProductLineTypes[1];
+                }
+                ngDialog.open({ template: 'templateId' });
+            
         }
 
+        //editing product line in the popup template and submitting
+        $scope.SubmitEditProductLine = function(EditPdtLineTitle,EditPdtLineDescription,EditPdtLineType)
+        {
+            
+            $PdtLineId = $rootScope.editProductLine.id;
+            
+            if(!EditPdtLineTitle)
+            {
+                toastr.error('Please enter a title', 'Store');
+            }
+            else if(!EditPdtLineDescription)
+            {
+                toastr.error('Please enter description', 'Store');
+            }
+            else if(!EditPdtLineType)
+            {
+                toastr.error('Please select a product line type', 'Store');
+            }
+            else
+            {
+
+                $http.post(PATHS.api_url + 'stores/productline/'+$PdtLineId+'/update'
+                    , {
+                        data:
+                        {
+                            title:EditPdtLineTitle,
+                            description:EditPdtLineDescription,
+                            productLineType:EditPdtLineType.id
+                        },
+                        headers: {'Content-Type': 'application/json'}
+                    }).
+                    success(function (data, status, headers, config)
+                    {
+                        toastr.success(data.message, 'Store');
+                        ngDialog.close();
+
+                    }).error(function (data)
+                    {
+                        toastr.error(data.error.message, 'Store');
+                    }).then(function()
+                    {
+                        $scope.GetProductLine();
+                    });
+            }
+        }
 
         $scope.AddProductVariant = function (product)
         {
@@ -712,7 +760,7 @@ evezownApp
 
         $scope.UpdateProduct = function(product)
         {
-            angular.forEach($scope.AllProductLines, function (value, key)
+            angular.forEach($rootScope.AllProductLines, function (value, key)
             {
                 if($rootScope.currentProductLine.id == value.id)
                 {
