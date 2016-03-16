@@ -314,7 +314,7 @@ evezownApp
                 });
         }
 
-        $scope.SaveProductLine = function(formData)
+        /*$scope.SaveProductLine = function(formData)
         {
             if(formData)
             {
@@ -365,7 +365,7 @@ evezownApp
                 toastr.error('Please enter a store title', 'Store');
             }
 
-        }
+        }*/
 
         $scope.SaveProduct = function(formData)
         {
