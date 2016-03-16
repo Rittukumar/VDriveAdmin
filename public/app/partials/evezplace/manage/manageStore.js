@@ -190,7 +190,7 @@ evezownApp
             }
             else if(!storeCommerce.cityStateCountry)
             {
-                toastr.success("Please enter pincode", 'Store');
+                toastr.success("Please enter 6 digits pincode", 'Store');
             }
             else
             {

@@ -39,7 +39,7 @@
                                             target="_blank">www.evezown.com</a> is successful.</p>
 
                                 <p>You can now access Mysite section create your profile and use features like groups,
-                                    events, listing, discussion, blogs and circles for interacting with your group. You can
+                                    events, ads & campaigns, discussion, blogs and circles for interacting with your group. You can
                                     open a store for your product or service in MarketPlace or simply search and find the
                                     career of your choice in Jobs section, if you are a working professional.</p>
 

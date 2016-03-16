@@ -6,15 +6,15 @@ class ListingTypeTableSeeder extends Seeder {
 	public function run()
 	{
         ListingType::create([
-            'name' => 'Products'
+            'name' => 'Stores'
         ]);
 
         ListingType::create([
-            'name' => 'Services'
+            'name' => 'Business'
         ]);
 
         ListingType::create([
-            'name' => 'Products + Services'
+            'name' => 'Stores + Business'
         ]);
 
 	}
