@@ -174,7 +174,7 @@ evezownApp
                     },
                     {
                         element: '#step5',
-                        intro: 'You can refer your eves to join evezown'
+                        intro: 'You can refer your friends to join evezown'
                     },
                     {
                         element: '#step6',

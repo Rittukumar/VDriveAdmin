@@ -98,15 +98,15 @@
                     <p style="color:green">Accepted</p>
                 </td>
                 <td ng-if="invite.claimed_at == null">
-                    <p style="color:{{invite.status == 'Registerd' ? 'green' : '#DB1800' }}">{{invite.status}}</p>
+                    <p style="color:{{invite.status == 'Registered' ? 'green' : '#DB1800' }}">{{invite.status}}</p>
                 </td>
                 <td>
                     <a href ng-if="invite.claimed_at == null"><i class="fa fa-trash" style="color:#DB1800;" title="Delete" ng-click="InviteDelete(invite.email)"></i></a>
                 </td>
                 <td>
-                    <a href style="text-decoration:none;" ng-if="invite.claimed_at == null && invite.status != 'Registerd'">
+                    <a href style="text-decoration:none;" ng-if="invite.claimed_at == null && invite.status != 'Registered'">
                         <i class="glyphicon glyphicon-share-alt" title="Resend" style="color:green" ng-click="ResendInvite(invite.email)"></i>
-                        <a style="text-decoration:none;font-size:10px;" ng-if="invite.reminder > '0' && invite.status != 'Registerd'">({{invite.reminder}})</a>
+                        <a style="text-decoration:none;font-size:10px;" ng-if="invite.reminder > '0' && invite.status != 'Registered' && invite.claimed_at == null">({{invite.reminder}})</a>
                     </a>
                 </td>
                <!--  <td>

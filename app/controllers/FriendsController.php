@@ -303,7 +303,7 @@ class FriendsController extends AppController {
 
 			$successResponse = [
 				'status' => true,
-				'message' => 'Auto Eves Success'
+				'message' => 'Auto friend Success'
 			];
 
 			return $this->setStatusCode(200)->respond($successResponse);

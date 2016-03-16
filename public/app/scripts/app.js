@@ -1507,8 +1507,10 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             });
         
         $routeProvider
-	        .when('/order/success', {
+	        .when('/order/success', { 
+	           // templateUrl: 'views/buyer/success.php',
 	            templateUrl: 'views/buyer/success.html',
+	            controller: 'OrdersSuccessCtrl',
 	        });
 
 
@@ -1734,11 +1736,11 @@ evezownApp.constant('AUTH_EVENTS', {
     notAuthorized: 'auth-not-authorized'
 });
 evezownApp.constant('PATHS', {
-    api_url: 'http://localhost:8000/v1/'
+    //api_url: 'http://localhost:8000/v1/'
     //api_url: 'http://creativethoughts.co.in/evezown/api/public/v1/'
     //api_url: 'http://evezown.com/api/public/v1/'
     //api_url: 'http://evezown.com/beta/api/public/v1/'
-    //api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
+    api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
 });
 evezownApp.constant('USER_ROLES', {
     all: '*',

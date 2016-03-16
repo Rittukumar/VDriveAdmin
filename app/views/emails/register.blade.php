@@ -35,18 +35,18 @@
                                 <h2 style="color:#2ab27b;margin:0 0 12px;line-height:30px">Hello {{ $name }}</h2>
 
                                 <p>Thank you for your interest in EvezOwn.com. We welcome you to this platform!
-                                    EvezOwn.com is a space for woman like you to voice opinion and showcase your
+                                    EvezOwn.com is a space for people like you to voice opinion and showcase your
                                     unique identity, personality, talent, business… anything and everything that
                                     defines you.</p>
 
-                                <p>EvezOwn caters to each and every woman. On this &quot;woman&#39;s only website&quot;, you can
-                                    create independent circles, promote products and services or just share the
-                                    information or message you choose to among your evez.</p>
+                                <p>EvezOwn caters to each and every people. you can
+                                    create independent circles, promote stores and Business services or just share the
+                                    information or message you choose to among your friends.</p>
 
-                                <p>Once you register, you can use the WOICE section to create your profile and use
-                                    features like groups, events, listing, forums, blogs and circles for interacting
-                                    with your group. You can open a store for your product or service in EvezPlace
-                                    or simply search and find the career of your choice in WOpportunity, if you are
+                                <p>Once you register, you can use the Mysite section to create your profile and use
+                                    features like groups, events, listing, discussion, blogs and circles for interacting
+                                    with your group. You can open a store for your stores or business in MarketPlace
+                                    or simply search and find the career of your choice in jobs section, if you are
                                     a working professional.</p>
 
                                 <p>Click <a

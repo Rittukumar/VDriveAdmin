@@ -27,7 +27,7 @@
                                     <td data-title="'Discussion Category'">
                                         {{forum.subcategory.category.category_name}}
                                     </td>
-                                    <td data-title="'Show in evezplace?'" class="text-center"
+                                    <td data-title="'Show in marketplace?'" class="text-center"
                                         style="vertical-align: middle">
                                         <div class="checkbox checkbox-primary">
                                             <input type="checkbox"
@@ -38,7 +38,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <p><span><a href ng-click="EditForum(forum)" class="topic-link">edit forum</a>|</span>
+                                        <p><span><a href ng-click="EditForum(forum)" class="topic-link">Edit discussion</a>|</span>
                                         </p>
                                     </td>
                                     <td>
@@ -84,10 +84,10 @@
 <script type="text/ng-template" id="EdittemplateId">
     <div class="ngdialog-buttons popuptemplate">
         <h4>Edit Discussion</h4>
-        <input class="form-control" type="text" placeholder="Forum Title"
+        <input class="form-control" type="text" placeholder="discussion Title"
                id="circle" ng-model="selectedForum.topic_title"
                style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
-        <textarea class="form-control" rows="4" placeholder="Forum Description (optional)"
+        <textarea class="form-control" rows="4" placeholder="discussion Description (optional)"
                   ng-model="selectedForum.topic_description"/>
         <div class="row" style="padding-bottom: 10px">
             <div class="col-md-6" style="margin-top: 10px; height: 50px; font-size: 18px">
@@ -158,7 +158,7 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>Show in evezplace?</h5>
+                    <h5>Show in marketplace?</h5>
                 </div>
                 <div class="col-sm-6">
                     <div class="checkbox checkbox-primary">
@@ -177,7 +177,7 @@
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-sm-6">
-                    <h5 tooltip="priority will keep the blog at the top in evezplace section">Set Priority (default
+                    <h5 tooltip="priority will keep the blog at the top in marketplace section">Set Priority (default
                         0)</h5>
                 </div>
                 <div class="col-sm-6">
@@ -191,13 +191,13 @@
 
             <div class="row">
                 <div class="col-sm-6">
-                    <h5 tooltip="priority will keep the blog at the top in evezplace section">Marketplace Section</h5>
+                    <h5 tooltip="priority will keep the blog at the top in marketplace section">Marketplace Section</h5>
                 </div>
                 <div class="col-sm-6">
                     <select class="form-control"
                             ng-model="options.selectedSectionId"
                             style="font-weight: 700"
-                            default-option="Choose Evezplace Section"
+                            default-option="Choose Marketplace Section"
                             ng-options="section.id as section.name for section in sections"
                             required>
                     </select>

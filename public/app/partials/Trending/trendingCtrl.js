@@ -706,9 +706,9 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
                     $scope.posttypes = newTypes;
                     //$scope.isRecco = true;
                     $scope.buttonTitle = "Stream It";
-                    $scope.postTitle = "Create your Recco";
+                    $scope.postTitle = "Create your Stream It";
                     $scope.PageSubTitle = "Stream It";
-                    $scope.PageDescription = "Promote, recommend or endorse a product or a service or both. It helps to create awareness and draw attention. Any member can recommend what or whom they believe in on account of direct experience with the product, service, person or place. This place is used for positive experiences as we have included ‘Be careful’ to voice negative experiences. It is in effect a good tool for word of mouth… spreading the word online.";
+                    $scope.PageDescription = "Promote, recommend or endorse a Stores or a Business service or both. It helps to create awareness and draw attention. Any member can recommend what or whom they believe in on account of direct experience with the product, service, person or place. This place is used for positive experiences as we have included ‘Be careful’ to voice negative experiences. It is in effect a good tool for word of mouth… spreading the word online.";
                 }
                 else
                 {

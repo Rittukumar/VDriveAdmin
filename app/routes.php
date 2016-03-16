@@ -16,9 +16,19 @@ use Intervention\Image\Facades\Image;
 Route::get('/', function () {
     return View::make('hello');
 });
+ 
+Route::post('paymentstatus/paymentstatus', function () {
+ 	$inputArray = Input::all();
+	return View::make('paymentstatus')->with('data',$inputArray);
+}); 
+
+Route::get('payupaymentsuccess/payupaymentsuccess', function () {
+	return View::make('payupaymentsuccess');
+});
 
 Route::group(array('prefix' => 'v1'), function () {
 
+	
     Route::get('mail/send', 'AdminController@sendMail');
     Route::get('admin/{admin_id}/users', 'AdminController@getUsers');
     Route::get('admin/{admin_id}/evezplace/sections', 'AdminController@getEvezplaceSections');
@@ -61,6 +71,9 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('videos/more', 'AdminController@getMoreVideos');
 
     Route::post('admin/{admin_id}/users/userAction', 'AdminController@userAction');
+    
+    //Creating a post URL for order success.
+   Route::post('order/success/posturl', 'OrderController@orderSuccess');
 
     // Eveplace promotion section
     Route::get('evezplace/{section_id}/promotion', 'AdminEvezplacePromotionController@index');
