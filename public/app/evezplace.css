@@ -605,8 +605,8 @@ tags-input .tags .tag-item {
     font-weight: 600;
 }
 
-.table-productlines {
-
+.table-productlines th{
+    background-color: #57C5A0;
 }
 
 .table-productlines > tbody > tr > td,
@@ -617,6 +617,7 @@ tags-input .tags .tag-item {
 .table-productlines > thead > tr > th {
     font-size: 14px;
     font-weight: 500;
+    border-color: #57C5A0;
 }
 
 /* Styles for validation */

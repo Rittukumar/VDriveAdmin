@@ -22,9 +22,9 @@
 
 <div class="col-sm-9" ng-controller="ManageStoreCtrl">
     <div class="row">
-        <div class="create-store-section">
+        <div class="create-store-section" style="background-color: #ffffff;">
 
-            <div style="border: 1px solid #ffffff; border-radius: 5px" ng-if="AllProductLines.length < 4">
+            <div style="border: 1px solid #692668; border-radius: 5px" ng-if="AllProductLines.length < 4">
                 <div class="row">
                     <div class="col-md-9 col-md-offset-1">
                         <h4 style="color: #e51385">Create Product/Service Lines</h4>
@@ -74,19 +74,26 @@
                 <div class="row" style="margin-top: 20px; margin-bottom: 20px">
                     <div class="col-md-3 col-sm-offset-8">
                         <a href ng-click="AddProductLine(formData)" class="btn btn-primary btn-block">Add
-                            Product/Service</a>
+                            Product/Service Line</a>
                     </div>
                 </div>
             </div>
 
-            <div style="border: 1px solid #ffffff; border-radius: 5px; margin-top: 20px">
+            <div style="border: 1px solid #692668; border-radius: 5px; margin-top: 20px">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <h5 style="color: #e51385; font-weight: 600">Product/Service Lines - <a href
-                                                                                                ng-click="ShowAddProduct()">(Add
-                            Product/Service)</a></h5>
+                        <div class="col-md-12 no-padding" style="padding-bottom:10px;">
+                            <h4 style="color: #e51385;">Product/Service Lines
+                                <a href ng-click="ShowAddProduct()" class="btn btn-primary pull-right">Add Product/Service</a>
+                            </h4>
+                        </div>
                         <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
                         <table ng-table class="table table-productlines table-bordered">
+                            <th bgcolor="#F6B77F"><b>#</b></th>
+                            <th bgcolor="#F6B77F"><b>Product Line</b></th>
+                            <th bgcolor="#F6B77F"><b>Type</b></th>
+                            <th bgcolor="#F6B77F"><b>Action</b></th>
+                            
                             <tr ng-repeat="productLine in AllProductLines" class="text-center">
                                 <td data-title="'#'">{{productLine.id}}</td>
                                 <td data-title="'Product Line'">{{productLine.title}}</td>
@@ -100,12 +107,13 @@
                                 </td>
                                 <td data-title="''"><a href ng-click="EditProductLine(productLine)"
                                                        class="btn btn-link"><span
-                                        style="color: #e51385">edit</span></a>
-                                </td>
-                                <td data-title="''"><a href ng-click="DeleteProductLine(productLine.id)"
+                                        style="color: #e51385"><b>edit</b></span></a>|
+                                        <a href ng-click="DeleteProductLine(productLine.id)"
                                                        class="btn btn-link"><span
-                                        style="color: #e51385">delete</span></a>
+                                        style="color: #e51385"><b>delete</b></span></a>
                                 </td>
+                               <!--  <td data-title="''">
+                                </td> -->
                             </tr>
                         </table>
                         <p class="pull-right">{{AllProductLines.length}} of {{productLineTableParams.count()}} product
@@ -115,7 +123,7 @@
                 </div>
             </div>
 
-            <div style="border: 1px solid #ffffff; border-radius: 5px; margin-top: 20px" ng-show="isAddProductHidden">
+            <div style="border: 1px solid #692668; border-radius: 5px; margin-top: 20px" ng-show="isAddProductHidden">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <h4 style="color: #e51385">Build Individual Units</h4>
@@ -139,12 +147,12 @@
                         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                             <div class="form-group">
                                 <div class="col-sm-6">
-                                    <input type="text" placeholder="Price in INR" class="form-control"
+                                    <input type="number" placeholder="Price in INR" class="form-control"
                                            id="productPrice" name="productPrice"
                                            ng-model="productSKU.productPrice">
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" placeholder="Discount (If Applicable)" class="form-control"
+                                    <input type="number" placeholder="Discount percentage(If Applicable)" class="form-control"
                                            id="productDiscount" name="productDiscount"
                                            ng-model="productSKU.productDiscount">
                                 </div>
@@ -154,7 +162,7 @@
                         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                             <div class="form-group">
                                 <div class="col-sm-6">
-                                    <input type="text" placeholder="Shipment Charges (INR)" class="form-control"
+                                    <input type="number" placeholder="Shipment Charges (INR)" class="form-control"
                                            id="productShipmentCharges" name="productShipmentCharges"
                                            ng-model="productSKU.productShipmentCharges">
                                 </div>
@@ -163,11 +171,16 @@
 
                         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                             <div class="form-group">
-                                <div class="col-sm-12" ng-if="product.productPrice">
+                                <div class="col-sm-12" ng-if="productSKU.productPrice">
                                     <p class="pull-right" style="font-weight: 600">Total Price: &#x20b9;
-                                        {{parseDouble(product.productPrice) +
-                                        parseDouble(product.productShipmentCharges) + (parseDouble(product.productPrice)
-                                        * parseDouble(product.productDiscount)/100) }}</p>
+                                        {{
+                                                prodPrice = (productSKU.productPrice != null)?productSKU.productPrice:0;
+                                                prodShipment = (productSKU.productShipmentCharges != null)?productSKU.productShipmentCharges:0;
+                                                prodDiscount = (productSKU.productDiscount != null)?productSKU.productDiscount:0;
+                                                
+                                                (prodPrice + prodShipment) - (prodPrice * (prodDiscount/100))    
+
+                                        }}</p>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +262,7 @@
                                      ng-style="{ 'width': uploader.progress + '%' }"></div>
                             </div>
                         </div>
-                        <h4 style="color: #e51385">Product Description</h4>
+                        <h5 style="color: #e51385">Product Description</h5>
                         <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
                         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                             <div class="form-group">
@@ -278,12 +291,12 @@
                 </div>
             </div>
 
-            <div style="border: 1px solid #ffffff; border-radius: 5px; margin-top: 20px">
-                <div class="row" ng-show="isProductSKUHidden">
+            <div style="border: 1px solid #692668; border-radius: 5px; margin-top: 20px" ng-show="isProductSKUHidden">
+                <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="row" style="margin-top: 10px">
-                            <div class="col-sm-3">
-                                <h5 style="color: #e51385; font-weight: 600">Products/Services</h5>
+                            <div class="col-sm-6">
+                                <h4 style="color: #e51385;">Products/Services - {{currentProductLine.title}}</h4>
                             </div>
                             <div class="col-sm-3">
                                 <!--<select class="form-control"  id="product-line" id="selectproductLine"-->
@@ -298,21 +311,26 @@
 
                         <table ng-table="productCatalogueTableParams" template-pagination="custom/pager"
                                class="table table-productlines table-bordered">
+                            <th ><b>#</b></th>
+                            <th ><b>Title</b></th>
+                            <th ><b>Description</b></th>
+                            <th ><b>Variants</b></th>
+                            <th ><b>Action</b></th>
                             <tr ng-repeat="product in AllProducts" class="text-center">
-                                <td data-title="'#'">{{$index+1}}</td>
-                                <td data-title="'Title'">{{product.title}}</td>
-                                <td data-title="'Description'">{{product.description}}</td>
-                                <td data-title="'Variants'">
+                                <td>{{$index+1}}</td>
+                                <td>{{product.title}}</td>
+                                <td>{{product.description}}</td>
+                                <td>
                                     <div>({{product['product_sk_u'].length}}) | <a href
                                                                                    ng-click="GetProductSKU(product)">View</a>
                                         / <a href ng-click="AddProductVariant(product)">Add</a></div>
                                 </td>
-                                <td data-title="''"><a href ng-click="UpdateProduct(product)" class="btn btn-link"><span
-                                        style="color: #e51385">update</span></a>
-                                </td>
-                                <td data-title="''"><a href ng-click="DeleteProduct(product.id)"
+                                <td><a href ng-click="UpdateProduct(product)" class="btn btn-link"><span
+                                        style="color: #e51385"><b>update</b></span></a>|
+
+                                        <a href ng-click="DeleteProduct(product.id)"
                                                        class="btn btn-link"><span
-                                        style="color: #e51385">delete</span></a>
+                                        style="color: #e51385"><b>delete</b></span></a>
                                 </td>
                             </tr>
                             <tr>
@@ -325,15 +343,17 @@
                         </table>
 
                         <div class="ngdialog-buttons popuptemplate" ng-show="showAddVariant">
+                            <h4 style="color: #e51385">Add Variant</h4>
+                            <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
                             <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <input type="text" placeholder="Price in INR" class="form-control"
+                                        <input type="number" placeholder="Price in INR" class="form-control"
                                                id="productPrice" name="productPrice"
                                                ng-model="product.productPrice">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" placeholder="Discount (If Applicable)" class="form-control"
+                                        <input type="number" placeholder="Discount percentage (If Applicable)" class="form-control"
                                                id="productDiscount" name="productDiscount"
                                                ng-model="product.productDiscount">
                                     </div>
@@ -343,7 +363,7 @@
                             <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <input type="text" placeholder="Shipment Charges (INR)" class="form-control"
+                                        <input type="number" placeholder="Shipment Charges (INR)" class="form-control"
                                                id="productShipmentCharges" name="productShipmentCharges"
                                                ng-model="product.productShipmentCharges">
                                     </div>
@@ -354,13 +374,19 @@
                                 <div class="form-group">
                                     <div class="col-sm-12" ng-if="product.productPrice">
                                         <p class="pull-right" style="font-weight: 600">Total Price: &#x20b9;
-                                            {{parseDouble(product.productPrice) +
-                                            parseDouble(product.productShipmentCharges) +
-                                            (parseDouble(product.productPrice) *
-                                            parseDouble(product.productDiscount)/100) }}</p>
+                                            {{
+
+                                                prodPrice = (product.productPrice != null)?product.productPrice:0;
+                                                prodShipment = (product.productShipmentCharges != null)?product.productShipmentCharges:0;
+                                                prodDiscount = (product.productDiscount != null)?product.productDiscount:0;
+                                              
+                                                (prodPrice + prodShipment) - (prodPrice * (prodDiscount/100))    
+
+                                            }}</p>
                                     </div>
                                 </div>
                             </div>
+
                             <hr style="border-top-color: #ddd; margin-top: 0px; margin-bottom: 0px"/>
                             <div class="row" style="margin-top: 20px; margin-bottom: 10px">
                                 <div class="form-group">
@@ -420,7 +446,7 @@
                             <div class="row" style="margin-top: 15px; margin-bottom: 20px">
                                 <div class="form-group">
                                     <div class="col-sm-6">
-                                        <h5 style="font-weight: 600">Product/Service Images</h5>
+                                        <h5 style="font-weight: 600">Product/Service Images <b style="color: #e51385"> (Max Size :2MB)</b></h5>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="fileUpload btn btn-default btn-block">
@@ -474,35 +500,42 @@
                         <!--<div class="col-sm-3 col-sm-offset-9" ng-show="showvariantlist" style="margin-bottom: 10px;">-->
                         <!--<a href="" class="btn btn-primary btn-sm btn-block">Set Trending Products</a>-->
                         <!--</div>-->
+                        <h4 style="color: #e51385;" ng-show="showvariantlist">Product/Service Variants - {{currentSelectedProduct.title}}</h4>
                         <table ng-table="productTableParams" template-pagination="custom/pager"
                                class="table table-productlines table-bordered" ng-show="showvariantlist">
+                            <th ><b>#</b></th>
+                            <th ><b>Is Trending</b></th>
+                            <th ><b>Image</b></th>
+                            <th ><b>Price</b></th>
+                            <th ><b>Stock</b></th>
+                            <th ><b>Action</b></th>
                             <tr ng-repeat="productsku in AllProductSKU" class="text-center">
-                                <td data-title="'Is Trending'"><input type="checkbox" id="trendingchx" name="tredingchx"
+                                <td>{{$index+1}}</td>
+                                <td><input type="checkbox" id="trendingchx" name="tredingchx"
                                                                       ng-model="productsku.is_trending"
                                                                       ng-true-value="'1'"
                                                                       ng-false-value="'0'"
                                                                       ng-change="UpdateTrending(productsku)"/></td>
-                                <td data-title="'#'">{{$index+1}}</td>
-                                <td data-title="'Image'"><img
+                                <td><img
                                         ng-src="{{service_url+'image/show/'+productsku['product_images'][0]['image']['large_image_url']}}/40/40"
                                         class="img-thumbnail"/></td>
-                                <td data-title="'Price'">{{productsku.price}}</td>
-                                <td data-title="'Stock'">
+                                <td>{{productsku.price}}</td>
+                                <td>
                                     {{productsku.product_stock.quantity}}
                                 </td>
-                                <td data-title="''"><a href ng-click="UpdateProductSKU(productsku)"
+                                <td><a href ng-click="UpdateProductSKU(productsku)"
                                                        class="btn btn-link"><span
-                                        style="color: #e51385">update</span></a>
-                                </td>
-                                <td data-title="''"><a href ng-click="DeleteProductSKU(productsku.id)"
+                                        style="color: #e51385"><b>update</b></span></a>|
+
+                                        <a href ng-click="DeleteProductSKU(productsku.id)"
                                                        class="btn btn-link"><span
-                                        style="color: #e51385">delete</span></a>
+                                        style="color: #e51385"><b>delete</b></span></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="8" data-title="'#'">
                                     <button class="btn primary pull-right form-control" type="button"
-                                            ng-click="CancelShow()">Cancel
+                                            ng-click="CancelShow()">Close
                                     </button>
                                 </td>
                             </tr>

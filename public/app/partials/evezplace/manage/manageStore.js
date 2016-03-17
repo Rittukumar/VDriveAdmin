@@ -18,6 +18,11 @@ evezownApp
         $scope.isAddProductHidden = false;
         $scope.isProductSKUHidden = false;
        // $rootScope.selectedProductLine = null;
+
+        $scope.prodPrice=0;
+        $scope.prodShipment=0;
+        $scope.prodDiscount=0;
+        
         $scope.AllProducts = [];
         $scope.productImages = [];
         $scope.AllProductSKU = [];
@@ -52,6 +57,7 @@ evezownApp
         $scope.ShowAddProduct = function()
         {
             $scope.isAddProductHidden = true;
+            $scope.isProductSKUHidden = false;
         }
         $scope.HideAddProduct = function()
         {
@@ -143,7 +149,7 @@ evezownApp
             }
             else
             {
-                toastr.error('Please enter a store title', 'Store');
+                toastr.error('Please enter a product title', 'Store');
             }
 
 
@@ -303,6 +309,7 @@ evezownApp
             //stores/products/sku/{productId}/get
             $rootScope.currentSelectedProduct = product;
             $scope.showvariantlist = true;
+            $scope.showAddVariant = false;
             $http.get(PATHS.api_url + 'stores/products/sku/'+product.id+'/get').
                 success(function (data, status, headers, config)
                 {
@@ -417,7 +424,21 @@ evezownApp
                             {
                                 toastr.success(data.message, 'Store');
                                 ngDialog.close();
-
+                                //making all fields of the form to null after success
+                                formData.productTitle = "";
+                                formData.productDiscount = "";
+                                formData.productPrice = "";
+                                formData.productShipmentCharges = "";
+                                formData.productSize = "";
+                                formData.productColor = "";
+                                formData.productWeight = "";
+                                formData.productVolume = "";
+                                formData.productExpiry = "";
+                                formData.productDescription = "";
+                                formData.productStock = "";
+                                $scope.productImages = [];
+                                $scope.isImageUploadComplete = false;
+                                
                             }).error(function (data)
                             {
                                 toastr.error(data.error.message, 'Store');
@@ -494,7 +515,8 @@ evezownApp
                                 formData.productExpiry = "";
                                 formData.productStock = "";
                                 $scope.productImages = [];
-                                $scope.GetProducts($rootScope.selectedProductLine.id);
+                                $scope.isImageUploadComplete = false;
+                                $scope.GetProducts($rootScope.selectedProductLine);
                             });
                     }
                     else
@@ -513,23 +535,21 @@ evezownApp
 
         $scope.ViewProducts = function(productline)
         {
+            $scope.isAddProductHidden = false;
             $scope.isProductSKUHidden = true;
             $scope.showvariantlist = false;
+            $scope.showAddVariant = false;
             $scope.GetProducts(productline);
         }
 
         $scope.ViewServices = function(serviceline)
         {
+            $scope.isAddProductHidden = false;
             $scope.isProductSKUHidden = true;
             $scope.showvariantlist = false;
+            $scope.showAddVariant = false;
             $scope.GetProducts(serviceline);
         }
-
-
-
-
-
-
 
         $scope.SubmitProductSKUEdit = function(formData)
         {
@@ -749,6 +769,7 @@ evezownApp
         $scope.AddProductVariant = function (product)
         {
             $scope.showAddVariant = true;
+            $scope.showvariantlist = false;
             $rootScope.currentProduct = product;
         }
 
@@ -877,7 +898,7 @@ evezownApp
                     toastr.error(data.error.message, 'Store');
                 }).then(function()
                 {
-                    $scope.GetProducts($rootScope.selectedProductLine.id)
+                    $scope.GetProducts($rootScope.selectedProductLine)
                 });
         }
 
