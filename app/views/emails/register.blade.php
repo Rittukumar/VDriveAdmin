@@ -44,7 +44,7 @@
                                     information or message you choose to among your friends.</p>
 
                                 <p>Once you register, you can use the Mysite section to create your profile and use
-                                    features like groups, events, listing, discussion, blogs and circles for interacting
+                                    features like groups, events, ads & campaigns, discussion, blogs and circles for interacting
                                     with your group. You can open a store for your stores or business in MarketPlace
                                     or simply search and find the career of your choice in jobs section, if you are
                                     a working professional.</p>

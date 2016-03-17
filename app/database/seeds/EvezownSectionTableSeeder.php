@@ -21,7 +21,7 @@ class EvezownSectionTableSeeder extends Seeder {
         ]);
 
         EvezownSection::create([
-            'name' => 'Listing'
+            'name' => 'Ads & Campaigns'
         ]);
 
         EvezownSection::create([
