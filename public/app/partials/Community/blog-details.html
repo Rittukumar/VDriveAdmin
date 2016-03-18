@@ -263,7 +263,10 @@
                      selected='slideImage.selected(cords)'>
             </ng-crop>
             <br/>
-            <a ng-click="ChangeBlogCoverImage()" class="btn btn-primary pull-right">Upload</a>
+            <a ng-click="ChangeBlogCoverImage()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
             <br/>
         </form>
     </div>

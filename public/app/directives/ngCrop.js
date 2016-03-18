@@ -31,7 +31,7 @@ evezownApp.directive('ngCrop', function() {
                         bgFade: true,
                         aspectRatio : scope.ratio,
                         boxWidth: scope.boxWidth,
-                        setSelect: [40, 40, 50, 50],
+                        setSelect: [100, 100, 500, 500],
                         bgColor : 'black',
                         selected : [40, 40, 69, 56, 29, 16]
                     });

@@ -408,6 +408,9 @@ evezownApp.controller('cropTitleImageCtrl', function ($scope, ClassifiedsService
                 toastr.success(data.message, 'Upload Title Image');
 
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -454,6 +457,9 @@ evezownApp.controller('cropBodyImageCtrl', function ($scope, ImageUploadService,
                 toastr.success(data.message, 'Upload Body Image');
 
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 });

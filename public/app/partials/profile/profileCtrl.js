@@ -561,7 +561,7 @@ evezownApp
 
 /*Profile picture crop*/
 evezownApp
-    .controller('ProfileImageCrop', function ($scope, AuthService, ngDialog, $location, $controller, $http, $cookieStore, PATHS, FileUploader, $rootScope, $routeParams) {
+    .controller('ProfileImageCrop', function ($scope, AuthService, ngDialog, $location, $controller, $http, $cookieStore, PATHS, FileUploader, $rootScope, $routeParams, usSpinnerService) {
 
         if ($routeParams.id != undefined) {
             $scope.profileImage = "";
@@ -716,6 +716,9 @@ evezownApp.controller('LeftCoverCtrl', function ($scope, StoreService,$http, PAT
                     });
                     });
                     
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error('Please crop the image before upload');
             });
     }
 
@@ -770,6 +773,9 @@ evezownApp.controller('BottomCoverCtrl', function ($scope, StoreService,$http, P
                     ngDialog.close("", data);
                     });
                     });         
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error('Please crop the image before upload');
             });
     }
 
@@ -824,6 +830,9 @@ evezownApp.controller('RightCoverCtrl', function ($scope, StoreService,$http, PA
                     ngDialog.close("", data);
                     });
                     });  
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error('Please crop the image before uploadd');
             });
     }
 
@@ -879,6 +888,9 @@ evezownApp.controller('EvezsiteImageCtrl', function ($scope, AuthService, StoreS
                     ngDialog.close("", data);
                     });
                     });
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error('Please crop the image before upload');
             });
     }
 

@@ -241,7 +241,7 @@ evezownApp.controller('leftPromotionImageCtrl', function ($scope, usSpinnerServi
                 ngDialog.close("", data);
             }, function (error) {
                 usSpinnerService.stop('spinner-1');
-                toastr.error(error.message, 'Upload Title Image');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -288,7 +288,7 @@ evezownApp.controller('rightTopPromotionImageCtrl', function ($scope, usSpinnerS
                 ngDialog.close("", data);
             }, function (error) {
                 usSpinnerService.stop('spinner-1');
-                toastr.error(error.message, 'Upload Title Image');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -335,7 +335,7 @@ evezownApp.controller('rightBottomPromotionImageCtrl', function ($scope, usSpinn
                 ngDialog.close("", data);
             }, function (error) {
                 usSpinnerService.stop('spinner-1');
-                toastr.error(error.message, 'Upload Title Image');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
