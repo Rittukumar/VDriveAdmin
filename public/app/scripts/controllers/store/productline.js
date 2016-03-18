@@ -44,8 +44,7 @@ evezownApp
                 $scope.storefront.aboutus = storeFrontDetails.store_about_us || '';
                 if (storeFrontDetails.profile_images != null &&
                     storeFrontDetails.profile_images.large_image_url != '') {
-                    $scope.storefront.profile_image = PATHS.api_url + 'image/show/' +
-                        storeFrontDetails.profile_images.large_image_url + '/288/288';
+                    $scope.storefront.profile_image = storeFrontDetails.profile_images.large_image_url + '/288/288';
                 }
                 else {
                     $scope.storefront.profile_image = 'http://placehold.it/288x288/e50880/ffffff';

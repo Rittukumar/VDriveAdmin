@@ -50,7 +50,7 @@
                     <div class="col-sm-12">
                         <slick infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true">
                             <div class="col-md-3" ng-repeat="product in productline.products">
-                                <div class="living_box">
+                                <div class="living_box" style="max-height: 100px;">
                                     <a href="#store/products/{{product.id}}">
                                         <img ng-src="{{imageUrl + product.product_sk_u[0].product_images[0].image.large_image_url +
                                                     '/600/600'}}" style="width: 100%;"

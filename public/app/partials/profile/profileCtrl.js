@@ -686,13 +686,15 @@ evezownApp.controller('LeftCoverCtrl', function ($scope, StoreService,$http, PAT
     // You can add a thumbnail if you want
     $scope.slideImage.thumbnail = false;
 
-    $scope.slideImage.aspectRatio = 800 / 350;
+    $scope.slideImage.aspectRatio = 393 / 220;
 
-    $scope.slideImage.boxWidth = 350;
+    $scope.slideImage.boxWidth = 393;
+
+    $scope.slideImage.boxHeight = 220;
 
     $scope.slideImage.cropConfig = {};
 
-    $scope.slideImage.cropConfig.aspectRatio = 800 / 350;
+    $scope.slideImage.cropConfig.aspectRatio = 393 / 220;
 
     $scope.LeftCoverImage = function () {
         usSpinnerService.spin('spinner-1');
@@ -710,7 +712,7 @@ evezownApp.controller('LeftCoverCtrl', function ($scope, StoreService,$http, PAT
                 }).
                 success(function (data, status, headers, config) {
                     ImageService.getImage(PATHS.api_url + 'users/' + $scope.currentUserId + '/left_image/current').success(function (data) {
-                    $scope.leftCoverImage = PATHS.api_url + 'image/show/' + data;
+                    $scope.leftCoverImage = PATHS.api_url + 'image/show/' + data +'/393/220';
                     toastr.success("Left Cover Updated");
                     ngDialog.close("", data);
                     });
@@ -744,13 +746,15 @@ evezownApp.controller('BottomCoverCtrl', function ($scope, StoreService,$http, P
     // You can add a thumbnail if you want
     $scope.slideImage.thumbnail = false;
 
-    $scope.slideImage.aspectRatio = 383 / 220;
+    $scope.slideImage.aspectRatio = 383 / 216;
 
-    $scope.slideImage.boxWidth = 350;
+    $scope.slideImage.boxWidth = 383;
+
+    $scope.slideImage.boxHeight = 216;
 
     $scope.slideImage.cropConfig = {};
 
-    $scope.slideImage.cropConfig.aspectRatio = 800 / 350;
+    $scope.slideImage.cropConfig.aspectRatio = 383 / 216;
 
     $scope.BottomCoverImage = function () {
         usSpinnerService.spin('spinner-1');
@@ -768,7 +772,7 @@ evezownApp.controller('BottomCoverCtrl', function ($scope, StoreService,$http, P
                 }).
                 success(function (data, status, headers, config) {
                     ImageService.getImage(PATHS.api_url + 'users/' + $scope.currentUserId + '/bottom_image/current').success(function (data) {
-                    $scope.bottomCoverImage = PATHS.api_url + 'image/show/' + data;
+                    $scope.bottomCoverImage = PATHS.api_url + 'image/show/' + data +'/393/216';
                     toastr.success("Bottom Cover Updated");
                     ngDialog.close("", data);
                     });
@@ -801,13 +805,15 @@ evezownApp.controller('RightCoverCtrl', function ($scope, StoreService,$http, PA
     // You can add a thumbnail if you want
     $scope.slideImage.thumbnail = false;
 
-    $scope.slideImage.aspectRatio = 1200 / 700;
+    $scope.slideImage.aspectRatio = 803 / 452;
 
-    $scope.slideImage.boxWidth = 350;
+    $scope.slideImage.boxWidth = 803;
+
+    $scope.slideImage.boxHeight = 452;
 
     $scope.slideImage.cropConfig = {};
 
-    $scope.slideImage.cropConfig.aspectRatio = 1200 / 700;
+    $scope.slideImage.cropConfig.aspectRatio = 803 / 452;
 
     $scope.RightCoverImage = function () {
         usSpinnerService.spin('spinner-1');
@@ -857,13 +863,14 @@ evezownApp.controller('EvezsiteImageCtrl', function ($scope, AuthService, StoreS
     // You can add a thumbnail if you want
     $scope.slideImage.thumbnail = false;
 
-    $scope.slideImage.aspectRatio = 400 / 300;
+    $scope.slideImage.aspectRatio = 300 / 200;
 
-    $scope.slideImage.boxWidth = 350;
+    $scope.slideImage.boxWidth = 300;
+    $scope.slideImage.boxHeight = 200;
 
     $scope.slideImage.cropConfig = {};
 
-    $scope.slideImage.cropConfig.aspectRatio = 400 / 300;
+    $scope.slideImage.cropConfig.aspectRatio = 300 / 200;
 
     $scope.UpdateEvezsiteImage = function () {
         usSpinnerService.spin('spinner-1');
