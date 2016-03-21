@@ -79,7 +79,7 @@
                 </div>
             </div>
 
-            <div style="border: 1px solid #692668; border-radius: 5px; margin-top: 20px">
+            <div ng-if="AllProductLines.length > 0" style="border: 1px solid #692668; border-radius: 5px; margin-top: 20px">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="col-md-12 no-padding" style="padding-bottom:10px;">
@@ -229,7 +229,7 @@
                                            id="productExpiry" class="form-control date-picker"
                                            type="text"
                                            ng-model="productSKU.productExpiry"
-                                           placeholder="Date of packing/Expiry (If Applicable)"/>
+                                           placeholder="Date of packing/Expiry (If Applicable)" readonly/>
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="text" placeholder="Add available stock (Default 0)"
@@ -432,7 +432,7 @@
                                                id="productExpiry" class="form-control date-picker"
                                                type="text"
                                                ng-model="product.productExpiry"
-                                               placeholder="Date of packing/Expiry (If Applicable)"/>
+                                               placeholder="Date of packing/Expiry (If Applicable)" readonly/>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" placeholder="Add available stock (Default 0)"
