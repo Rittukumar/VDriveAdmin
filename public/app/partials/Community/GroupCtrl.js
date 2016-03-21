@@ -876,6 +876,9 @@ evezownApp.controller('GroupCoverCropCtrl', function ($scope, StoreService,$http
                     });
                     });
                     
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 

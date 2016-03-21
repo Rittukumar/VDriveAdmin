@@ -1750,6 +1750,9 @@ evezownApp.controller('cropLeftCollageCtrl', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Uploaded Left Collage');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -1796,6 +1799,9 @@ evezownApp.controller('cropRightCollageCtrl', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Uploaded Right Collage');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -1841,6 +1847,9 @@ evezownApp.controller('cropBottomCollageCtrl', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Uploaded Bottom Collage');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -1886,6 +1895,9 @@ evezownApp.controller('cropProfileCollageCtrl', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Uploaded Profile Collage');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -1933,6 +1945,9 @@ evezownApp.controller('cropSlideImageCtrl', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Upload Slide Image');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -1976,6 +1991,9 @@ evezownApp.controller('cropSlideImageCtrl', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Upload Slide Image');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -2019,6 +2037,9 @@ evezownApp.controller('cropSlideImageCtrl1', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Upload Slide Image');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -2062,6 +2083,9 @@ evezownApp.controller('cropSlideImageCtrl2', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Upload Slide Image');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 
@@ -2125,6 +2149,9 @@ evezownApp.controller('cropSlideImageCtrl3', function ($scope, StoreService,
                 usSpinnerService.stop('spinner-1');
                 toastr.success(data.message, 'Upload Slide Image');
                 ngDialog.close("", data);
+            }, function (error) {
+                usSpinnerService.stop('spinner-1');
+                toastr.error(error.message, 'Please crop the image before upload');
             });
     }
 

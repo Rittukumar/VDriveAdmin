@@ -41,7 +41,7 @@ evezownApp
                 method: 'GET'
             }).success(function (data) {
                 if (data) {
-                    imageName = PATHS.api_url + 'image/show/' + data + '/300/217';
+                    imageName = PATHS.api_url + 'image/show/' + data + '/200/200';
                 }
                 else {
                     imageName = null;
