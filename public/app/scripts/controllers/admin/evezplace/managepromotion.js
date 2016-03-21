@@ -231,10 +231,14 @@ evezownApp.controller('leftPromotionImageCtrl', function ($scope, usSpinnerServi
     $scope.leftPromotionImage.cropConfig.aspectRatio = 1.78;
 
     $scope.uploadLeftPromotionImage = function () {
-
-        usSpinnerService.spin('spinner-1');
-
-        ImageUploadService.cropImage(
+        if(!$scope.leftPromotionImage.src)
+        {
+            toastr.error('Please select an image');
+        }
+        else
+        {
+            usSpinnerService.spin('spinner-1');
+            ImageUploadService.cropImage(
             getBase64Image($scope.leftPromotionImage.src),
             $scope.leftPromotionImage.coords)
             .then(function (data) {
@@ -243,6 +247,7 @@ evezownApp.controller('leftPromotionImageCtrl', function ($scope, usSpinnerServi
                 usSpinnerService.stop('spinner-1');
                 toastr.error(error.message, 'Please crop the image before upload');
             });
+        }
     }
 
     function getBase64Image(dataURL) {
@@ -278,10 +283,14 @@ evezownApp.controller('rightTopPromotionImageCtrl', function ($scope, usSpinnerS
 
     // Crop Title image
     $scope.uploadRightTopPromotionImage = function () {
-
-        usSpinnerService.spin('spinner-1');
-
-        ImageUploadService.cropImage(
+        if(!$scope.rightTopPromotionImage.src)
+        {
+            toastr.error('Please select an image');
+        }
+        else
+        {
+            usSpinnerService.spin('spinner-1');
+            ImageUploadService.cropImage(
             getBase64Image($scope.rightTopPromotionImage.src),
             $scope.rightTopPromotionImage.coords)
             .then(function (data) {
@@ -290,6 +299,7 @@ evezownApp.controller('rightTopPromotionImageCtrl', function ($scope, usSpinnerS
                 usSpinnerService.stop('spinner-1');
                 toastr.error(error.message, 'Please crop the image before upload');
             });
+        }
     }
 
     function getBase64Image(dataURL) {
@@ -325,10 +335,14 @@ evezownApp.controller('rightBottomPromotionImageCtrl', function ($scope, usSpinn
 
     // Crop Title image
     $scope.uploadRightBottomPromotionImage = function () {
-
-        usSpinnerService.spin('spinner-1');
-
-        ImageUploadService.cropImage(
+        if(!$scope.rightBottomPromotionImage.src)
+        {
+            toastr.error('Please select an image');
+        }
+        else
+        {
+            usSpinnerService.spin('spinner-1');
+            ImageUploadService.cropImage(
             getBase64Image($scope.rightBottomPromotionImage.src),
             $scope.rightBottomPromotionImage.coords)
             .then(function (data) {
@@ -337,6 +351,7 @@ evezownApp.controller('rightBottomPromotionImageCtrl', function ($scope, usSpinn
                 usSpinnerService.stop('spinner-1');
                 toastr.error(error.message, 'Please crop the image before upload');
             });
+        }
     }
 
     function getBase64Image(dataURL) {
