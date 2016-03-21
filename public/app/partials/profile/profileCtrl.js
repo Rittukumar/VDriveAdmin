@@ -697,8 +697,14 @@ evezownApp.controller('LeftCoverCtrl', function ($scope, StoreService,$http, PAT
     $scope.slideImage.cropConfig.aspectRatio = 393 / 220;
 
     $scope.LeftCoverImage = function () {
-        usSpinnerService.spin('spinner-1');
-        StoreService.uploadSlideImage(
+        if(!$scope.slideImage.src)
+        {
+            toastr.error('Please select an image');
+        }
+        else
+        {
+            usSpinnerService.spin('spinner-1');
+            StoreService.uploadSlideImage(
             getBase64Image($scope.slideImage.src),
             $scope.slideImage.coords)
             .then(function (data) {
@@ -722,6 +728,7 @@ evezownApp.controller('LeftCoverCtrl', function ($scope, StoreService,$http, PAT
                 usSpinnerService.stop('spinner-1');
                 toastr.error('Please crop the image before upload');
             });
+        }
     }
 
     function getBase64Image(dataURL) {
@@ -757,8 +764,14 @@ evezownApp.controller('BottomCoverCtrl', function ($scope, StoreService,$http, P
     $scope.slideImage.cropConfig.aspectRatio = 383 / 216;
 
     $scope.BottomCoverImage = function () {
-        usSpinnerService.spin('spinner-1');
-        StoreService.uploadSlideImage(
+        if(!$scope.slideImage.src)
+        {
+            toastr.error('Please select an image');
+        }
+        else
+        {
+            usSpinnerService.spin('spinner-1');
+            StoreService.uploadSlideImage(
             getBase64Image($scope.slideImage.src),
             $scope.slideImage.coords)
             .then(function (data) {
@@ -781,6 +794,7 @@ evezownApp.controller('BottomCoverCtrl', function ($scope, StoreService,$http, P
                 usSpinnerService.stop('spinner-1');
                 toastr.error('Please crop the image before upload');
             });
+        }
     }
 
     function getBase64Image(dataURL) {
@@ -816,8 +830,14 @@ evezownApp.controller('RightCoverCtrl', function ($scope, StoreService,$http, PA
     $scope.slideImage.cropConfig.aspectRatio = 803 / 452;
 
     $scope.RightCoverImage = function () {
-        usSpinnerService.spin('spinner-1');
-        StoreService.uploadSlideImage(
+        if(!$scope.slideImage.src)
+        {
+            toastr.error('Please select an image');
+        }
+        else
+        {
+            usSpinnerService.spin('spinner-1');
+            StoreService.uploadSlideImage(
             getBase64Image($scope.slideImage.src),
             $scope.slideImage.coords)
             .then(function (data) {
@@ -838,8 +858,9 @@ evezownApp.controller('RightCoverCtrl', function ($scope, StoreService,$http, PA
                     });  
             }, function (error) {
                 usSpinnerService.stop('spinner-1');
-                toastr.error('Please crop the image before uploadd');
+                toastr.error('Please crop the image before upload');
             });
+        } 
     }
 
     function getBase64Image(dataURL) {
@@ -873,8 +894,14 @@ evezownApp.controller('EvezsiteImageCtrl', function ($scope, AuthService, StoreS
     $scope.slideImage.cropConfig.aspectRatio = 300 / 200;
 
     $scope.UpdateEvezsiteImage = function () {
-        usSpinnerService.spin('spinner-1');
-        StoreService.uploadSlideImage(
+        if(!$scope.slideImage.src)
+        {
+            toastr.error('Please select an image');
+        }
+        else
+        {
+            usSpinnerService.spin('spinner-1');
+            StoreService.uploadSlideImage(
             getBase64Image($scope.slideImage.src),
             $scope.slideImage.coords)
             .then(function (data) {
@@ -899,6 +926,7 @@ evezownApp.controller('EvezsiteImageCtrl', function ($scope, AuthService, StoreS
                 usSpinnerService.stop('spinner-1');
                 toastr.error('Please crop the image before upload');
             });
+        }
     }
 
     function getBase64Image(dataURL) {
