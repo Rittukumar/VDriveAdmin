@@ -807,7 +807,7 @@ evezownApp.controller('RightCoverCtrl', function ($scope, StoreService,$http, PA
 
     $scope.slideImage.aspectRatio = 803 / 452;
 
-    $scope.slideImage.boxWidth = 803;
+    $scope.slideImage.boxWidth = 500;
 
     $scope.slideImage.boxHeight = 452;
 
