@@ -41,13 +41,12 @@
                             <td data-title="'Price'">{{shoppingCartItem.price}}</td>
                             <td data-title="'Quantity'">
                                 <div fs-counter value="shoppingCartItem.quantity"
-                                     data-min="1"
-                                     data-max="{{shoppingCartItem.stock_quantity}}"
+                                     data-min="0"
+                                     data-max="20"
                                      data-step="1"
                                      data-width="130px"
-                                     data-editable="false"
+                                     data-editable
                                      style="margin-top: 5px"></div>
-                                     <font color="red">{{(shoppingCartItem.quantity == shoppingCartItem.stock_quantity)?"Reached the maximum stock":""}}</font>
                             </td>
                             <td data-title="'Total'">&#x20b9; {{+shoppingCartItem.quantity * +shoppingCartItem.price}}
                             </td>

@@ -286,7 +286,6 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                 image: $product.product_images[0],
                 price: $product.price,
                 quantity: 1,
-                stock_quantity: $product.product_stock.quantity,
                 variants: {
                     color: $product.color,
                     size: $product.size,
@@ -298,8 +297,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
         }
         else {
             var store = {
-                //storeTitle: $product.product.product_line.store.name,
-            	storeTitle: $product.product.product_line.store.title,
+                storeTitle: $product.product.product_line.store.name,
                 storeId: $product.product.product_line.store.id
             };
 
@@ -310,7 +308,6 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                 image: $product.product_images[0],
                 price: $product.price,
                 quantity: 1,
-                stock_quantity: $product.product_stock.quantity,
                 variants: {
                     color: $product.color,
                     size: $product.size,
