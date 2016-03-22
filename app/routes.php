@@ -175,6 +175,15 @@ Route::group(array('prefix' => 'v1'), function () {
 
     Route::post('posts/{post_id}/priority/update', 'WoiceController@updatePostPriority');
 
+    //chat
+    Route::any('chat/messages', 'OneOnOneChatController@getMessages');
+    Route::post('chat/save_message', 'OneOnOneChatController@saveMessage');
+    Route::any('chat/updates', 'OneOnOneChatController@doUpdates');
+    Route::any('chat/mark_read', 'OneOnOneChatController@markRead');
+    Route::get('chatstatusUpdate/','OneOnOneChatController@chatstatusUpdate');
+    Route::any('chat/unread-count', 'OneOnOneChatController@getUnreadCount');
+    Route::any('chat/{user_id}/status','OneOnOneChatController@getUserOnlineStatus');
+
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');
     Route::post('updatePost', 'WoiceController@updatePost');

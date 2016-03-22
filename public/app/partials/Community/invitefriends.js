@@ -10,7 +10,7 @@ evezownApp.filter('offset', function () {
 });
 
 evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn,
-                                                     $cookieStore, $http, PATHS, $auth, AuthService,$location) {
+                                                     $cookieStore, $http, PATHS, $auth, AuthService,$location, GmailCredentials) {
 
     $scope.sectionTitle = "Invite People";
     $scope.loggedInUserId = $cookieStore.get('userId');
@@ -50,6 +50,8 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
     }
 
     getLoggedInUser();
+
+    
 
     $scope.range = function () {
         var rangeSize = 5;
@@ -279,13 +281,18 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
                 picture: 'http://evezown.com/img/logo.png'
             },
             function (response) {
-                if (response && response.post_id) {
-                    toastr.success('Post was published.', 'Invite Friends');
+                if (response && !response.error_message) {
+                  toastr.success('Invite Friends Successful');
+                } else {
+                  toastr.error('Error Please Try Again Later');
                 }
-                //else
-                //{
+                // if (response && response.post_id) {
+                //     toastr.success('Post was published.', 'Invite Friends');
+                // }
+                // else
+                // {
                 //    alert('Post was not published.');
-                //}
+                // }
             }
         );
         //            alert('Notification Sent!');
@@ -417,7 +424,7 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
 
     // Render the sign in button.
     $scope.renderSignInButton = function () {
-        gapi.signin.render('signInButton',
+        /*gapi.signin.render('signInButton',
             {
                 'callback': $scope.signInCallback, // Function handling the callback.
                 'clientid': '62262746490-1q3ga3dh20r5bmu9taccvj4ohmoimp54.apps.googleusercontent.com', // CLIENT_ID from developer console which has been explained earlier.
@@ -426,8 +433,21 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
                 'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly',
                 'cookiepolicy': 'single_host_origin'
             }
-        );
+        );*/
+
+          var config = {
+          'client_id': GmailCredentials.client_id,
+          'requestvisibleactions': 'http://schemas.google.com/AddActivity', // Visible actions, scope and cookie policy wont be described now,// as their explanation is available in Google+ API Documentation.
+          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly',
+          'cookiepolicy': 'single_host_origin'
+        };
+
+        gapi.auth.authorize(config, function() {
+          $scope.signInCallback(gapi.auth.getToken());  
+        });
     }
+
+   
 
     // Process user info.
 // userInfo is a JSON object.
@@ -599,6 +619,20 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
         }
     };
 
+    $scope.sendGmailInvites = function(){
+
+        $scope.userEmailsArray = [];
+        
+        angular.forEach($scope.friendslist, function(friend){
+          if (friend.selected) $scope.userEmailsArray.push(friend.email);
+
+        });
+        
+        $scope.sendInvite($scope.userEmailsArray);
+       
+    }
+
+
     //Send invite
     $scope.sendInvite = function (emailId) {
 
@@ -611,11 +645,17 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
         else
         {
         $scope.BulkMail = [];
+        if(angular.isArray($scope.emails)){
+            angular.forEach($scope.emails, function (value, key) {
+                var newTag = value;
+                $scope.BulkMail.push(newTag);
+            });
+        }else{
             angular.forEach($scope.emails, function (value, key) {
                 var newTag = value.text;
                 $scope.BulkMail.push(newTag);
             });
-
+            }
             if($scope.BulkMail.length > 0){
                 $http.post(PATHS.api_url + 'invite/email'
                 , {

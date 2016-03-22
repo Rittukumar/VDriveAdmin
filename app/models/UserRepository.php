@@ -26,6 +26,7 @@ class UserRepository
         $user->password_confirmation = array_get($input, 'password');
         $user->username = array_get($input, 'email');
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        $user->online_status = 1;
         $user->save();
 
         $profileId = DB::table('user_profile')->insert(array(
@@ -589,6 +590,8 @@ class UserRepository
     public function getUserProfileDetailsOnLogin($input)
     {
         $result = Confide::getUserByEmailOrUsername($input);
+
+        $this->login($input);
 
         $user = User::with('profile')->find($result->id);
 
