@@ -171,6 +171,8 @@ class OrderController extends AppController
                 $storeId = $inputs['storeId'];
                 $totalAmount = $inputs['totalAmount'];
                 $items = $inputs['orderItems'];
+                $billingAddressArray = array();
+                $shipppingAddressArray = array();
 
                 $order = Order::create([
                     'store_id' => $storeId,
@@ -179,9 +181,57 @@ class OrderController extends AppController
                     'current_status_id' => 1, //Order status will be 1 if order is just placed
                     'total_amount' => $totalAmount
                 ]);
-
+				
+                //Method to save the billing and the shipping address.
+                if (isset($inputs['billing_address'])) {
+                	$billingAddress = $inputs['billing_address'];
+                } else {
+                	$errorMessage = [
+                	'status' => false,
+                	'message' => 'Please provide billing address for product'
+                			];
+                	return $this->setStatusCode(404)->respondWithError($errorMessage);
+                }
+                
+                if (isset($inputs['shipping_address'])) {
+                	$shippingAddress = $inputs['shipping_address'];
+                } else {
+                	$errorMessage = [
+                	'status' => false,
+                	'message' => 'Please provide shipping address for product'
+                			];
+                
+                	return $this->setStatusCode(404)->respondWithError($errorMessage);
+                }
+		    	if (isset($billingAddress['cityStateCountry'])) {
+		    		$billingAddressArray = $locationResource->getLocationDetails($billingAddress['cityStateCountry']);
+		    	}
+		    	$orderBillingAddress = new OrderBillingAddress([
+		    			'address_line1' => isset($billingAddress['addressLine1']) ? $billingAddress['addressLine1'] : '',
+		    			'address_line2' => isset($billingAddress['addressLine2']) ? $billingAddress['addressLine2'] : '',
+		    			'address_line3' => isset($billingAddress['addressLine3']) ? $billingAddress['addressLine3'] : '',
+		    			'city' => $billingAddressArray['city'],
+		    			'state' => $billingAddressArray['state'],
+		    			'country' => $billingAddressArray['country'],
+		    			'pincode' => isset($billingAddress['pincode']) ? $billingAddress['pincode'] : ''
+		    			]);
+		    	$order->billingAddress()->save($orderBillingAddress);
+		    	if (isset($shippingAddress['cityStateCountry'])) {
+		    		$shipppingAddressArray = $locationResource->getLocationDetails($shippingAddress['cityStateCountry']);
+		    	}
+		    	$orderShippingAddress = new OrderShippingAddress([
+		    			'address_line1' => isset($shippingAddress['addressLine1']) ? $shippingAddress['addressLine1'] : '',
+		    			'address_line2' => isset($shippingAddress['addressLine2']) ? $shippingAddress['addressLine2'] : '',
+		    			'address_line3' => isset($shippingAddress['addressLine3']) ? $shippingAddress['addressLine3'] : '',
+		    			'city' => $shipppingAddressArray['city'],
+		    			'state' => $shipppingAddressArray['state'],
+		    			'country' => $shipppingAddressArray['country'],
+		    			'pincode' => isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '',
+		    			]);
+		    	
+		    	$order->shippingAddress()->save($orderShippingAddress);
+                
                 $i++;
-
                 $transactionIds[$i] = $order['transaction_id'];
 
                 try {
@@ -209,7 +259,7 @@ class OrderController extends AppController
 
                         $orderItem->orderItemStatus()->save($orderItemStatus);
 
-                        if (isset($value['billing_address'])) {
+                       /* if (isset($value['billing_address'])) {
                             $billingAddress = $value['billing_address'];
                         } else {
                             $errorMessage = [
@@ -220,7 +270,7 @@ class OrderController extends AppController
                             return $this->setStatusCode(404)->respondWithError($errorMessage);
                         }
 
-                        $billingAddressArray = array();
+                         $billingAddressArray = array();
 
                         if (isset($billingAddress['cityStateCountry'])) {
                             $billingAddressArray = $locationResource->getLocationDetails($billingAddress['cityStateCountry']);
@@ -237,7 +287,7 @@ class OrderController extends AppController
                             'pincode' => isset($billingAddress['pincode']) ? $billingAddress['pincode'] : ''
                         ]);
 
-                        $orderItem->billingAddress()->save($orderItemBillingAddress);
+                        $orderItem->billingAddress()->save($orderItemBillingAddress); 
 
                         if (isset($value['shipping_address'])) {
                             $shippingAddress = $value['shipping_address'];
@@ -249,8 +299,9 @@ class OrderController extends AppController
 
                             return $this->setStatusCode(404)->respondWithError($errorMessage);
                         }
-
-                        $shipppingAddressArray = array();
+						
+                        
+                      $shipppingAddressArray = array();
 
                         if (isset($shippingAddress['cityStateCountry'])) {
                             $shipppingAddressArray = $locationResource->getLocationDetails($shippingAddress['cityStateCountry']);
@@ -266,7 +317,9 @@ class OrderController extends AppController
                             'pincode' => isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '',
                         ]);
 
-                        $orderItem->shippingAddress()->save($orderItemShippingAddress);
+                        $orderItem->shippingAddress()->save($orderItemShippingAddress); */
+                        
+                       
                     }
 
                 } catch (Exception $ex) {
@@ -324,6 +377,16 @@ class OrderController extends AppController
 
             return $this->setStatusCode(500)->respondWithError($errorMessage);
         }
+    }
+    
+    public function addBillingAndShippingAddress($billingAddress,$shippingAddress)
+    {	
+    	$locationResource = App::make('LocationResource');
+    	try{
+	    	
+    	} catch (Exception $ex) {
+    		return $this->setStatusCode(500)->respondWithError($ex);
+    	}
     }
 
     function getRandomString($type = 'alnum', $length = 8)
@@ -530,25 +593,13 @@ class OrderController extends AppController
    public function  orderSuccess(){
    		try {
    			$inputArray = Input::all();
-   			
-   			//$status=$_POST["status"];
-   			//$firstname=$_POST["firstname"];
-   		//	$amount=$_POST["amount"];
-   		//	$txnid=$_POST["txnid"];
-   			//$posted_hash=$_POST["hash"];
-   			//$key=$_POST["key"];
-   		//	$productinfo=$_POST["productinfo"];
-   			//$email=$_POST["email"];
-   			//$salt="GQs7yium"; 
-   			
+   		  			
    			return Redirect::to('payupaymentsuccess/payupaymentsuccess');
    					   			
    			} catch (Exception $e) {
    				$errorMessage = ['status' => false,
    				'message' => 'Order failed. Please try again.'];
-   				//return $this->setStatusCode(500)->respondWithError($errorMessage);
    			}
-   			
    }
 
     public function updateOrder()

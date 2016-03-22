@@ -24,4 +24,12 @@ class Order extends \Eloquent {
 	public function orderItems() {
 	   return $this->hasMany('OrderItem', 'order_id', 'id');
 	}
+	
+	public function shippingAddress() {
+		return $this->hasOne('OrderShippingAddress', 'order_id');
+	}
+	
+	public function billingAddress() {
+		return $this->hasOne('OrderBillingAddress', 'order_id');
+	}
 }
