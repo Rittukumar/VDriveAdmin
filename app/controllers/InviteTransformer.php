@@ -23,7 +23,7 @@ class InviteTransformer extends Fractal\TransformerAbstract
             'claimed_at' => $invite['claimed_at'],
             'submit_date' => $invite['created_at'],
             'reminder' => $invite['reminder'],
-            'status' => $invite['status']
+            'status' => isset($invite['user']['email'])?'Registerd':'Pending'
         ];
     }
 }

@@ -1,0 +1,146 @@
+<!--
+| CHAT HEADER SECTION
+-->
+<h2 class="chat-header">
+    
+    <span  class="btn btn-xs btn-success" id="current_status">Online</span>
+
+    <span class="pull-right" style="margin-left: 8px;">
+      <a href="javascript: void(0);" class="chat-container-close">
+        <i class="fa fa-times fa-inverse"></i>
+      </a>
+    </span>  
+   
+    <span class="dropdown user-dropdown pull-right">
+    <a href="javascript:;" class="pull-right chat-config" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-cog"></i>
+    </a>
+    <ul class="dropdown-menu">
+      <li style="margin-left: 2em;">
+        <button id="status_online"   value="1"  class="btn btn-xs btn-success">Online</button>
+        <button id="status_offline"  value="0"  class="btn btn-xs btn-default">Offline</button>
+      </li>
+    </ul>
+    </span> 
+    
+</h2>
+
+<!--
+| CHAT CONTACTS LIST SECTION
+-->
+<div class="chat-inner" id="chat-inner" style="position:relative;" ng-controller="community">
+<div class="chat-group">
+ <strong>Connections</strong>
+
+  <input type="hidden" value="{{currentUserId}}" name="me_id" id="me_id"/>
+  
+ 	<a href="javascript: void(0)" data-toggle="popover" ng-if="friendList.length > 0" ng-repeat="friend in friendList" ng-if="friend.friend_user_id != currentUserId">
+    <div class="contact-wrap">
+      <input type="hidden" value="{{friend.friend_user_id}}" name="user_id" />
+      <input type="hidden" value="{{friend.user_id}}" name="my_user_id" />
+       <div class="contact-profile-img">
+           <div class="profile-img">
+            <img src="{{friend.profile.profile_image == null ? 'img/eve-avatar.png' : service_url+'image/show/'+friend.profile.profile_image.thumbnail_url}}" class="img-responsive">
+           </div>
+       </div>
+        <span class="contact-name">
+            <small class="user-name">{{friend.profile.firstname  | strLimit:12}}</small>
+            <span class="badge progress-bar-danger" rel="{{friend.friend_user_id}}"></span>
+        </span>
+        <span style="display: table-cell;vertical-align: middle;" class="user_status">
+            <span class="user-status "></span>
+        </span>
+    </div>
+    </a>
+ 
+</div>
+</div>
+
+<!--
+| CHAT CONTACT HOVER SECTION
+-->
+<div class="popover" id="popover-content">
+    <div id="contact-image"></div>
+    <div class="contact-user-info">
+        <div id="contact-user-name"></div>
+        <div id="contact-user-status" class="online-status"></div>
+    </div>
+</div>
+
+<!--
+| INDIVIDUAL CHAT SECTION
+-->
+<div id="chat-box" style="top: 400px">
+  <div class="chat-box-header">
+      <a href="javascript: void(0);" class="chat-box-close pull-right">
+        <i class="fa fa-remove"></i>
+      </a>
+
+      <span class="user-status is-online"></span>
+      <span class="display-name"></span>
+      <small></small>
+  </div>
+
+  <div class="chat-container">
+      <div class="chat-content">
+          <input type="hidden" name="chat_buddy_id" id="chat_buddy_id"/>
+          <ul class="chat-box-body"></ul>
+      </div>
+      <hr>
+      <div class="chat-textarea">
+          <input type="hidden" id="_token" name="_token" value="" />
+          <input type="hidden" id="my_id" name="my_id" />
+          <input placeholder="Type your message" class="form-control" />
+      </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$('#status_online').on('click',function(e){
+e.preventDefault();
+var me_id = $('#me_id').val();
+var status = $('#status_online').val();
+  $.ajax({
+        type : "GET",
+        url  : base  + "chatstatusUpdate",
+        data : {id : me_id, status: status},
+        }).done(function(response) {
+          var obj = $.parseJSON(response);  
+          if(obj.return_status == 'success')   
+          {          
+            toastr.success('Status Updated to Online');          
+            
+            $('#status_online').attr('class', 'btn btn-xs btn-success');      
+            $('#status_offline').attr('class', 'btn btn-xs btn-default');
+            $('#current_status').attr('class', 'btn btn-xs btn-success');
+            $('#current_status').text('Online');
+          }
+      });
+});
+
+$('#status_offline').on('click',function(e){
+e.preventDefault();
+var me_id = $('#me_id').val();
+var status = $('#status_offline').val();
+
+  $.ajax({
+        type : "GET",
+        url  : base  + "chatstatusUpdate",
+        data : {id : me_id, status: status},
+        }).done(function(response) {
+          var obj = $.parseJSON(response);  
+          
+          if(obj.return_status == 'success')   
+          {  
+            toastr.success('Status Updated to Offline');                  
+            
+            $('#status_offline').attr('class', 'btn btn-xs btn-danger');     
+            $('#status_online').attr('class', 'btn btn-xs btn-default');
+            $('#current_status').attr('class', 'btn btn-xs btn-danger');
+            $('#current_status').text('Offline');
+          }
+      });
+});
+
+</script>

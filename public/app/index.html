@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700'
           rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,800,700,600,300,200' rel='stylesheet'
@@ -52,6 +52,10 @@
     <link rel="stylesheet" href="evezplace.css"/>
     <link rel="stylesheet" href="custom/staticpages/staticpages.css"/>
 
+    <!--chat -->
+    <link rel="stylesheet" href="custom/OneOnOneChat/css/chat.css"/>
+    <!-->
+
 
     <!-- build:css(.tmp) styles/main.css -->
 
@@ -64,18 +68,30 @@
     </script>
     <!--test comment-->
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({appId: '952205414789604', status: true, cookie: true,
-                xfbml: true});
-        };
-        (function() {
-            var e = document.createElement('script'); e.async = true;
-            e.src = document.location.protocol +
-            '//connect.facebook.net/en_US/all.js';
-            document.getElementById('fb-root').appendChild(e);
-        }());
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1732417230307091',
+          xfbml      : true,
+          version    : 'v2.5'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
     </script>
 </head>
+
+    <audio id="chatAudio">
+        <source src="sounds/notify.ogg" type="audio/ogg">
+        <source src="sounds/notify.mp3" type="audio/mpeg">
+        <source src="sounds/notify.wav" type="audio/wav">
+    </audio>
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <body ng-app="evezownapp" ng-controller="ApplicationCtrl">
 
@@ -83,11 +99,23 @@
 <nav class="navbar navbar-default" >
     <div ng-bind-html="preview_data.preview.embed.html | to_trusted"></div>
     <div ng-include src='"partials/top-menu.html"' ng-controller="TopMenuCtrl"></div>
+
+    <a href="javascript:void(0)" ng-show="loggedIn" id="top-chat-button" class="btn-chat pull-right" style="margin-top: -35px; margin-right: 40px;">
+        <i class="fa fa-weixin" style="font-size: 20px;">
+            <span class="span-top-value label label-danger" style="font-size: 10px;"></span>
+        </i>
+    </a>
+
 </nav>
 
 <div class="container" ng-view>
 
+            
+
 </div>
+
+<div id="chat-container" class="fixed" style="display:none;"  ng-include="getPartial()" ng-controller="community"></div>
+
 <!-- /container -->
 <footer id="footer" class="midnight-blue">
     <div class="container center-block ">
@@ -326,6 +354,14 @@
 <script src="scripts/controllers/evezplace/recommendation.js"></script>
 <script src="scripts/services/evezplacesection.js"></script>
 <script src="scripts/filters/addlimitellipsis.js"></script>
+
+<!--chat -->
+<script type="text/javascript" src="custom/OneOnOneChat/js/jquery.slimscroll.js"></script>
+<script type="text/javascript" src="custom/OneOnOneChat/js/main.js"></script>
+<script type="text/javascript" src="custom/OneOnOneChat/js/chatigniter.js"></script>
+<!-->
+
+
 <!-- endbuild -->
 
 <!--<script src="libs/ng-password-strength/dist/scripts/ng-password-strength.min.js"></script>-->
@@ -337,13 +373,19 @@
              Place some loading notification, so user won't get confused.
              You can use ng-show and ng-hide to show or hide your notification and accomplish best user experience. --><script>// <![CDATA[
 (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    var po = document.createElement('script'); 
+    po.type = 'text/javascript'; 
+    po.async = true;
     po.src = 'https://apis.google.com/js/client:plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    var s = document.getElementsByTagName('script')[0]; 
+    s.parentNode.insertBefore(po, s);
 })();
 
 // ]]></script><!-- Second script needed for accessing Google API (gapi.*) . It's usage will be described in controller. --><script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 <script type="text/javascript">
+
+    var base = 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/';
+
     $(document).ready(function () {
 
 

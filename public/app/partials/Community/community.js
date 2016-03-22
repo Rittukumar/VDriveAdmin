@@ -47,6 +47,12 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
             });
     }
 
+    $scope.getPartial = function()
+    {   
+       return 'partials/chat/chat-form.html?i='+Math.floor(+new Date() / 1000);
+    }
+    
+
     $scope.fetchMembers = function(searchkey)
     {
         $scope.NoResult = true;

@@ -354,26 +354,8 @@ class UsersController extends AppController
 
             $limit = Input::get('limit') ?: 10;
 
-            $invites = Invite::where('referrer_email', $UserEmail)->paginate($limit);
+            $invites = Invite::with('user')->where('referrer_email', $UserEmail)->paginate($limit);
             
-            if (!$invites->isEmpty()) 
-            {
-                foreach ($invites as $key => $value)
-                {
-                  if(empty($value->claimed_at))
-                  {
-                    $check_invite_exist = User::where('email', $value->email)->first();
-
-                    if(!$check_invite_exist)
-                    {
-                      $value->status = 'Pending';
-                    }else{
-                      $value->status = 'Registered';
-                    }
-                  }
-               }
-            }
-
             if (!$invites) {
                 return $this->responseNotFound('Invites Not Found!');
             }

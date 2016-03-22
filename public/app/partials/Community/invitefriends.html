@@ -78,7 +78,80 @@
                 <h1>Start building your community</h1>
 
                 <div class="col-sm-12">
-                    <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="panel panel-plain">
+                             <div class="panel-body">
+                                <button class="btn btn-block btn-social btn-lg btn-facebook"
+                                        ng-click="sendFacebookRequests()">
+                                    <i class="fa fa-facebook"></i> Invite using Facebook
+                                </button>
+                            </div>
+                            <!--<div class="panel-body">
+                                <div class="btn-watsapp">
+                                    <a href="whatsapp://send?text={{whatsAppDescription}}"
+                                       data-action="www.evezown.com"
+                                       class="btn btn-block btn-social btn-lg btn-whatsapp">
+                                        <i class="fa fa-whatsapp"></i> Invite using Whatsapp
+                                    </a>
+                                </div>
+                            </div> -->
+                            <div class="panel panel-plain">
+                                <div class="panel-body">
+                                    <button class="btn btn btn-block btn-social btn-lg btn-google-plus"
+                                            id="signInButton" ng-click="start()">
+                                        <i class=" fa fa-google-plus"></i>Invite using Google+
+                                    </button>
+                                    <div ng-show="friendslist != null && friendslist.length > 0"
+                                         class="alert alert-dismissible shadow" style="height:250px;overflow-y:auto;overflow-x: hidden;">
+                                        <form class="col-md-8" style="padding-left: 0px; padding-right: 0px">
+                                            <input ng-model="search" type="text"
+                                                   placeholder="Search by firstname" autofocus class="form-control">
+                                        </form>
+                                        <div class="col-md-2">
+                                          <button class="btn btn-primary btn-sm"  ng-click="sendGmailInvites()">Invite</button>
+                                        </div>                  
+                                        <button type="button" class="close" ng-click="resetGooglePlus()"
+                                                aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <table class="table table-condensed">
+                                            <tbody>
+                                            
+                                            <tr ng-repeat="friend in friendslist | filter:search | orderBy: 'firstName'">
+                                                <td> 
+                                                    {{ friend.firstName }} 
+                                                    <i><small>({{friend.email}})</small></i>
+                                                </td>
+                                                <td>
+                                                    <input type="checkbox" ng-model="friend.selected" value={{friend.email}} >
+                                                </td>
+                                            </tr>
+                                            
+                                            </tbody>
+                                            <!-- <tfoot>
+                                            <td colspan="4">
+                                                <nav>
+                                                    <ul class="pagination pull-right">
+                                                        <li ng-class="prevPageDisabled1()">
+                                                            <a href ng-click="prevPage1()">« Prev</a>
+                                                        </li>
+                                                        <li ng-repeat="n in range1()"
+                                                            ng-class="{active: n == currentPage1}"
+                                                            ng-click="setPage1(n)" ng-if="n >= 0">
+                                                            <a href>{{n+1}}</a>
+                                                        </li>
+                                                        <li ng-class="nextPageDisabled1()">
+                                                            <a href ng-click="nextPage1()">Next »</a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </td>
+                                            </tfoot> -->
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
                         <!--invite through email-->
                         <div class="panel panel-plain">
                             <h4>Enter space after each email to send multiple invites</h4>
@@ -101,6 +174,15 @@
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                if (typeof wabtn4fg === "undefined") {
+                    wabtn4fg = 1;
+                    h = document.head || document.getElementsByTagName("head")[0], s = document.createElement("script");
+                    s.type = "text/javascript";
+                    s.src = "custom/whatsapp/whatsapp-button.js";
+                    h.appendChild(s);
+                }
+            </script>
         </div>
     </div>
 </div>

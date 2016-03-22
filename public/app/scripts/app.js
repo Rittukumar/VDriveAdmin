@@ -1544,8 +1544,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         // Set your appId through the setAppId method or
         // use the shortcut in the initialize method directly.
-        FacebookProvider.init('952205414789604');
-
+        FacebookProvider.init('1732417230307091');
 
         // Set the linkedin api key
         $linkedInProvider

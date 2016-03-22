@@ -13,4 +13,9 @@ class Invite extends \Eloquent {
 	public function location(){
 		return $this->hasOne('InviteLocation');
 	}
+
+	public function user()
+    {
+        return $this->belongsTo('User','email','email');
+    }
 }
