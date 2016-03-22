@@ -1750,7 +1750,7 @@ evezownApp.constant('USER_ROLES', {
 });
 
 evezownApp.constant('GmailCredentials', {
-    client_id: '7345290033-30u8pu84cfreqklo20pj1ot81scp5rf9.apps.googleusercontent.com',
+    client_id: '7345290033-30u8pu84cfreqklo20pj1ot81scp5rf9.apps.googleusercontent.com'
 });
 
 
