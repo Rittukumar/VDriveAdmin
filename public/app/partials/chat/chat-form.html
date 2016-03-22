@@ -1,9 +1,9 @@
 <!--
 | CHAT HEADER SECTION
 -->
-<h2 class="chat-header">
+<h2 class="chat-header" ng-controller="community">
     
-    <span  class="btn btn-xs btn-success" id="current_status">Online</span>
+    <span  class="btn btn-xs btn-{{UserOnlinestatus == 'success' ? 'success' : 'danger' }}" id="current_status">{{UserOnlinestatus == 'success' ? 'Online' : 'Offline' }}</span>
 
     <span class="pull-right" style="margin-left: 8px;">
       <a href="javascript: void(0);" class="chat-container-close">
@@ -17,8 +17,8 @@
     </a>
     <ul class="dropdown-menu">
       <li style="margin-left: 2em;">
-        <button id="status_online"   value="1"  class="btn btn-xs btn-success">Online</button>
-        <button id="status_offline"  value="0"  class="btn btn-xs btn-default">Offline</button>
+        <button id="status_online"   value="1"  class="btn btn-xs btn-{{UserOnlinestatus == 'success' ? 'success' : 'default' }}">Online</button>
+        <button id="status_offline"  value="0"  class="btn btn-xs btn-{{UserOnlinestatus == 'warning' ? 'danger' : 'default' }}">Offline</button>
       </li>
     </ul>
     </span> 

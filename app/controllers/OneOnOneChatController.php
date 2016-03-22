@@ -228,6 +228,16 @@ class OneOnOneChatController extends AppController
 		$unreadCount = ChatMessage::whereTo($user)->where('is_read', '=', false)->count();
 		return json_encode($unreadCount);
 	}
+
+
+	public function getUserOnlineStatus($Id)
+	{
+		$user   = User::find($Id);
+		$status = trim(UIHelper::getchatStatus($user->online_status,$user->last_activity));
+
+		return $status;
+		
+	}
 	
 	
 	

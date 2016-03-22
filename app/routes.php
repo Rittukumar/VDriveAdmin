@@ -182,6 +182,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::any('chat/mark_read', 'OneOnOneChatController@markRead');
     Route::get('chatstatusUpdate/','OneOnOneChatController@chatstatusUpdate');
     Route::any('chat/unread-count', 'OneOnOneChatController@getUnreadCount');
+    Route::any('chat/{user_id}/status','OneOnOneChatController@getUserOnlineStatus');
 
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');

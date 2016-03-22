@@ -51,6 +51,16 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
     {   
        return 'partials/chat/chat-form.html?i='+Math.floor(+new Date() / 1000);
     }
+
+
+    $scope.getUserOnlineStatus = function()
+    {
+        $http.get(PATHS.api_url + 'chat/' + $scope.currentUserId + '/status')
+            .success(function (data)
+            { 
+                $scope.UserOnlinestatus = data;
+            });
+    }
     
 
     $scope.fetchMembers = function(searchkey)
@@ -234,5 +244,6 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
 
         $scope.fetchFriends();
         $scope.GetMemberRequest();
+        $scope.getUserOnlineStatus();
 
 });
