@@ -233,7 +233,7 @@ class OneOnOneChatController extends AppController
 	public function getUserOnlineStatus($Id)
 	{
 		$user   = User::find($Id);
-		$status = trim(UIHelper::getchatStatus($user->online_status,$user->last_activity));
+		$status = trim(UIHelper::getchatStatus($user->online_status,$user->last_login));
 
 		return $status;
 		
