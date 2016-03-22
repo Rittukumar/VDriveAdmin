@@ -10,7 +10,7 @@ evezownApp.filter('offset', function () {
 });
 
 evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn,
-                                                     $cookieStore, $http, PATHS, $auth, AuthService,$location) {
+                                                     $cookieStore, $http, PATHS, $auth, AuthService,$location, GmailCredentials) {
 
     $scope.sectionTitle = "Invite People";
     $scope.loggedInUserId = $cookieStore.get('userId');
@@ -436,7 +436,7 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
         );*/
 
           var config = {
-          'client_id': '7345290033-30u8pu84cfreqklo20pj1ot81scp5rf9.apps.googleusercontent.com',
+          'client_id': GmailCredentials.client_id,
           'requestvisibleactions': 'http://schemas.google.com/AddActivity', // Visible actions, scope and cookie policy wont be described now,// as their explanation is available in Google+ API Documentation.
           'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds https://www.googleapis.com/auth/contacts.readonly',
           'cookiepolicy': 'single_host_origin'

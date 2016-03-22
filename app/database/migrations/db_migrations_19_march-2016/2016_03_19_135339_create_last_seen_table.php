@@ -16,8 +16,8 @@ class CreateLastSeenTable extends Migration {
 		Schema::create('last_seen', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
-            $table->integer('user_id')->unsigned();
-			$table->integer('chat_message_id')->unsigned();
+            $table->integer('user_id')->nullable();
+			$table->integer('chat_message_id')->nullable();
 			
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

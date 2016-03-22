@@ -14,7 +14,7 @@ class AddOnlineStatusToUserTable extends Migration {
 	{
 		Schema::table('users', function(Blueprint $table)
 		{
-			$table->tinyInteger('online_status'); // 0 = offline, 1 = online
+			$table->tinyInteger('online_status')->default(0); // 0 = offline, 1 = online
      	});
 	}
 

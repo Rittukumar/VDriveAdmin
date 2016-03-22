@@ -18,7 +18,7 @@ class CreateChatmessagesTable extends Migration {
             $table->increments('id')->unsigned();
             $table->integer('from')->unsigned();
 			$table->integer('to')->unsigned();
-			$table->text('message');
+			$table->text('message')->nullable();
 			$table->enum('is_read', array('0', '1'));
 			$table->timestamp('time')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();

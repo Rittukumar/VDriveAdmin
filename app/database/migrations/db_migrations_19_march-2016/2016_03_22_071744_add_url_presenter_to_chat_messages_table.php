@@ -14,8 +14,8 @@ class AddUrlPresenterToChatMessagesTable extends Migration {
 	{
 		Schema::table('chat_messages', function(Blueprint $table)
         {
-            $table->text('urlPresenter');
-            $table->text('attachments');
+            $table->text('urlPresenter')->nullable();
+            $table->text('attachments')->nullable();
         });
 	}
 

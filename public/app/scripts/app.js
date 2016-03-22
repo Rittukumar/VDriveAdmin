@@ -1749,6 +1749,11 @@ evezownApp.constant('USER_ROLES', {
     guest: 'Guest'
 });
 
+evezownApp.constant('GmailCredentials', {
+    client_id: '7345290033-30u8pu84cfreqklo20pj1ot81scp5rf9.apps.googleusercontent.com',
+});
+
+
 // Filter
 
 
