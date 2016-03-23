@@ -453,7 +453,7 @@ class UsersController extends AppController
                 Mail::send('emails.forgotPassword', $data, function($message) use ($user)
                 {
                     $message->from('admin@evezown.com', 'Evezown Team');
-                    $message->to($user['receiver'], $user['receiver'])->subject('Evezown.com Password Assistance');
+                    $message->to($user['receiver'], $user['receiver'])->subject('Reset your password');
                 });
                 return $this->setStatusCode(200)->respond("An email has been sent to the registered emailid");
 
