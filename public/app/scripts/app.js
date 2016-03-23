@@ -1741,6 +1741,9 @@ evezownApp.constant('PATHS', {
     //api_url: 'http://evezown.com/beta/api/public/v1/'
     api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
 });
+
+base = 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/';
+
 evezownApp.constant('USER_ROLES', {
     all: '*',
     admin: 'Admin',

@@ -1,7 +1,7 @@
 'use strict';
 
 
-evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,$cookieStore,ngDialog,$routeParams)
+evezownApp.controller('community' ,function($rootScope, $scope, friendsService, PATHS,$http,$cookieStore,ngDialog,$routeParams)
 {
         $scope.caption = true;
         $scope.carouselTitle = "Evezown";
@@ -16,6 +16,10 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
     else {
         $scope.currentUserId = $scope.loggedInUserId;
     }
+
+    $rootScope.currentUserId    = $scope.currentUserId;
+    $rootScope.UserOnlinestatus = '';
+    $rootScope.friendList       = '';
 
         $scope.GetProfileImage = function(member)
         {
@@ -35,7 +39,7 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
         $http.get(PATHS.api_url + 'users/' + $scope.currentUserId + '/friends')
             .success(function (data)
             {
-                    $scope.friendList = data.data;
+                    $rootScope.friendList = data.data;
             })
             .error(function (err)
             {
@@ -47,18 +51,13 @@ evezownApp.controller('community' ,function($scope, friendsService, PATHS,$http,
             });
     }
 
-    $scope.getPartial = function()
-    {   
-       return 'partials/chat/chat-form.html?i='+Math.floor(+new Date() / 1000);
-    }
-
 
     $scope.getUserOnlineStatus = function()
     {
         $http.get(PATHS.api_url + 'chat/' + $scope.currentUserId + '/status')
             .success(function (data)
             { 
-                $scope.UserOnlinestatus = data;
+                $rootScope.UserOnlinestatus = data;
             });
     }
     
