@@ -1,5 +1,4 @@
 /* Font Awesome style start */
-
 #bottom-nav .fa {
     color: #e50880;
 }
@@ -472,6 +471,12 @@ input[type=number]::-webkit-outer-spin-button {
 {
     float: left;
     margin: 0px 15px 0px 0px;
+}
+
+/*product catalogue color picker*/
+.colorpicker.dropdown
+{
+    z-index:99999;
 }
 
 /*Spinner Style*/
