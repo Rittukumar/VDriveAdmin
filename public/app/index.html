@@ -52,10 +52,6 @@
     <link rel="stylesheet" href="evezplace.css"/>
     <link rel="stylesheet" href="custom/staticpages/staticpages.css"/>
 
-    <!--chat -->
-    <link rel="stylesheet" href="custom/OneOnOneChat/css/chat.css"/>
-    <!-->
-
 
     <!-- build:css(.tmp) styles/main.css -->
 
@@ -68,6 +64,7 @@
     </script>
     <!--test comment-->
     <script>
+    var base;
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '1732417230307091',
@@ -114,7 +111,7 @@
 
 </div>
 
-<div id="chat-container" class="fixed" style="display:none;"  ng-include="getPartial()" ng-controller="community"></div>
+<div id="chat-container" class="fixed" ng-if="loggedIn" style="display:none;"  ng-include='"partials/chat/chat-form.html"' ng-controller="community"></div>
 
 <!-- /container -->
 <footer id="footer" class="midnight-blue">
@@ -355,12 +352,6 @@
 <script src="scripts/services/evezplacesection.js"></script>
 <script src="scripts/filters/addlimitellipsis.js"></script>
 
-<!--chat -->
-<script type="text/javascript" src="custom/OneOnOneChat/js/jquery.slimscroll.js"></script>
-<script type="text/javascript" src="custom/OneOnOneChat/js/main.js"></script>
-<script type="text/javascript" src="custom/OneOnOneChat/js/chatigniter.js"></script>
-<!-->
-
 
 <!-- endbuild -->
 
@@ -383,11 +374,8 @@
 
 // ]]></script><!-- Second script needed for accessing Google API (gapi.*) . It's usage will be described in controller. --><script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 <script type="text/javascript">
-
-    var base = 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/';
-
+    
     $(document).ready(function () {
-
 
         var clickEvent = false;
         $('#myCarousel').on('click', '.nav a', function () {
