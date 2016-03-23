@@ -44,7 +44,7 @@
       <input type="hidden" value="{{friend.user_id}}" name="my_user_id" />
        <div class="contact-profile-img">
            <div class="profile-img">
-            <img src="{{friend.profile.profile_image == null ? 'img/eve-avatar.png' : service_url+'image/show/'+friend.profile.profile_image.thumbnail_url}}" class="img-responsive">
+            <img src="{{friend.profile.profile_image.large_image_url == null ? 'img/eve-avatar.png' : service_url+'image/show/'+friend.profile.profile_image.large_image_url}}" class="img-responsive">
            </div>
        </div>
         <span class="contact-name">
