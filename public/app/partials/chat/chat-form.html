@@ -36,9 +36,9 @@
 <div class="chat-group">
  <strong>Connections</strong>
 
-  <input type="hidden" value="{{currentUserId}}" name="me_id" id="me_id"/>
+  <input type="hidden" value="{{loggedInUserId}}" name="me_id" id="me_id"/>
   
- 	<a href="javascript: void(0)" data-toggle="popover" ng-if="friendList.length > 0" ng-repeat="friend in friendList" ng-if="friend.friend_user_id != currentUserId">
+ 	<a href="javascript: void(0)" data-toggle="popover" ng-if="friendList.length > 0" ng-repeat="friend in friendList" ng-if="friend.friend_user_id != loggedInUserId">
     <div class="contact-wrap">
       <input type="hidden" value="{{friend.friend_user_id}}" name="user_id" />
       <input type="hidden" value="{{friend.user_id}}" name="my_user_id" />
@@ -51,12 +51,12 @@
             <small class="user-name">{{friend.profile.firstname  | strLimit:12}}</small>
             <span class="badge progress-bar-danger" rel="{{friend.friend_user_id}}"></span>
         </span>
-        <span style="display: table-cell;vertical-align: middle;" class="user_status">
-            <span class="user-status "></span>
+        <span style="display: table-cell;vertical-align: middle;" class="user_status" id="status_{{friend.friend_user_id}}">
+            <span class="user-status {{friend.user.online_status == 1 ? 'is-online' : 'is-offline' }}"></span>
         </span>
     </div>
     </a>
- 
+
 </div>
 </div>
 

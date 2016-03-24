@@ -50,7 +50,7 @@ class OneOnOneChatController extends AppController
         
 		    $chatbuddy = User::with('profile','profile.profile_image')->where('id', $buddy)->first();
 		
-			$status = intval(trim(UIHelper::getchatStatus($chatbuddy->online_status,$chatbuddy->last_login)) == 'success' ? 1 : 0);
+			$status    = trim(UIHelper::getchatStatus($chatbuddy->online_status)) == 'success' ? 1 : 0;
 		
 		$contact = [
 			'name'      => ucwords($chatbuddy->profile->firstname),
@@ -233,7 +233,7 @@ class OneOnOneChatController extends AppController
 	public function getUserOnlineStatus($Id)
 	{
 		$user   = User::find($Id);
-		$status = trim(UIHelper::getchatStatus($user->online_status,$user->last_login));
+		$status = trim(UIHelper::getchatStatus($user->online_status));
 
 		return $status;
 		

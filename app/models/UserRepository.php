@@ -26,7 +26,6 @@ class UserRepository
         $user->password_confirmation = array_get($input, 'password');
         $user->username = array_get($input, 'email');
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
-        $user->online_status = 1;
         $user->save();
 
         $profileId = DB::table('user_profile')->insert(array(
@@ -64,7 +63,11 @@ class UserRepository
             $input['password'] = null;
         }
 
-        Event::listen('auth.login', function($user){ $user->last_login = new DateTime; $user->save();});
+        Event::listen('auth.login', function($user){ 
+            $user->last_login    = new DateTime; 
+            $user->online_status = 1;
+            $user->save();
+        });
 
 
         return Confide::logAttempt($input, Config::get('confide::signup_confirm'));

@@ -8,4 +8,8 @@ class Friend extends \Eloquent {
 	public function profile(){
 		return $this->belongsTo('UserProfile', 'friend_user_id');
 	}
+
+	public function user(){
+		return $this->belongsTo('User', 'friend_user_id', 'id');
+	}
 }

@@ -36,7 +36,7 @@ class UIHelper
 			 }
 	}
 
-    public static function getchatStatus($online_status,$last_activity)
+    public static function getchatStatus($online_status)
     {   
 
         if(empty($online_status))
@@ -46,7 +46,7 @@ class UIHelper
         }
         else
         {  
-          return self::getOnlineStatus($last_activity,'');
+          return 'success';
         }
 
     }
