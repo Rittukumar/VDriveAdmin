@@ -163,6 +163,7 @@ function load_thread(user,me,limit){
             $('.display-name', '#chat-box').html(buddy.name);
             $('#chat-box > .chat-box-header > small').html(status);
             $('#chat-box > .chat-box-header > span.user-status').removeClass().addClass(statusClass);
+            $('#status_'+buddy.id+' > span.user-status').removeClass().addClass(statusClass);
 
             $('ul.chat-box-body').html('');
             if(buddy.more) {

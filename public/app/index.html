@@ -96,13 +96,6 @@
 <nav class="navbar navbar-default" >
     <div ng-bind-html="preview_data.preview.embed.html | to_trusted"></div>
     <div ng-include src='"partials/top-menu.html"' ng-controller="TopMenuCtrl"></div>
-
-    <a href="javascript:void(0)" ng-show="loggedIn" id="top-chat-button" class="btn-chat pull-right" style="margin-top: -35px; margin-right: 40px;">
-        <i class="fa fa-weixin" style="font-size: 20px;">
-            <span class="span-top-value label label-danger" style="font-size: 10px;"></span>
-        </i>
-    </a>
-
 </nav>
 
 <div class="container" ng-view>

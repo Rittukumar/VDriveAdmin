@@ -42,12 +42,12 @@
             </div>
             <div id="bottom-nav" class="col-md-12">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <a href="#buyer/orders" class="btn btn-link" style="color: #E50880; padding-left: 5px">
                             Track your order
                         </a>
                     </div>
-                    <div class="col-md-6 no-padding" style="margin-top: -10px">
+                    <div class="col-md-4" style="margin-top: -10px">
                        <!--  <span class="fa-stack fa-lg">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-tags fa-stack-1x fa-inverse"></i>
@@ -65,7 +65,16 @@
                           <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
                         </span> Cart ({{shoppingCartCount}})
                         </a>
+                         </div>
+
+                    <div class="col-md-4" style="margin-top: 5px">
+                        <a href="javascript:void(0)" ng-if="loggedIn" id="top-chat-button" class="btn-chat" >
+                            <i class="fa fa-weixin" style="font-size: 28px;color: blueviolet;">
+                                <span class="span-top-value label label-danger" style="font-size: 10px;"></span>
+                            </i>
+                        </a>
                     </div>
+
                 </div>
             </div>
         </div>

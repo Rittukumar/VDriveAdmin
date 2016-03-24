@@ -116,7 +116,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('change_password/user', 'UsersController@ChangePassword');
     Route::post('users/forgot_password', 'UsersController@doForgotPassword');
     Route::post('users/reset_password', 'UsersController@doResetPassword');
-    Route::get('users/logout', 'UsersController@logout');
+    Route::get('users/{id}/logout', 'UsersController@logout');
     Route::post('users/{id}/aboutme', 'UsersController@updateAboutMe');
     Route::get('users/{id}/profile_image/current', 'UsersController@getCurrentProfilePic');
     Route::get('users/{id}/bottom_image/current', 'UsersController@getBottomProfilePic');

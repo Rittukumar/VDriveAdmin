@@ -26,7 +26,8 @@ class FriendsController extends AppController {
 		try{
 			$limit = Input::get('limit') ?: 15;
 
-			$friends = Friend::with('profile','profile.profile_image')->where('user_id', $id)->paginate($limit);
+			$friends = Friend::with('profile','profile.profile_image','user')->where('user_id', $id)->paginate($limit);
+            
 
 			if(! $friends)
 			{

@@ -17,23 +17,24 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
         $scope.currentUserId = $scope.loggedInUserId;
     }
 
-    $rootScope.currentUserId    = $scope.currentUserId;
-    $rootScope.UserOnlinestatus = '';
-    $rootScope.friendList       = '';
+    $rootScope.loggedInUserId    = $scope.currentUserId;
+    $rootScope.UserOnlinestatus  = '';
+    $rootScope.friendList        = '';
 
-        $scope.GetProfileImage = function(member)
-        {
-            ////http://creativethoughts.co.in/evezown/api/public/v1/users/{user_id}/profile_image/current
-            //$http.get($scope.service_url + 'users/'+member.id+'/profile_image/current').
-            //    success(function (data, status, headers, config)
-            //    {
-            //        member.profileImage = data;
-            //    })
-            //    .error(function (data)
-            //    {
-            //        console.log(data);
-            //    });
-        }
+    $scope.GetProfileImage = function(member)
+    {
+        ////http://creativethoughts.co.in/evezown/api/public/v1/users/{user_id}/profile_image/current
+        //$http.get($scope.service_url + 'users/'+member.id+'/profile_image/current').
+        //    success(function (data, status, headers, config)
+        //    {
+        //        member.profileImage = data;
+        //    })
+        //    .error(function (data)
+        //    {
+        //        console.log(data);
+        //    });
+    }
+    
     $scope.fetchFriends = function()
     {
         $http.get(PATHS.api_url + 'users/' + $scope.currentUserId + '/friends')

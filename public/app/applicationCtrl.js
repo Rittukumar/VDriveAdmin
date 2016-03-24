@@ -100,6 +100,18 @@ evezownApp
 
         //clear cookies and sessions
         $scope.Logout = function () {
+
+            $http.get(PATHS.api_url + 'users/' + $scope.loggedInUserId + '/logout')
+            .success(function (data)
+            {
+                    console.log(data);
+            })
+            .error(function (err)
+            {
+                console.log(err);
+
+            });
+            
             $cookieStore.remove('api_key');
             $cookieStore.remove('userId');
             $cookieStore.remove('post');
