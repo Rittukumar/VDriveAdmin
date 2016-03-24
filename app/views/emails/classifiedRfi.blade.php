@@ -28,7 +28,7 @@
                         <div style="max-width:600px;margin:0 auto;padding:0 12px">
                             <div style="background:white;border-radius:0.5rem;padding:2rem;margin-bottom:1rem">
                                 <h2 style="color:#2ab27b;margin:0 0 12px;line-height:30px">Dear Store Admin:</h2>
-                                <p>You have received a classified request from:</p>
+                                <p>You have received a Ads & Campaigns request from:</p>
                                 <p>Name: {{ $name }} </p>
                                 <p>Email: {{ $email }}</p>
                                 <p>Address: {{ $city }} </p>
