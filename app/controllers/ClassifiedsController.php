@@ -621,7 +621,7 @@ class ClassifiedsController extends AppController
 
             Mail::send('emails.classifiedRfi', $data, function ($message) use ($user, $emails) {
                 $message->from($user['email'], $user['name']);
-                $message->to($emails, 'Classified Enquiry')->subject('Evezown Classified Request for Info!');
+                $message->to($emails, 'Classified Enquiry')->subject('Evezown Ads & Campaigns Request for Info!');
             });
 
             $successResponse = [

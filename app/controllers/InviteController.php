@@ -268,33 +268,73 @@ class InviteController extends AppController {
 
 				if ($Check == null) 
 				{
-					$generatedCode = bin2hex(openssl_random_pseudo_bytes(16));
+						//check invite is there already
+						$GetInvite = Invite::where('referrer_email', $referrerUser->email)
+									->where('email', '=', $email)
+									->first();
+						
+						if ($GetInvite == null) 
+						{		
+								// Sending New Invite.
+								$generatedCode = bin2hex(openssl_random_pseudo_bytes(16));
+								
+								$invite = Invite::create([
+									'email' => $email,
+									'referrer_name' => $referrerUser->profile['firstname'] . ', ' . $referrerUser->profile['lastname'],
+									'referrer_email' => $referrerUser->email,
+									'is_evezown_member' => 1,
+									'code' => $generatedCode
+								]);
 
-				$invite = Invite::create([
-					'email' => $email,
-					'referrer_name' => $referrerUser->profile['firstname'] . ', ' . $referrerUser->profile['lastname'],
-					'referrer_email' => $referrerUser->email,
-					'is_evezown_member' => 1,
-					'code' => $generatedCode
-				]);
+								$user = array(
+								'email' => $email,
+								'name' => $email,
+								'fromUser' => $invite['referrer_email']
+								);
 
-					$user = array(
-					'email' => $email,
-					'name' => $email,
-					'fromUser' => $invite['referrer_email']
-					);
+								$data = array(
+									'name'	=> $email,
+									'inviteCode'	=> $generatedCode,
+								);
 
-					$data = array(
-						'name'	=> $email,
-						'inviteCode'	=> $generatedCode,
-					);
+								Mail::send('emails.emailInvite', $data, function($message) use ($user)
+								{
+									$message->from($user['fromUser'], $user['fromUser']);
+									$message->to($user['email'], 'Evezown')->subject('Evezown Request Invite!');
+								});
+								$NewUser = 1;
+						}
 
-					Mail::send('emails.emailInvite', $data, function($message) use ($user)
-					{
-						$message->from($user['fromUser'], $user['fromUser']);
-						$message->to($user['email'], 'Evezown')->subject('Evezown Request Invite!');
-					});
-					$NewUser = 1;
+						else
+						{
+							// Existing Invite update and sending reminder.
+							$data = array(
+									'name'	=> $GetInvite->email,
+									'inviteCode'	=> $GetInvite->code
+								);
+
+							$user = array(
+								'email' => $GetInvite->email,
+								'name' => $GetInvite->email,
+								'fromUser' => $GetInvite->referrer_email
+								);
+
+							//send remainder invite
+							Mail::send('emails.emailInvite', $data, function($message) use ($user)
+								{
+									$message->from($user['fromUser'], $user['fromUser']);
+									$message->to($user['email'], 'Evezown')->subject('Evezown Request Invite!');
+								});
+
+							//increment remainder count
+							$GetInvite->reminder = $GetInvite->reminder + 1;
+
+			            	$GetInvite->save();
+
+			            	$NewUser = 1;//This is just for displaying the success message
+
+						}				
+						
 				}
 				else
 				{
