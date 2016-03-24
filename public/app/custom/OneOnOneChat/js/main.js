@@ -43,7 +43,7 @@ $(document).on('click','.chat-container-close', function(){
 /*----------------------------------------------------------------------
 | Display the chat container
 ------------------------------------------------------------------------*/
-$('.btn-chat').click(function () {
+$(document).on('click','.btn-chat', function(){
     if($('#chat-box').is(':visible')){
         $('#chat-container').fadeIn('slow');
         $('#chat-box').fadeOut('slow');

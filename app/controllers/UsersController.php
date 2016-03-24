@@ -545,8 +545,13 @@ class UsersController extends AppController
      *
      * @return  Illuminate\Http\Response
      */
-    public function logout()
+    public function logout($id)
     {
+
+        $user = User::find($id);
+        $user->online_status = 0;
+        $user->save();
+
         Confide::logout();
 
         return $this->setStatusCode(200)->respond("Logged out successfully!");
