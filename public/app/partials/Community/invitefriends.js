@@ -619,16 +619,17 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
         }
     };
 
-    $scope.sendGmailInvites = function(){
+    //Send Gmail invite
+    $scope.sendGmailInvite = function(){
 
         $scope.userEmailsArray = [];
         
         angular.forEach($scope.friendslist, function(friend){
-          if (friend.selected) $scope.userEmailsArray.push(friend.email);
-
+          if (friend.selected) 
+            $scope.userEmailsArray.push(friend.email);
         });
         
-        $scope.sendInvite($scope.userEmailsArray);
+        $scope.sendInviteMail($scope.userEmailsArray);
        
     }
 
@@ -644,41 +645,42 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
         }
         else
         {
-        $scope.BulkMail = [];
-        if(angular.isArray($scope.emails)){
-            angular.forEach($scope.emails, function (value, key) {
-                var newTag = value;
-                $scope.BulkMail.push(newTag);
-            });
-        }else{
+            $scope.BulkMail = [];
             angular.forEach($scope.emails, function (value, key) {
                 var newTag = value.text;
                 $scope.BulkMail.push(newTag);
             });
-            }
-            if($scope.BulkMail.length > 0){
-                $http.post(PATHS.api_url + 'invite/email'
-                , {
-                    data: {
-                        referrer_id: $cookieStore.get('userId'),
-                        emailIds: $scope.BulkMail
-                    },
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                }).success(function(data){
-                    if(data.ExistUser.length > 0){
-                        angular.forEach(data.ExistUser, function (value, key) {
-                            var dataExist = value;
-                            toastr.info(dataExist, 'User Already Exist');
-                        });
-                    }
-                    if(data.NewUser == 1){
-                        toastr.success(data.message);   
-                    }
-                }).error(function (data) {
-                    toastr.error(data.error.message, 'Build Community');
-                });
-            }
+           
+            $scope.sendInviteMail($scope.BulkMail);
+
             $scope.emails = "";
+        }
+    }
+
+
+    $scope.sendInviteMail = function (emails) {
+
+        if(emails.length > 0){
+            $http.post(PATHS.api_url + 'invite/email'
+            , {
+                data: {
+                    referrer_id: $cookieStore.get('userId'),
+                    emailIds: emails
+                },
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).success(function(data){
+                if(data.ExistUser.length > 0){
+                    angular.forEach(data.ExistUser, function (value, key) {
+                        var dataExist = value;
+                        toastr.info(dataExist, 'User Already Exist');
+                    });
+                }
+                if(data.NewUser == 1){
+                    toastr.success(data.message);   
+                }
+            }).error(function (data) {
+                toastr.error(data.error.message, 'Build Community');
+            });
         }
     }
 
