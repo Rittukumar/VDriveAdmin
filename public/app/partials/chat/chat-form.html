@@ -49,7 +49,7 @@
        </div>
         <span class="contact-name">
             <small class="user-name">{{friend.profile.firstname  | strLimit:12}}</small>
-            <span class="badge progress-bar-danger" rel="{{friend.friend_user_id}}"></span>
+            <span class="badge progress-bar-danger" style="background-color:crimson;" rel="{{friend.friend_user_id}}"></span>
         </span>
         <span style="display: table-cell;vertical-align: middle;" class="user_status" id="status_{{friend.friend_user_id}}">
             <span class="user-status {{friend.user.online_status == 1 ? 'is-online' : 'is-offline' }}"></span>
