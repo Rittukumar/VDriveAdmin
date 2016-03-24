@@ -36,11 +36,13 @@
 
                                 <p>Your order has been placed successfully.</p>
 
-                                <p>The store will contact you shortly regarding the order.</p>
+                                <p>You will hear from the Store shortly regarding your order.</p>
 
                                 <p>Your order reference number is {{ $transactionCode }}</p>
 
-                                <p>Please use the transaction code for order tracking.</p>
+                                <p>Please use this reference number for order tracking.</p>
+                                
+                                <p>Thank You</p>
 
                                 <h4>Team EvezOwn</h4>
 

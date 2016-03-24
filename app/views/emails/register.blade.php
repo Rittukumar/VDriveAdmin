@@ -34,31 +34,13 @@
                             <div style="background:white;border-radius:0.5rem;padding:2rem;margin-bottom:1rem">
                                 <h2 style="color:#2ab27b;margin:0 0 12px;line-height:30px">Hello {{ $name }}</h2>
 
-                                <p>Thank you for your interest in EvezOwn.com. We welcome you to this platform!
-                                    EvezOwn.com is a space for people like you to voice opinion and showcase your
-                                    unique identity, personality, talent, business… anything and everything that
-                                    defines you.</p>
+                                <p>Thank you for your interest in EvezOwn.com. EvezOwn.com is a space for entrepreneurs and consumers interested in products and services in five categories of health, wellness, fitness, beauty & fashion, food & nutrition, education care & parenting and lifestyle.</p>
 
-                                <p>EvezOwn caters to each and every people. you can
-                                    create independent circles, promote stores and Business services or just share the
-                                    information or message you choose to among your friends.</p>
-
-                                <p>Once you register, you can use the Mysite section to create your profile and use
-                                    features like groups, events, ads & campaigns, discussion, blogs and circles for interacting
-                                    with your group. You can open a store for your stores or business in MarketPlace
-                                    or simply search and find the career of your choice in jobs section, if you are
-                                    a working professional.</p>
+                                <p>Once you register, you can use the Mysite section to create your profile and build community to connect with friends, colleagues, customers, partners and employees. You can use features like blogs, events, groups, forums and gallery for interacting with your group. You can open a store for your product or service in marketplace or simply search and find the career of your choice in Jobs, if you are a working professional.</p>
 
                                 <p>Click <a
                                             href="http://evezown.com/#/signup/{{ $inviteCode }}"
-                                            target="_blank">here</a> to register with www.evezown.com and use your
-                                    code…. <a
-                                            href="http://evezown.com/#/signup/{{ $inviteCode }}"
-                                            target="_blank">Sign
-                                        Up Now</a></p>
-
-                                <p>You invite code is {{ $inviteCode }}</p>
-
+                                            target="_blank">here</a> to register with www.evezown.com </p>
                                 <p>Make EvezOwn.com your own place.</p>
 
                                 <h4>Team EvezOwn</h4>

@@ -27,13 +27,13 @@
                     <td valign="top">
                         <div style="max-width:100%;margin:0 auto;padding:0 6px">
                             <div style="background:white;border-radius:0.5rem;padding:2rem;margin-bottom:1rem">
-                                <p>We received a request to reset the password associated with this e-mail address. If you made this request, please follow the instructions below.</p>
+                                <p>Reset Your Password</p>
+                                <p>You requested to reset your password for your Evezown account.</p>
                                 <p>Click the link below to reset your password:</p>
                                 <a href="http://evezown.com/#/reset_password/{{$Code}}">http://evezown.com/#/reset_password/{{$Code}}</a>
-                                <p>If you did not request to have your password reset you can safely ignore this email. Rest assured your customer account is safe.</p>
-                                <p>If clicking the link doesn't seem to work, you can copy and paste the link into your browser's address window, or retype it there. 
-                                    Once you have returned to <a href="http://evezown.com">Evezown</a> we will give instructions for resetting your password.</p>
-                                <p>Thanks for visiting Evezown.com!</p>
+                                <p>If you did not make this request, you can safely ignore this email. Rest assured your account is safe.</p>
+                                <p>If clicking the link doesn't seem to work, you can copy and paste the link on your browser address window.</p>
+                                <p>Questions? Contact Evezown Support.</p>
                             </div>
 
                         </div>

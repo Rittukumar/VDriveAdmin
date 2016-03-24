@@ -27,7 +27,7 @@
                     <td valign="top">
                         <div style="max-width:600px;margin:0 auto;padding:0 12px">
                             <div style="background:white;border-radius:0.5rem;padding:2rem;margin-bottom:1rem">
-                                <h2 style="color:#2ab27b;margin:0 0 12px;line-height:30px">Hello Store Admin:</h2>
+                                <h2 style="color:#2ab27b;margin:0 0 12px;line-height:30px">Dear Store Admin:</h2>
                                 <p>You have received a classified request from:</p>
                                 <p>Name: {{ $name }} </p>
                                 <p>Email: {{ $email }}</p>
@@ -39,6 +39,9 @@
                                 <p>Information:  {{ $other_info }}</p>
                                 <p>Feedback:  {{ $other_feedback }}</p>
                                 <p>Comments:  {{ $comment }}</p>
+                                <h4>Please respond to this request at the earliest.</h4>
+                                <h4>Thank you</h4>
+                                <h4>Evezown Team</h4>
                             </div>
 
                         </div>

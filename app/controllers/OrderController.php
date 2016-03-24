@@ -593,7 +593,17 @@ class OrderController extends AppController
    public function  orderSuccess(){
    		try {
    			$inputArray = Input::all();
-   		  			
+   			$orderId = $inputArray["order_id"];
+   			$orderStatus = $inputArray["status"];
+   			
+   			$orderpayment = OrderPayment::where('order_id', $orderId)->first();
+   			if($orderStatus == "success"){
+   				$orderpayment->status = "Success";
+   			}else{
+   				$orderpayment->status = "Failed";
+   			}
+   			$orderpayment->save();
+   			
    			return Redirect::to('payupaymentsuccess/payupaymentsuccess');
    					   			
    			} catch (Exception $e) {
@@ -660,6 +670,40 @@ class OrderController extends AppController
 
             return $this->setStatusCode(500)->respondWithError($errorMessage);
         }
+    }
+    
+    
+    public function updatePaymentStatus()
+    {
+    	try {
+    		$inputArray = Input::all();
+    		$orderId = $inputArray['order_id'];
+    		$paymentStatus="Success";
+    		$paymentModeId = $inputArray['payment_mode_id'];
+    		$checkDdNo = isset($inputArray['check_dd_no']) ? $inputArray['check_dd_no'] : null;
+    		$checkDdDate = isset($inputArray['check_dd_date']) ? $inputArray['check_dd_date'] : null;
+    		if($paymentModeId == 4){
+    			$paymentStatus = "In Progress";
+    		}
+    		
+    		$order = OrderPayment::create([
+    				'order_id' => $orderId,
+    				'payment_mode_id' => $paymentModeId,
+    				'check_dd_no' => $checkDdNo,
+    				'check_dd_date' => $checkDdDate,
+    				'status' => $paymentStatus
+    				]);
+    		
+    		$successResponse = [
+    				'status' => true
+    				];
+    
+    		return $this->setStatusCode(200)->respond($successResponse);
+    
+    	} catch (Exception $e) {
+    		$errorMessage = ['status' => false];
+    		return $this->setStatusCode(500)->respondWithError($errorMessage);
+    	}
     }
 
     /**
