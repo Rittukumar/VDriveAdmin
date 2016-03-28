@@ -45,7 +45,7 @@ evezownApp
             link : 'admin/woice' 
 
         },{
-            name: 'Sgtream It-flag',
+            name: 'Stream It-flag',
             link : 'admin/woiceflag' 
 
         },{
