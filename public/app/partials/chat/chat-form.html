@@ -1,5 +1,12 @@
 
 <!--chat -->
+
+<audio id="chatAudio">
+    <source src="custom/OneOnOneChat/sounds/notify.ogg" type="audio/ogg">
+    <source src="custom/OneOnOneChat/sounds/notify.mp3" type="audio/mpeg">
+    <source src="custom/OneOnOneChat/sounds/notify.wav" type="audio/wav">
+</audio>
+
 <link rel="stylesheet" href="custom/OneOnOneChat/css/chat.css"/>
 
 <!--
@@ -7,7 +14,7 @@
 -->
 <h2 class="chat-header" ng-controller="community">
     
-    <span  class="btn btn-xs btn-{{UserOnlinestatus == 'success' ? 'success' : 'danger' }}" id="current_status">{{UserOnlinestatus == 'success' ? 'Online' : 'Offline' }}</span>
+    <span  class="label label-{{UserOnlinestatus == 'success' ? 'success' : 'danger' }}" id="current_status">{{UserOnlinestatus == 'success' ? 'Online' : 'Offline' }}</span>
 
     <span class="pull-right" style="margin-left: 8px;">
       <a href="javascript: void(0);" class="chat-container-close">

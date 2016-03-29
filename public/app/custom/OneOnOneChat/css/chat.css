@@ -9,7 +9,7 @@
 
 /* Header */
 
-.header {
+/*.header {
     display: table;
     position: relative;
     width: 100%;
@@ -19,7 +19,7 @@
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-}
+}*/
 
 .contact-wrap{
     position: relative;
