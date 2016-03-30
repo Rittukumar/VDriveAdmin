@@ -286,6 +286,8 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('stores/grade', 'StoreFrontController@addGrade');
     Route::post('stores/restream', 'StoreFrontController@createStoreStream');
     Route::get('stores/{store_id}/restreams', 'StoreFrontController@getStoreRestreams');
+    Route::post('contract/upload', 'StoreController@storeContract');
+    Route::get('stores/admin/contract', 'StoreController@getStoreContractsAdmin');
 
     //Products Route
     Route::post('stores/productline/store', 'ProductController@store');
