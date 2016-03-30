@@ -20,8 +20,10 @@ class FileController extends AppController
                 $extension = $file->getClientOriginalExtension();
 
                 $filename = date('Y-m-d-H:i:s') . "-" . $file->getClientOriginalName();
+                
+                $filename = str_replace(":","_",$filename);
 
-                $filePath = public_path() . '/files/' . $filename;
+                $filePath = public_path() . '/files';
 
                 $file->move($filePath, $filename);
 

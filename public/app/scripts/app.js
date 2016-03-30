@@ -182,6 +182,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
                 }
             });
+        
+        $routeProvider
+
+        .when('/admin/store_contract', {
+            templateUrl: 'partials/admin/store_contract.html',
+            controller: 'storelist',
+            data: {
+                authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
+            }
+        });
 
         $routeProvider
 

@@ -37,6 +37,10 @@ evezownApp
             link : 'admin/store' 
 
         },{
+            name: 'Store Contract',
+            link : 'admin/store_contract' 
+
+        },{
             name: 'Jobs',
             link : 'admin/opportunities' 
 
