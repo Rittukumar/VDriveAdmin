@@ -1,5 +1,12 @@
 
 <!--chat -->
+
+<audio id="chatAudio">
+    <source src="custom/OneOnOneChat/sounds/notify.ogg" type="audio/ogg">
+    <source src="custom/OneOnOneChat/sounds/notify.mp3" type="audio/mpeg">
+    <source src="custom/OneOnOneChat/sounds/notify.wav" type="audio/wav">
+</audio>
+
 <link rel="stylesheet" href="custom/OneOnOneChat/css/chat.css"/>
 
 <!--
@@ -7,17 +14,18 @@
 -->
 <h2 class="chat-header" ng-controller="community">
     
-    <span  class="btn btn-xs btn-{{UserOnlinestatus == 'success' ? 'success' : 'danger' }}" id="current_status">{{UserOnlinestatus == 'success' ? 'Online' : 'Offline' }}</span>
+    <span  class="label label-{{UserOnlinestatus == 'success' ? 'success' : 'danger' }}" id="current_status">{{UserOnlinestatus == 'success' ? 'Online' : 'Offline' }}</span>
+   
 
     <span class="pull-right" style="margin-left: 8px;">
       <a href="javascript: void(0);" class="chat-container-close">
-        <i class="fa fa-times fa-inverse"></i>
+        <i class="fa fa-times fa-inverse" title="Close"></i>
       </a>
     </span>  
    
     <span class="dropdown user-dropdown pull-right">
     <a href="javascript:;" class="pull-right chat-config" class="dropdown-toggle" data-toggle="dropdown">
-        <i class="fa fa-cog"></i>
+        <i class="fa fa-cog" title="Settings"></i>
     </a>
     <ul class="dropdown-menu">
       <li style="margin-left: 2em;">
@@ -26,6 +34,9 @@
       </li>
     </ul>
     </span> 
+
+    <span style="margin-left: 10px;"><i class="fa fa-refresh" title="Refresh" ng-click="fetchFriends()" style="cursor:pointer;"></i></span> 
+
     
 </h2>
 
@@ -77,7 +88,7 @@
 <div id="chat-box" style="top: 400px">
   <div class="chat-box-header">
       <a href="javascript: void(0);" class="chat-box-close pull-right">
-        <i class="fa fa-remove"></i>
+        <i class="fa fa-remove" title="Close"></i>
       </a>
 
       <span class="user-status is-online"></span>

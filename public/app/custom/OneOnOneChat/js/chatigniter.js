@@ -88,7 +88,7 @@ function loadMessages(me_id)
                     senders = data.senders;
                     $.each(thread, function() {
                         if($("#chat-box").is(":visible")){
-                            var audio = new Audio('sounds/notify.mp3').play();
+                            var audio = new Audio('custom/OneOnOneChat/sounds/notify.mp3').play();
                             chatbuddy = $("#chat_buddy_id").val();
                             if(this.sender == chatbuddy){
                                 li = '<li class="'+ this.type +'"><img src="'+this.avatar+'" class="avt img-responsive">\
@@ -122,7 +122,7 @@ function loadMessages(me_id)
                         }
                     });
                      
-                    //var audio = new Audio('sounds/notify.mp3').play();
+                    //var audio = new Audio('custom/OneOnOneChat/sounds/notify.mp3').play();
                 }
             },
             error : function(XMLHttpRequest, textstatus, error) {
