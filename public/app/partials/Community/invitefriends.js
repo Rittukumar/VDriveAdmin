@@ -242,7 +242,7 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
 
     $scope.LoginFacebook = function () {
         Facebook.login(function (response) {
-            alert(response.authResponse);
+            //alert(response.authResponse);
             $scope.ShowRequestWindow();
         }, {scope: 'email,user_likes,publish_actions'});
     }
