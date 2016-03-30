@@ -37,6 +37,10 @@ evezownApp
             link : 'admin/store' 
 
         },{
+            name: 'Store Contract',
+            link : 'admin/store_contract' 
+
+        },{
             name: 'Jobs',
             link : 'admin/opportunities' 
 
@@ -45,7 +49,7 @@ evezownApp
             link : 'admin/woice' 
 
         },{
-            name: 'Sgtream It-flag',
+            name: 'Stream It-flag',
             link : 'admin/woiceflag' 
 
         },{

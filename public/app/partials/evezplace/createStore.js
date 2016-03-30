@@ -256,6 +256,11 @@ evezownApp
                 toastr.error('Please complete step1', 'Store');
             }
             else {
+            	var iscontract=0;
+            	
+            	if($scope.formData.contract){
+            		iscontract = 1;
+            	}
 
                 if (!$scope.selectedSubscription) {
                     toastr.error('Please select store type', 'Store');
@@ -268,6 +273,8 @@ evezownApp
                 }
                 else if (!formData.billingContactNumber) {
                     toastr.error('Please enter contact number', 'Store');
+                }else if (iscontract == 0) {
+                    toastr.error('Please accept the contract agreement', 'Store');
                 }
                 else {
                     $http.post(PATHS.api_url + 'users/store/step2/' + $scope.loggedInUserId + '/add'
@@ -283,7 +290,8 @@ evezownApp
                                 evezownContract: $scope.contractFilename,
                                 billingName: formData.billingName,
                                 billingAddress: formData.billingAddress,
-                                billingContactNumber: formData.billingContactNumber
+                                billingContactNumber: formData.billingContactNumber,
+                                isContractAgreed: iscontract
                             },
                             headers: {'Content-Type': 'application/json'}
                         }).
@@ -336,10 +344,11 @@ evezownApp
                                 vatNumber: formData.vatNumber,
                                 serviceTaxId: formData.serviceTaxId,
                                 tanNumber: formData.tanNumber,
-                                evezownContract: $scope.contractFilename,
+                                evezownContract: $scope.formData.evezownContract,
                                 billingName: formData.billingName,
                                 billingAddress: formData.billingAddress,
-                                billingContactNumber: formData.billingContactNumber
+                                billingContactNumber: formData.billingContactNumber,
+                                isContractAgreed:1
                             },
                             headers: {'Content-Type': 'application/json'}
                         }).
@@ -529,6 +538,17 @@ evezownApp
                     });
                 }
             }
+
+        }
+
+        //popup for downloading contract
+        $scope.ContractDownload = function () {
+            var cropTitleImageDialog = ngDialog.open(
+                {
+                    template: 'ContractDownload',
+                    scope: $scope,
+                    className: 'ngdialog-theme-plain'
+                });
 
         }
 
@@ -925,17 +945,18 @@ evezownApp
 
         //// FILTERS
         //
-        //uploader.filters.push({
-        //    name: 'imageFilter',
-        //    fn: function (item /*{File|FileLikeObject}*/, options) {
-        //        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-        //        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-        //    }
-        //});
+        uploader5.filters.push({
+            name: 'imageFilter',
+            fn: function (item /*{File|FileLikeObject}*/, options) {
+                var type = '|' + item.name.slice(item.name.lastIndexOf('.') + 1) + '|';
+                return '|doc|txt|pdf|docx|'.indexOf(type) !== -1;
+            }
+        });
 
 
         uploader5.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
+            toastr.error("Wrong file format");
         };
         uploader5.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
@@ -955,6 +976,22 @@ evezownApp
         };
         uploader5.onSuccessItem = function (fileItem, response, status, headers) {
             $scope.contractFilename = response.imageName;
+            $http.post(PATHS.api_url + 'contract/upload'
+                    , {
+                        data: {
+                            file_name: $scope.contractFilename,
+                            storeID: $scope.currentStoreId
+                        },
+                        headers: {'Content-Type': 'application/json'}
+                    }).
+                    success(function (data, status, headers, config)
+                    { 
+                    	toastr.success(data.message, 'success');
+                    	$scope.GetStep1Data();
+                    }).error(function (data)
+                    {                      
+                        toastr.error(data.error.message, 'error');
+                    });
         };
         uploader5.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -1596,6 +1633,7 @@ evezownApp
                             $scope.formData.vatNumber = $scope.currentStore[0]['business_info']['vat_number'];
                             $scope.formData.tanNumber = $scope.currentStore[0]['business_info']['tan_number'];
                             $scope.formData.serviceTaxId = $scope.currentStore[0]['business_info']['service_tax_id'];
+                            $scope.formData.storeContractFile = $scope.currentStore[0]['business_info']['store_contract_file'];
                             $scope.formData.billingName = $scope.currentStore[0]['business_info']['billing_info_name'];
                             $scope.formData.billingAddress = $scope.currentStore[0]['business_info']['billing_info_address'];
                             $scope.formData.billingContactNumber = $scope.currentStore[0]['business_info']['billing_info_contact_number'];

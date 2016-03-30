@@ -20,6 +20,35 @@ evezownApp
                 usSpinnerService.stop('spinner-1');
             });
         }
+        
+        $scope.GetContracts = function()
+        {
+            $http.get(PATHS.api_url + 'stores/admin/contract').
+            success(function(data)
+            {
+                $scope.storeContract = data;
+                usSpinnerService.stop('spinner-1');
+            });
+        }
+        $scope.GetContracts();
+        
+        $scope.contractStatus = [{
+        	  id: 1,
+        	  label: 'Uploaded'       	  
+        	}, {
+        	  id: 2,
+        	  label: 'Approve'       	  
+        	}, {
+        	  id: 3,
+        	  label: 'Reject'      
+        	}];
+        
+        $scope.UpdateContractStatus = function(status)
+        {
+        	var newirem = $scope.contractStatus;
+        	alert("newirem");
+        	
+        }
 
         $scope.GetAllStoreStatusEnums = function()
         {

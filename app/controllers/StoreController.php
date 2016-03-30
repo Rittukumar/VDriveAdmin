@@ -200,14 +200,13 @@ class StoreController extends AppController
 
             $input_array = $input['data'];
             $storeId = $input_array['StoreId'];
-
+			
             if (isset($input_array['storeType'])) {
                 $storeType = $input_array['storeType'];
             } else {
                 $storeType = '';
             }
-
-
+			
             if (isset($input_array['panNumber'])) {
                 $panNumber = $input_array['panNumber'];
             } else {
@@ -279,6 +278,7 @@ class StoreController extends AppController
                     'vat_number' => $vatNumber,
                     'tan_number' => $tanNumber,
                     'service_tax_id' => $serviceTaxId,
+                	'contract_aggreement' => $input_array['isContractAgreed'],
                     'store_contract_file' => $evezownContract,
                     'billing_info_name' => $billingName,
                     'billing_info_address' => $billingAddress,
@@ -292,6 +292,7 @@ class StoreController extends AppController
                 $storeBusinessInfo->vat_number = $vatNumber;
                 $storeBusinessInfo->tan_number = $tanNumber;
                 $storeBusinessInfo->service_tax_id = $serviceTaxId;
+                $storeBusinessInfo->contract_aggreement = $input_array['isContractAgreed'];
                 $storeBusinessInfo->store_contract_file = $evezownContract;
                 $storeBusinessInfo->billing_info_name = $billingName;
                 $storeBusinessInfo->billing_info_address = $billingAddress;
@@ -311,6 +312,50 @@ class StoreController extends AppController
         } catch (Exception $e) {
 
             return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+    
+    /*Store Contract upload*/
+    public function storeContract()
+    {
+    	try {
+            $input = Input::all();
+            
+            //$brandImageName = "";//If no logo uploaded
+
+            $inputs_array = $input['data'];
+            
+            $storeId = $inputs_array['storeID'];
+            
+            $ContractFile = $inputs_array['file_name'];
+
+    		$storeBusinessInfo = StoreBusinessInfo::find($storeId);
+
+            if ($storeBusinessInfo) {
+                $storeBusinessInfo->store_id = $storeId;
+                $storeBusinessInfo->store_contract_file = $ContractFile;
+                $storeBusinessInfo->save();
+            }
+            else
+            {
+            	return "Contract upload failed, Please try again later";
+            }
+            
+            $successResponse = [
+                'status' => true,
+                'message' => 'Contract uploaded successfully!'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+            $errorMessage = [
+                'status' => false,
+                'message' => $e
+            ];
+
+            //return $this->setStatusCode(500)->respondWithError($errorMessage);
+            return $e;
         }
     }
 
@@ -1346,6 +1391,20 @@ class StoreController extends AppController
 
             return $this->setStatusCode(500)->respondWithError($e);
         }
+    }
+    
+    public function getStoreContractsAdmin()
+    {
+    	try {
+    		$allStores = Store::with('profile','StoreFrontInfo','BusinessInfo','StoreStatus')->get();
+    		if (!$allStores) {
+    			return $this->responseNotFound('Store Listing Not Found!');
+    		}
+    		return $allStores->toJson();
+    
+    	} catch (Exception $e) {
+    		return $e;
+    	}
     }
 
     public function getStoreById($store_Id)
