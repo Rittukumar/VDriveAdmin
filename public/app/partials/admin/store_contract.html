@@ -27,6 +27,7 @@
                                 <th>Phone</th>                      
                                 <th>Contract</th>
                                 <th>Status</th>
+                                <th>Action</th>
                                 </thead>
                                 <tbody>
 
@@ -35,14 +36,27 @@
                                     <td>{{contracts.profile.firstname}} {{contracts.profile.lastname}}</td>
                                     <td>{{contracts.store_front_info.store_contact_email}}</td>
                                     <td>{{contracts.store_front_info.store_contact_phone1}}</td>
-                                    <td><a target="_self" href="http://localhost:8000/files/{{contracts.business_info.store_contract_file}}">Download Contract</a></td>                              
-                                    <td>{{contracts.business_info.contract_aggreement}}</td>
-                                    <td>
-                                        <p data-placement="top" data-toggle="tooltip" title="status">
-                                       <!--  <script></script> -->
-                                            <select ng-options="item as item.label for item in contractStatus" data-ng-model="contractStatus[contracts.business_info.contract_aggreement - 1]" ng-change="UpdateContractStatus(contracts)"></select>       
+                                    <td><a ng-if="contracts.business_info.contract_aggreement  != 1" target="_self" href="http://localhost:8000/files/{{contracts.business_info.store_contract_file}}">Download</a></td>                       
+                                    <td data-title="'Status'"><label>
+                                        <font color="black">{{contracts.business_info.contract_aggreement  == 1 ? 'Not Uploaded':''}} </font>
+                                        <font color="orange">{{contracts.business_info.contract_aggreement  == 2 ? 'Uploaded':''}} </font>
+                                        <font color="green">{{ contracts.business_info.contract_aggreement == 3 ? 'Approved':''}} </font>
+                                        <font color="red">{{contracts.business_info.contract_aggreement == 4 ? 'Rejected':'' }} </font></label>
+                                    </td>
+
+                                    <td data-title="'Action'">
+                                        <p> 
+                                        <span>
+                                            <label ng-if="contracts.business_info.contract_aggreement == 2"><a href ng-click="updateContractStatus(3,contracts)" class="topic-link">Approve</a> | <a href ng-click="updateContractStatus(4,contracts)" class="topic-link">Reject</a></label>
+
+                                            <label ng-if="contracts.business_info.contract_aggreement == 3"><a href ng-click="updateContractStatus(4,contracts)" class="topic-link">Reject</a></label>
+
+                                            <label ng-if="contracts.business_info.contract_aggreement == 4"><a href ng-click="updateContractStatus(3,contracts)" class="topic-link">Approve</a></label>
+
+                                            <label ng-if="contracts.business_info.contract_aggreement == 1"></label>
+                                        </span>
                                         </p>
-                                    </td>                              
+                                    </td>                             
                                 </tr>
                             </tbody>
 
