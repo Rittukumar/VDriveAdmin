@@ -32,22 +32,34 @@ evezownApp
         }
         $scope.GetContracts();
         
-        $scope.contractStatus = [{
-        	  id: 1,
-        	  label: 'Uploaded'       	  
-        	}, {
-        	  id: 2,
-        	  label: 'Approve'       	  
-        	}, {
-        	  id: 3,
-        	  label: 'Reject'      
-        	}];
-        
-        $scope.UpdateContractStatus = function(status)
-        {
-        	var newirem = $scope.contractStatus;
-        	alert("newirem");
-        	
+
+        $scope.updateContractStatus = function(status, contract) {
+
+            $scope.storeContractStatus = status;
+
+            $scope.storeContractEmail = contract.store_front_info.store_contact_email;
+
+            $scope.storeContractName = contract.title;
+
+            $scope.ContractStoreID = contract.business_info.store_id;
+
+            $http.post(PATHS.api_url + 'stores/admin/contract/update'
+                , {
+                    data: {
+                        StoreId: $scope.ContractStoreID,
+                        storeEmail: $scope.storeContractEmail,
+                        storeName: $scope.storeContractName,
+                        storeStatus: $scope.storeContractStatus
+                    },
+                    headers: {'Content-Type': 'application/json'}
+                }).
+            success(function (data, status, headers, config) {
+                toastr.success(data.message, 'Store');
+                $scope.GetContracts();
+
+            }).error(function (data) {
+                toastr.error('Status update failed, Please try again later');
+            });
         }
 
         $scope.GetAllStoreStatusEnums = function()

@@ -321,25 +321,45 @@ class StoreController extends AppController
     	try {
             $input = Input::all();
             
-            //$brandImageName = "";//If no logo uploaded
-
             $inputs_array = $input['data'];
             
             $storeId = $inputs_array['storeID'];
             
             $ContractFile = $inputs_array['file_name'];
 
+            $storeEmail = $inputs_array['storeEmail'];
+
+            $storeName = $inputs_array['storeName'];
+
     		$storeBusinessInfo = StoreBusinessInfo::find($storeId);
 
             if ($storeBusinessInfo) {
                 $storeBusinessInfo->store_id = $storeId;
                 $storeBusinessInfo->store_contract_file = $ContractFile;
+                $storeBusinessInfo->contract_aggreement = 2;
                 $storeBusinessInfo->save();
             }
             else
             {
             	return "Contract upload failed, Please try again later";
             }
+
+            $user = array(
+                'email' => $storeEmail,
+                'storename' => $storeName
+            );
+
+            $data = array(
+                'storename' => $storeName,
+                'email' => $storeEmail
+            );
+
+            $emails = 'editor@evezown.com';
+
+            Mail::send('emails.storeContract', $data, function ($message) use ($user, $emails) {
+                $message->from($user['email']);
+                $message->to($emails, 'Contract Upload')->subject('Store Contract File');
+            });
             
             $successResponse = [
                 'status' => true,
@@ -354,8 +374,82 @@ class StoreController extends AppController
                 'message' => $e
             ];
 
-            //return $this->setStatusCode(500)->respondWithError($errorMessage);
-            return $e;
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+        }
+    }
+
+    /*Store Contract update*/
+    public function updateStoreContractStatus()
+    {
+        try {
+            $input = Input::all();
+
+            $inputs_array = $input['data'];
+            
+            $storeId = $inputs_array['StoreId'];
+            
+            $storeEmail = $inputs_array['storeEmail'];
+
+            $storeName = $inputs_array['storeName'];
+
+            $status = $inputs_array['storeStatus'];
+
+            $storeBusinessInfo = StoreBusinessInfo::find($storeId);
+
+            if ($storeBusinessInfo) {
+                $storeBusinessInfo->store_id = $storeId;
+                $storeBusinessInfo->contract_aggreement = $status;
+                $storeBusinessInfo->save();
+            }
+            else
+            {
+                return "Status update failed, Please try again later";
+            }
+
+            
+            if($status == 3)
+            {
+               $content = 'Your Uploaded contract has been approved by Evezown admin';
+            }
+
+            else if($status == 4)
+            {
+                $content = 'Your Uploaded contract has been rejected by Evezown admin, Please upload a valid contract';
+            }
+
+            $user = array(
+            'email' => $storeEmail,
+            'storename' => $storeName
+            );
+
+            $data = array(
+                'storename' => $storeName,
+                'email' => $storeEmail,
+                'content' => $content
+            );
+
+            $emails = 'editor@evezown.com';
+
+           
+            Mail::send('emails.storeContractStatus', $data, function ($message) use ($user, $emails) {
+            $message->from($emails);
+            $message->to($user['email'], 'Contract Upload Response')->subject('Store Contract Status');
+            });
+            
+            $successResponse = [
+                'status' => true,
+                'message' => 'Status updated successfully!'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+            $errorMessage = [
+                'status' => false,
+                'message' => $e
+            ];
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
         }
     }
 

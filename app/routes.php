@@ -288,7 +288,8 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('stores/{store_id}/restreams', 'StoreFrontController@getStoreRestreams');
     Route::post('contract/upload', 'StoreController@storeContract');
     Route::get('stores/admin/contract', 'StoreController@getStoreContractsAdmin');
-
+    Route::post('stores/admin/contract/update', 'StoreController@updateStoreContractStatus');
+    
     //Products Route
     Route::post('stores/productline/store', 'ProductController@store');
     Route::post('stores/productline/{storeId}/update', 'ProductController@update');
