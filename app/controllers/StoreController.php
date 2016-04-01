@@ -331,7 +331,7 @@ class StoreController extends AppController
 
             $storeName = $inputs_array['storeName'];
 
-    		$storeBusinessInfo = StoreBusinessInfo::find($storeId);
+    		$storeBusinessInfo = StoreBusinessInfo::where('store_id',$storeId)->first();
 
             if ($storeBusinessInfo) {
                 $storeBusinessInfo->store_id = $storeId;
