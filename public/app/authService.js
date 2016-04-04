@@ -14,7 +14,16 @@ evezownApp
                     return data;
                 })
                 .then(function (res) {
-                    $cookieStore.put('userToken', res.data.data.token);
+
+                  return  AuthService.setUserDetails(res);
+                    
+                });
+        };
+
+
+        AuthService.setUserDetails = function(res){
+
+            $cookieStore.put('userToken', res.data.data.token);
                     Session.create(
                         res.data.data.api_key,
                         res.data.data.id,
@@ -24,7 +33,7 @@ evezownApp
                         res.data.data.role_id,
                         res.data.data.token);
                     return res.data.data;
-                });
+
         };
 
 

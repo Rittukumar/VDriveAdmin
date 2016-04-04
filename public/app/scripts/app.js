@@ -251,6 +251,17 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
                 }
             });
+
+        $routeProvider
+
+            .when('/admin/manage/screens', {
+                templateUrl: 'partials/admin/Manage/screens.html',
+                controller: 'adminScreenCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
+                }
+            });
+
         $routeProvider
 
             .when('/admin/evezplace/recommendations', {
@@ -1561,16 +1572,6 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-        // Set your appId through the setAppId method or
-        // use the shortcut in the initialize method directly.
-        FacebookProvider.init('1732417230307091');
-
-        // Set the linkedin api key
-        $linkedInProvider
-            .set('appKey', '78mct0q0l2nefx')
-            .set('scope', 'r_basicprofile r_network rw_nus w_messages')
-            .set('authorize', true);
-
         ngDialogProvider.setDefaults({
             //className: 'ngdialog-theme-default',
             //plain: true,
@@ -1596,6 +1597,35 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
+
+        base = PATHS.api_url;
+        
+        $authProvider.baseUrl = base;
+
+        $authProvider.facebook({
+          clientId: fbAppId
+        });
+
+        $authProvider.google({
+          clientId: gmailAppId
+        });
+
+        $authProvider.linkedin({
+          clientId: linkedinAppId
+        });
+
+
+        // Set your appId through the setAppId method or
+        // use the shortcut in the initialize method directly.
+        FacebookProvider.init(fbAppId);
+
+        // Set the linkedin api key
+        $linkedInProvider
+            .set('appKey', '78mct0q0l2nefx')
+            .set('scope', 'r_basicprofile r_network rw_nus w_messages')
+            .set('authorize', true);
+
+
 
 //        $authProvider.yahoo({
 //            clientId: 'dj0yJmk9TXF2b3kxd1oyZ0NXJmQ9WVdrOU4zRmpRa1Z3TjJzbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD05Nw--'
@@ -1753,6 +1783,7 @@ evezownApp.constant('AUTH_EVENTS', {
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'
 });
+
 evezownApp.constant('PATHS', {
     //api_url: 'http://localhost:8000/v1/'
     //api_url: 'http://creativethoughts.co.in/evezown/api/public/v1/'
@@ -1760,9 +1791,6 @@ evezownApp.constant('PATHS', {
     //api_url: 'http://evezown.com/beta/api/public/v1/'
     api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
 });
-
-//base = 'http://localhost:8000/v1/';
-base = 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/';
 
 evezownApp.constant('USER_ROLES', {
     all: '*',
@@ -1773,10 +1801,8 @@ evezownApp.constant('USER_ROLES', {
 });
 
 evezownApp.constant('GmailCredentials', {
-    client_id: '7345290033-30u8pu84cfreqklo20pj1ot81scp5rf9.apps.googleusercontent.com'
+   client_id: gmailAppId
 });
-
-
 // Filter
 
 

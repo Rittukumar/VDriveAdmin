@@ -13,15 +13,18 @@ class LastSeen extends \Eloquent {
 
 		$record = $this->get_by('user_id', $user);
 		$details = array('user_id' => $user,'chat_message_id' => $msg);
-		if(empty($record))
+		if(!empty($msg))
 		{
-			$this->insert($details);
-		}else
-		{
-			$lastSeen = LastSeen::find($record->id);
-			$lastSeen-> user_id = $user;
-			$lastSeen-> chat_message_id = $msg;
-			$lastSeen->save();
+			if(empty($record))
+			{
+				$this->insert($details);
+			}else
+			{
+				$lastSeen = LastSeen::find($record->id);
+				$lastSeen-> user_id = $user;
+				$lastSeen-> chat_message_id = $msg;
+				$lastSeen->save();
+			}
 		}
 	}
 	

@@ -57,12 +57,23 @@ class GroupsController extends AppController
      * @return Response
      */
     public function getMyGroups($id)
-    {
+    {   
+
         try {
             $limit = Input::get('limit') ?: 15;
+             
+             $joinedGroupIds = GroupUser::where('user_id',$id)->get();
+            
+                if(!$joinedGroupIds->isEmpty())
+                {   
+                    foreach ($joinedGroupIds as $key => $value) 
+                    {
+                      $groupIds[] = $value->group_id;
+                    }
+                }
 
-            $groups = Group::with('owner.profile_image', 'members.profile.profile_image','group_image')->where('owner_id', $id)->paginate($limit);
-
+            $groups = Group::with('owner.profile_image', 'members.profile.profile_image','group_image')->whereIn('id', $groupIds)->orWhere('owner_id', $id)->paginate($limit);
+            
             if (!$groups) {
                 return $this->responseNotFound('Groups Not Found!');
             }
@@ -74,7 +85,7 @@ class GroupsController extends AppController
             $groupsResource->setPaginator(new IlluminatePaginatorAdapter($groups));
 
             $data = $fractal->createData($groupsResource);
-
+                 
             return $data->toJson();
         } catch (Exception $e) {
 
@@ -237,28 +248,28 @@ class GroupsController extends AppController
             $memberId = $input_array['user_id'];
             $groupId = $input_array['group_id'];
 
-            $groupMember = GroupUser::where('group_id', $groupId)
-                ->where('user_id', $memberId)
-                ->first();
-            if($groupMember != null){
-                if($groupMember->status == "added"){
-                        return $this->responseNotFound('Already sent a request to this user');
-                }else{
-                    $groupMember->status ="added";
-                    $groupMember->save();    
-                }
-            }else{
+            // $groupMember = GroupUser::where('group_id', $groupId)
+            //     ->where('user_id', $memberId)
+            //     ->first();
+            // if($groupMember != null){
+            //     if($groupMember->status == "added"){
+            //             return $this->responseNotFound('Already sent a request to this user');
+            //     }else{
+            //         $groupMember->status ="added";
+            //         $groupMember->save();    
+            //     }
+            // }else{
                    $groupMember = GroupUser::create([
                         'group_id' => $groupId,
                         'user_id' => $memberId,
-                        'status' => 'added'
+                        'status' => 'approved'
                     ]); 
-            }
+           // }
 
             $successResponse = [
                 'status' => true,
                 'id' => $groupMember->id,
-                'message' => 'Add requested sent to user successfully!'
+                'message' => 'Member Added to Group successfully!'
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);

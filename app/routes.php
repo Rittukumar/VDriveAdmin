@@ -28,7 +28,11 @@ Route::get('payupaymentsuccess/payupaymentsuccess', function () {
 
 Route::group(array('prefix' => 'v1'), function () {
 
-	
+    // OAuth, Social Login Routes.
+    Route::post('auth/facebook', 'AuthController@facebook');
+    Route::post('auth/google', 'AuthController@google');
+    Route::post('auth/linkedin', 'AuthController@linkedin');
+
     Route::get('mail/send', 'AdminController@sendMail');
     Route::get('admin/{admin_id}/users', 'AdminController@getUsers');
     Route::get('admin/{admin_id}/evezplace/sections', 'AdminController@getEvezplaceSections');

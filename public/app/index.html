@@ -64,10 +64,15 @@
     </script>
     <!--test comment-->
     <script>
-    var base;
-      window.fbAsyncInit = function() {
+
+      var base; 
+      var fbAppId       = '186760875042980';
+      var gmailAppId    = '827984482407-qla04m3j9ocaqa0jl8t9j27dn1q39mep.apps.googleusercontent.com';
+      var linkedinAppId = '7589hyi89w4t9h';
+
+       window.fbAsyncInit = function() {
         FB.init({
-          appId      : '1732417230307091',
+          appId      : fbAppId,
           xfbml      : true,
           version    : 'v2.5'
         });
@@ -254,6 +259,7 @@
 <script src="partials/admin/AdminInviteFrndsCtrl.js"></script>
 <script src="partials/admin/AlbumCtrl.js"></script>
 <script src="partials/admin/adminAlbums.js"></script>
+<script src="partials/admin/Manage/adminScreenCtrl.js"></script>
 <script src="partials/admin/Manage/manageStoreLeftMenuController.js"></script>
 
 
@@ -338,6 +344,9 @@
 <script src="scripts/controllers/evezplace/recommendation.js"></script>
 <script src="scripts/services/evezplacesection.js"></script>
 <script src="scripts/filters/addlimitellipsis.js"></script>
+
+<script src="custom/satellizer.js"></script>
+
 
 
 <!-- endbuild -->
