@@ -4,7 +4,7 @@
 'use strict';
 
 evezownApp
-    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, $http, PATHS, AUTH_EVENTS,AuthService, ngDialog, usSpinnerService) {
+    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, $http, PATHS, AUTH_EVENTS, AuthService, ngDialog, usSpinnerService, $auth) {
       
         $scope.title = "Login to Evezown";
 
@@ -50,6 +50,34 @@ evezownApp
                 toastr.error('Please enter your email id.', 'Login');
             }
         }
+
+        $scope.authenticate = function(provider) {
+            
+          $auth.authenticate(provider)
+            .then(function(data) {
+                console.log(data);
+                AuthService.setUserDetails(data);
+                    
+                $cookieStore.put('api_key', Session.api_key);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                toastr.success('You have successfully signed in with ' + provider + '!');
+                $location.path('/profile/'+ $cookieStore.get('userId'));
+
+            })
+            .catch(function(error) {
+                console.log(error);
+              if (error.error) {
+                // Popup error - invalid redirect_uri, pressed cancel button, etc.
+                toastr.error(error.error);
+              } else if (error.data) {
+                // HTTP response error from server
+                toastr.error(error.data.message, error.status);
+              } else {
+                toastr.error(error);
+              }
+            });
+        };
+
 
         $scope.login = function (credentials) {
             usSpinnerService.spin('spinner-1');

@@ -10,7 +10,7 @@ evezownApp.filter('offset', function () {
 });
 
 evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn,
-                                                     $cookieStore, $http, PATHS, $auth, AuthService,$location, GmailCredentials) {
+                                                     $cookieStore, $http, PATHS, $auth, AuthService, $location, GmailCredentials) {
 
     $scope.sectionTitle = "Invite People";
     $scope.loggedInUserId = $cookieStore.get('userId');
@@ -284,7 +284,7 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
                 if (response && !response.error_message) {
                   toastr.success('Invite Friends Successful');
                 } else {
-                  toastr.error('Error Please Try Again Later');
+                  //toastr.error('Error Please Try Again Later');
                 }
                 // if (response && response.post_id) {
                 //     toastr.success('Post was published.', 'Invite Friends');

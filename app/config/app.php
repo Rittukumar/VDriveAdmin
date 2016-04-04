@@ -2,6 +2,12 @@
 
 return array(
 
+
+	'token_secret'    => 'some random string',
+	'facebook_secret' => 'e117deaf8bd47b90ae6b722a35a98de7',
+	'google_secret'   => 'VI9r0CWmmXD5GzZ944jeHruA',
+	'linkedin_secret' => 'Q4Uho32PUq0aJyrp',
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Image upload path
