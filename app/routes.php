@@ -72,8 +72,9 @@ Route::group(array('prefix' => 'v1'), function () {
 
     Route::post('admin/{admin_id}/users/userAction', 'AdminController@userAction');
     
-    //Creating a post URL for order success.
-   Route::post('order/success/posturl', 'OrderController@orderSuccess');
+    Route::get('admin/{admin_id}/allscreens', 'ScreenController@getScreens');
+    Route::get('admin/{admin_id}/{screen_id}/getscreenfields', 'ScreenController@getScreenField');
+    Route::post('admin/{admin_id}/saveScreenFields', 'ScreenController@saveScreenFields');
 
     // Eveplace promotion section
     Route::get('evezplace/{section_id}/promotion', 'AdminEvezplacePromotionController@index');
