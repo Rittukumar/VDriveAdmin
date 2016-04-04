@@ -342,6 +342,15 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
                 }
             });
+        
+        $routeProvider
+            .when('/admin/store/:storeId/manage/admin_analytics', {
+                templateUrl: 'partials/admin/Manage/admin_store_analytics.html',
+                controller: 'CreateStoreController',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
+                }
+            });
 
         $routeProvider
             .when('/admin/store/:storeId/manage/admin_orders', {

@@ -19,6 +19,39 @@
     <!--Description Ends-->
 
     <div class="create-store-section">
+    
+    <!-- Contract div starts -->
+    <!--If contract uploaded already-->
+    <div style="border: 1px solid #ffffff; border-radius: 5px;margin-bottom:20px;" ng-if="formData.storeContractAggreement != 3 ">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <h4 style="color: #e51385">Upload physically signed contract</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1 ">
+                If you don't have the contract file <a href ng-click="ContractDownload()" ng-model="formData.contract">Download</a> it now.
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+            <div class="form-group">
+                <div class="col-md-offset-1 col-md-5">
+                    <label for="evezownContract">Upload physically signed evezown contract</br><span style="font-weight:normal;">(Upload in .pdf or .doc format)</span></label>
+                </div>
+                <div class="col-md-4">
+                    <input type="file" class="upload" id="evezownContract" name="evezownContract" nv-file-select="" ng-model="formData.evezownContract" uploader="uploader5"
+                       single/>
+                </div>
+                <!-- <div class="col-md-2">
+                    <input  type="checkbox" ng-click="ContractUpload()" style="width: 16px; height: 16px" id="evezownContract" name="evezownContract" ng-model="formData.contractUpload">
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Contract div ends -->
+    
+    
+    <div style="border: 1px solid #ffffff; border-radius: 5px">
         <div class="row">
             <div class="col-md-8 col-md-offset-1">
                 <h4 style="color: #e51385">Store Selection</h4>
@@ -86,17 +119,21 @@
             </div>
         </div>
 
-        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <!--<div class="row" style="margin-top: 10px; margin-bottom: 10px">
             <div class="form-group">
                 <div class="col-md-offset-1 col-md-5">
-                    <label for="evezownContract">Contract with Evezown</label>
+                    <label for="evezownContract">Upload physically signed evezown contract</br><span style="font-weight:normal;">(Upload in .pdf or .doc format)</span></label>
                 </div>
                 <div class="col-md-4">
-                    <input type="file" id="evezownContract" name="evezownContract"
-                           ng-model="formData.evezownContract">
+                    <input type="file" class="upload" id="evezownContract" name="evezownContract" nv-file-select="" ng-model="formData.evezownContract" uploader="uploader5"
+                       single/>
+                </div>
+                
+                <div class="col-md-2">
+                    <input  type="checkbox" ng-click="ContractUpload()" style="width: 16px; height: 16px" id="evezownContract" name="evezownContract" ng-model="formData.contractUpload">
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="row" style="margin-top: 20px; margin-bottom: 10px">
             <div class="form-group">
@@ -129,10 +166,23 @@
             </div>
         </div>
 
-        <div class="row" style="margin-top: 40px">
+        <div class="row" style="margin-top: 20px;margin-bottom:20px;">
             <div class="col-md-2 col-md-offset-9">
                 <a href ng-click="EditStoreStep2(formData)" class="btn btn-primary btn-block" >Save</a>
             </div>
         </div>
     </div>
+    </div>
 </div>
+
+<script type="text/ng-template" id="ContractDownload">
+    <div class="ngdialog-buttons popuptemplate">
+        <div class="col-sm-12" >
+            <h4>Evezown contract agreement</h4>
+            <p>Please download the Evezown contract. The signed physical contract has to be scanned and uploaded to evezown in doc format within 30 days from now.</p>
+            
+            <a target="_self" href="http://evezown.com/docs/evezown_contract.doc" class="btn btn-primary btn-lg btn-block" download="foo.pdf">Download Agreement</a><br><br>
+        </div>
+        
+    </div>
+</script> 

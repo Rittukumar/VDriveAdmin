@@ -16,41 +16,41 @@
 <!--</div>-->
 <!--Description Ends-->
 <div class="col-sm-9" ng-controller="CreateStoreController">
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <h5 style="color: #e51385; font-weight: 700; font-size: 1.2em">Store Front - Footer Info</h5>
-    </div>
-</div>
-
-<div class="row" style="margin-top: 10px; margin-bottom: 10px">
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-4">
-            <label for="termsconditions">Basic Links</label>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h5 style="color: #e51385; font-weight: 700; font-size: 1.2em">Store Front - Footer Info</h5>
         </div>
-        <div class="col-md-4">
+    </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <label for="termsconditions">Basic Links</label>
+            </div>
+            <div class="col-md-4">
                 <textarea rows="4" placeholder="Terms and Conditions" class="form-control" id="termsconditions" name="termsconditions"
                           ng-model="formData.termsconditions"/>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row" style="margin-top: 10px; margin-bottom: 10px">
-    <div class="form-group">
-        <div class="col-md-4 col-md-offset-6">
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-6">
                 <textarea rows="4" placeholder="Policies" class="form-control" id="policies" name="policies"
                           ng-model="formData.policies"/>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row" style="margin-top: 10px; margin-bottom: 10px">
-    <div class="form-group">
-        <div class="col-md-4 col-md-offset-6">
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-6">
                 <textarea rows="4" placeholder="Sales Return and Exchange Policy" class="form-control" id="salesReturnPolicy" name="salesReturnPolicy"
                           ng-model="formData.salesReturnPolicy"/>
+            </div>
         </div>
     </div>
-</div>
     <div class="row" style="margin-top: 40px">
         <div class="col-md-4 col-md-offset-6">
             <a href ng-click="EditStoreFrontFooter(formData)" class="btn btn-primary btn-lg btn-block">Save <span class="fa fa-arrow-right"></span></a>

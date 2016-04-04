@@ -68,10 +68,10 @@
 
                             <div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-bottom: 10px;">
                                 <p style="font-weight: bold;">Update Order Item Status :</p><select class="form-control" id="orderitemstatus1"
-                                                                                                    ng-options="orderitemstatus.id as orderitemstatus.status for orderitemstatus in orderstatuses"
-                                                                                                    data-ng-model="orderItem.order_item_status[orderItem.order_item_status.length-1].status_id"
-                                                                                                    style="margin-top: 10px;margin-bottom: 10px;">
-                            </select>
+                                                                                               ng-options="orderitemstatus.id as orderitemstatus.status for orderitemstatus in orderstatuses"
+                                                                                               data-ng-model="orderItem.order_item_status[orderItem.order_item_status.length-1].status_id"
+                                                                                               style="margin-top: 10px;margin-bottom: 10px;">
+                                </select>
                             </div>
                             <div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-top: 20px;">
                                 <p style="font-weight: bold;">Delivery Within :</p>
@@ -117,26 +117,26 @@
                         </div>
                         <hr>
                         <!--<div class="row">-->
-                        <!--<div class="col-sm-2 col-md-2 col-lg-6 vcenter">-->
-                        <!--<p style="font-weight: bold;">Comments : </p><textarea rows="4" placeholder="Comment"-->
-                        <!--class="form-control" id="orderComment"-->
-                        <!--name="orderComment"-->
-                        <!--ng-model="UpdateOrder.orderComment"></textarea>-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-bottom: 10px;">-->
-                        <!--<p style="font-weight: bold;">Update Order Status :</p><select class="form-control" id="orderstatus"-->
-                        <!--ng-options="orderstatus.id as orderstatus.status for orderstatus in orderstatuses"-->
-                        <!--data-ng-model="UpdateOrder.selectedStatus.id"-->
-                        <!--style="margin-top: 10px;margin-bottom: 10px;">-->
+                            <!--<div class="col-sm-2 col-md-2 col-lg-6 vcenter">-->
+                                <!--<p style="font-weight: bold;">Comments : </p><textarea rows="4" placeholder="Comment"-->
+                                                                                       <!--class="form-control" id="orderComment"-->
+                                                                                       <!--name="orderComment"-->
+                                                                                       <!--ng-model="UpdateOrder.orderComment"></textarea>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-2 col-md-2 col-lg-6 vcenter" style="margin-bottom: 10px;">-->
+                                <!--<p style="font-weight: bold;">Update Order Status :</p><select class="form-control" id="orderstatus"-->
+                                                                                               <!--ng-options="orderstatus.id as orderstatus.status for orderstatus in orderstatuses"-->
+                                                                                               <!--data-ng-model="UpdateOrder.selectedStatus.id"-->
+                                                                                               <!--style="margin-top: 10px;margin-bottom: 10px;">-->
 
-                        <!--</select>-->
-                        <!--</div>-->
+                            <!--</select>-->
+                            <!--</div>-->
                         <!--</div>-->
                         <hr>
                         <!--<div class="row" style="margin-top: 40px;margin-bottom: 20px;">-->
-                        <!--<div class="col-md-6 col-md-offset-6">-->
-                        <!--<a href class="btn btn-primary btn-block" ng-click="updateOrder(UpdateOrder.selectedStatus.id,UpdateOrder.orderComment,orderItem.expected_delivery_date,orderItem.expected_shipping_date)">Update Order</a>-->
-                        <!--</div>-->
+                            <!--<div class="col-md-6 col-md-offset-6">-->
+                                <!--<a href class="btn btn-primary btn-block" ng-click="updateOrder(UpdateOrder.selectedStatus.id,UpdateOrder.orderComment,orderItem.expected_delivery_date,orderItem.expected_shipping_date)">Update Order</a>-->
+                            <!--</div>-->
                         <!--</div>-->
                     </div>
 

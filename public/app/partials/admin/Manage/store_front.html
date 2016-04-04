@@ -43,61 +43,86 @@
                         <label for="collagePic1">Upload Collage Pictures - 3 pictures *</label>
                     </div>
                     <div class="col-md-5">
-                        <div class="fileUpload btn btn-primary">
-                            <span><i class="fa fa-camera"></i> Select photos</span>
-                            <input type="file" class="upload" id="collagePic1" name="collagePic1" nv-file-select="" uploader="uploader1"
-                                   single/>
+                        <a ng-click="SelectLeftCollage()"
+                           class="btn btn-primary" id="SelectLeftCollage">
+                            <span><i class="fa fa-camera"></i> Change Left Collage</span>
+                        </a>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addCollage.LeftCollageImage.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addCollage.LeftCollageImage.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div ng-if="uploader1.queue.length > 0">
-                    <!-- Image upload queue section start -->
-                    <div class="progress" style="">
-                        <div class="progress-bar" role="progressbar" id="upload-cover3-bar"
-                             ng-style="{ 'width': uploader1.progress + '%' }"></div>
-                    </div>
-                    <!-- Image upload queue section end -->
-                </div>
+                
             </div>
 
 
             <div class="row" style="margin-top: 15px; margin-bottom: 15px">
                 <div class="form-group">
                     <div class="col-md-offset-6 col-md-5">
-                        <div class="fileUpload btn btn-primary">
-                            <span><i class="fa fa-camera"></i> Select photos</span>
-                            <input type="file" class="upload" name="collagePic2" nv-file-select="" uploader="uploader2"
-                                   single/>
+                        <a ng-click="SelectRightCollage()"
+                           class="btn btn-primary" id="SelectRightCollage">
+                            <span><i class="fa fa-camera"></i> Change Right Collage</span>
+                        </a>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addCollage.RightCollageImage.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addCollage.RightCollageImage.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div ng-if="uploader2.queue.length > 0">
-                    <!-- Image upload queue section start -->
-                    <div class="progress" style="">
-                        <div class="progress-bar" role="progressbar" id="upload-cover4-bar"
-                             ng-style="{ 'width': uploader2.progress + '%' }"></div>
-                    </div>
-                    <!-- Image upload queue section end -->
                 </div>
             </div>
 
             <div class="row" style="margin-top: 15px; margin-bottom: 15px">
                 <div class="form-group">
                     <div class="col-md-offset-6 col-md-5">
-                        <div class="fileUpload btn btn-primary">
-                            <span><i class="fa fa-camera"></i> Select photos</span>
-                            <input type="file" class="upload" name="collagePic3" nv-file-select="" uploader="uploader3"
-                                   single/>
+                    <a ng-click="SelectBottomCollage()"
+                       class="btn btn-primary" id="SelectBottomCollage">
+                        <span><i class="fa fa-camera"></i> Change Bottom Collage</span>
+                    </a>
+                    <div class="col-sm-12" style="margin-top: 10px">
+                        <div class="row">
+                            <b>Preview:</b>
                         </div>
                     </div>
-                </div>
-                <div ng-if="uploader3.queue.length > 0">
-                    <!-- Image upload queue section start -->
-                    <div class="progress" style="">
-                        <div class="progress-bar" role="progressbar" id="upload-cover4-bar"
-                             ng-style="{ 'width': uploader3.progress + '%' }"></div>
+                    <div class="col-sm-12" style="margin-top: 10px">
+                        <div class="row">
+                            <i ng-hide="addCollage.BottomCollageImage.croppedImage">No title image chosen</i>
+                        </div>
                     </div>
-                    <!-- Image upload queue section end -->
+                    <div class="col-sm-12" style="margin-top: 10px">
+                        <div class="row">
+                            <img ng-src="{{addCollage.BottomCollageImage.croppedImage}}"
+                                 style="width: 100%;"
+                                 alt=""/>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
 
@@ -107,20 +132,28 @@
                         <label for="storeProfilePic">Upload Profile - shop logo/picture *</label>
                     </div>
                     <div class="col-md-5">
-                        <div class="fileUpload btn btn-primary">
-                            <span><i class="fa fa-camera"></i> Select photos</span>
-                            <input type="file" class="upload" id="storeProfilePic" name="storeProfilePic" nv-file-select="" ng-model="formData.storeProfilePic" uploader="uploader"
-                                   single/>
+                        <a ng-click="SelectProfileCollage()"
+                           class="btn btn-primary" id="SelectProfileCollage">
+                            <span><i class="fa fa-camera"></i> Change Profile Collage</span>
+                        </a>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <b>Preview:</b>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <i ng-hide="addCollage.ProfileCollageImage.croppedImage">No title image chosen</i>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" style="margin-top: 10px">
+                            <div class="row">
+                                <img ng-src="{{addCollage.ProfileCollageImage.croppedImage}}"
+                                     style="width: 100%;"
+                                     alt=""/>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div ng-if="uploader.queue.length > 0">
-                    <!-- Image upload queue section start -->
-                    <div class="progress" style="">
-                        <div class="progress-bar" role="progressbar" id="upload-cover4-bar"
-                             ng-style="{ 'width': uploader.progress + '%' }"></div>
-                    </div>
-                    <!-- Image upload queue section end -->
                 </div>
             </div>
 
@@ -141,13 +174,13 @@
 
 
             <!--<div class="row" style="margin-top: 10px; margin-bottom: 10px">-->
-            <!--<div class="form-group">-->
-            <!--<div class="col-md-5 col-md-offset-6">-->
-            <!--<input type="text" placeholder="Owner's Info" class="form-control" id="storeOwnerInfo"-->
-            <!--name="storeOwnerInfo"-->
-            <!--ng-model="formData.storeOwnerInfo">-->
-            <!--</div>-->
-            <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<div class="col-md-5 col-md-offset-6">-->
+                        <!--<input type="text" placeholder="Owner's Info" class="form-control" id="storeOwnerInfo"-->
+                               <!--name="storeOwnerInfo"-->
+                               <!--ng-model="formData.storeOwnerInfo">-->
+                    <!--</div>-->
+                <!--</div>-->
             <!--</div>-->
 
             <div class="row" style="margin-top: 10px; margin-bottom: 10px">
@@ -155,8 +188,8 @@
                     <div class="col-md-5 col-md-offset-6">
                         <p>Target Audience</p>
                         <textarea rows="4" placeholder="Target Audience" class="form-control" id="storeTargetAudience"
-                                  name="storeTargetAudience"
-                                  ng-model="formData.storeTargetAudience"></textarea>
+                               name="storeTargetAudience"
+                               ng-model="formData.storeTargetAudience"></textarea>
                     </div>
                 </div>
             </div>
@@ -166,8 +199,8 @@
                     <div class="col-md-5 col-md-offset-6">
                         <p>Offerings</p>
                         <textarea rows="4"  placeholder="Offerings" class="form-control" id="storeOfferings"
-                                  name="storeOfferings"
-                                  ng-model="formData.storeOfferings"></textarea>
+                               name="storeOfferings"
+                               ng-model="formData.storeOfferings"></textarea>
                     </div>
                 </div>
             </div>
@@ -280,3 +313,139 @@
     </div>
 
 </div>
+
+<!--Left Collage-->
+<script type="text/ng-template" id="LeftCollage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Left Collage Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Left Collage image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadLeftCollage()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<!--Right Collage-->
+<script type="text/ng-template" id="RightCollage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Right Collage Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Right Collage image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadRightCollage()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<!--Bottom Collage-->
+<script type="text/ng-template" id="BottomCollage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Bottom Collage Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Bottom Collage image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadBottomCollage()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
+            <br/>
+        </form>
+    </div>
+</script>
+
+<!--Profile Collage-->
+<script type="text/ng-template" id="ProfileCollage">
+    <div class="ngdialog-buttons popuptemplate">
+        <b>Crop Profile Collage Image</b>
+        <br/>
+
+        <form>
+            <div class="fileUpload btn btn-primary btn-block">
+                <span><i class="fa fa-camera"></i> Select Profile Collage image</span>
+
+                <input type="file"
+                       class="upload"
+                       ng-file-select="onFileSelect($files)"
+                       ng-model="slideImage.src">
+            </div>
+            <b>Preview:</b>
+            <br/>
+            <i ng-hide="slideImage.src">No body image chosen</i>
+
+            <ng-crop data-src="slideImage.src"
+                     ratio={{slideImage.cropConfig.aspectRatio}}
+                     box-width={{slideImage.boxWidth}}
+                     selected='slideImage.selected(cords)'>
+            </ng-crop>
+            <br/>
+            <a ng-click="uploadProfileCollage()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
+            <br/>
+        </form>
+    </div>
+</script>

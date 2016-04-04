@@ -220,7 +220,7 @@ evezownApp
                     $http.post(PATHS.api_url + 'users/store/' + $scope.loggedInUserId + '/add'
                         , {
                             data: {
-                                user_id: $scope.loggedInUserId,
+                                user_id: formData.OwnerID,
                                 title: formData.title,
                                 storeDescription: formData.storeDescription,
                                 owners: owners,
@@ -1613,6 +1613,7 @@ evezownApp
                             }
                             $scope.formData.address = $scope.currentStore[0]['street_address'];
                             $scope.formData.licenseInfo = $scope.currentStore[0]['license_info'];
+                            $scope.formData.OwnerID = $scope.currentStore[0]['owner_id'];
                             $scope.formData.storeAddress = $scope.currentStore[0]['web_address'];
                             $scope.formData.storeDescription = $scope.currentStore[0]['description'];
                             $scope.formData.cityStateCountry = $scope.currentStore[0]['city'] + ' ' + $scope.currentStore[0]['state'] + ' ' + $scope.currentStore[0]['country'];
