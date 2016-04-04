@@ -53,7 +53,7 @@ evezownApp
             link : 'admin/woiceflag' 
 
         },{
-            name: 'Brand',
+            name: 'Brands & Logos',
             link : 'admin/addbrand' 
 
         },{

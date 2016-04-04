@@ -16,7 +16,7 @@ evezownApp
        
         if($scope.loggedInUserId == $routeParams.id)
         {
-            $scope.profileMenuItems.push({name: 'Manage Mysite',
+            $scope.profileMenuItems.push({name: 'Create / Edit Profile',
             link : 'profile/' + $scope.loggedInUserId + '/personalinfo'},
             {
             name: 'Build Community',
