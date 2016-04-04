@@ -17,6 +17,8 @@ evezownApp
         $scope.collage1 = "";
         $scope.collage2 = "";
         $scope.collage3 = "";
+        $scope.formData.storeContactEmail="";
+        $scope.formData.StoreName = "";
 
         $scope.filePath = PATHS.api_url + 'image/show/';
 
@@ -218,7 +220,7 @@ evezownApp
                     $http.post(PATHS.api_url + 'users/store/' + $scope.loggedInUserId + '/add'
                         , {
                             data: {
-                                user_id: $scope.loggedInUserId,
+                                user_id: formData.OwnerID,
                                 title: formData.title,
                                 storeDescription: formData.storeDescription,
                                 owners: owners,
@@ -949,7 +951,7 @@ evezownApp
             name: 'imageFilter',
             fn: function (item /*{File|FileLikeObject}*/, options) {
                 var type = '|' + item.name.slice(item.name.lastIndexOf('.') + 1) + '|';
-                return '|doc|txt|pdf|docx|'.indexOf(type) !== -1;
+                return '|doc|pdf|docx|'.indexOf(type) !== -1;
             }
         });
 
@@ -980,7 +982,9 @@ evezownApp
                     , {
                         data: {
                             file_name: $scope.contractFilename,
-                            storeID: $scope.currentStoreId
+                            storeID: $scope.currentStoreId,
+                            storeEmail: $scope.formData.storeContactEmail,
+                            storeName: $scope.formData.StoreName
                         },
                         headers: {'Content-Type': 'application/json'}
                     }).
@@ -1609,6 +1613,7 @@ evezownApp
                             }
                             $scope.formData.address = $scope.currentStore[0]['street_address'];
                             $scope.formData.licenseInfo = $scope.currentStore[0]['license_info'];
+                            $scope.formData.OwnerID = $scope.currentStore[0]['owner_id'];
                             $scope.formData.storeAddress = $scope.currentStore[0]['web_address'];
                             $scope.formData.storeDescription = $scope.currentStore[0]['description'];
                             $scope.formData.cityStateCountry = $scope.currentStore[0]['city'] + ' ' + $scope.currentStore[0]['state'] + ' ' + $scope.currentStore[0]['country'];
@@ -1633,10 +1638,12 @@ evezownApp
                             $scope.formData.vatNumber = $scope.currentStore[0]['business_info']['vat_number'];
                             $scope.formData.tanNumber = $scope.currentStore[0]['business_info']['tan_number'];
                             $scope.formData.serviceTaxId = $scope.currentStore[0]['business_info']['service_tax_id'];
-                            $scope.formData.storeContractFile = $scope.currentStore[0]['business_info']['store_contract_file'];
+                            $scope.formData.storeContractAggreement = $scope.currentStore[0]['business_info']['contract_aggreement'];
                             $scope.formData.billingName = $scope.currentStore[0]['business_info']['billing_info_name'];
                             $scope.formData.billingAddress = $scope.currentStore[0]['business_info']['billing_info_address'];
                             $scope.formData.billingContactNumber = $scope.currentStore[0]['business_info']['billing_info_contact_number'];
+                            $scope.formData.storeContactEmail = $scope.currentStore[0]['store_front_info']['store_contact_email'];
+                            $scope.formData.StoreName = $scope.currentStore[0]['title'];
                             $scope.GetSelectedStoreSubscription();
                         }
                         else if (($location.path() == '/store/create/step3') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front')) {

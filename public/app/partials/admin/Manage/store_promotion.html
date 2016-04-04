@@ -28,14 +28,14 @@
             <div class="row" style="margin-top: 10px; margin-bottom: 10px">
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-4">
-                        <label for="uploadSlideImages">Update your own advert or classified </label>
+                        <label for="uploadSlideImages">Update your own advert or Ads & Campaigns </label>
                         <p>(it will appear in dynamic window on the store front)</p>
                     </div>
                     <div class="col-md-4">
                         <!--<div class="fileUpload btn btn-primary">-->
-                        <!--&lt;!&ndash;<span><i class="fa fa-camera"></i> Select photos</span>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<input type="file" class="upload" id="uploadClassifiedImages" name="uploadClassifiedImages" nv-file-select="" uploader="uploader4"&ndash;&gt;-->
-                        <!--&lt;!&ndash;multiple/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span><i class="fa fa-camera"></i> Select photos</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<input type="file" class="upload" id="uploadClassifiedImages" name="uploadClassifiedImages" nv-file-select="" uploader="uploader4"&ndash;&gt;-->
+                                   <!--&lt;!&ndash;multiple/>&ndash;&gt;-->
                         <!--</div>-->
                         <a ng-click="CropSlideImage()"
                            class="btn btn-primary" id="uploadSlideImages">
@@ -142,12 +142,12 @@
                         </div>
                     </div>
                     <!--<div ng-if="uploader4.queue.length > 0">-->
-                    <!--&lt;!&ndash; Image upload queue section start &ndash;&gt;-->
-                    <!--<div class="progress" style="">-->
-                    <!--<div class="progress-bar" role="progressbar" id="upload-cover3-bar"-->
-                    <!--ng-style="{ 'width': uploader4.progress + '%' }"></div>-->
-                    <!--</div>-->
-                    <!--&lt;!&ndash; Image upload queue section end &ndash;&gt;-->
+                        <!--&lt;!&ndash; Image upload queue section start &ndash;&gt;-->
+                        <!--<div class="progress" style="">-->
+                            <!--<div class="progress-bar" role="progressbar" id="upload-cover3-bar"-->
+                                 <!--ng-style="{ 'width': uploader4.progress + '%' }"></div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; Image upload queue section end &ndash;&gt;-->
                     <!--</div>-->
                 </div>
             </div>
@@ -184,9 +184,9 @@
                     <a href ng-click="EditStoreStep5(formData)" class="btn btn-primary btn-lg btn-block"> Save <span class="fa fa-arrow-right"></span></a>
                 </div>
             </div>
-        </div>
-
     </div>
+
+</div>
 </div>
 <script type="text/ng-template" id="cropSlideImageDialogId">
     <div class="ngdialog-buttons popuptemplate">
@@ -212,7 +212,10 @@
                      selected='slideImage.selected(cords)'>
             </ng-crop>
             <br/>
-            <a ng-click="uploadSlideImage()" class="btn btn-primary pull-right">Upload</a>
+            <a ng-click="uploadSlideImage()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
             <br/>
         </form>
     </div>
@@ -242,7 +245,10 @@
                      selected='slideImage1.selected(cords)'>
             </ng-crop>
             <br/>
-            <a ng-click="uploadSlideImage1()" class="btn btn-primary pull-right">Upload</a>
+            <a ng-click="uploadSlideImage1()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
             <br/>
         </form>
     </div>
@@ -272,7 +278,10 @@
                      selected='slideImage2.selected(cords)'>
             </ng-crop>
             <br/>
-            <a ng-click="uploadSlideImage2()" class="btn btn-primary pull-right">Upload</a>
+            <a ng-click="uploadSlideImage2()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
             <br/>
         </form>
     </div>
@@ -302,7 +311,10 @@
                      selected='slideImage3.selected(cords)'>
             </ng-crop>
             <br/>
-            <a ng-click="uploadSlideImage3()" class="btn btn-primary pull-right">Upload</a>
+            <a ng-click="uploadSlideImage3()" class="btn btn-primary pull-right" style="width:120px;">Upload
+            <span style="position:absolute;margin-top:10px;margin-left:18px;" us-spinner="{radius:6, width:2, length: 2,color: '#FFFFFF'}" spinner-key="spinner-1" spinner-start-active="false"></span>
+            </a>
+            <p style="color:#0992F0">Please crop the image before upload</p>
             <br/>
         </form>
     </div>

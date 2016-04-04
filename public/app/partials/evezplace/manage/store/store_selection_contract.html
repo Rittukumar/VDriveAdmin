@@ -22,10 +22,10 @@
     
     <!-- Contract div starts -->
     <!--If contract uploaded already-->
-    <div style="border: 1px solid #ffffff; border-radius: 5px;margin-bottom:20px;" ng-if="!formData.storeContractFile">
+    <div style="border: 1px solid #ffffff; border-radius: 5px;margin-bottom:20px;" ng-if="formData.storeContractAggreement != 3 ">
     	<div class="row">
             <div class="col-md-8 col-md-offset-1">
-                <h4 style="color: #e51385">Store Contract</h4>
+                <h4 style="color: #e51385">Upload physically signed contract</h4>
             </div>
         </div>
       	<div class="row">
@@ -42,7 +42,6 @@
                     <input type="file" class="upload" id="evezownContract" name="evezownContract" nv-file-select="" ng-model="formData.evezownContract" uploader="uploader5"
                        single/>
                 </div>
-                
                 <!-- <div class="col-md-2">
                 	<input  type="checkbox" ng-click="ContractUpload()" style="width: 16px; height: 16px" id="evezownContract" name="evezownContract" ng-model="formData.contractUpload">
             	</div> -->

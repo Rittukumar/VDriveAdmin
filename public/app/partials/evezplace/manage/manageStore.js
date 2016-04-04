@@ -25,7 +25,7 @@ evezownApp
         
         $scope.AllProducts = [];
         $scope.productImages = [];
-        $scope.AllProductSKU = [];
+        $rootScope.AllProductSKU = [];
         $scope.storeCommerce = {wantPaymentGateway : null,billingAddress:null,billingPincode:null,cityStateCountry:null,
             isOffline:null,isCod:null,isChequePayment:null,contactNumber:null,vendorName:null,additionalInfo:null};
 
@@ -313,7 +313,7 @@ evezownApp
             $http.get(PATHS.api_url + 'stores/products/sku/'+product.id+'/get').
                 success(function (data, status, headers, config)
                 {
-                    $scope.AllProductSKU = data;
+                    $rootScope.AllProductSKU = data;
 
                 }).error(function (data)
                 {
@@ -776,11 +776,12 @@ evezownApp
         $scope.ShowVariants = function(productSKU)
         {
             $scope.showvariantlist = true;
-            $scope.AllProductSKU = productSKU;    // update goes here
+            $rootScope.AllProductSKU = productSKU;    // update goes here
         }
 
         $scope.UpdateProduct = function(product)
         {
+            $scope.showvariantlist = true;
             angular.forEach($rootScope.AllProductLines, function (value, key)
             {
                 if($rootScope.currentProductLine.id == value.id)
@@ -856,7 +857,7 @@ evezownApp
 
         $scope.$watch('AllProductSKU', function(newvalue,oldvalue)
         {
-            $scope.AllProductSKU = newvalue;
+            $rootScope.AllProductSKU = newvalue;
         });
 
         $scope.Cancel = function ()
@@ -867,7 +868,7 @@ evezownApp
         $scope.CancelShow = function ()
         {
             $scope.showvariantlist = false;
-            $scope.AllProductSKU = null;
+            $rootScope.AllProductSKU = null;
         }
 
         $scope.DeleteProductLine = function ($productLineId)
