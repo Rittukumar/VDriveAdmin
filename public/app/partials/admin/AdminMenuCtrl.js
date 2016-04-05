@@ -37,6 +37,10 @@ evezownApp
             link : 'admin/store' 
 
         },{
+            name: 'Site Content Control',
+            link : 'admin/manage/screens' 
+
+        },{
             name: 'Store Contract',
             link : 'admin/store_contract' 
 
