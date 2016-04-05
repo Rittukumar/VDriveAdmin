@@ -112,7 +112,7 @@
         <ul class="row" style="padding-left: 0px">
             <!-- <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 0px; padding-right: 0px" ng-repeat="friend in friendList | filter:evesearch | orderBy:'firstname':true" ng-if="friend.id != currentUserId">-->
             <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 0px; padding-right: 0px" ng-repeat="friend in FilteredFriend = (friendList | filter:evesearch) | orderBy:'firstname':true" ng-if="friend.friend_user_id != currentUserId">
-               <a href="#profile/{{friend.friend_user_id}}">
+               <a href="#profile/myprofile/{{friend.friend_user_id}}">
                     <center>
                         <div class="profile-img-crop">
                             <img ng-src="{{service_url+'image/show/'+friend.profile.profile_image.large_image_url}}"
@@ -135,7 +135,7 @@
         <ul class="list-group" ng-repeat="member in members | limitTo:5 | orderBy:'firstname':true">
             <li class="list-group-item col-sm-12">
                 <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
-                    <a href="#profile/{{member.user_id}}"><img ng-src="{{service_url+'image/show/'+member.users.profile.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{member.firstname}}, {{member.lastname}}</a>
+                    <a href="#profile/myprofile/{{member.user_id}}"><img ng-src="{{service_url+'image/show/'+member.users.profile.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{member.firstname}}, {{member.lastname}}</a>
                 </div>
                 <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px">
                     <a href ng-click="ConnectMember(member)" class="btn btn-link btn-sm"><span class="fa fa-check"></span> Connect</a>
@@ -165,7 +165,7 @@
         <ul class="list-group" ng-repeat="request in memberRequests | limitTo:10 | orderBy:'firstname':true">
             <li class="list-group-item col-sm-12">
                 <div class="col-sm-10" style="padding-left: 0px; padding-right: 0px">
-                    <a href="#profile/{{request.requester_user_id}}"><img ng-src="{{service_url+'image/show/'+request.requester.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{request.requester_firstname}}, {{request.requester_lastname}}</a>
+                    <a href="#profile/myprofile/{{request.requester_user_id}}"><img ng-src="{{service_url+'image/show/'+request.requester.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{request.requester_firstname}}, {{request.requester_lastname}}</a>
                 </div>
                 <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
                     <a href ng-click="AcceptRequest(request)"><span class="fa fa-check"></span></a>
