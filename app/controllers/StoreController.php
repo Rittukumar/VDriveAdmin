@@ -1555,8 +1555,11 @@ class StoreController extends AppController
                     'StoreFrontInfo', 'owner', 'BusinessInfo', 'Tags',
                     'StoreFrontPromotion', 'StoreFrontPromotion.image.image1',
                     'StoreFrontPromotion.image.image2', 'StoreFrontPromotion.image.image3',
-                    'StoreFrontPromotion.image.image4', 'StoreCommerce', 'StoreStatus')
+                    'StoreFrontPromotion.image.image4', 'StoreCommerce', 'StoreStatus', 'users')
                     ->where('store_subcategory_id', $store_subcategory_id)
+                    ->whereHas('users', function($query){
+                       $query->where('deleted','')->where('blocked','');
+                     })
                     ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
                             ->from('store_status')

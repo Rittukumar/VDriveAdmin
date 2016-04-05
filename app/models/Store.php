@@ -7,6 +7,11 @@ class Store extends \Eloquent {
     {
         return $this->belongsTo('UserProfile', 'owner_id','user_id');
     }
+
+    public function users(){
+        return $this->belongsTo('User', 'owner_id');
+    }
+
     public function profile_images()
     {
         return $this->hasOne('StoreFrontImages', 'store_id')->join('images', 'store_front_images.profile_image_id', '=', 'images.id');
