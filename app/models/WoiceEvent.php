@@ -34,4 +34,8 @@ class WoiceEvent extends \Eloquent {
     {
         return $this->hasMany('EventGrade');
     }
+
+    public function users(){
+ 		return $this->belongsTo('User', 'owner_id');
+ 	}
 }

@@ -21,4 +21,8 @@ class Forum extends \Eloquent {
 	public function subcategory(){
 		return $this->belongsTo('SubCategory', 'sub_cat_id');
 	}
+
+	public function users(){
+ 		return $this->belongsTo('User', 'owner_id');
+ 	}
 }
