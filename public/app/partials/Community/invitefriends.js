@@ -68,7 +68,8 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
         return ret;
     };
 
-    $scope.getRole = function ($userId) {
+    /*bulk upload only for admin*/
+    /*$scope.getRole = function ($userId) {
         $http.get(PATHS.api_url +  'users/' + $userId)
             .success(function(data){
                 $scope.CheckRole = data.data.role;
@@ -80,7 +81,7 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
             .error(function(err){
                 console.log('Error retrieving user');
             });
-    }
+    }*/
 
     $scope.getEmail = function ($userId) {
         $http.get(PATHS.api_url + 'users/' + $userId)
@@ -746,7 +747,7 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
     $scope.authenticate = function (provider) {
         $auth.authenticate(provider);
     }
-    $scope.getRole($scope.loggedInUserId);
+    /*$scope.getRole($scope.loggedInUserId);*/
     $scope.getEmail($scope.loggedInUserId);
     // Call start function on load.
     //  $scope.start();

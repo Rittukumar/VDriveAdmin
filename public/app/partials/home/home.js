@@ -110,7 +110,7 @@ evezownApp
                     $cookieStore.put('api_key', Session.api_key);
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     toastr.success('Login', 'You have logged in successfully');
-                    $location.path('/profile/'+ $cookieStore.get('userId'));
+                    $location.path('/profile/myprofile/'+ $cookieStore.get('userId'));
                 }
             }, function (res)
             {

@@ -10,6 +10,9 @@ evezownApp
         $scope.currentUserId = $routeParams.id;
 
         $scope.profileMenuItems.push({
+            name: 'MyProfile',
+            link : 'profile/myprofile/' + $routeParams.id
+          },{
             name: 'Recent Activity',
             link : 'profile/' + $routeParams.id
           });

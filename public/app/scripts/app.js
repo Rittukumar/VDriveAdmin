@@ -1160,6 +1160,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/profile/myprofile/:id', {
+                templateUrl: 'partials/profile/profileSummary.html',
+                controller: 'profileCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
+                }
+            });
+
+        $routeProvider
+
             .when('/whatdoiget', {
                 templateUrl: 'partials/evezplace/whatdoiget.html',
                 controller: 'StoreInfoController',
