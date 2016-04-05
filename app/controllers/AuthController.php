@@ -66,7 +66,7 @@ class AuthController extends AppController {
         $profile = json_decode($profileResponse->getBody(), true);
 
         // Step 3a. If user is already exists return an existing one.
-        $user = User::where('facebook', '=', $profile['id'])->first();
+        $user = User::where('facebook', '=', $profile['id'])->where('deleted','')->where('blocked','')->first();
         
         if ($user)
         {
@@ -74,7 +74,7 @@ class AuthController extends AppController {
         }
 
         // Step 3b. If user is already signed in then link accounts.
-        $user = User::where('email', '=', $profile['email'])->first();
+        $user = User::where('email', '=', $profile['email'])->where('deleted','')->where('blocked','')->first();
 
         if ($user)
         {
@@ -86,17 +86,25 @@ class AuthController extends AppController {
         }
 
         // Step 3c. If user does not exists Create a new user account.
-        $provider          = 'facebook'; 
-        $providerId        = $profile['id']; 
-        $providerUsername  = $profile['name'];
-        $providerEmail     = $profile['email']; 
-        $providerfirstName = $profile['first_name']; 
-        $providerlastName  = $profile['last_name'];
+        $user = User::where('email', '=', $profile['email'])->first();
 
-        $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
-        
-        return $this->getUserDetails($user->id);
-        
+        if ($user)
+        {
+          return Response::json(['message' => 'There is already a Facebook account that belongs to you is Blocked Or Deleted'], 409);
+
+        }else{
+
+            $provider          = 'facebook'; 
+            $providerId        = $profile['id']; 
+            $providerUsername  = $profile['name'];
+            $providerEmail     = $profile['email']; 
+            $providerfirstName = $profile['first_name']; 
+            $providerlastName  = $profile['last_name'];
+
+            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
+            
+            return $this->getUserDetails($user->id);
+        }
     }
 
     /**
@@ -133,7 +141,7 @@ class AuthController extends AppController {
 
 
         // Step 3a. If user is already exists return an existing one.
-        $user = User::where('google', '=', $profile['sub'])->first();
+        $user = User::where('google', '=', $profile['sub'])->where('deleted','')->where('blocked','')->first();
 
         if ($user)
         {
@@ -141,7 +149,7 @@ class AuthController extends AppController {
         }
         
         // Step 3b. If user is already signed in then link accounts.
-        $user = User::where('email', '=', $profile['email'])->first();
+        $user = User::where('email', '=', $profile['email'])->where('deleted','')->where('blocked','')->first();
 
         if ($user)
         {
@@ -153,18 +161,27 @@ class AuthController extends AppController {
         }
 
         // Step 3c. If user does not exists Create a new user account.
-        $provider          = 'google'; 
-        $providerId        = $profile['sub']; 
-        $providerUsername  = $profile['name'];
-        $providerEmail     = $profile['email']; 
-        $providerNames     = explode(' ', $profile['name']);
-        $providerfirstName = isset($providerNames[0])?$providerNames[0]:''; 
-        $providerlastName  = isset($providerNames[1])?$providerNames[1]:'';
 
-        $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
-        
-        return $this->getUserDetails($user->id);
+        $user = User::where('email', '=', $profile['email'])->first();
 
+        if ($user)
+        {
+          return Response::json(['message' => 'There is already a Google account that belongs to you is Blocked Or Deleted'], 409);
+
+        }else{
+
+            $provider          = 'google'; 
+            $providerId        = $profile['sub']; 
+            $providerUsername  = $profile['name'];
+            $providerEmail     = $profile['email']; 
+            $providerNames     = explode(' ', $profile['name']);
+            $providerfirstName = isset($providerNames[0])?$providerNames[0]:''; 
+            $providerlastName  = isset($providerNames[1])?$providerNames[1]:'';
+
+            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
+            
+            return $this->getUserDetails($user->id);
+        }
     }
 
     /**
@@ -199,7 +216,7 @@ class AuthController extends AppController {
 
         
         // Step 3a. If user is already exists return an existing one.
-        $user = User::where('linkedin', '=', $profile['id'])->first();
+        $user = User::where('linkedin', '=', $profile['id'])->where('deleted','')->where('blocked','')->first();
 
         if ($user)
         {
@@ -207,7 +224,7 @@ class AuthController extends AppController {
         }
         
         // Step 3b. If user is already signed in then link accounts.
-        $user = User::where('email', '=', $profile['emailAddress'])->first();
+        $user = User::where('email', '=', $profile['emailAddress'])->where('deleted','')->where('blocked','')->first();
 
         if ($user)
         {
@@ -219,17 +236,27 @@ class AuthController extends AppController {
         }
 
         // Step 3c. If user does not exists Create a new user account.
-        $provider          = 'linkedin'; 
-        $providerId        = $profile['id']; 
-        $providerUsername  = $profile['firstName'].' '.$profile['lastName'];
-        $providerEmail     = $profile['emailAddress']; 
-        $providerfirstName = $profile['firstName']; 
-        $providerlastName  = $profile['lastName'];
 
-        $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
-        
-        return $this->getUserDetails($user->id);
+        $user = User::where('email', '=', $profile['emailAddress'])->first();
 
+        if ($user)
+        {
+          return Response::json(['message' => 'There is already a Linkedin account that belongs to you is Blocked Or Deleted'], 409);
+
+        }else{
+
+            $provider          = 'linkedin'; 
+            $providerId        = $profile['id']; 
+            $providerUsername  = $profile['firstName'].' '.$profile['lastName'];
+            $providerEmail     = $profile['emailAddress']; 
+            $providerfirstName = $profile['firstName']; 
+            $providerlastName  = $profile['lastName'];
+
+            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
+            
+            return $this->getUserDetails($user->id);
+       
+        }
 
     }
 

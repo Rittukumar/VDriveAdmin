@@ -17,6 +17,10 @@ class Post extends \Eloquent {
 		return $this->belongsTo('UserProfile', 'owner_id');
 	}
 
+	public function users(){
+		return $this->belongsTo('User', 'owner_id');
+	}
+
 	public function brand() {
 		return $this->belongsTo('Brand');
 	}
