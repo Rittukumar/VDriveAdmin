@@ -208,8 +208,11 @@ class EvezplaceTrendingController extends AppController
 
             $blogs = Blog::with('author.profile_image',
                 'subcategory.category', 'comments.profile.profile_image',
-                'blog_image', 'trending')
+                'blog_image', 'trending', 'users')
                 ->where('status', 'published')
+                ->whereHas('users', function($query){
+                    $query->where('deleted','')->where('blocked','');
+                })
                 ->whereIn('id', function ($query) use ($sectionId) {
                     $query->select('blog_id')
                         ->from('evezplace_trending_blogs')
@@ -395,7 +398,10 @@ class EvezplaceTrendingController extends AppController
             $limit = Input::get('limit') ?: 15;
 
             $events = WoiceEvent::with('attendees.profile.profile_image',
-                'event_image', 'location', 'owner')
+                'event_image', 'location', 'owner', 'users')
+                ->whereHas('users', function($query){
+                    $query->where('deleted','')->where('blocked','');
+                })
                 ->whereIn('id', function ($query) use ($sectionId) {
                     $query->select('event_id')
                         ->from('evezplace_trending_events')
@@ -430,7 +436,10 @@ class EvezplaceTrendingController extends AppController
         try {
             $limit = Input::get('limit') ?: 15;
 
-            $events = Forum::with('replies.user.profile_image', 'created_by.profile_image', 'subcategory.category')
+            $events = Forum::with('replies.user.profile_image', 'created_by.profile_image', 'subcategory.category', 'users')
+                ->whereHas('users', function($query){
+                    $query->where('deleted','')->where('blocked','');
+                })
                 ->whereIn('id', function ($query) use ($sectionId) {
                     $query->select('forum_id')
                         ->from('evezplace_trending_forums')
