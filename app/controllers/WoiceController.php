@@ -522,8 +522,11 @@ class WoiceController extends AppController
             // Query to fetch all my posts and my friends post with images and
             // user data.
             $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand',
-                'comments.user.profile_image', 'grades.user')
+                'comments.user.profile_image', 'grades.user','users')
                 ->where('visibility_id', 1)
+                ->whereHas('users', function($query){
+                    $query->where('deleted','')->where('blocked','');
+                })
                 ->orWhereExists(function ($query) use ($user_id) {
                     $query->where('visibility_id', 2);
                     $query->select(DB::raw(1))
