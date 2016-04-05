@@ -5,29 +5,41 @@
 }
 .summary-header
 {
-    background-color: #692668;
+    background-color: #FFFFFF;
+    border-radius: 4px 4px 0px 0px;
+    border-bottom: 2px solid #DDDDDD;
 }
 .summary-header h5
 {
-    color:#ffffff;
+    color:#1A85BC;
+    font-size:20px;
     padding-left:10px;
+    
+}
+.summary-box-outer
+{
+    padding-left:5px;
+    padding-right:5px;
 }
 .summary-content
 {
-    background-color: #EEEEEE;
+    background-color: #FFFFFF;
     min-height: 180px;
+    border-radius: 0px 0px 4px 4px;
 }
 .summary-box
-{
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.50);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.50);
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.50);
+{   
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.30);
+    -moz-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.30);
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.30);
 }
 .summary-content p
 {
     padding-left:15px;
     padding-right:15px;
     text-align:justify;
+    line-height: 100%;
 }
 .summary-content p i
 {
@@ -48,7 +60,7 @@
             </li>
             <!-- <li ng-if="loggedInUserId == currentUserId"> -->
             <li>
-                <a href="#profile/myprofile/{{userId}}" class="active" ng-class="{ active: isActive('/profile/myprofile/{{userId}}')}">MyProfile</a>
+                <a href="#profile/myprofile/{{userId}}" class="active" ng-class="{ active: isActive('/profile/myprofile/{{userId}}')}">My Profile</a>
             </li>
             <!-- <li ng-if="loggedInUserId != currentUserId">
                 <a href="#community" class="active" ng-class="{ active: isActive('/community')}">Build Community</a>
@@ -208,14 +220,15 @@
             </div>
 
             <!--summary-->
-            <div class="col-md-10 col-xs-12" ng-controller="profileDetailsCtrl">
-                <div class="col-md-4 col-xs-12" style="margin-top:10px;">
+            <div class="col-md-10 col-xs-12 user-menu user-pad">
+            <div class="col-md-12 col-xs-12 no-padding" ng-controller="profileDetailsCtrl">
+                <div class="col-md-4 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
                             <h5><i class="fa fa-user"></i>&nbsp;&nbsp;Contact & Basic Info</h5>
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
-                            <p><i class="fa fa-user"></i>&nbsp;&nbsp;{{profile.firstname}} {{profile.lastname}}</p>
+                            <br><p><i class="fa fa-user"></i>&nbsp;&nbsp;{{profile.firstname}} {{profile.lastname}}</p>
                             <p><i class="fa fa-envelope"></i>&nbsp;&nbsp;{{profile.email}}</p>
                             <p ng-if="profile.phone"><i class="fa fa-phone"></i>&nbsp;&nbsp;{{profile.phone}}</p>
                             <p ng-if="profile.streetAddress"><i class="fa fa-home"></i>&nbsp;&nbsp;{{profile.streetAddress}}</p>
@@ -225,42 +238,42 @@
                 </div>
 
 
-                <div class="col-md-4 col-xs-12" style="margin-top:10px;">
+                <div class="col-md-4 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
                             <h5><i class="fa fa-briefcase"></i>&nbsp;&nbsp;Work & Education</h5>
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
-                            <p ng-if="profile.designation1 && profile.name_organization1"><i class="fa fa-briefcase"></i>&nbsp;&nbsp;{{profile.designation1}} @ {{profile.name_organization1}}</p>
-                            <p ng-if="profile.education1"><i class="fa fa-graduation-cap"></i>&nbsp;&nbsp;{{profile.education1}}</p>
+                            <br><p ng-if="profile.designation1 && profile.name_organization1"><i class="fa fa-briefcase"></i>&nbsp;&nbsp;{{profile.designation1}} @ {{profile.name_organization1}}</p>
+                            <p ng-if="profile.education1"><i class="fa fa-graduation-cap"></i>&nbsp;{{profile.education1}}</p>
                             <p ng-if="profile.skills"><i class="fa fa-bookmark"></i>&nbsp;&nbsp;{{profile.skills}}</p>                          
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xs-12" style="margin-top:10px;">
+                <div class="col-md-4 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
                             <h5><i class="fa fa-yelp"></i>&nbsp;&nbsp;Hobbies</h5>
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
-                            <p ng-if="enhancedProfile.hobbies"><i class="fa fa-yelp"></i>&nbsp;&nbsp;{{enhancedProfile.hobbies}}</p>
+                            <br><p ng-if="enhancedProfile.hobbies"><i class="fa fa-yelp"></i>&nbsp;&nbsp;{{enhancedProfile.hobbies}}</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-8 col-xs-12" style="margin-top:10px;">
+                <div class="col-md-8 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
                             <h5><i class="fa fa-angellist"></i>&nbsp;&nbsp;Achievements</h5>
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
-                            <p ng-if="enhancedProfile.achievements"><i class="fa fa-angellist"></i>&nbsp;&nbsp;{{enhancedProfile.achievements}}</p>                      
+                            <br><p ng-if="enhancedProfile.achievements"><i class="fa fa-angellist"></i>&nbsp;&nbsp;{{enhancedProfile.achievements}}</p>                      
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xs-12" style="margin-top:10px;">
+                <div class="col-md-4 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
                             <h5><i class="fa fa-thumb-tack"></i>&nbsp;&nbsp;Online Presence</h5>
@@ -315,30 +328,31 @@
                     </div>
                 </div>
 
-                <div class="col-md-4 col-xs-12" style="margin-top:10px;">
+                <div class="col-md-4 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
                             <h5><i class="fa fa-tencent-weibo"></i>&nbsp;&nbsp;Talents</h5>
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
-                            <p ng-if="enhancedProfile.talents"><i class="fa fa-tencent-weibo"></i>&nbsp;&nbsp;{{enhancedProfile.talents}}</p>                      
+                            <br><p ng-if="enhancedProfile.talents"><i class="fa fa-tencent-weibo"></i>&nbsp;&nbsp;{{enhancedProfile.talents}}</p>                      
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-8 col-xs-12" style="margin-top:10px;">
+                <div class="col-md-8 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box" style="margin-bottom:10px;">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
                             <h5><i class="fa fa-puzzle-piece"></i>&nbsp;&nbsp;Area Of Intrests</h5>
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
-                            <p ng-if="favorites.interests"><i class="fa fa-puzzle-piece"></i>&nbsp;&nbsp;{{favorites.interests}}</p>      
+                            <br><p ng-if="favorites.interests"><i class="fa fa-puzzle-piece"></i>&nbsp;&nbsp;{{favorites.interests}}</p>      
                         </div>
                     </div>
                 </div>
 
                 
 
+            </div>
             </div>
             <!--summary ends-->
             
