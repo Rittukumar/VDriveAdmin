@@ -221,6 +221,18 @@
 
             <!--summary-->
             <div class="col-md-10 col-xs-12 user-menu user-pad">
+                <!-- <h3 style="font-size: 1.5em">
+                    My Profile
+                </h3> -->
+                <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                    <div class="fragment">
+                        <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+                        <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">My Profile</h4>
+                        <p>
+                            This is you, in all your glory! Go ahead, share what you want to share, you decide on what to make visible and to whom! You can add data, images through Create and Edit Profile tab.
+                        </p>
+                    </div>
+                </div>
             <div class="col-md-12 col-xs-12 no-padding" ng-controller="profileDetailsCtrl">
                 <div class="col-md-4 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
@@ -265,7 +277,7 @@
                 <div class="col-md-8 col-xs-12 summary-box-outer" style="margin-top:10px;">
                     <div class="col-md-12 col-xs-12 no-padding summary-box">
                         <div class="col-md-12 col-xs-12 no-padding summary-header">
-                            <h5><i class="fa fa-angellist"></i>&nbsp;&nbsp;Achievements</h5>
+                            <h5><i class="fa fa-angellist"></i>&nbsp;&nbsp;Achievements & Press Articles</h5>
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
                             <br><p ng-if="enhancedProfile.achievements"><i class="fa fa-angellist"></i>&nbsp;&nbsp;{{enhancedProfile.achievements}}</p>                      
@@ -346,6 +358,18 @@
                         </div>
                         <div class="col-md-12 col-xs-12 no-padding summary-content">
                             <br><p ng-if="favorites.interests"><i class="fa fa-puzzle-piece"></i>&nbsp;&nbsp;{{favorites.interests}}</p>      
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-xs-12 summary-box-outer" style="margin-top:10px;">
+                    <div class="col-md-12 col-xs-12 no-padding summary-box" style="margin-bottom:10px;">
+                        <div class="col-md-12 col-xs-12 no-padding summary-header">
+                            <h5><i class="fa fa-sitemap"></i>&nbsp;&nbsp;You Online Mentions</h5>
+                        </div>
+                        <div class="col-md-12 col-xs-12 no-padding summary-content">
+                            <br>
+                            <p><i class="fa fa-sitemap"></i>&nbsp;&nbsp;<a href="http://indiatoday.intoday.in/story/varsha-anand-avaya-india-communications-company-business-communication/1/163299.html">http://indiatoday.intoday.in/story/varsha-anand-avaya-india-communications-company-business-communication/1/163299.html</a></p>      
                         </div>
                     </div>
                 </div>
