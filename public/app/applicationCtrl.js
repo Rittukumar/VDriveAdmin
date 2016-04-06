@@ -128,6 +128,7 @@ evezownApp
             
             $cookieStore.remove('api_key');
             $cookieStore.remove('userId');
+            $cookieStore.remove('userRole');
             $cookieStore.remove('post');
             $cookieStore.remove('userToken');
             //userToken
