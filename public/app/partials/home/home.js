@@ -155,7 +155,7 @@ evezownApp
     });
 
 evezownApp
-    .controller('HomeController', function ($rootScope, $scope, AuthService, $cookieStore, ArticleService) {
+    .controller('HomeController', function ($rootScope, $scope, AuthService, $cookieStore, ArticleService, $http, PATHS) {
         $scope.caption = true;
         $scope.carouselTitle = "Evezown";
 
@@ -218,6 +218,22 @@ evezownApp
 
         $scope.ShouldAutoStart = false;
 
+
+        $scope.GetCaptions = function(id)
+        {
+           
+            $http.get(PATHS.api_url + 'admin/'+ $cookieStore.get('userId')  +'/'+ id +'/getscreenfields').
+            success(function (data, status, headers, config)
+            {
+                console.log(data);
+                $scope.LandingCaptions = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+        $scope.GetCaptions(3);
+
     });
 
 evezownApp.controller('HomeProductMenuController', function ($rootScope, $scope, $location, EvezplaceHomeService, $routeParams) {
@@ -269,7 +285,7 @@ evezownApp.controller('HomeProductMenuController', function ($rootScope, $scope,
 
 
 evezownApp
-    .controller('ArticlesNewsInterviewsCtrl', function ($scope, ArticleService, BlogService, EventService, ForumService, PATHS) {
+    .controller('ArticlesNewsInterviewsCtrl', function ($scope, ArticleService, BlogService, EventService, ForumService, $http, $cookieStore, PATHS) {
 
         $scope.isShowMoreVideos = false;
 
@@ -337,6 +353,21 @@ evezownApp
                 });
             }
         }
+
+        $scope.GetCaptions = function(id)
+        {
+           
+            $http.get(PATHS.api_url + 'admin/'+ $cookieStore.get('userId')  +'/'+ id +'/getscreenfields').
+            success(function (data, status, headers, config)
+            {
+                console.log(data);
+                $scope.VideoPartialCaptions = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+        $scope.GetCaptions(3);
 
         // Show more video click toggle
         $scope.showMoreVideos = function () {

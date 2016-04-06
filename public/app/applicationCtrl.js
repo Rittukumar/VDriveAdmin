@@ -77,6 +77,20 @@ evezownApp
         });
 
 
+        $scope.GetCaptions = function(id)
+        {
+           
+            $http.get(PATHS.api_url + 'admin/'+ $cookieStore.get('userId')  +'/'+ id +'/getscreenfields').
+            success(function (data, status, headers, config)
+            {
+                console.log(data);
+                $scope.FooterCaptions = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+        $scope.GetCaptions(2);
         //AuthService.getProfileImage(PATHS.api_url + 'users/' + $cookieStore.get('userId') + '/profile_image/current').success(function(data) {
         //    $scope.profileImage = PATHS.api_url + 'image/show/' + data;
         //});
@@ -150,7 +164,7 @@ evezownApp
 
     });
 
-evezownApp.controller('TopMenuCtrl', function ($scope, $cookieStore, StoreService, PATHS) {
+evezownApp.controller('TopMenuCtrl', function ($scope, $cookieStore, StoreService, PATHS, $http) {
 
     $scope.shoppingCartItems = StoreService.getShoppingCartItems();
 
@@ -229,4 +243,20 @@ evezownApp.controller('TopMenuCtrl', function ($scope, $cookieStore, StoreServic
 
         $scope.isShoppingCartEmpty = !($scope.shoppingCartItems != null && $scope.shoppingCartItems.length > 0);
     });
+
+    $scope.GetCaptions = function(id)
+        {
+           
+            $http.get(PATHS.api_url + 'admin/'+ $cookieStore.get('userId')  +'/'+ id +'/getscreenfields').
+            success(function (data, status, headers, config)
+            {
+                console.log(data);
+                $scope.TopMenuCaptions = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+    $scope.GetCaptions(1);
+
 });
