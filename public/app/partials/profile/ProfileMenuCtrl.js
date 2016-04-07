@@ -8,6 +8,7 @@ evezownApp
         $scope.profileMenuItems=[];
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.currentUserId = $routeParams.id;
+        $scope.Role = $cookieStore.get('userRole');
 
         $scope.profileMenuItems.push({
             name: 'My Profile',

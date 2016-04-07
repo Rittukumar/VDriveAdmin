@@ -135,16 +135,25 @@
         <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>
-        <div class="col-md-10 user-menu user-pad">
-        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
-			        <div class="fragment">
-			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Stores</h4>
-			            <p>
-			                TODO
-			            </p>
-			        </div>
-			    </div>
+        <div class="col-md-10 user-menu user-pad" ng-if="Role == 2">
+            <div class="col-md-12">
+                <div class="empty-section text-center">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">You should have Business subscription to access this service</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 user-menu user-pad" ng-if="Role != 2">
+            <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+		        <div class="fragment">
+		            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+		            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Stores</h4>
+		            <p>
+		                If you own a business, products or services or both, want to start a new one, This is the place for you.  We have made it simple for you. You get all the tools to  create your web store and promote it, tab by tab fill in details. Arm yourself with real bright images, get your script and description in place before hand, Go with the flow.
+		            </p>
+		        </div>
+		    </div>
             <div class="col-md-12 panel-heading">
                 <div class="col-md-2">
                     <h4>
@@ -170,7 +179,7 @@
                             <div class="store-browse-title">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <a href="#store/{{item.id}}" style="color: #ffffff; font-size: 1.2em"><h5 style="padding: 10px">{{item.title}}</h5></span></a>
+                                        <a href="#store/{{item.id}}" style="color: #ffffff; font-size: 1.2em"><h5 style="padding: 10px">{{item.title}}</h5></a>
                                     </div>
                                     <div class="col-xs-6" ng-if="loggedInUserId == currentUserId">
                                         <a href="#store/{{item.id}}/manage/store_info" class="btn btn-link btn-sm pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">manage store</a>

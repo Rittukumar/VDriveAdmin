@@ -7,6 +7,8 @@ evezownApp
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.currentUserId = $routeParams.id;
         $scope.carouselTitle = "Evezown";
+        $scope.Role = $cookieStore.get('userRole');
+        
         if ($routeParams.id != undefined) {
             $scope.currentUserId = $routeParams.id;
         }

@@ -43,6 +43,10 @@ evezownApp
             {
                 toastr.error("Please enter a surname", 'Register');
             }
+            else if(!$scope.role)
+            {
+                toastr.error("Please select a member type", 'Register');
+            }
             else if(!$scope.master.password)
             {
                 toastr.error("Password cannot be empty", 'Register');
@@ -83,7 +87,8 @@ evezownApp
                             email : $scope.master.emailId,
                             password : $scope.master.password,
                             code : $scope.master.code,
-                            referrer : $scope.master.referrer_email
+                            referrer : $scope.master.referrer_email,
+                            role : $scope.role
                         },
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).
                     success(function (data, status, headers, config)

@@ -35,7 +35,8 @@ class UserRepository
         ));
 
         // Role of User associated to registering member.
-        $role = Role::find(3);
+        $roleId = array_get($input, 'role');
+        $role = Role::find($roleId);
 
         $user = User::find($user->id);
         $user->attachRole( $role );

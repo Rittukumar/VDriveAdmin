@@ -132,7 +132,7 @@ evezownApp
     .service('Session', function ($cookieStore) {
 
         Session = {};
-        Session.create = function (apiKey, userId, firstname, lastname, email, userRole,userRoleId, token) {
+        Session.create = function (apiKey, userId, firstname, lastname, userRole, userRoleId, token) {
             this.api_key = apiKey;
             this.userId = userId;
             this.firstname = firstname;
@@ -141,6 +141,7 @@ evezownApp
             this.userRoleId = userRoleId;
             this.token = token;
             $cookieStore.put('userId', userId);
+            $cookieStore.put('userRole', userRoleId);
         };
         Session.destroy = function () {
             this.api_key = null;

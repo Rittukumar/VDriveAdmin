@@ -135,19 +135,40 @@
         <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>
-        <div class="col-md-10 user-menu user-pad">
+
+        <div class="col-md-10 user-menu user-pad" ng-if="Role == 2">
+            <div class="col-md-12">
+                <div class="empty-section text-center">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">You should have Business subscription to access this service</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 user-menu user-pad" ng-if="Role != 2">
             <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
 			        <div class="fragment">
 			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
 			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Ads & Campaigns</h4>
 			            <p>
-			                TODO
+			                Creation is just a start, Promotion, Word of mouth, Advertising, Marketing, Positioning all is key to carve a niche for yourself. This is a tool for you to create multiple ads or theme base d campaigns. We have automated creation to a great extent. You can stream in and out, with any frequency you think fit. 
 			            </p>
 			        </div>
 			    </div>
+
+           
             <div class="col-md-12">
+
                 <div class="row" style="margin-bottom: 40px">
+
+
                     <div class="col-md-12 user-menu user-pad" ng-controller="classifiedProfileCtrl">
+
+                        <div class="col-md-3 col-md-offset-4 pull-right" ng-if="loggedInUserId == currentUserId" style="margin-top:10px;margin-bottom:10px;padding:0px;">
+                            <a href="#classifieds/create/step1" class="btn btn-primary"><span class="fa fa-plus"></span> Create Ads & Campaigns</a>
+                        </div>
+                
                         <div class="empty-section text-center" ng-if="browseItems.length == 0">
                             <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
 

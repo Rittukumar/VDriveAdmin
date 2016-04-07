@@ -14,13 +14,13 @@
             <div id="top-nav" class="top-nav">
                 <div class="row">
                     <ul class="nav navbar-nav">
-                        <li ng-class="{ active: isActive('/profile/{{userId}}')}"><a href="#profile/myprofile/{{userId}}">Mysite</a></li>
-                        <li ng-class="{ active: isActive('/evezplace')}"><a href="#evezplace">MarketPlace</a></li>
-                        <li ng-class="{ active: isActive('/wopportunity')}"><a href="#wopportunity">Jobs</a>
+                        <li ng-class="{ active: isActive('/profile/{{userId}}')}"><a href="#profile/myprofile/{{userId}}">{{TopMenuCaptions[0].description}}</a></li>
+                        <li ng-class="{ active: isActive('/evezplace')}"><a href="#evezplace">{{TopMenuCaptions[1].description}}</a></li>
+                        <li ng-class="{ active: isActive('/wopportunity')}"><a href="#wopportunity">{{TopMenuCaptions[2].description}}</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#login" ng-hide="loggedIn" class="btn btn-primary" id="btn-login">Sign In</a></li>
+                        <li><a href="#login" ng-hide="loggedIn" class="btn btn-primary" id="btn-login">{{TopMenuCaptions[3].description}}</a></li>
                         <li class="dropdown" ng-show="loggedIn" id="profile-menu">
                             <a class="dropdown-toggle user-avatar" data-toggle="dropdown" role="button"
                                aria-expanded="false">
@@ -29,12 +29,12 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#profile/myprofile/{{userId}}">Manage Mysite</a></li>
-                                <li><a href="#profile/{{userId}}/personalinfo">Update Profile</a></li>
-                                <li ng-if="roleId == 1"><a href="#admin">Editor</a></li>
-                                <li><a>Settings</a></li>
+                                <li><a href="#profile/myprofile/{{userId}}">{{TopMenuCaptions[4].description}}</a></li>
+                                <li><a href="#profile/{{userId}}/personalinfo">{{TopMenuCaptions[5].description}}</a></li>
+                                <li ng-if="roleId == 1"><a href="#admin">{{TopMenuCaptions[6].description}}</a></li>
+                                <li><a>{{TopMenuCaptions[7].description}}</a></li>
                                 <li class="divider"></li>
-                                <li><a href ng-click="Logout()">Logout</a></li>
+                                <li><a href ng-click="Logout()">{{TopMenuCaptions[8].description}}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <a href="#buyer/orders" class="btn btn-link" style="color: #E50880; padding-left: 5px">
-                            Track your order
+                            {{TopMenuCaptions[9].description}}
                         </a>
                     </div>
                     <div class="col-md-4" style="margin-top: -10px">
@@ -63,7 +63,7 @@
                         <span class="fa-stack fa-lg">
                           <i class="fa fa-circle fa-stack-2x"></i>
                           <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                        </span> Cart ({{shoppingCartCount}})
+                        </span> {{TopMenuCaptions[10].description}} ({{shoppingCartCount}})
                         </a>
                     </div>
 
