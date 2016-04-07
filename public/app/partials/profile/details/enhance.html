@@ -169,6 +169,7 @@
                 <textarea placeholder="About me" name="aboutme" id="aboutme" class="form-control input-lg"
                           tabindex="5" ng-model="enhancedProfile.aboutme">
                 </textarea>
+                <span class="pull-right" ng-hide="enhancedProfile.aboutme == dirty" style="color:#E50880;">{{255 - enhancedProfile.aboutme.length}}</span>
             </div>
             <div class="row">
                 <div class="form-horizontal col-md-12">
