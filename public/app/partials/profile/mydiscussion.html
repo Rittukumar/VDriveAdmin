@@ -182,7 +182,8 @@
     <div class="ngdialog-buttons popuptemplate" ng-controller="forums">
         <h4>Start Discussion</h4>
         <input class="form-control" type="text" placeholder="Discussion Title"
-               id="forum" ng-model="forum" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+               id="forum" ng-model="forum" maxlength="100" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+            <span class="pull-right" ng-hide="forum == dirty">{{100 - forum.length}}</span>   
         <textarea class="form-control" rows="4" placeholder="Description"
                   ng-model="description"/>
         <div class="row" style="padding-bottom: 10px">
