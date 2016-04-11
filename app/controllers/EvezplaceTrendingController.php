@@ -208,17 +208,22 @@ class EvezplaceTrendingController extends AppController
 
             $blogs = Blog::with('author.profile_image',
                 'subcategory.category', 'comments.profile.profile_image',
-                'blog_image', 'trending', 'users')
+                'blog_image', 'trending')
                 ->where('status', 'published')
-                ->whereHas('users', function($query){
-                    $query->where('deleted','')->where('blocked','');
-                })
                 ->whereIn('id', function ($query) use ($sectionId) {
                     $query->select('blog_id')
                         ->from('evezplace_trending_blogs')
                         ->where('evezown_section_id', $sectionId)
                         ->where('is_show_evezplace', 1)
                         ->orderBy('priority', 'desc');
+                })
+                ->whereExists(function($query)
+                {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = blog.author_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
                 })
                 ->orderBySubmitDate()->paginate($limit);
 
@@ -398,16 +403,21 @@ class EvezplaceTrendingController extends AppController
             $limit = Input::get('limit') ?: 15;
 
             $events = WoiceEvent::with('attendees.profile.profile_image',
-                'event_image', 'location', 'owner', 'users')
-                ->whereHas('users', function($query){
-                    $query->where('deleted','')->where('blocked','');
-                })
+                'event_image', 'location', 'owner')
                 ->whereIn('id', function ($query) use ($sectionId) {
                     $query->select('event_id')
                         ->from('evezplace_trending_events')
                         ->where('evezown_section_id', $sectionId)
                         ->where('is_show_evezplace', 1)
                         ->orderBy('priority', 'desc');
+                })
+                ->whereExists(function($query)
+                {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = events.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
                 })
                 ->paginate($limit);
 
@@ -436,16 +446,21 @@ class EvezplaceTrendingController extends AppController
         try {
             $limit = Input::get('limit') ?: 15;
 
-            $events = Forum::with('replies.user.profile_image', 'created_by.profile_image', 'subcategory.category', 'users')
-                ->whereHas('users', function($query){
-                    $query->where('deleted','')->where('blocked','');
-                })
+            $events = Forum::with('replies.user.profile_image', 'created_by.profile_image', 'subcategory.category')
                 ->whereIn('id', function ($query) use ($sectionId) {
                     $query->select('forum_id')
                         ->from('evezplace_trending_forums')
                         ->where('evezown_section_id', $sectionId)
                         ->where('is_show_evezplace', 1)
                         ->orderBy('priority', 'desc');
+                })
+                ->whereExists(function($query)
+                {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('events.owner_id = forums.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
                 })
                 ->paginate($limit);
 
