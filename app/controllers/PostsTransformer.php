@@ -19,6 +19,9 @@ class PostsTransformer extends Fractal\TransformerAbstract
     {
         $avgGrade = round(PostGrade::join('grades', 'post_grades.grade_id', '=', 'grades.id')
                         ->where('post_grades.post_id', $post['id'])->avg('scale'), 1);
+
+        if(empty($post['users']['deleted'] || $post['users']['blocked'])){
+
         return [
             'id'    => (int) $post['id'],
             'owner_id'    => (int) $post['owner_id'],
@@ -42,5 +45,8 @@ class PostsTransformer extends Fractal\TransformerAbstract
             'avgGrade' => $avgGrade,
             'rewoicesCount' => count($post['rewoices'])
         ];
+
+        }
+
     }
 }
