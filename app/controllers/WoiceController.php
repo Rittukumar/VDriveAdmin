@@ -288,7 +288,7 @@ class WoiceController extends AppController
             // Query to fetch all posts based on visibility settings. Post with images and
             // user data.
             $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand',
-                                'comments.user.profile_image', 'grades.user')
+                                'comments.user.profile_image', 'grades.user', 'users')
                 ->orWhere(function ($query) use ($type) {
                     $query->where('visibility_id', 1);
                     $query->where('post_type_id', $type);
@@ -403,7 +403,7 @@ class WoiceController extends AppController
 
 
     public function searchPost()
-    {
+    {       
         try {
             $limit = 15;
 
@@ -412,6 +412,7 @@ class WoiceController extends AppController
 
             $input = Input::all();
 
+            
             $inputs_array = $input['data'];
             $title = "";
             $postTypeId = "%";
@@ -423,7 +424,7 @@ class WoiceController extends AppController
             
             $posts = array();
 
-//            $userId = $inputs_array['userId'];
+            $user_id = $inputs_array['userId'];
             if (isset($inputs_array['title'])) {
                 $title = $inputs_array['title'];
             }
@@ -468,8 +469,11 @@ class WoiceController extends AppController
                     $priceRange ="%";
                 }
             }
-         
-            $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')
+
+          
+            
+            $allposts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user', 'users')
+                
                 ->Where('title', 'LIKE', "%$title%")    
                 ->Where('post_type_id', 'LIKE', "$postTypeId")
                 ->Where('classification_id', 'LIKE', "$classificationId")
@@ -477,6 +481,47 @@ class WoiceController extends AppController
                 ->Where('cat_id', 'LIKE', "$search_category")
                 ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
                 ->orderBySubmitDate()->paginate($limit);
+
+
+                $posts = new \Illuminate\Database\Eloquent\Collection;
+
+                foreach ($allposts as $key => $value) 
+                {
+                     if($value->visibility_id == 1)
+                     {
+                        $posts = $allposts;
+                     }
+                     else if($value->visibility_id == 4 && $value->owner_id == $user_id)
+                     {
+                        $posts = $allposts;
+                     }
+                     else if($value->visibility_id == 3)
+                     {
+                        $checkFriend = DB::table('friends')
+                                        ->where('friends.user_id ='.$value->owner_id)
+                                        ->where('friends.friend_user_id = ' . $user_id)
+                                        ->orWhere('owner_id', $user_id);
+                        if(!empty($checkFriend))
+                        {
+                            $posts = $allposts;
+                        }
+                     }
+                     else if($value->visibility_id == 2)
+                     {
+                        $checkCircle = DB::table('circle_friends')
+                                       ->where('circle_friends.friend_user_id ='.$user_id)
+                                       ->select(DB::table('circles')->where('circles.id = circle_friends.circle_id')
+                                       ->where('circles.user_id = ' .$value->owner_id))
+                                       ->orWhere('owner_id', $user_id);
+                        if(!empty($checkCircle))
+                        {
+                            $posts = $allposts;
+                        }
+                        
+                      }
+                }
+
+
 //            if(isset($inputs_array['communityId']))
 //            {
 //                $communityId = $inputs_array['communityId'];
@@ -503,6 +548,7 @@ class WoiceController extends AppController
 
             $data = $fractal->createData($postsResource);
 
+
             return $data->toJson();
         } catch (Exception $e) {
             $errorMessage = [
@@ -522,10 +568,9 @@ class WoiceController extends AppController
             // Query to fetch all my posts and my friends post with images and
             // user data.
             $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand',
-                'comments.user.profile_image', 'grades.user','users')
-                ->where('visibility_id', 1)
-                ->whereHas('users', function($query){
-                    $query->where('deleted','')->where('blocked','');
+                'comments.user.profile_image', 'grades.user', 'users')
+                ->orWhere(function ($query) {
+                    $query->where('visibility_id', 1);
                 })
                 ->orWhereExists(function ($query) use ($user_id) {
                     $query->where('visibility_id', 2);
@@ -550,10 +595,12 @@ class WoiceController extends AppController
                     $query->orWhere('owner_id', $user_id);
                 })
                 ->orWhere(function ($query) use ($user_id) {
+                   
                     $query->where('visibility_id', 4);
                     $query->where('owner_id', $user_id);
                 })
                 ->orderBySubmitDate()->paginate($limit);
+
 
             if (!$posts) {
                 $errorMessage = [
@@ -570,7 +617,10 @@ class WoiceController extends AppController
 
             $postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
 
+
+
             $data = $fractal->createData($postsResource);
+
 
             return $data->toJson();
         } catch (Exception $e) {

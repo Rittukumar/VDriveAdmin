@@ -1547,7 +1547,16 @@ class StoreController extends AppController
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
                             ->whereRaw('store_status.status_id = 3');
-                    })->orderBy('created_at', 'DESC')
+                    })
+                    ->whereExists(function($query)
+                        {
+                            $query->select(DB::raw(1))
+                                  ->from('users')
+                                  ->whereRaw('users.id = stores.owner_id')
+                                  ->whereRaw('blocked = 0')
+                                  ->whereRaw('deleted = 0');
+                        })
+                    ->orderBy('created_at', 'DESC')
                     ->paginate(10);
             } else {
                 $paginator = Store::with('profile',
@@ -1555,17 +1564,23 @@ class StoreController extends AppController
                     'StoreFrontInfo', 'owner', 'BusinessInfo', 'Tags',
                     'StoreFrontPromotion', 'StoreFrontPromotion.image.image1',
                     'StoreFrontPromotion.image.image2', 'StoreFrontPromotion.image.image3',
-                    'StoreFrontPromotion.image.image4', 'StoreCommerce', 'StoreStatus', 'users')
+                    'StoreFrontPromotion.image.image4', 'StoreCommerce', 'StoreStatus')
                     ->where('store_subcategory_id', $store_subcategory_id)
-                    ->whereHas('users', function($query){
-                       $query->where('deleted','')->where('blocked','');
-                     })
                     ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
                             ->whereRaw('store_status.status_id = 3');
-                    })->orderBy('created_at', 'DESC')
+                    })
+                    ->whereExists(function($query)
+                        {
+                            $query->select(DB::raw(1))
+                                  ->from('users')
+                                  ->whereRaw('users.id = stores.owner_id')
+                                  ->whereRaw('blocked = 0')
+                                  ->whereRaw('deleted = 0');
+                        })
+                    ->orderBy('created_at', 'DESC')
                     ->paginate(10);
             }
 

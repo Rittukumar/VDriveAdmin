@@ -61,6 +61,8 @@ class GroupsController extends AppController
 
         try {
             $limit = Input::get('limit') ?: 15;
+
+            $groupIds = [];
              
              $joinedGroupIds = GroupUser::where('user_id',$id)->get();
             

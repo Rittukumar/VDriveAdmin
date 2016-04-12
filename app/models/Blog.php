@@ -40,7 +40,5 @@ class Blog extends Eloquent {
 		return $this->hasOne('EvezplaceTrendingBlog', 'blog_id');
 	}
 
-	public function users(){
- 		return $this->belongsTo('User', 'owner_id');
- 	}
+
 }
