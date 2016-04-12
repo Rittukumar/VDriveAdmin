@@ -700,12 +700,18 @@ class WoiceController extends AppController
             $post->testimonial = $testimonial;
             $post->visibility_id = $visibility_id;
             $post->price_range = $price_range;
+            
+            if($visibility_id != 2)
+            {
+                $post->circle_id = 0;
+            }
 
             $post->save();
+            
             $successResponse = [
                 'status' => true,
                 'id' => $post->id,
-                'message' => 'post updated successfully!'
+                'message' => 'Post updated successfully!'
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);
@@ -715,6 +721,42 @@ class WoiceController extends AppController
             return $this->setStatusCode(500)->respondWithError($e);
         }
     }
+
+
+    /**change post cicle's visibility
+     * @param $user_id
+     * @return mixed
+     */
+
+
+    public function updatePostCircle()
+    {
+        try {
+            $input = Input::all();
+
+            $inputs_array = $input['data'];
+            $postId = $inputs_array['post_id'];
+            $circleId = $inputs_array['circle_id'];
+            
+            $post = Post::find($postId);
+            $post->circle_id = $circleId;
+
+            $post->save();
+
+            $successResponse = [
+                'status' => true,
+                'id' => $post->id,
+                'message' => 'Circle visibility updated successfully!'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+    
 
     public function deletePost($postId)
     {
@@ -788,6 +830,9 @@ class WoiceController extends AppController
             }
             if (isset($inputs_array['classification_id'])) {
                 $postArray['classification_id'] = $inputs_array['classification_id'];
+            }
+            if (isset($inputs_array['circle_id'])) {
+                $postArray['circle_id'] = $inputs_array['circle_id'];
             }
 
 

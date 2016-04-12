@@ -32,6 +32,7 @@ class PostsTransformer extends Fractal\TransformerAbstract
             'post_type_id'    => (int) $post['post_type_id'],
             'priority' => (int) $post->priority,
             'brand'    =>  $post['brand'],
+            'circle_id'    =>  $post['circle_id'],
             'images'    => $post['images'],
             'links' => $post['links'],
             'location' => $post['post_location'],

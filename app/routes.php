@@ -192,6 +192,7 @@ Route::group(array('prefix' => 'v1'), function () {
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');
     Route::post('updatePost', 'WoiceController@updatePost');
+    Route::post('updatePost/circle', 'WoiceController@updatePostCircle');
     Route::post('users/{user_id}/post/create', 'WoiceController@createPost');
     Route::post('users/{user_id}/posts/{post_id}/rewoice', 'WoiceController@createRewoicePost');
 

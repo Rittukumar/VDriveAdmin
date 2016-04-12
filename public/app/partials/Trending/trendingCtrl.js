@@ -24,11 +24,12 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
     $scope.myposts = [];
     $scope.visibilties = [];
     $scope.loggedInUser = $cookieStore.get('userId');
-    $scope.selectEves = 'all eves'
-
-
+    $scope.selectEves = 'all eves';
     $rootScope.currentItemId = '';
     $scope.postSearchResult = [];
+    $rootScope.UserCircles = [];
+    $scope.Showcircles = false;
+    $scope.SelectedCircle = [{id:"", title:""}];
     //$scope.isRecco = false;
 
     $scope.buttonTitle = "Stream It";
@@ -277,9 +278,10 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
                     subcategory_id: $scope.selectedsubcategories.id,
                     price_range: $scope.price,
                     testimonial: $scope.recommendation,
-                    brand_id: $rootScope.selectedBrand.id,
+                    brand_id: $scope.selectedBrand.id,
                     location: $scope.location,
                     url_link: $scope.url_link,
+                    circle_id: $scope.SelectedCircle.id,
                     images: $scope.imageNames
                 },
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -562,6 +564,71 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
 
     console.info('uploader', uploader);
 
+    //Show hide circles div
+    $scope.ShowCircles = function (selectedVisibility)
+    {
+        if(selectedVisibility.id == 2)
+        {
+            $scope.Showcircles = true;
+        }
+        else
+        {
+            $scope.Showcircles = false;
+            $scope.SelectedCircle = [{id:"", title:""}];
+        }   
+    }
+
+    //Get circles created by the loggedin user
+    $scope.GetUserCircles = function ()
+    {     
+        $scope.loggedInUserId = $cookieStore.get('userId');
+        $http.get(PATHS.api_url + 'users/'+$scope.loggedInUserId+'/circles').
+        success(function (data, status, headers, config)
+        {
+            $rootScope.UserCircles = data.data;
+        }).error(function (data)
+        {
+            console.log(data);
+        });
+    }
+    $scope.GetUserCircles();
+
+    //Get Selectedcircles for the posts
+    $scope.GetSelectedCircle = function (circle_id,UserCircles)
+    {
+        $scope.PostCircle = null;
+        angular.forEach(UserCircles, function (value, key)
+            {
+                if(value.id == circle_id)
+                {
+                    $scope.PostCircle =  value;
+                }
+            });
+        return $scope.PostCircle;
+    }
+
+    //Change Circle visibility
+    $scope.ChangeCircle = function($post,$circle)
+    {
+       
+       $http.post(PATHS.api_url + 'updatePost/circle'
+        , {
+            data: {
+                post_id: $post.id,
+                circle_id: $circle.id
+            },
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).
+        success(function (data, status, headers, config)
+        {
+            $scope.GetPostByFilter('');
+            usSpinnerService.stop('spinner-1');
+            toastr.success(data.message, 'Stream It');
+        }).error(function (data)
+        {
+            toastr.error(data.error.message, 'Stream It');
+        });
+    }
 
     //Create a post .. (Recco, Caution, finds generic.)
     $scope.CreatePost = function (files,posts)
