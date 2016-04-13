@@ -169,7 +169,6 @@ class EvezplaceRecommendationController extends AppController
 
             $successResponse = [
                 'status' => true,
-                'id' => $evezplaceRecommendation->id,
                 'message' => 'Recommendation deleted successfully!'
             ];
 
