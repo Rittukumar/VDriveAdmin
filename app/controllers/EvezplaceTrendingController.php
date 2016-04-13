@@ -131,6 +131,55 @@ class EvezplaceTrendingController extends AppController
         }
     }
 
+
+    /**
+     * Delete Trending items.
+     *
+     * @param $user_id
+     * @return Response
+     */
+    public function TrendingDelete($user_id)
+    {
+        try {
+            $hasAdminRole = User::find($user_id)->hasRole('Admin');
+
+            if (!$hasAdminRole) {
+                $errorMessage = [
+                    'status' => false,
+                    'message' => "Unauthorized User"
+                ];
+
+                return $this->setStatusCode(403)->respond($errorMessage);
+            }
+
+            $inputs_array = Input::all();
+
+            $id = $inputs_array['id'];
+           
+            if (isset($inputs_array['id'])) {
+                $evezplaceTrendingItem = EvezplaceTrendingItem::find($inputs_array['id']);
+
+                $evezplaceTrendingItem->delete();
+
+            }
+
+            $successResponse = [
+                'status' => true,
+                'message' => 'Trending item deleted successfully!'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+            $errorMessage = [
+                'status' => false,
+                'message' => $e
+            ];
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+        }
+    }
+
     /**
      * Upload promotion image for specific section
      * @param $user_id

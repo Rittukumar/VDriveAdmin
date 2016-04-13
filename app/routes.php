@@ -95,6 +95,7 @@ Route::group(array('prefix' => 'v1'), function () {
     // Evezplace trending items section
     Route::get('evezplace/{section_id}/trending/items', 'EvezplaceTrendingController@index');
     Route::post('admins/{user_id}/evezplace/{section_id}/trending/item', 'EvezplaceTrendingController@store');
+    Route::post('admins/{user_id}/evezplace/deleteTrendingItem', 'EvezplaceTrendingController@TrendingDelete');
     Route::get('admin/evezplace/trending/items/{id}', 'EvezplaceTrendingController@show');
     Route::post('admins/{user_id}/evezplace/{section_id}/trending/item/image/upload', 'EvezplaceTrendingController@updateTrendingItemImage');
 

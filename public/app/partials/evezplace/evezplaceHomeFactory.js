@@ -188,6 +188,20 @@ evezownApp
         };
 
 
+        EvezplaceHomeService.DeleteTrendingItemDetails = function (userId, trendingItem) {
+            var deferred = $q.defer();
+            $http.post(PATHS.api_url + 'admins/' + userId + '/evezplace/deleteTrendingItem', trendingItem)
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function (err) {
+                    console.log('Error Deleting trending item details');
+                    deferred.reject(err);
+                });
+            return deferred.promise;
+        };
+
+
         EvezplaceHomeService.saveTrendingItemImage = function (userId, imageName, trendingItemId ,sectionId) {
 
             console.log('Trending Item Id: ' + trendingItemId);
