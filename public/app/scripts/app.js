@@ -1926,6 +1926,21 @@ evezownApp.directive('select', function ($interpolate) {
 });
 
 
+evezownApp.directive('ngReallyClick', [function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('click', function() {
+                var message = attrs.ngReallyMessage;
+                if (message && confirm(message)) {
+                    scope.$apply(attrs.ngReallyClick);
+                }
+            });
+        }
+    }
+}]);
+
+
 evezownApp.directive('sampleCount', function () {
     'use strict';
     var count = 0;

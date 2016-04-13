@@ -96,8 +96,7 @@
                                   class="fa fa-caret-up"></span>
                             <span ng-if="!trendingItem.isEditActive" class="fa fa-edit"> edit</span>
                         </a>
-                        <a href ng-click="DeleteTrendingItem(trendingItem)"
-                           class="btn btn-link">
+                        <a href ng-really-message="Are you sure to delete?" ng-really-click="DeleteTrendingItem(trendingItem)" class="btn btn-link">
                             <i class="fa fa-trash" aria-hidden="true"> Delete</i>
                         </a>
                     </div>
