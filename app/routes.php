@@ -88,6 +88,7 @@ Route::group(array('prefix' => 'v1'), function () {
     // Evezplace recommendations section
     Route::get('evezplace/{section_id}/recommendations', 'EvezplaceRecommendationController@index');
     Route::post('admins/{user_id}/evezplace/{section_id}/recommendation', 'EvezplaceRecommendationController@store');
+    Route::post('admins/{user_id}/evezplace/deleteRecommendation', 'EvezplaceRecommendationController@RecomondationDelete');
     Route::get('admin/evezplace/recommendations/{id}', 'EvezplaceRecommendationController@show');
     Route::post('admins/{user_id}/evezplace/{section_id}/recommendation/image/upload', 'EvezplaceRecommendationController@updateRecommendationImage');
 
