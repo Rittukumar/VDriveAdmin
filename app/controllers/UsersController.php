@@ -392,7 +392,7 @@ class UsersController extends AppController
             $NewPass = $inputArray['new_password'];
             $ConfirmPass = $inputArray['confirm_password'];
             
-            $OldPass = DB::select('select password from users where id =?', [$Userid]);
+            $OldPass = DB::select('select password, email from users where id =?', [$Userid]);
             $OldPassword = $OldPass[0]->password;
            
             if (Hash::check($CurrentPass, $OldPassword)) {
@@ -402,6 +402,17 @@ class UsersController extends AppController
                 DB::table('users')
                     ->where('id', $Userid)
                     ->update(array('password' => $Encpt));
+
+                //Send email to user.
+                $emailUser = array(
+                    'email' => $OldPass[0]->email
+                );
+
+                Mail::send('emails.passwordChanged', [], function ($message) use ($emailUser) {
+                    $message->from('Editor@evezown.com', 'Evezown Team');
+                    $message->to($emailUser['email'])->subject('Evezown password changed');
+                });
+
                 return $this->setStatusCode(200)->respond("Password Changed Successfully");
             
             }else{
@@ -477,7 +488,7 @@ class UsersController extends AppController
             $inputArray = $input['data'];
             $NewPass = $inputArray['Newpassword'];
             $Code = $inputArray['Code'];
-            $CheckUser = DB::select('select id from users where md5(90*13+id) = ?', [$Code]);
+            $CheckUser = DB::select('select id, email from users where md5(90*13+id) = ?', [$Code]);
             $CheckUserID = $CheckUser[0]->id;
             
             if($CheckUser == null)
@@ -491,6 +502,18 @@ class UsersController extends AppController
                 DB::table('users')
                     ->where('id', $CheckUserID)
                     ->update(array('password' => $Encpt));
+                
+
+                //Send email to user.
+                $emailUser = array(
+                    'email' => $CheckUser[0]->email
+                );
+
+                Mail::send('emails.passwordChanged', [], function ($message) use ($emailUser) {
+                    $message->from('Editor@evezown.com', 'Evezown Team');
+                    $message->to($emailUser['email'])->subject('Evezown password changed');
+                });
+
                 return $this->setStatusCode(200)->respond("Reset Password Successful");
             }
             
