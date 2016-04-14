@@ -7,10 +7,9 @@
  * # createBrowseController
  * Controller of the appApp
  */
-evezownApp.controller('createBrowseController', function ($scope, $rootScope, $cookieStore, SECTIONS) {
+evezownApp.controller('createBrowseController', function ($scope, $rootScope, $cookieStore, SECTIONS, $location) {
 
     $scope.storeType = "Stores";
-    $scope.Role = $cookieStore.get('userRole');
 
     $rootScope.$on('selectedEvezplaceSectionIndex', function (event, args) {
         var index = args.index;
@@ -38,8 +37,15 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, $c
         $scope.isProductPlusService = index == SECTIONS.productPlusServices;
     });
 
-    $scope.accessCtrl =  function()
+    $scope.SearchProducts = function (SearchValue)
     {
-        toastr.info("You should have Business subscription to access this feature");
+        if(SearchValue == undefined)
+        {
+            toastr.error('Please enter any product name');
+        }
+        else
+        {
+            $location.path('/search/products/' + SearchValue);
+        }
     }
 });

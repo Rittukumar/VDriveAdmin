@@ -137,6 +137,36 @@
     margin-left: -9px; /* negative number!*/
 }
 
+/*MarketPlace search Products*/
+.search-products-header
+{
+    background-color: #57C5A0;
+    padding: 14px 4px 14px 4px;
+    margin-bottom: 0px;
+}
+.search-products-menu a
+{
+    border-bottom: dashed 1px;
+    border-color: #cdcdcc;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    background-color: #F7F7F7;
+    text-decoration: none;
+}
+.search-products-menu a:hover
+{
+    border-bottom: dashed 1px;
+    border-color: #cdcdcc;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    background-color: #EEEEEE;
+    text-decoration: none;
+}
+/*Ends*/
+
+
 /* Mega dropdown style start */
 
 .mega-dropdown {
