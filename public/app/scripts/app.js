@@ -1281,7 +1281,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/search/products/:searchKey', {
                 templateUrl: 'partials/evezplace/productSearch.html',
-                controller: 'BrowseStoreController',
+                controller: 'SearchProductController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
                 }
