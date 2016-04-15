@@ -7513,8 +7513,8 @@ class screensTableSeeder extends Seeder
         ]);
         ScreenFields::create([
             'screen_id'   => $screen->id,
-            'field_name'  => 'Content Label-FAQ 1 : Manage Products -  How many SKU's can be added?',
-            'field_value' => 'How many SKU's can be added?'
+            'field_name'  => 'Content Label-FAQ 1 : Manage Products -  How many SKU\'s can be added?',
+            'field_value' => 'How many SKU\'s can be added?'
         ]);
         ScreenFields::create([
             'screen_id'   => $screen->id,
