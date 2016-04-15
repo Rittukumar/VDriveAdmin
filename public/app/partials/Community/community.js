@@ -195,8 +195,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
                 },
                 {
                     element: '#step4',
-                    intro: "<b>&#10004;</b> Advertise through this channel <br><b>&#10004;</b> Send invites to your friends in contact list",
-                    position: 'bottom'
+                    intro: '<b>&#10004;</b> Checkout the invite history <br><b>&#10004;</b>  Manage the invites'
                 },
                 {
                     element: '#step5',
@@ -204,18 +203,15 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
                 },
                 {
                     element: '#step6',
-                    intro: "<b>&#10004;</b> Invite your friends to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)"
+                    intro: "<b>&#10004;</b> Advertise through this channel <br><b>&#10004;</b> Send invites to your friends in contact list",
+                    position: 'bottom'
                 },
                 {
                     element: '#step7',
-                    intro: '<b>&#10004;</b> Checkout the invite history <br><b>&#10004;</b>  Manage the invites'
-                },
-                {
-                    element: '#step8',
                     intro: '<b>&#10004;</b> Explore the two sections Marketplace and Jobs'
                 },
                 {
-                    element: '#step9',
+                    element: '#step8',
                     intro: '<b>&#10004;</b> Use search feature to find what you are looking for <br><b>&#10004;</b> Search by key word,type of post, category, subcategory, brand, price or location'
                 }
             ],

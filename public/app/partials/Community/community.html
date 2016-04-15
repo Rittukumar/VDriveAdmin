@@ -8,7 +8,7 @@
             <li id="step2"  data-toggle="tab" data-slide-to="1">
                 <a href="#community" ng-class="{ active: isActive('/community')}">Build Community</a>
             </li>
-            <li id="step8"  data-toggle="tab" data-slide-to="7" ng-class="{ active: isActive('/explore')}">
+            <li id="step7"  data-toggle="tab" data-slide-to="6" ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
                 <script type="text/ng-template" id="explore">
                     <div class="triangle"></div>
@@ -27,7 +27,7 @@
                     Explore
                 </a>
             </li>
-            <li id="step9"  data-toggle="tab" data-slide-to="8" ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+            <li id="step8"  data-toggle="tab" data-slide-to="7" ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
                                                                       id="search">Search&nbsp;<span
                     class="fa fa-search" id="searchIcon"></span></a>
             </li>
@@ -63,34 +63,35 @@
 <div class="col-md-2 user-menu-btns">
     <div class="btn-group-vertical square" id="responsive">
         <a id="step3"  data-toggle="tab" data-slide-to="2" href="#community" class="btn btn-block btn-default active">
-            <p>Connects</p>
+            <p>Invite People</p>
         </a>
-        <a id="step4"  data-toggle="tab" data-slide-to="3" href="#advertise" class="btn btn-default">
-            <p>Advertise</p>
+        <a id="step4"  data-toggle="tab" data-slide-to="3" href="#invitehistory" class="btn btn-default">
+            <p>Invite History</p>
         </a>
         <a id="step5"  data-toggle="tab" data-slide-to="4" href="#circles" class="btn btn-default">
             <p>Circles</p>
         </a>
-        <a id="step6"  data-toggle="tab" data-slide-to="5" href="#friends/invite" class="btn btn-default">
+        <a id="step6"  data-toggle="tab" data-slide-to="5" href="#advertise" class="btn btn-default">
+            <p>Advertise</p>
+        </a>
+        <!-- <a id="step6"  data-toggle="tab" data-slide-to="5" href="#friends/invite" class="btn btn-default">
             <p>Invite People</p>
-        </a>
-        <a id="step7"  data-toggle="tab" data-slide-to="6" href="#invitehistory" class="btn btn-default">
-            <p>Invite History</p>
-        </a>
+        </a> -->
+        
     </div>
 </div>
 <div class="col-md-7 user-menu user-pad">
     <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
         <div class="fragment">
             <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-            <h4>Connect</h4>
+            <h4>Invite People</h4>
             <p>
                 Connect with people through inviting them to join your community. Send invite code over email or through phone (SMS or What’sAPP).
             </p>
         </div>
     </div>
     <div class="col-md-12 panel-heading  custom-invite-eves" style="padding-left: 0px">
-        <div class="col-md-2" style="padding-left: 0px">
+        <div class="col-md-3" style="padding-left: 0px">
             <h5 style="color: #337ab7; font-weight: 600; font-size: 16px">
                 Friends ({{friendList.length}})
             </h5>
@@ -98,7 +99,7 @@
         <div class="col-md-4">
             <input type="text" class="form-control" placeholder="search friends" ng-model="evesearch"/>
         </div>
-        <div class="col-md-2 col-md-offset-4 pull-right custom-invite-eves-button">
+        <div class="col-md-2 col-md-offset-3 pull-right custom-invite-eves-button">
             <a href="#friends/invite" class="btn btn-primary"><span class="fa fa-plus"></span> invite people</a>
         </div>
     </div>
