@@ -7,10 +7,9 @@
  * # createBrowseController
  * Controller of the appApp
  */
-evezownApp.controller('createBrowseController', function ($scope, $rootScope, $cookieStore, SECTIONS) {
+evezownApp.controller('createBrowseController', function ($scope, $rootScope, $cookieStore, SECTIONS, $location) {
 
     $scope.storeType = "Stores";
-    $scope.Role = $cookieStore.get('userRole');
 
     $rootScope.$on('selectedEvezplaceSectionIndex', function (event, args) {
         var index = args.index;
@@ -38,8 +37,46 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, $c
         $scope.isProductPlusService = index == SECTIONS.productPlusServices;
     });
 
-    $scope.accessCtrl =  function()
+    $scope.SearchProducts = function (SearchValue)
     {
-        toastr.info("You should have Business subscription to access this feature");
+        if(SearchValue == undefined)
+        {
+            toastr.error('Please enter any product name');
+        }
+        else
+        {
+            $location.path('/search/products/' + SearchValue);
+        }
     }
 });
+
+
+evezownApp.controller('SearchProductController', function ($scope) {
+
+    
+    $scope.Ranges = ['All','100 - 1000','1000 - 5000','5000 - 25,000','25,000 - 75,000','75000 - 1,00,000'];
+
+    // selected Ranges
+    $scope.selectedRange = [];
+
+    // toggle selection for a given range
+    $scope.PriceRange = function(Range) 
+    {
+
+        var idx = $scope.selectedRange.indexOf(Range);
+
+        // is already selected, then remove
+        if (idx > -1) {
+          $scope.selectedRange.splice(idx, 1);
+          alert($scope.selectedRange);
+        }
+
+        // is newly selected, then add
+        else {
+          $scope.selectedRange.push(Range);
+          alert($scope.selectedRange);
+        }
+    };
+
+});
+

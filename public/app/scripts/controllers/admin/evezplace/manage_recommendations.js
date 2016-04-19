@@ -155,6 +155,28 @@ evezownApp
         };
 
         /*
+         / Delete recommendation
+         */
+        $scope.DeleteRecomondation = function (recommendation) {
+            
+            usSpinnerService.spin('spinner-1');
+            EvezplaceHomeService.DeleteRecommendationDetails($scope.userId, recommendation)
+                .then(function (data) {
+                    usSpinnerService.stop('spinner-1');
+                    if (data.status) {
+                        console.log(data);
+                        toastr.success(data.message, 'Recommendation Deleted');
+                        getEvezplaceRecommendations($scope.selectedSectionId);
+                    }
+
+                }, function (error) {
+                    usSpinnerService.stop('spinner-1');
+                    toastr.error(error.message, 'Please try later');
+                });
+        };
+
+
+        /*
          / Close recommendation details
          */
         $scope.doneRecommendationDetails = function (recommendation) {

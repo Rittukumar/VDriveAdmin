@@ -150,6 +150,28 @@ evezownApp
                 });
         };
 
+
+         /*
+         / Delete Trending Items
+         */
+        $scope.DeleteTrendingItem = function (trendingItem) {
+
+            usSpinnerService.spin('spinner-1');
+            EvezplaceHomeService.DeleteTrendingItemDetails($scope.userId, trendingItem)
+                .then(function (data) {
+                    usSpinnerService.stop('spinner-1');
+                    if (data.status) {
+                        console.log(data);
+                        toastr.success(data.message, 'TrendingItem deleted successfully');
+                        getEvezplaceTrendingItems($scope.selectedSectionId);
+                    }
+
+                }, function (error) {
+                    usSpinnerService.stop('spinner-1');
+                    toastr.error(error.message, 'Delete trending item');
+                });
+        };
+
         /*
          / Close recommendation details
          */

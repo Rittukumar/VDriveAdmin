@@ -1,0 +1,126 @@
+<div class="container">
+    <ul class="breadcrumb" style="background: transparent; padding-left: 0px">
+        <li><a href="#home">Home</a> <span class="divider"></span></li>
+        <li><a href="#evezplace">Marketplace</a></li>
+        <li class="active">Products</li>
+    </ul>
+
+    <div class="row" style="margin-bottom: 40px">
+
+        <div class="col-md-12">
+
+            <div class="col-md-3 no-padding">
+                <div class="col-md-12 no-padding" ng-controller="BrowseStoreMenuController">
+                    <h4 class="search-products-header">Categories</h4>
+                    <sidebar categories="categories" select-sub-category="selectSubCatPosition(subcat)" ></sidebar>
+                </div>
+
+                <div class="col-md-12 no-padding">
+                    <h4 class="search-products-header">Price Range</h4>
+                    <div class="col-md-12" style="background-color: #F7F7F7;">
+                        <h4>Select Price Range</h4>
+
+                        <div ng-repeat="Range in Ranges">
+                            <input type="checkbox" ng-checked="selectedRange.indexOf(Range) > -1" ng-click="PriceRange(Range)">
+                            <label style="font-weight:normal;">{{Range}}</label><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 no-padding search-products-menu" ng-controller="BrowseStoreCtrl">
+                    <h4 class="search-products-header">Stores</h4>
+                    <p style="margin:0px;"ng-repeat="item in browseItems">
+                        <a class="search-products-content" href="#store/{{item.id}}">{{item.title}}</a>
+                    </p>
+                </div>  
+            </div>
+
+            <div class="col-md-9" ng-controller="BrowseStoreCtrl">
+                <div class="browse-items">
+                    <div class="row">
+                        <!--Product 1-->
+                        <div class="col-md-3">
+                            <div class="living_box" style="max-height: 100px;">
+                                <a href="">
+                                    <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg" style="width: 100%;" class="img-responsive center-block" alt="Title">
+                                </a>
+                            </div>
+                            <div class="col-sm-12 text-center" style="margin: 10px 0px; font-weight: 600">
+                                <h4 style="color: #333333">Product 1</h4>
+                                <p style="color: #777777">&#8377; 150</p>
+                            </div>
+                        </div>
+
+                        <!--Product 2-->
+                        <div class="col-md-3">
+                            <div class="living_box" style="max-height: 100px;">
+                                <a href="">
+                                    <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg" style="width: 100%;" class="img-responsive center-block" alt="Title">
+                                </a>
+                            </div>
+                            <div class="col-sm-12 text-center" style="margin: 10px 0px; font-weight: 600">
+                                <h4 style="color: #333333">Product 2</h4>
+                                <p style="color: #777777">&#8377; 240</p>
+                            </div>
+                        </div>
+
+                        <!--Product 3-->
+                        <div class="col-md-3">
+                            <div class="living_box" style="max-height: 100px;">
+                                <a href="">
+                                    <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg" style="width: 100%;" class="img-responsive center-block" alt="Title">
+                                </a>
+                            </div>
+                            <div class="col-sm-12 text-center" style="margin: 10px 0px; font-weight: 600">
+                                <h4 style="color: #333333">Product 3</h4>
+                                <p style="color: #777777">&#8377; 180</p>
+                            </div>
+                        </div>
+
+                        <!--Product 4-->
+                        <div class="col-md-3">
+                            <div class="living_box" style="max-height: 100px;">
+                                <a href="">
+                                    <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg" style="width: 100%;" class="img-responsive center-block" alt="Title">
+                                </a>
+                            </div>
+                            <div class="col-sm-12 text-center" style="margin: 10px 0px; font-weight: 600">
+                                <h4 style="color: #333333">Product 4</h4>
+                                <p style="color: #777777">&#8377; 450</p>
+                            </div>
+                        </div>
+
+
+                        <!--Product 5-->
+                        <div class="col-md-3">
+                            <div class="living_box" style="max-height: 100px;">
+                                <a href="">
+                                    <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg" style="width: 100%;" class="img-responsive center-block" alt="Title">
+                                </a>
+                            </div>
+                            <div class="col-sm-12 text-center" style="margin: 10px 0px; font-weight: 600">
+                                <h4 style="color: #333333">Product 5</h4>
+                                <p style="color: #777777">&#8377; 670</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <uib-pagination ng-show="browseItems.length > 0" total-items="storePagination.total"
+                                    ng-model="currentStorePage"
+                                    max-size="maxSize"
+                                    class="pagination-custom pagination-sm pull-right"
+                                    boundary-links="true"
+                                    rotate="false"
+                                    num-pages="numPages"
+                                    ng-change="pageChanged()">
+                    </uib-pagination>
+                </div>
+                <!-- <div class="empty-section text-center" ng-if="browseItems.length == 0">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">No stores exist under this category!</h3>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

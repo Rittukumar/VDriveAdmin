@@ -1527,7 +1527,7 @@ canvas {
 .introjs-tooltip {
     /*bottom: -450px;*/
     left: -5px;
-    text-align:justify;
+    /*text-align:justify;*/
     max-width: 450px;
     min-width: 190px;
 }

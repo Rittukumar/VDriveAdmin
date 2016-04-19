@@ -180,52 +180,38 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
             steps:[
                 {
                     element: '#step1',
-                    intro: "<b>&#10004;</b>Invite your friends to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)"
+                    //intro: "<b>&#10004;</b> Invite your friends to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)"
+                    intro: "<b>&#10004;</b> Create your professional site here <br><b>&#10004;</b> Create your profile in depth. Interest, activities, achievements, talents, skills ect.."
                 },
                 {
                     element: '#step2',
-                    intro: "<b>&#10004;</b>Connect with your friends and other people. Invite them to join Evezown <br><b>&#10004;</b> Segregate your friends into circles, name the circles and set the visibility(privacy setting)",
+                    //intro: "<b>&#10004;</b>Connect with your friends and other people. Invite them to join Evezown <br><b>&#10004;</b> Segregate your friends into circles, name the circles and set the visibility(privacy setting)",
+                    intro: "<b>&#10004;</b> Build your professional community <br><b>&#10004;</b> Connect with your friends, collegues..",
                 },
                 {
                     element: '#step3',
-                    intro: '<b>&#10004;</b>Invite your friends to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)',
+                    intro: '<b>&#10004;</b> Invite your friends to EvezOwn <br><b>&#10004;</b> Send invite code over email or through phone (SMS or What’sAPP)',
                     position: 'bottom'
                 },
                 {
                     element: '#step4',
-                    intro: "<b>&#10004;</b>You can see your member friends in your community <br><b>&#10004;</b> Segregate them in circles, name the circles and set visibility (privacy setting) for each circle",
-                    position: 'bottom'
+                    intro: '<b>&#10004;</b> Checkout the invite history <br><b>&#10004;</b>  Manage the invites'
                 },
                 {
                     element: '#step5',
-                    intro: '<b>&#10004;</b>Use the gallery to post your pictures <br><b>&#10004;</b> Post privately to personal circles or for all friends <br><b>&#10004;</b> Visibility can be set'
+                    intro: '<b>&#10004;</b> Create your personal friends circle <br><b>&#10004;</b> Segregate your friends into circles, name the circles and set the visibility(privacy setting)'
                 },
                 {
                     element: '#step6',
-                    intro: '<b>&#10004;</b> Groups can be built around interests, hobbies, topics, offline activities <br><b>&#10004;</b> You can update, add activities and keep the groups dynamic and active <br><b>&#10004;</b> Stream it and stream your updates to your group members <br><b>&#10004;</b> Groups are private or closed only'
+                    intro: "<b>&#10004;</b> Advertise through this channel <br><b>&#10004;</b> Send invites to your friends in contact list",
+                    position: 'bottom'
                 },
                 {
                     element: '#step7',
-                    intro: '<b>&#10004;</b> Name your event, mention the day, date and time <br><b>&#10004;</b> Add description <br><b>&#10004;</b> Specify date of closure of the event <br><b>&#10004;</b> Add images, if any <br><b>&#10004;</b> Invite other friends'
-                },
-                {
-                    element: '#step8',
-                    intro: '<b>&#10004;</b> Create new content or replicate a blog pre-written <br><b>&#10004;</b> Publish it through Woice it <br><b>&#10004;</b> Set your visibility (privacy setting) while creating a blog'
-                },
-                {
-                    element: '#step9',
-                    intro: '<b>&#10004;</b> Topics are as per standard categories and subcategories of Evezown. <br><b>&#10004;</b> Most discussions are created by EvezOwn Editor.'
-                },
-                {
-                    element: '#step10',
-                    intro: '<b>&#10004;</b> Create your Stream It <br><b>&#10004;</b> Create a title and a short description <br><b>&#10004;</b> Choose what the strean it is about <br><b>&#10004;</b> Choose the category and the sub category <br><b>&#10004;</b> Add a brand name or product name (optional) <br><b>&#10004;</b> Provide price range (optional)'
-                },
-                {
-                    element: '#step11',
                     intro: '<b>&#10004;</b> Explore the two sections Marketplace and Jobs'
                 },
                 {
-                    element: '#step12',
+                    element: '#step8',
                     intro: '<b>&#10004;</b> Use search feature to find what you are looking for <br><b>&#10004;</b> Search by key word,type of post, category, subcategory, brand, price or location'
                 }
             ],

@@ -54,29 +54,32 @@
 <div class="col-md-2 user-menu-btns">
     <div class="btn-group-vertical square" id="responsive">
         <a href="#community" class="btn btn-default">
-            <p>Connect</p>
-        </a>
-        <a href="#advertise" class="btn btn-default btn-block">
-            <p>Advertise</p>
-        </a>
-        <a href="#circles" class="btn btn-default btn-block">
-            <p>Circles</p>
-        </a>
-        <a href="#friends/invite" class="btn btn-default">
             <p>Invite People</p>
         </a>
         <a href="#invitehistory" class="btn btn-default btn-block active">
             <p>Invite History</p>
         </a>
+        <a href="#circles" class="btn btn-default btn-block">
+            <p>Circles</p>
+        </a>
+        <a href="#advertise" class="btn btn-default btn-block">
+            <p>Advertise</p>
+        </a>
+        <!-- <a href="#friends/invite" class="btn btn-default">
+            <p>Invite People</p>
+        </a> -->
     </div>
 </div>
 <div class="col-md-10 user-menu user-pad" ng-controller="inviteHistory">
-    <div class="col-md-12 panel-heading" style="padding-left: 0px">
-        <div class="col-md-2" style="padding-left: 0px">
+    <div class="col-md-12 col-xs-12 panel-heading" style="padding-left: 0px">
+        <div class="col-md-2 col-xs-6" style="padding-left: 0px">
             <h4>
                 Invite History
             </h4>
-        </div> 
+        </div>
+        <div class="col-md-2 col-xs-6 col-md-offset-3 pull-right custom-invite-eves-button">
+                <a href="#friends/invite" class="btn btn-primary"><span class="fa fa-plus"></span> invite people</a>
+        </div>
     </div>
     <table class="table table-striped">
         <thead>

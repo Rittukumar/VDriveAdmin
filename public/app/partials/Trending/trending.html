@@ -199,10 +199,22 @@
                     <div class="col-md-4 no-padding category-details">
                        <select class="form-control" id="sub-visibility-type"
                         ng-options="visibility as visibility.type for visibility in visibilties" ng-model="selectedVisibility" ng-init="selectedVisibility = GetVisibilityOfWoice(post.visibility_id,visibilties)"
-                        ng-change="UpdateWoiceVisibility(post,selectedVisibility)" default-option="choose visibility" style="font-size:14px;">
+                        ng-change="ShowCircles(selectedVisibility)" default-option="choose visibility" style="font-size:14px;">
                         </select>
                     </div>   
                 </div>
+
+                <div class="col-md-12 no-padding" ng-show="Showcircles">
+                    <div class="col-md-2" style="padding:0px;">
+                            <label for="Circle" style="font-weight:normal;">Select Circle</label>
+                    </div>
+                    <div class="col-md-10 no-padding category-details">
+                        <select class="form-control" ng-model="SelectedCircle" ng-options="circle as circle.title for circle in UserCircles">
+                        </select>
+                    </div>   
+                </div>
+
+
                 <div class="Recco_fields">
 
                     <div class="col-sm-12 no-padding">
@@ -321,6 +333,13 @@
                         <label for="priority"><h4>Priority:</h4></label>
                             <input type="checkbox" id="priority" name="priority"
                             value="{{post.priority}}" ng-checked="post.priority == 1" ng-click="PriorityReupdate(post.priority,post.id)" >
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 pull-right text-right">
+                        <div ng-show="selectedVisibility.id == 2 && loggedInUserId == post.user.id">
+                            <select class="form-control" ng-model="PostCircle" ng-options="circle as circle.title for circle in UserCircles" ng-init="PostCircle = GetSelectedCircle(post.circle_id,UserCircles)" ng-change="ChangeCircle(post,PostCircle)">
+                            </select>
                         </div>
                     </div>
                 </div>

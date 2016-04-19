@@ -88,12 +88,14 @@ Route::group(array('prefix' => 'v1'), function () {
     // Evezplace recommendations section
     Route::get('evezplace/{section_id}/recommendations', 'EvezplaceRecommendationController@index');
     Route::post('admins/{user_id}/evezplace/{section_id}/recommendation', 'EvezplaceRecommendationController@store');
+    Route::post('admins/{user_id}/evezplace/deleteRecommendation', 'EvezplaceRecommendationController@RecomondationDelete');
     Route::get('admin/evezplace/recommendations/{id}', 'EvezplaceRecommendationController@show');
     Route::post('admins/{user_id}/evezplace/{section_id}/recommendation/image/upload', 'EvezplaceRecommendationController@updateRecommendationImage');
 
     // Evezplace trending items section
     Route::get('evezplace/{section_id}/trending/items', 'EvezplaceTrendingController@index');
     Route::post('admins/{user_id}/evezplace/{section_id}/trending/item', 'EvezplaceTrendingController@store');
+    Route::post('admins/{user_id}/evezplace/deleteTrendingItem', 'EvezplaceTrendingController@TrendingDelete');
     Route::get('admin/evezplace/trending/items/{id}', 'EvezplaceTrendingController@show');
     Route::post('admins/{user_id}/evezplace/{section_id}/trending/item/image/upload', 'EvezplaceTrendingController@updateTrendingItemImage');
 
@@ -192,6 +194,7 @@ Route::group(array('prefix' => 'v1'), function () {
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');
     Route::post('updatePost', 'WoiceController@updatePost');
+    Route::post('updatePost/circle', 'WoiceController@updatePostCircle');
     Route::post('users/{user_id}/post/create', 'WoiceController@createPost');
     Route::post('users/{user_id}/posts/{post_id}/rewoice', 'WoiceController@createRewoicePost');
 

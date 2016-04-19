@@ -112,6 +112,19 @@ evezownApp
             return deferred.promise;
         };
 
+        EvezplaceHomeService.DeleteRecommendationDetails = function (userId, recommendation) {
+            var deferred = $q.defer();
+            $http.post(PATHS.api_url + 'admins/' + userId + '/evezplace/deleteRecommendation', recommendation)
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function (err) {
+                    console.log('Error deleting details');
+                    deferred.reject(err);
+                });
+            return deferred.promise;
+        };
+
 
         EvezplaceHomeService.saveRecommendationImage = function (userId, imageName, recommendationId ,sectionId) {
 
@@ -169,6 +182,20 @@ evezownApp
                 })
                 .error(function (err) {
                     console.log('Error saving trending item details');
+                    deferred.reject(err);
+                });
+            return deferred.promise;
+        };
+
+
+        EvezplaceHomeService.DeleteTrendingItemDetails = function (userId, trendingItem) {
+            var deferred = $q.defer();
+            $http.post(PATHS.api_url + 'admins/' + userId + '/evezplace/deleteTrendingItem', trendingItem)
+                .success(function (data) {
+                    deferred.resolve(data);
+                })
+                .error(function (err) {
+                    console.log('Error Deleting trending item details');
                     deferred.reject(err);
                 });
             return deferred.promise;

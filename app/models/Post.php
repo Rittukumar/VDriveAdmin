@@ -2,7 +2,7 @@
 
 class Post extends \Eloquent {
 	protected $fillable = ['title', 'description', 'testimonial', 'visibility_id', 'price_range',
-			'owner_id', 'post_type_id', 'brand_id', 'priority','classification_id','cat_id','sub_cat_id'];
+			'owner_id', 'post_type_id', 'brand_id', 'priority','classification_id','cat_id','sub_cat_id','circle_id'];
 
 	public function images(){
 

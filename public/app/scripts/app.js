@@ -1279,6 +1279,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/search/products/:searchKey', {
+                templateUrl: 'partials/evezplace/productSearch.html',
+                controller: 'SearchProductController',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
+                }
+            });
+
+        $routeProvider
+
             .when('/store/:storeId/manage/store_info', {
                 templateUrl: 'partials/evezplace/manage/store/store_info.html',
                 data: {
@@ -1924,6 +1934,37 @@ evezownApp.directive('select', function ($interpolate) {
         }
     };
 });
+
+
+evezownApp.directive('ngReallyClick', [function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('click', function() {
+                var message = attrs.ngReallyMessage;
+                if (message && confirm(message)) {
+                    scope.$apply(attrs.ngReallyClick);
+                }
+            });
+        }
+    }
+}]);
+
+
+evezownApp.directive('ngEnter', function () {
+        return {
+           link: function (scope, elements, attrs) {
+              elements.bind('keydown keypress', function (event) {
+                  if (event.which === 13) {
+                      scope.$apply(function () {
+                          scope.$eval(attrs.ngEnter);
+                      });
+                      event.preventDefault();
+                  }
+              });
+           }
+        };
+    });
 
 
 evezownApp.directive('sampleCount', function () {
