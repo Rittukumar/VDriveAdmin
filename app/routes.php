@@ -191,6 +191,12 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::any('chat/unread-count', 'OneOnOneChatController@getUnreadCount');
     Route::any('chat/{user_id}/status','OneOnOneChatController@getUserOnlineStatus');
 
+    //cart
+    Route::post('cart/addcart', 'CartController@addProductToCart');
+    Route::post('cart/checkcart', 'CartController@checkCartProducts');
+    Route::post('cart/getcart', 'CartController@getCartProducts');
+    Route::post('cart/deletecart', 'CartController@deleteCart');
+
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');
     Route::post('updatePost', 'WoiceController@updatePost');

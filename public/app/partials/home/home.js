@@ -4,7 +4,10 @@
 'use strict';
 
 evezownApp
-    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, $http, PATHS, AUTH_EVENTS, AuthService, ngDialog, usSpinnerService, $auth) {
+    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, $http, PATHS,
+                                             AUTH_EVENTS, AuthService, ngDialog, usSpinnerService, $auth, 
+                                             localStorageService, $routeParams, $filter, $controller, StoreService) {
+                                                     
       
         $scope.title = "Login to Evezown";
 
@@ -57,11 +60,16 @@ evezownApp
             .then(function(data) {
                 console.log(data);
                 AuthService.setUserDetails(data);
+
+                if($cookieStore.get('userId') && localStorageService.length() > 0)
+                { 
+                    $scope.checkCartProducts();
+
+                }else if($cookieStore.get('userId')){
                     
-                $cookieStore.put('api_key', Session.api_key);
-                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                toastr.success('You have successfully signed in with ' + provider + '!');
-                $location.path('/profile/'+ $cookieStore.get('userId'));
+                    $scope.getCartProducts();   
+                    
+                } 
 
             })
             .catch(function(error) {
@@ -106,11 +114,18 @@ evezownApp
                     Session.destroy();
                 }
                 else
-                {
-                    $cookieStore.put('api_key', Session.api_key);
-                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                    toastr.success('Login', 'You have logged in successfully');
-                    $location.path('/profile/myprofile/'+ $cookieStore.get('userId'));
+                {   
+                   
+                    if($cookieStore.get('userId') && localStorageService.length() > 0)
+                    { 
+                        $scope.checkCartProducts();
+
+                    }else if($cookieStore.get('userId')){
+                        
+                        $scope.getCartProducts();   
+                        
+                    }   
+                    
                 }
             }, function (res)
             {
@@ -120,6 +135,89 @@ evezownApp
                 $location.path('/login');
             });
         };
+
+        $scope.checkCartProducts = function(){
+
+          var shoppingCartItems = localStorageService.get('shoppingCartItems');
+            var cart_data = {
+                                cart_contents : shoppingCartItems,
+                                user_id       : $cookieStore.get('userId')
+                            };
+                   
+                $http.post(PATHS.api_url + 'cart/checkcart', cart_data)
+                .success(function(response){
+                    
+                    if(response){
+
+                        angular.forEach(response, function (value, key) {
+                            
+                            var selectedStore = $filter('filter')(shoppingCartItems, {storeId: value.storeId}, true);
+                            
+                            if (selectedStore.length > 0) {
+                                var totalPrice    = 0; 
+                                var product_price = 0; 
+                                
+                                angular.forEach(value.products, function (v, k) {
+                                  
+                                     var selectedProduct = $filter('filter')(shoppingCartItems, {product_id: v.product_id}, true);
+                                     
+                                     if (selectedProduct.length == 0) {
+                                       
+                                        selectedStore[0].products.push(v);
+                                        product_price += parseFloat(v.price);
+                                        
+                                     }
+                                });
+                                
+                                totalPrice =  +selectedStore[0].total_price + (+product_price);
+                                selectedStore[0].total_price = totalPrice;
+                                
+                            }else{
+                                 
+                                shoppingCartItems.push(value);
+                            }
+
+                        });
+                  
+                    }
+
+                }).then(function (response) {
+                    var cart_data = {
+                                        cart_contents : shoppingCartItems,
+                                        user_id       : $cookieStore.get('userId')
+                                    };
+                        
+                        $http.post(PATHS.api_url + 'cart/addcart', cart_data)
+                        .then(function (response) {
+                            localStorageService.remove('shoppingCartItems');
+                            localStorageService.set('shoppingCartItems', shoppingCartItems);
+                            $rootScope.$broadcast('shoppingCartItems', {message: shoppingCartItems});
+                            $cookieStore.put('api_key', Session.api_key);
+                            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                            toastr.success('Login', 'You have logged in successfully');
+                            $location.path('/profile/myprofile/'+ $cookieStore.get('userId'));
+                        });
+                
+                });
+             
+        } 
+
+        $scope.getCartProducts = function(){
+           var cart_data = { user_id : $cookieStore.get('userId') };
+           $http.post(PATHS.api_url + 'cart/getcart', cart_data)
+            .success(function(response){
+                console.log(response);
+                    localStorageService.remove('shoppingCartItems');
+                    localStorageService.set('shoppingCartItems', response);
+                    $rootScope.$broadcast('shoppingCartItems', {message: response});
+            }).then(function (response) {
+                $cookieStore.put('api_key', Session.api_key);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                toastr.success('Login', 'You have logged in successfully');
+                $location.path('/profile/myprofile/'+ $cookieStore.get('userId'));
+            });
+        }
+
     });
 
 evezownApp

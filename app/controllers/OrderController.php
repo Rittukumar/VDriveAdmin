@@ -135,35 +135,115 @@ class OrderController extends AppController
      */
     public function store()
     {
+
         try {
+            
             $inputArray = Input::all();
 
-            $locationResource = App::make('LocationResource');
+            $billingAddress = ($inputArray['billing_address'] != null) ? $inputArray['billing_address'] : '';
+
+            $shippingAddress = ($inputArray['shipping_address'] != null) ? $inputArray['shipping_address'] : '';
 
             $transactionIds = [];
 
-            $buyerArray = isset($inputArray['buyer']) ? $inputArray['buyer'] : '';
+            $user = $inputArray['user'];
 
+            $buyerArray = isset($inputArray['buyer']) ? $inputArray['buyer'] : '';
             $buyerEmail = isset($buyerArray['email']) ? $buyerArray['email'] : '';
             $buyerPhone = isset($buyerArray['phone']) ? $buyerArray['phone'] : '';
-            $buyerCode = isset($buyerArray['code']) ? $buyerArray['code'] : '';
+            $buyerCode  = isset($buyerArray['code']) ? $buyerArray['code'] : '';
 
-            $buyer = Buyer::where('email', $buyerEmail)
-                ->orWhere('phone', $buyerPhone)
-                ->orWhere('code', $buyerCode)->first();
+            if(empty($user))
+            {
+                
+                $buyer = Buyer::where('email', $buyerEmail)
+                        ->orWhere('phone', $buyerPhone)
+                        ->orWhere('code', $buyerCode)->first();
 
-            if (!$buyer) {
-                $buyer = Buyer::create([
-                    'email' => $buyerEmail,
-                    'phone' => $buyerPhone,
-                    'code' => $this->getRandomString()
-                ]);
-            } else {
-                $buyer->email = $buyerEmail;
-                $buyer->phone = $buyerPhone;
+                if (!$buyer) {
 
-                $buyer->save();
+                    $code = 'Evezown-'.$this->getRandomString();
+
+                    $buyer = Buyer::create([
+                        'email' => $buyerEmail,
+                        'phone' => $buyerPhone,
+                        'code'  => $code
+                    ]);
+
+                    if($buyer){
+
+                        $data = array(
+                        'buyerEmail' => $buyer['email'],
+                        'buyerPhone' => $buyer['phone'],
+                        'code'       => $code,
+                        );
+
+                        Mail::send('emails.buyercode', $data, function ($message) use ($buyer) {
+                            $message->from('editor@evezown.com', 'Evezown Admin');
+                            $message->to($buyer['email'], $buyer['email'])->subject('Your Buyer Code!');
+                        });
+
+                    }
+
+                } else {
+
+                    $buyer->email = $buyerEmail;
+                    $buyer->phone = $buyerPhone;
+
+                    $buyer->save();
+                }
+
+
+                $customerKey   = 'buyer_id';
+                $customerValue =  $buyer->id;
+
+            }else{
+
+                $customerKey   = 'user_id';
+                $customerValue =  $user;
+
             }
+
+               //Method to save the billing and the shipping address.
+                if ($billingAddress == '') {
+                    $errorMessage = [
+                    'status' => false,
+                    'message' => 'Please provide billing address for product'
+                            ];
+                    return $this->setStatusCode(404)->respondWithError($errorMessage);
+                }
+                
+                if ($shippingAddress == '') {
+                    $errorMessage = [
+                    'status' => false,
+                    'message' => 'Please provide shipping address for product'
+                            ];
+                    return $this->setStatusCode(404)->respondWithError($errorMessage);
+                }
+                
+                $orderBillingAddress = OrderBillingAddress::create([
+                        $customerKey    => $customerValue,
+                        'address_line1' => isset($billingAddress['addressLine1']) ? $billingAddress['addressLine1'] : '',
+                        'address_line2' => isset($billingAddress['addressLine2']) ? $billingAddress['addressLine2'] : '',
+                        'address_line3' => isset($billingAddress['addressLine3']) ? $billingAddress['addressLine3'] : '',
+                        'city'          => isset($billingAddress['city']) ? $billingAddress['city'] : '',
+                        'state'         => isset($billingAddress['state']) ? $billingAddress['state'] : '',
+                        'country'       => isset($billingAddress['country']) ? $billingAddress['country'] : '',
+                        'pincode'       => isset($billingAddress['pincode']) ? $billingAddress['pincode'] : ''
+                        ]);
+                
+                
+                $orderShippingAddress = OrderShippingAddress::create([
+                        $customerKey    => $customerValue,
+                        'address_line1' => isset($shippingAddress['addressLine1']) ? $shippingAddress['addressLine1'] : '',
+                        'address_line2' => isset($shippingAddress['addressLine2']) ? $shippingAddress['addressLine2'] : '',
+                        'address_line3' => isset($shippingAddress['addressLine3']) ? $shippingAddress['addressLine3'] : '',
+                        'city'          => isset($shippingAddress['city']) ? $shippingAddress['city'] : '',
+                        'state'         => isset($shippingAddress['state']) ? $shippingAddress['state'] : '',
+                        'country'       => isset($shippingAddress['country']) ? $shippingAddress['country'] : '',
+                        'pincode'       => isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '',
+                        ]);
+                
 
             $i = -1;
 
@@ -171,65 +251,17 @@ class OrderController extends AppController
                 $storeId = $inputs['storeId'];
                 $totalAmount = $inputs['totalAmount'];
                 $items = $inputs['orderItems'];
-                $billingAddressArray = array();
-                $shipppingAddressArray = array();
+                
 
                 $order = Order::create([
-                    'store_id' => $storeId,
-                    'buyer_id' => $buyer->id,
-                    'transaction_id' => $this->getRandomString('alnum', 5),
+                    'store_id'          => $storeId,
+                    $customerKey        => $customerValue,
+                    'transaction_id'    => 'Evezown-'.$this->getRandomString('alnum', 5),
                     'current_status_id' => 1, //Order status will be 1 if order is just placed
-                    'total_amount' => $totalAmount
+                    'total_amount'      => $totalAmount,
+                    'billing_id'        => $orderBillingAddress->id,
+                    'shipping_id'       => $orderShippingAddress->id
                 ]);
-				
-                //Method to save the billing and the shipping address.
-                if (isset($inputs['billing_address'])) {
-                	$billingAddress = $inputs['billing_address'];
-                } else {
-                	$errorMessage = [
-                	'status' => false,
-                	'message' => 'Please provide billing address for product'
-                			];
-                	return $this->setStatusCode(404)->respondWithError($errorMessage);
-                }
-                
-                if (isset($inputs['shipping_address'])) {
-                	$shippingAddress = $inputs['shipping_address'];
-                } else {
-                	$errorMessage = [
-                	'status' => false,
-                	'message' => 'Please provide shipping address for product'
-                			];
-                
-                	return $this->setStatusCode(404)->respondWithError($errorMessage);
-                }
-		    	if (isset($billingAddress['cityStateCountry'])) {
-		    		$billingAddressArray = $locationResource->getLocationDetails($billingAddress['cityStateCountry']);
-		    	}
-		    	$orderBillingAddress = new OrderBillingAddress([
-		    			'address_line1' => isset($billingAddress['addressLine1']) ? $billingAddress['addressLine1'] : '',
-		    			'address_line2' => isset($billingAddress['addressLine2']) ? $billingAddress['addressLine2'] : '',
-		    			'address_line3' => isset($billingAddress['addressLine3']) ? $billingAddress['addressLine3'] : '',
-		    			'city' => $billingAddressArray['city'],
-		    			'state' => $billingAddressArray['state'],
-		    			'country' => $billingAddressArray['country'],
-		    			'pincode' => isset($billingAddress['pincode']) ? $billingAddress['pincode'] : ''
-		    			]);
-		    	$order->billingAddress()->save($orderBillingAddress);
-		    	if (isset($shippingAddress['cityStateCountry'])) {
-		    		$shipppingAddressArray = $locationResource->getLocationDetails($shippingAddress['cityStateCountry']);
-		    	}
-		    	$orderShippingAddress = new OrderShippingAddress([
-		    			'address_line1' => isset($shippingAddress['addressLine1']) ? $shippingAddress['addressLine1'] : '',
-		    			'address_line2' => isset($shippingAddress['addressLine2']) ? $shippingAddress['addressLine2'] : '',
-		    			'address_line3' => isset($shippingAddress['addressLine3']) ? $shippingAddress['addressLine3'] : '',
-		    			'city' => $shipppingAddressArray['city'],
-		    			'state' => $shipppingAddressArray['state'],
-		    			'country' => $shipppingAddressArray['country'],
-		    			'pincode' => isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '',
-		    			]);
-		    	
-		    	$order->shippingAddress()->save($orderShippingAddress);
                 
                 $i++;
                 $transactionIds[$i] = $order['transaction_id'];
@@ -258,68 +290,7 @@ class OrderController extends AppController
                         ]);
 
                         $orderItem->orderItemStatus()->save($orderItemStatus);
-
-                       /* if (isset($value['billing_address'])) {
-                            $billingAddress = $value['billing_address'];
-                        } else {
-                            $errorMessage = [
-                                'status' => false,
-                                'message' => 'Please provide billing address for product'
-                            ];
-
-                            return $this->setStatusCode(404)->respondWithError($errorMessage);
-                        }
-
-                         $billingAddressArray = array();
-
-                        if (isset($billingAddress['cityStateCountry'])) {
-                            $billingAddressArray = $locationResource->getLocationDetails($billingAddress['cityStateCountry']);
-                        }
-
-
-                        $orderItemBillingAddress = new OrderItemBillingAddress([
-                            'address_line1' => isset($billingAddress['addressLine1']) ? $billingAddress['addressLine1'] : '',
-                            'address_line2' => isset($billingAddress['addressLine2']) ? $billingAddress['addressLine2'] : '',
-                            'address_line3' => isset($billingAddress['addressLine3']) ? $billingAddress['addressLine3'] : '',
-                            'city' => $billingAddressArray['city'],
-                            'state' => $billingAddressArray['state'],
-                            'country' => $billingAddressArray['country'],
-                            'pincode' => isset($billingAddress['pincode']) ? $billingAddress['pincode'] : ''
-                        ]);
-
-                        $orderItem->billingAddress()->save($orderItemBillingAddress); 
-
-                        if (isset($value['shipping_address'])) {
-                            $shippingAddress = $value['shipping_address'];
-                        } else {
-                            $errorMessage = [
-                                'status' => false,
-                                'message' => 'Please provide shipping address for product'
-                            ];
-
-                            return $this->setStatusCode(404)->respondWithError($errorMessage);
-                        }
-						
                         
-                      $shipppingAddressArray = array();
-
-                        if (isset($shippingAddress['cityStateCountry'])) {
-                            $shipppingAddressArray = $locationResource->getLocationDetails($shippingAddress['cityStateCountry']);
-                        }
-
-                        $orderItemShippingAddress = new OrderItemShippingAddress([
-                            'address_line1' => isset($shippingAddress['addressLine1']) ? $shippingAddress['addressLine1'] : '',
-                            'address_line2' => isset($shippingAddress['addressLine2']) ? $shippingAddress['addressLine2'] : '',
-                            'address_line3' => isset($shippingAddress['addressLine3']) ? $shippingAddress['addressLine3'] : '',
-                            'city' => $shipppingAddressArray['city'],
-                            'state' => $shipppingAddressArray['state'],
-                            'country' => $shipppingAddressArray['country'],
-                            'pincode' => isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '',
-                        ]);
-
-                        $orderItem->shippingAddress()->save($orderItemShippingAddress); */
-                        
-                       
                     }
 
                 } catch (Exception $ex) {
@@ -333,19 +304,21 @@ class OrderController extends AppController
 
                 $orderId = $order->id;
 
-                $order = Order::with('buyer', 'orderItems.productSku.ProductImages.image',
+                $customer = empty($user)?'buyer':'user';
+
+                $order = Order::with($customer, 'orderItems.productSku.ProductImages.image',
                     'orderItems.productSku.product')->find($orderId);
 
                 $data = array(
-                    'buyerEmail' => $buyer['email'],
-                    'buyerPhone' => $buyer['phone'],
+                    'buyerEmail' => $buyerEmail,
+                    'buyerPhone' => $buyerPhone,
                     'transactionCode' => $transactionCode,
                     'order' => $order
                 );
 
-                Mail::send('emails.customerorder', $data, function ($message) use ($buyer) {
+                Mail::send('emails.customerorder', $data, function ($message) use ($buyerEmail) {
                     $message->from('editor@evezown.com', 'Evezown Admin');
-                    $message->to($buyer['email'], $buyer['email'])->subject('Your order placed!');
+                    $message->to($buyerEmail, $buyerEmail)->subject('Your order placed!');
                 });
 
                 if ($storeItem->email_address != null) {
@@ -363,7 +336,8 @@ class OrderController extends AppController
             $successResponse = [
                 'status' => true,
                 'transactions' => $transactionIds,
-                'message' => 'Order has been placed successfully'
+                'message' => 'Order has been placed successfully',
+                'orderId' => $order->id
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);
@@ -375,7 +349,8 @@ class OrderController extends AppController
                 'message' => 'Submit order failed. Please try again.'
             ];
 
-            return $this->setStatusCode(500)->respondWithError($errorMessage);
+            //return $this->setStatusCode(500)->respondWithError($errorMessage);
+            return $e;
         }
     }
     
