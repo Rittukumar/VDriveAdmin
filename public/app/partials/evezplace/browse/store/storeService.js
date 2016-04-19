@@ -1,8 +1,8 @@
 /**
  * Created by vishu on 12/10/15.
  */
-evezownApp.factory('StoreService', ['$http', '$q', 'PATHS', '$cookieStore',
-    function ($http, $q, PATHS, $cookieStore) {
+evezownApp.factory('StoreService', ['$http', '$q', 'PATHS', '$cookieStore', 'localStorageService',
+    function ($http, $q, PATHS, $cookieStore, localStorageService) {
 
         StoreService = {};
 
@@ -182,14 +182,14 @@ evezownApp.factory('StoreService', ['$http', '$q', 'PATHS', '$cookieStore',
 
         StoreService.getShoppingCartItems = function () {
 
-            var shoppingCartItems = $cookieStore.get('shoppingCartItems') || [];
+            var shoppingCartItems = localStorageService.get('shoppingCartItems') || [];//$cookieStore.get('shoppingCartItems') || [];
 
             return shoppingCartItems;
         };
 
         StoreService.updateShoppingCartQuantity = function (index, newQuantity) {
 
-            var shoppingCartItems = $cookieStore.get('shoppingCartItems') || [];
+            var shoppingCartItems = localStorageService.get('shoppingCartItems') || [];//$cookieStore.get('shoppingCartItems') || [];
 
             console.log(shoppingCartItems[index]);
 
@@ -198,19 +198,19 @@ evezownApp.factory('StoreService', ['$http', '$q', 'PATHS', '$cookieStore',
 
         StoreService.isShoppingCartEmpty = function () {
 
-            var shoppingCartItems = $cookieStore.get('shoppingCartItems') || [];
+            var shoppingCartItems = localStorageService.get('shoppingCartItems') || [];//$cookieStore.get('shoppingCartItems') || [];
 
             return shoppingCartItems.length == 0;
         };
 
-        StoreService.removeFromCart = function ($product, shoppingCartItems) {
+        // StoreService.removeFromCart = function ($product, shoppingCartItems) {
 
-            shoppingCartItems.splice(shoppingCartItems.indexOf($product), 1);
+        //     shoppingCartItems.splice(shoppingCartItems.indexOf($product), 1);
 
-            $cookieStore.put('shoppingCartItems', shoppingCartItems);
+        //     localStorageService.set('shoppingCartItems', shoppingCartItems);
 
-            return shoppingCartItems;
-        };
+        //     return shoppingCartItems;
+        // };
 
         StoreService.placeOrder = function (orderData) {
 

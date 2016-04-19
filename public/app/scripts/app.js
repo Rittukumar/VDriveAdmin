@@ -9,10 +9,10 @@ var evezownApp = angular.module('evezownapp', ['ngRoute', 'ui.bootstrap', 'ngAni
     'textAngular', 'nsPopover', 'videosharing-embed', 'ui.bootstrap.datetimepicker',
     'google.places', 'ngTagsInput', 'angular-flexslider', 'daterangepicker', 'ngTable',
     'socialLinks', 'colorpicker.module', 'angular-intro', 'ngFabForm', 'ngMessages', 'ngSanitize',
-    'ngFileUpload', '720kb.socialshare', 'Firestitch.angular-counter','angular-hmac-sha512','slick', 'readMore']);
+    'ngFileUpload', '720kb.socialshare', 'Firestitch.angular-counter','angular-hmac-sha512','slick', 'readMore', 'LocalStorageModule']);
 evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider,
                             USER_ROLES, LightboxProvider, $httpProvider, FacebookProvider,
-                            $linkedInProvider, $authProvider, PATHS, ngDialogProvider, $crypthmacProvider) {
+                            $linkedInProvider, $authProvider, PATHS, ngDialogProvider, $crypthmacProvider, localStorageServiceProvider) {
         $routeProvider
 
             .when('/admin', {
@@ -1289,16 +1289,17 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:storeId/manage/store_info', {
-                templateUrl: 'partials/evezplace/manage/store/store_info.html',
+            .when('/checkout/:checkouttype', {
+                templateUrl: 'partials/evezplace/browse/store/place-order.html',
+                controller: 'ShoppingCartCtrl',
                 data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
                 }
             });
 
         $routeProvider
 
-            .when('/store/cart', {
+            .when('/store/shopping/:checkouttype', {
                 templateUrl: 'partials/evezplace/browse/store/shopping-cart.html',
                 controller: 'ShoppingCartCtrl',
                 data: {
@@ -1308,8 +1309,8 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/order/place', {
-                templateUrl: 'partials/evezplace/browse/store/place-order.html',
+            .when('/order-success', {
+                templateUrl: 'partials/evezplace/browse/store/order-success.html',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
                 }
@@ -1581,6 +1582,8 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         $routeProvider.otherwise({
             redirectTo: '/login'
         });
+
+        localStorageServiceProvider.setPrefix('evezowncart');
 
         LightboxProvider.getImageUrl = function (imageUrl) {
             return imageUrl;

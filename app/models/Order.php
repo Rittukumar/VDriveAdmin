@@ -2,10 +2,14 @@
 
 class Order extends \Eloquent {
 	protected $fillable = ['transaction_id', 'buyer_id', 'store_id',
-		'current_status_id', 'total_amount'];
+		'current_status_id', 'total_amount', 'user_id', 'billing_id', 'shipping_id'];
 
 	public function buyer() {
 		return $this->belongsTo('Buyer', 'buyer_id');
+	}
+
+	public function user() {
+		return $this->belongsTo('User', 'user_id');
 	}
 
 	public function store() {
@@ -25,11 +29,11 @@ class Order extends \Eloquent {
 	   return $this->hasMany('OrderItem', 'order_id', 'id');
 	}
 	
-	public function shippingAddress() {
-		return $this->hasOne('OrderShippingAddress', 'order_id');
-	}
+	// public function shippingAddress() {
+	// 	return $this->hasOne('OrderShippingAddress', 'order_id');
+	// }
 	
-	public function billingAddress() {
-		return $this->hasOne('OrderBillingAddress', 'order_id');
-	}
+	// public function billingAddress() {
+	// 	return $this->hasOne('OrderBillingAddress', 'order_id');
+	// }
 }
