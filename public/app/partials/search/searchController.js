@@ -92,9 +92,15 @@ evezownApp.controller('searchController', function ($scope, FileUploader, PATHS,
                    {
                     $scope.NoResult = true;
                    }
-               }).error(function (data)
-               {
-                   toastr.error(data.error.message, 'Stream It');
+               }).error(function (data, status)
+               {  
+                  if(data.error.message.message = 'Posts not found!')
+                  {
+                    toastr.info(data.error.message.message, 'Stream It');
+                  }else{
+                    toastr.error(data.error.message.message, 'Stream It');
+                  }
+                   
                });
        }
     }

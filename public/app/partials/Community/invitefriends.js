@@ -570,6 +570,9 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
                         //});
 
                         $scope.friendslist = log;
+                        if($scope.friendslist.length == 0){
+                            toastr.info('No Contacts Found In Your Account');
+                        }
 
                         console.log($scope.friendslist);
 

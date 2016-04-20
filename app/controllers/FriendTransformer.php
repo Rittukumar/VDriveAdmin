@@ -20,7 +20,7 @@ class FriendTransformer extends Fractal\TransformerAbstract
     {
         return [
             'id'    => (int) $user->id,
-            'user_id'    => (int) $user->profile['id'],
+            'user_id'    => (int) $user->profile['user_id'],
             'firstname' => $user->profile['firstname'],
             'lastname' => $user->profile['lastname'],
             'active'    => (int) $user->active

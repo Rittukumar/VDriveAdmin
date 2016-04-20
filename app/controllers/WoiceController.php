@@ -498,22 +498,26 @@ class WoiceController extends AppController
                      else if($value->visibility_id == 3)
                      {
                         $checkFriend = DB::table('friends')
-                                        ->where('friends.user_id ='.$value->owner_id)
-                                        ->where('friends.friend_user_id = ' . $user_id)
-                                        ->orWhere('owner_id', $user_id);
-                        if(!empty($checkFriend))
+                                        ->where('friends.user_id', $value->owner_id)
+                                        ->where('friends.friend_user_id', $user_id)->get();
+
+                        if(!empty($checkFriend)  || $owner_id == $user_id)
                         {
                             $posts = $allposts;
                         }
                      }
                      else if($value->visibility_id == 2)
                      {
-                        $checkCircle = DB::table('circle_friends')
-                                       ->where('circle_friends.friend_user_id ='.$user_id)
-                                       ->select(DB::table('circles')->where('circles.id = circle_friends.circle_id')
-                                       ->where('circles.user_id = ' .$value->owner_id))
-                                       ->orWhere('owner_id', $user_id);
-                        if(!empty($checkCircle))
+                         $owner_id = $value->owner_id;
+                         $checkCircle = DB::table('circle_friends')->where('circle_friends.friend_user_id', $user_id)
+                                        ->whereExists(function ($query) use ($owner_id) {
+                                            $query->select(DB::raw(1))
+                                                  ->from('circles')
+                                                  ->whereRaw('circles.id = circle_friends.circle_id')
+                                                  ->whereRaw('circles.user_id =' .$owner_id);
+                                        })->get();  
+                        
+                        if(!empty($checkCircle) || $owner_id == $user_id)
                         {
                             $posts = $allposts;
                         }
@@ -531,7 +535,7 @@ class WoiceController extends AppController
 //            $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')->where('post_type_id', $postTypeId)->Where('brand_id','=',$postBrand)->Where('price_range','<=',$priceRange)->Where('visibility_id','=',$communityId)->Where('title', 'LIKE', "%$title%")->Where('description', 'LIKE', "%$title%")->Where('testimonial', 'LIKE', "%$title%")
 //                ->orderBySubmitDate()->paginate($limit);
 
-            if (!$posts) {
+            if ($posts->isEmpty()) {
                 $errorMessage = [
                     'status' => false,
                     'message' => "Posts not found!"
