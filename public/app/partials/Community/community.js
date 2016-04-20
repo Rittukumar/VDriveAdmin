@@ -9,7 +9,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
 
         //$scope.currentUserId = $cookieStore.get('userId');
     $scope.loggedInUserId = $cookieStore.get('userId');
-    $scope.currentUserId = $routeParams.id;
+    $scope.currentUserId  = $routeParams.id;
     if ($routeParams.id != undefined) {
         $scope.currentUserId = $routeParams.id;
     }
@@ -17,7 +17,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
         $scope.currentUserId = $scope.loggedInUserId;
     }
 
-    $rootScope.loggedInUserId    = $scope.currentUserId;
+    $rootScope.loggedInUserId    = $cookieStore.get('userId');
     $rootScope.UserOnlinestatus  = '';
     $rootScope.friendList        = '';
 
@@ -37,7 +37,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
     
     $scope.fetchFriends = function()
     {
-        $http.get(PATHS.api_url + 'users/' + $scope.currentUserId + '/friends')
+        $http.get(PATHS.api_url + 'users/' + $scope.loggedInUserId + '/friends')
             .success(function (data)
             {
                     $rootScope.friendList = data.data;
@@ -55,7 +55,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
 
     $scope.getUserOnlineStatus = function()
     {
-        $http.get(PATHS.api_url + 'chat/' + $scope.currentUserId + '/status')
+        $http.get(PATHS.api_url + 'chat/' + $scope.loggedInUserId + '/status')
             .success(function (data)
             { 
                 $rootScope.UserOnlinestatus = data;

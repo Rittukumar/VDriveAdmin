@@ -20,7 +20,7 @@ class UserTransformer extends Fractal\TransformerAbstract
         return [
             'id'    => (int) $user['id'],
             'api_key' => $user['api_key'],
-            'user_id' => $user->profile['id'],
+            'user_id' => $user->profile['user_id'],
             'firstname' => $user->profile['firstname'],
             'lastname' => $user->profile['lastname'],
             'email' => $user['email'],
