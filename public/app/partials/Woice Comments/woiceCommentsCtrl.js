@@ -13,6 +13,8 @@ evezownApp.controller('woiceCommentsCtrl', function($scope,$cookieStore,PATHS,$h
     $rootScope.commentsCount = 0;
     $rootScope.myGrade = 0;
     $scope.post = [];
+    $scope.loggedInUser = $cookieStore.get('userId');
+    
     $scope.GetPost = function (postId)
     {
         $scope.url = PATHS.api_url + 'posts/post/'+ postId;

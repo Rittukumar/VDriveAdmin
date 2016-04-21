@@ -49,34 +49,3 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, $c
         }
     }
 });
-
-
-evezownApp.controller('SearchProductController', function ($scope) {
-
-    
-    $scope.Ranges = ['All','100 - 1000','1000 - 5000','5000 - 25,000','25,000 - 75,000','75000 - 1,00,000'];
-
-    // selected Ranges
-    $scope.selectedRange = [];
-
-    // toggle selection for a given range
-    $scope.PriceRange = function(Range) 
-    {
-
-        var idx = $scope.selectedRange.indexOf(Range);
-
-        // is already selected, then remove
-        if (idx > -1) {
-          $scope.selectedRange.splice(idx, 1);
-          alert($scope.selectedRange);
-        }
-
-        // is newly selected, then add
-        else {
-          $scope.selectedRange.push(Range);
-          alert($scope.selectedRange);
-        }
-    };
-
-});
-

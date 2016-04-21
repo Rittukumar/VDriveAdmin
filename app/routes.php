@@ -311,6 +311,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('store/productlines/{productline_id}', 'ProductController@getProductLine');
     Route::get('stores/productline/{id}/delete', 'ProductController@destroy');
     Route::get('stores/product/{id}/delete', 'ProductController@deleteProduct');
+    Route::get('products/search/{searchkey}', 'ProductController@searchProduct');
 
     //DeleteProduct
 

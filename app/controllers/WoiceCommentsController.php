@@ -59,7 +59,7 @@ class WoiceCommentsController extends AppController {
 	 */
 	public function show($post_id)
 	{
-		$postComments = PostComment::with('comment', 'user')->where('post_id', $post_id)->get();
+		$postComments = PostComment::with('comment', 'user', 'user.profile_image')->where('post_id', $post_id)->get();
 
 		return $postComments;
 	}

@@ -725,6 +725,32 @@ class ProductController extends AppController
         }
     }
 
+
+    /**
+     * search products
+     * POST /get
+     *
+     * @return Response
+     */
+    public function searchProduct($searchkey)
+    {
+        try {
+            $limit = Input::get('limit') ?: 12;
+
+            $products = Product::with('ProductSKU', 'ProductSKU.ProductImages.image', 'ProductSKU.ProductStock')
+                ->where('title', 'LIKE', "%$searchkey%")->paginate($limit);
+
+            if (!$products) {
+                return $this->responseNotFound('Products Not Found!');
+            }
+            return $products->toJson();
+
+        } catch (Exception $e) {
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+
     /**
      * Get product by id
      * POST /get
