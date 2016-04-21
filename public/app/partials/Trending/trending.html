@@ -346,7 +346,7 @@
                 <!--priority ends-->
 
                 <!-- Post title -->
-                <div class="col-md-12" ng-if="post.title != ''">
+                <div class="col-md-12" ng-if="post.title != null">
                     <h4 ng-show="!editing"
                         style="color: #4cb1ca; font-weight: 100; font-size: 1.2em">{{post.title}} <span
                             ng-hide="currentUserId != post.user.id" ng-click="editing=true" class="fa fa-edit pull-right" style="cursor:pointer;"></span></h4>
@@ -426,7 +426,7 @@
                 <!--Brand and location div Ends-->
 
                 <!-- Post description -->
-                <div class="col-md-12 zero-padding-left-right" ng-if="post.description != ''" style="text-align:justify;">
+                <div class="col-md-12 zero-padding-left-right" ng-if="post.description != null" style="text-align:justify;">
                     <div  class="col-md-12">
                         <!--read more is a custom directive, refer readmore.js in index.html and readmore in app.js-->
                         <span ng-hide="currentUserId != post.user.id || editing" ng-click="editing=true" class="fa fa-edit pull-right" style="cursor:pointer;"></span>

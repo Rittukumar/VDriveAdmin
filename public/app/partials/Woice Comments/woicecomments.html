@@ -97,7 +97,7 @@
     </div>
 
     <div class="col-md-12 reco-testimonial" ng-if="post.testimonial != ''">
-       <p>{{post.testimonial}}<p> 
+       <p>{{post.testimonial}}</p> 
     </div>
     
     <div class="col-md-12 zero-padding-left-right reco-brand-section">
@@ -151,16 +151,18 @@
         </div>
     </div>
 </div>
+
+<!--comment section-->
 <div class="col-md-12 commentLoadSection" ng-repeat="comment in comments">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-12 deleteSection">
+            <div class="col-md-12 deleteSection" ng-if="comment.owner_id == loggedInUser">
                 <a href ng-click="DeleteClick(comment.comment)" style="color:#E50880;">X</a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-1 commentdetailsSection">
-                <img ng-src="{{imagePath+'image/show/'+post.user.profile_image.large_image_url}}"
+                <img ng-src="{{imagePath+'image/show/'+ comment.user.profile_image.large_image_url}}"
                      alt=""
                      class="img-thumbnail"/>
             </div>
@@ -175,17 +177,15 @@
         </div>
         <div class="row">
             <div class="col-md-12 zero-padding-left-right commentvalues" ng-if="comment.comment.comment != ''">
-                <div class="col-md-12">
+                <div class="col-md-12" style="padding: 10px 10px 10px 10px">
                     <p>{{comment.comment.comment;}}</p>
                 </div>
             </div>
         </div>
     </div>
-
-    </div>
-
 </div>
 
+<!--Add comment section-->
 <div class="row" class="col-md-12 ">
 <div class="col-md-10 commentSection">
     <textarea class="form-control" rows="2" placeholder="Add comment"  data-ng-model="addedcomment"/>
