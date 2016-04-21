@@ -274,7 +274,7 @@
             <!-- Posting area Ends-->
             <!-- Content area starts -->
             <!-- show Posts -->
-            <div class="col-md-6 grid-view" style="padding:5px;" ng-repeat="post in posts track by $index">
+            <div class="col-md-6 grid-view" style="padding:5px;" ng-repeat="(key, post) in posts track by key">
             <div class="col-md-12 trending-section" style="border:solid 1px #ccc;border-radius:4px;" ng-if="post">
                 <div class="col-md-12 zero-padding-left-right" >
                     <!-- username-->
@@ -515,10 +515,10 @@
 
                     <!-- Post tags -->
                     <div ng-if="post.post_type_id == 1" class="col-md-3 reco-tag">
-                        <bold style="font-size: 12px">Share / Ask</bold>
+                        <bold style="font-size: 12px">I Recommend</bold>
                     </div>
                     <div ng-if="post.post_type_id == 2" class="col-md-3 generic-tag">
-                        <bold style="font-size: 12px">I Recommend</bold>
+                        <bold style="font-size: 12px">Share / Ask</bold>
                     </div>
                     <div ng-if="post.post_type_id == 3" class="col-md-3 finds-tag">
                         <bold style="font-size: 12px">My Find</bold>

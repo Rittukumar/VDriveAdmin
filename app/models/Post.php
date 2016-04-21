@@ -51,4 +51,9 @@ class Post extends \Eloquent {
 
 		return $this->hasMany('PostRewoice');
 	}
+
+	public function getOriginal($key = null, $default = null)
+	{
+		return array_get($this->original, $key, $default);
+	}
 }
