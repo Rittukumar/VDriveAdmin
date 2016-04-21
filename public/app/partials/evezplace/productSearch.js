@@ -57,13 +57,13 @@ evezownApp.controller('SearchProductController', function ($scope, $rootScope, $
         // is already selected, then remove
         if (idx > -1) {
           $scope.selectedRange.splice(idx, 1);
-          alert($scope.selectedRange);
+          //alert($scope.selectedRange);
         }
 
         // is newly selected, then add
         else {
           $scope.selectedRange.push(Range);
-          alert($scope.selectedRange);
+          //alert($scope.selectedRange);
         }
     };
 
