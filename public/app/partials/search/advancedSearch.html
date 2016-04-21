@@ -148,7 +148,7 @@
                 <div class="col-md-12" id="searchResults" style="margin-bottom: 40px; margin-top: 15px">
                     <div class="row search-result-section text-center" ng-if ="NoResult"><h4>No posts related to your search</h4></div>
                     <div class="row search-result-section">
-                        <div class="col-md-12 trending-section" ng-repeat="post in postSearchResult  track by $index" ng-if="post">
+                        <div class="col-md-12 trending-section" ng-repeat="(key, post) in postSearchResult track by key" ng-if="post">
                             <!--pro pic name and date-->
                             <div class="col-md-12 zero-padding-left-right" >
                                 <div class="col-md-1">
@@ -329,10 +329,10 @@
 
                                 <!--Tags-->
                                 <div ng-if="post.post_type_id == 1" class="col-md-2 reco-tag">
-                                    <bold style="font-size: 12px">Share / Ask</bold>
+                                    <bold style="font-size: 12px">I Recommend</bold>
                                 </div>
                                 <div ng-if="post.post_type_id == 2" class="col-md-2 generic-tag">
-                                    <bold style="font-size: 12px">I Recommend</bold>
+                                    <bold style="font-size: 12px">Share / Ask</bold>
                                 </div>
                                 <div ng-if="post.post_type_id == 3" class="col-md-2 finds-tag">
                                     <bold style="font-size: 12px">My Find</bold>

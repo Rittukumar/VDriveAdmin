@@ -507,7 +507,7 @@ class EvezplaceTrendingController extends AppController
                 {
                     $query->select(DB::raw(1))
                           ->from('users')
-                          ->whereRaw('events.owner_id = forums.owner_id')
+                          ->whereRaw('users.id = forums.owner_id')
                           ->whereRaw('blocked = 0')
                           ->whereRaw('deleted = 0');
                 })

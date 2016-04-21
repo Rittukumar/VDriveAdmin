@@ -302,6 +302,7 @@ class WoiceController extends AppController
                         ->whereExists(function ($query) {
                             $query->select(DB::raw(1))
                                 ->from('circles')
+                                ->whereRaw('circles.id = posts.circle_id')
                                 ->whereRaw('circles.id = circle_friends.circle_id')
                                 ->whereRaw('circles.user_id = posts.owner_id');
                         });
@@ -402,6 +403,7 @@ class WoiceController extends AppController
     }
 
 
+
     public function searchPost()
     {       
         try {
@@ -483,17 +485,17 @@ class WoiceController extends AppController
                 ->orderBySubmitDate()->paginate($limit);
 
 
-                $posts = new \Illuminate\Database\Eloquent\Collection;
+                $all = [];
 
                 foreach ($allposts as $key => $value) 
                 {
                      if($value->visibility_id == 1)
                      {
-                        $posts = $allposts;
+                        $all[] = $value;
                      }
                      else if($value->visibility_id == 4 && $value->owner_id == $user_id)
                      {
-                        $posts = $allposts;
+                        $all[] = $value;
                      }
                      else if($value->visibility_id == 3)
                      {
@@ -503,27 +505,31 @@ class WoiceController extends AppController
 
                         if(!empty($checkFriend)  || $owner_id == $user_id)
                         {
-                            $posts = $allposts;
+                            $all[] = $value;
                         }
                      }
                      else if($value->visibility_id == 2)
                      {
-                         $owner_id = $value->owner_id;
+                         $owner_id    = $value->owner_id;
+                         $circle_id   = $value->circle_id;
                          $checkCircle = DB::table('circle_friends')->where('circle_friends.friend_user_id', $user_id)
-                                        ->whereExists(function ($query) use ($owner_id) {
+                                        ->whereExists(function ($query) use ($owner_id, $circle_id) {
                                             $query->select(DB::raw(1))
                                                   ->from('circles')
+                                                  ->whereRaw('circles.id =' .$circle_id)
                                                   ->whereRaw('circles.id = circle_friends.circle_id')
                                                   ->whereRaw('circles.user_id =' .$owner_id);
                                         })->get();  
                         
                         if(!empty($checkCircle) || $owner_id == $user_id)
                         {
-                            $posts = $allposts;
+                            $all[] = $value;
                         }
                         
                       }
                 }
+
+                $posts = new \Illuminate\Database\Eloquent\Collection($all);
 
 
 //            if(isset($inputs_array['communityId']))
@@ -548,7 +554,7 @@ class WoiceController extends AppController
 
             $postsResource = new Collection($posts, new PostsTransformer);
 
-            $postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
+            //$postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
 
             $data = $fractal->createData($postsResource);
 
@@ -584,6 +590,7 @@ class WoiceController extends AppController
                         ->whereExists(function ($query) {
                             $query->select(DB::raw(1))
                                 ->from('circles')
+                                ->whereRaw('circles.id = posts.circle_id')
                                 ->whereRaw('circles.id = circle_friends.circle_id')
                                 ->whereRaw('circles.user_id = posts.owner_id');
                         });
