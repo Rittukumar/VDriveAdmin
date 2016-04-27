@@ -87,12 +87,20 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-osx-font-smoothing: grayscale;
 }
 /* Products slider in store front prev next button style end*/
-/*table height in admin newsletter user list*/
+
+/*Admin*/
+/*Admin news letter table scroll*/
 .table-scroll {
     max-height: 500px;
     overflow: auto;
 }
-/*table height in admin newsletter user list ends*/
+
+/*admin user list*/
+.userlist.ng-table th
+{
+    text-align: left;
+}
+/*Admin ends*/
 
 /* Angular style override start */
 
