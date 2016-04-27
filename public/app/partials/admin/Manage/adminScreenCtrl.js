@@ -6,7 +6,7 @@ evezownApp.controller('adminScreenCtrl',
     {
 
         
-    $scope.title = "Screens";
+    $scope.title = "Site Content Conrol";
     $scope.allscreens = [];
     $scope.captions = [];
     $scope.showTable = false;
