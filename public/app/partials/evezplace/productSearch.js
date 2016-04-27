@@ -11,7 +11,7 @@
 evezownApp.controller('SearchProductController', function ($scope, $rootScope, $cookieStore, SECTIONS, $location, $routeParams, PATHS, $http) {
 
     
-    $scope.Ranges = ['All','100 - 1000','1000 - 5000','5000 - 25,000','25,000 - 75,000','75000 - 1,00,000'];
+    $scope.Ranges = ['0 - 1000','1000 - 10,000','10,000 - 25,000','25,000 - 35,000','35,000 - 50,000','50,000 and above'];
 
     // selected Ranges
     $scope.selectedRange = [];
