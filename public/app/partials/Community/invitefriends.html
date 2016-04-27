@@ -176,6 +176,7 @@
                             <option value="json" selected> JSON</option>
                             </select><br>
                             <p><input type="file" name="xlfile" id="xlf" /></p>
+                            <input type="hidden" name="uploadFileType" id="uploadFileType" />
                             <textarea name="invite-emails" class="form-control" id="out2" rows="4" data-ng-model="ExcelEmails"></textarea>
                             <button class="btn btn-primary pull-right" style="margin-top: 10px" id="ExcelInvite">Send Invites
                             </button>
@@ -290,6 +291,8 @@ function process_wb(wb) {
 var xlf = document.getElementById('xlf');
 function handleFile(e) {
     var files = e.target.files;
+    var fileName = files[0].name;
+    document.getElementById('uploadFileType').value= fileName.substring(fileName.lastIndexOf(".")+1);
     var f = files[0];
     {
         var reader = new FileReader();
