@@ -135,7 +135,8 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('users/right_cover_image/update', 'UsersController@updateRightCoverPic');
     Route::post('users/bottom_cover_image/update', 'UsersController@updateBottomCoverPic');
     Route::get('users/{user_id}/invites', 'UsersController@inviteHistory');
-
+    Route::post('users/checkforPasswordField', 'UsersController@checkforPasswordField');
+    
     // User details routes
     Route::get('users/{user_id}/personal_info', 'UserDetailsController@getPersonalInfo');
     Route::post('users/personal_info/save', 'UserDetailsController@savePersonalInfo');

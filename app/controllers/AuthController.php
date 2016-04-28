@@ -56,20 +56,31 @@ class AuthController extends AppController {
         $accessToken = json_decode($accessTokenResponse->getBody(), true);
         
         // Step 2. Retrieve profile information about the current user.
-        $fields = 'id,email,first_name,last_name,link,name';
+        $fields = 'id,email,first_name,last_name,link,name,picture';
         $profileResponse = $client->request('GET', 'https://graph.facebook.com/v2.5/me', [
             'query' => [
                 'access_token' => $accessToken['access_token'],
                 'fields' => $fields
             ]
         ]);
+
         $profile = json_decode($profileResponse->getBody(), true);
+
+        $provider          = 'facebook'; 
+        $providerId        = $profile['id']; 
+        $providerUsername  = $profile['name'];
+        $providerEmail     = $profile['email']; 
+        $providerPicture   = $profile['picture']['data']['url'];
+        $providerfirstName = $profile['first_name']; 
+        $providerlastName  = $profile['last_name'];
+         
 
         // Step 3a. If user is already exists return an existing one.
         $user = User::where('facebook', '=', $profile['id'])->where('deleted','')->where('blocked','')->first();
         
         if ($user)
         {
+            $this->updateUserProfile($user->id, $providerfirstName, $providerlastName, $providerPicture);
             return $this->getUserDetails($user->id);
         }
 
@@ -81,7 +92,8 @@ class AuthController extends AppController {
             $user = User::find($user->id);
             $user->facebook = $profile['id'];
             $user->save();
-
+            
+            $this->updateUserProfile($user->id, $providerfirstName, $providerlastName, $providerPicture);
             return $this->getUserDetails($user->id);
         }
 
@@ -94,18 +106,12 @@ class AuthController extends AppController {
 
         }else{
 
-            $provider          = 'facebook'; 
-            $providerId        = $profile['id']; 
-            $providerUsername  = $profile['name'];
-            $providerEmail     = $profile['email']; 
-            $providerfirstName = $profile['first_name']; 
-            $providerlastName  = $profile['last_name'];
-
-            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
+            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerPicture, $providerfirstName, $providerlastName);
             
             return $this->getUserDetails($user->id);
         }
     }
+
 
     /**
      * Login with Google.
@@ -123,9 +129,6 @@ class AuthController extends AppController {
             'grant_type'    => 'authorization_code',
         ];
 
-        //$someArray = array('token' => $params);
-
-        //return Response::json($someArray);
 
         // Step 1. Exchange authorization code for access token.
         $accessTokenResponse = $client->request('POST', 'https://accounts.google.com/o/oauth2/token', [
@@ -137,14 +140,25 @@ class AuthController extends AppController {
         $profileResponse = $client->request('GET', 'https://www.googleapis.com/plus/v1/people/me/openIdConnect', [
             'headers' => array('Authorization' => 'Bearer ' . $accessToken['access_token'])
         ]);
+
         $profile = json_decode($profileResponse->getBody(), true);
 
-
+        $provider          = 'google'; 
+        $providerId        = $profile['sub']; 
+        $providerUsername  = $profile['name'];
+        $providerEmail     = $profile['email'];
+        $providerPicture   = $profile['picture'];  
+        $providerNames     = explode(' ', $profile['name']);
+        $providerfirstName = isset($providerNames[0])?$providerNames[0]:''; 
+        $providerlastName  = isset($providerNames[1])?$providerNames[1]:'';
+         
+      
         // Step 3a. If user is already exists return an existing one.
         $user = User::where('google', '=', $profile['sub'])->where('deleted','')->where('blocked','')->first();
 
         if ($user)
         {
+            $this->updateUserProfile($user->id, $providerfirstName, $providerlastName, $providerPicture);
             return $this->getUserDetails($user->id);
         }
         
@@ -156,12 +170,12 @@ class AuthController extends AppController {
             $user = User::find($user->id);
             $user->google = $profile['sub'];
             $user->save();
-
+            
+            $this->updateUserProfile($user->id, $providerfirstName, $providerlastName, $providerPicture);
             return $this->getUserDetails($user->id);
         }
 
         // Step 3c. If user does not exists Create a new user account.
-
         $user = User::where('email', '=', $profile['email'])->first();
 
         if ($user)
@@ -170,19 +184,12 @@ class AuthController extends AppController {
 
         }else{
 
-            $provider          = 'google'; 
-            $providerId        = $profile['sub']; 
-            $providerUsername  = $profile['name'];
-            $providerEmail     = $profile['email']; 
-            $providerNames     = explode(' ', $profile['name']);
-            $providerfirstName = isset($providerNames[0])?$providerNames[0]:''; 
-            $providerlastName  = isset($providerNames[1])?$providerNames[1]:'';
-
-            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
+            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerPicture, $providerfirstName, $providerlastName);
             
             return $this->getUserDetails($user->id);
         }
     }
+
 
     /**
      * Login with LinkedIn.
@@ -206,20 +213,30 @@ class AuthController extends AppController {
         $accessToken = json_decode($accessTokenResponse->getBody(), true);
 
         // Step 2. Retrieve profile information about the current user.
-        $profileResponse = $client->request('GET', 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address)', [
+        $profileResponse = $client->request('GET', 'https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url )', [
             'query' => [
                 'oauth2_access_token' => $accessToken['access_token'],
                 'format' => 'json'
             ]
         ]);
+
         $profile = json_decode($profileResponse->getBody(), true);
 
+        $provider          = 'linkedin'; 
+        $providerId        = $profile['id']; 
+        $providerUsername  = $profile['firstName'].' '.$profile['lastName'];
+        $providerEmail     = $profile['emailAddress']; 
+        $providerPicture   = $profile['pictureUrl'];
+        $providerfirstName = $profile['firstName']; 
+        $providerlastName  = $profile['lastName'];
+        
         
         // Step 3a. If user is already exists return an existing one.
         $user = User::where('linkedin', '=', $profile['id'])->where('deleted','')->where('blocked','')->first();
 
         if ($user)
         {
+            $this->updateUserProfile($user->id, $providerfirstName, $providerlastName, $providerPicture);
             return $this->getUserDetails($user->id);
         }
         
@@ -232,11 +249,11 @@ class AuthController extends AppController {
             $user->linkedin = $profile['id'];
             $user->save();
 
+            $this->updateUserProfile($user->id, $providerfirstName, $providerlastName, $providerPicture);
             return $this->getUserDetails($user->id);
         }
 
         // Step 3c. If user does not exists Create a new user account.
-
         $user = User::where('email', '=', $profile['emailAddress'])->first();
 
         if ($user)
@@ -245,14 +262,7 @@ class AuthController extends AppController {
 
         }else{
 
-            $provider          = 'linkedin'; 
-            $providerId        = $profile['id']; 
-            $providerUsername  = $profile['firstName'].' '.$profile['lastName'];
-            $providerEmail     = $profile['emailAddress']; 
-            $providerfirstName = $profile['firstName']; 
-            $providerlastName  = $profile['lastName'];
-
-            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName);
+            $user = $this->saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerPicture, $providerfirstName, $providerlastName);
             
             return $this->getUserDetails($user->id);
        
@@ -261,7 +271,7 @@ class AuthController extends AppController {
     }
 
 
-    public function saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerfirstName, $providerlastName)
+    public function saveProviderUserDetails($provider, $providerId, $providerUsername, $providerEmail, $providerPicture, $providerfirstName, $providerlastName)
     {
         $user = new User;
         $user->$provider = $providerId;
@@ -278,6 +288,22 @@ class AuthController extends AppController {
         $role = Role::find(3);
         $user = User::find($user->id);
         $user->attachRole($role);
+        
+        $evezImg = '';
+
+        //create user profile image
+        if(!empty($providerPicture)){
+            $evezImg = EvezownImage::create([
+                        'large_image_url' => $providerPicture
+                    ]
+                );
+        }
+
+        //link user profile image (create) /*Add default avatar image for user if profilePicture empty*/.
+        UserProfileImage::create([
+            'user_id'  => $user->id,
+            'image_id' => empty($evezImg)? 360 : $evezImg->id
+        ]);
 
         return $user;
     }
@@ -285,7 +311,6 @@ class AuthController extends AppController {
 
     public function getUserDetails($Id)
     {
-
         $user = User::find($Id);
         $user->last_login    = new DateTime; 
         $user->online_status = 1;
@@ -301,5 +326,46 @@ class AuthController extends AppController {
 
         return $fractal->createData($usersResource)->toJson();
     }
+
+
+    public function updateUserProfile($userId, $providerfirstName, $providerlastName, $providerPicture)
+    {
+
+        UserProfile::where('user_id', $userId)
+                     ->update(['firstname' => $providerfirstName,
+                               'lastname'  => $providerlastName]);
+
+        $userPictureId = UserProfileImage::where('user_id', $userId)->pluck('image_id');
+
+        if($userPictureId != 360){
+
+            //update user profile image
+            if(!empty($providerPicture)){
+                
+                $evezImg = EvezownImage::where('id', $userPictureId)
+                                         ->update(['large_image_url' => $providerPicture]);
+
+            }
+            
+        }else{
+
+            //create user profile image
+            if(!empty($providerPicture)){
+                
+                $evezImg = EvezownImage::create([
+                            'large_image_url' => $providerPicture
+                        ]
+                    );
+            
+            //link user profile image (update)
+            UserProfileImage::where('user_id', $userId)
+                              ->update(['image_id' => $evezImg->id]);
+
+            }
+
+        }
+
+    }
+
 
 }

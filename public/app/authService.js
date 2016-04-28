@@ -50,7 +50,13 @@ evezownApp
                 method: 'GET'
             }).success(function (data) {
                 if (data) {
-                    imageName = PATHS.api_url + 'image/show/' + data + '/200/200';
+
+                    if (data.toLowerCase().indexOf("http") >= 0){
+                        imageName = data;
+                    }else{
+                        imageName = PATHS.api_url + 'image/show/' + data + '/200/200';
+                    }
+                    
                 }
                 else {
                     imageName = null;
