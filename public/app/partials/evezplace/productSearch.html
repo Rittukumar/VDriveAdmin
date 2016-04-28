@@ -5,13 +5,13 @@
         <li class="active">Products</li>
     </ul>
 
-    <div class="col-md-12 no-padding" ng-controller="createBrowseController">
+    <div class="col-md-12 no-padding create-browse-section" ng-controller="createBrowseController">
         <div class="input-group add-on">
             <div class="icon-addon addon-md">
-                <input type="text" class="form-control" ng-model="SearchValue" placeholder="Search Products" style="height:62px;font-size:20px;" ng-enter="SearchProducts(SearchValue)">
+                <input type="text" class="form-control" ng-model="SearchValue" placeholder="Search Products" style="height:42px;font-size:16px;margin-bottom:2px;" ng-enter="SearchProducts(SearchValue)">
             </div>
             <div class="input-group-btn">
-                <button class="btn btn-default btn-popover" ng-click="SearchProducts(SearchValue)" style="left:1px;height:62px;">
+                <button class="btn btn-default btn-popover" ng-click="SearchProducts(SearchValue)" style="left:1px;height:42px;margin-bottom:2px;">
                     <i class="fa fa-search"></i>
                 </button>
             </div>
@@ -69,7 +69,7 @@
                     </div>
                     
                     
-                    <uib-pagination ng-show="Products.length > 0" total-items="userPagination.total"
+                    <uib-pagination ng-show="userPagination.total > 12" total-items="userPagination.total"
                                 ng-model="currentUserPage"
                                 max-size="maxSize"
                                 class="pagination-custom pagination-sm pull-right"
@@ -80,7 +80,7 @@
                                 ng-change="pageChanged()">
                     </uib-pagination>
                 </div>
-                <div class="empty-section text-center" ng-if="products.length == 0">
+                <div class="empty-section text-center" ng-if="Products.length == 0">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
 
                     <h3 style="font-weight: 200">No products matches your search</h3>

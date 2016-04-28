@@ -111,50 +111,55 @@
                                         <i class=" fa fa-google-plus"></i>Invite using Google+
                                     </button>
                                     <div ng-show="friendslist != null && friendslist.length > 0"
-                                         class="alert alert-dismissible shadow" style="height:250px;overflow-y:auto;overflow-x: hidden;">
-                                        <form class="col-md-8" style="padding-left: 0px; padding-right: 0px">
+                                         class="alert alert-dismissible shadow">
+
+                                        <div>
+                                            <button type="button" class="close" ng-click="resetGooglePlus()" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            <form class="col-md-8" style="padding-left: 0px; padding-right: 0px">
                                             <input ng-model="search" type="text"
                                                    placeholder="Search by firstname" autofocus class="form-control">
-                                        </form>
-                                        <div class="col-md-2">
-                                          <button class="btn btn-primary btn-sm"  ng-click="sendGmailInvite()">Invite</button>
-                                        </div>                  
-                                        <button type="button" class="close" ng-click="resetGooglePlus()"
-                                                aria-label="Close"><span aria-hidden="true">×</span></button>
-                                        <table class="table table-condensed">
-                                            <tbody>
-                                            
-                                            <tr ng-repeat="friend in friendslist | filter:search | orderBy: 'firstName'">
-                                                <td> 
-                                                    {{ friend.firstName }} 
-                                                    <i><small>({{friend.email}})</small></i>
+                                            </form>
+                                            <div class="col-md-2" style="margin-top:4px;">
+                                              <button class="btn btn-primary btn-sm"  ng-click="sendGmailInvite()">Invite</button>
+                                            </div>
+                                        </div>
+
+                                        <div style="width:108%; height:260px;margin-top:10px; overflow:auto;">
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                
+                                                <tr ng-repeat="friend in friendslist | filter:search | orderBy: 'firstName'">
+                                                    <td> 
+                                                        {{ friend.firstName }} 
+                                                        <i><small>({{friend.email}})</small></i>
+                                                    </td>
+                                                    <td>
+                                                        <input type="checkbox" ng-model="friend.selected" value={{friend.email}} >
+                                                    </td>
+                                                </tr>
+                                                
+                                                </tbody>
+                                                <!-- <tfoot>
+                                                <td colspan="4">
+                                                    <nav>
+                                                        <ul class="pagination pull-right">
+                                                            <li ng-class="prevPageDisabled1()">
+                                                                <a href ng-click="prevPage1()">« Prev</a>
+                                                            </li>
+                                                            <li ng-repeat="n in range1()"
+                                                                ng-class="{active: n == currentPage1}"
+                                                                ng-click="setPage1(n)" ng-if="n >= 0">
+                                                                <a href>{{n+1}}</a>
+                                                            </li>
+                                                            <li ng-class="nextPageDisabled1()">
+                                                                <a href ng-click="nextPage1()">Next »</a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
                                                 </td>
-                                                <td>
-                                                    <input type="checkbox" ng-model="friend.selected" value={{friend.email}} >
-                                                </td>
-                                            </tr>
-                                            
-                                            </tbody>
-                                            <!-- <tfoot>
-                                            <td colspan="4">
-                                                <nav>
-                                                    <ul class="pagination pull-right">
-                                                        <li ng-class="prevPageDisabled1()">
-                                                            <a href ng-click="prevPage1()">« Prev</a>
-                                                        </li>
-                                                        <li ng-repeat="n in range1()"
-                                                            ng-class="{active: n == currentPage1}"
-                                                            ng-click="setPage1(n)" ng-if="n >= 0">
-                                                            <a href>{{n+1}}</a>
-                                                        </li>
-                                                        <li ng-class="nextPageDisabled1()">
-                                                            <a href ng-click="nextPage1()">Next »</a>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
-                                            </td>
-                                            </tfoot> -->
-                                        </table>
+                                                </tfoot> -->
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -176,6 +181,7 @@
                             <option value="json" selected> JSON</option>
                             </select><br>
                             <p><input type="file" name="xlfile" id="xlf" /></p>
+                            <input type="hidden" name="uploadFileType" id="uploadFileType" />
                             <textarea name="invite-emails" class="form-control" id="out2" rows="4" data-ng-model="ExcelEmails"></textarea>
                             <button class="btn btn-primary pull-right" style="margin-top: 10px" id="ExcelInvite">Send Invites
                             </button>
@@ -290,6 +296,8 @@ function process_wb(wb) {
 var xlf = document.getElementById('xlf');
 function handleFile(e) {
     var files = e.target.files;
+    var fileName = files[0].name;
+    document.getElementById('uploadFileType').value= fileName.substring(fileName.lastIndexOf(".")+1);
     var f = files[0];
     {
         var reader = new FileReader();

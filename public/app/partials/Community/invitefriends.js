@@ -735,15 +735,23 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
     }
 
     function ExcelMailInvite(emails) {
-    var ExcelMails = document.getElementById('out2').value;
-    if(ExcelMails == "")
-    {
-        toastr.error('No contact info');
-    }
-    else
-    {
-        $scope.sendInviteExcel(ExcelMails);
-    }
+
+        var fileType = document.getElementById('uploadFileType').value;
+
+        var ExcelMails = document.getElementById('out2').value;
+
+        if(fileType != "xls" && fileType != "xlsx" )
+        {
+            toastr.error('Please upload only excel file.');
+        }
+        else if(ExcelMails == "")
+        {
+            toastr.error('No contact info to invite');
+        }
+        else
+        {
+            $scope.sendInviteExcel(ExcelMails);
+        }
     }
     /*Invite using Xls Upload ends*/
     

@@ -39,7 +39,7 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, $c
 
     $scope.SearchProducts = function (SearchValue)
     {
-        if(SearchValue == undefined)
+        if(SearchValue == undefined || SearchValue == "")
         {
             toastr.error('Please enter any product name');
         }

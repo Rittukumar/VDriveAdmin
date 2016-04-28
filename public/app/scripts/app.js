@@ -1289,6 +1289,15 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/store/:storeId/manage/store_info', {
+                templateUrl: 'partials/evezplace/manage/store/store_info.html',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
+                }
+            });
+
+        $routeProvider
+
             .when('/checkout/:checkouttype', {
                 templateUrl: 'partials/evezplace/browse/store/place-order.html',
                 controller: 'ShoppingCartCtrl',

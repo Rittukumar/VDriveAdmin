@@ -26,13 +26,13 @@
                     <table id="mytable" class="table table-bordred table-striped" ng-if="showTable">
                         <thead>
                             <th>SL.NO</th>
-                            <th style="text-align:center">TITLE</th>
-                            <th style="text-align:center">DESCRIPTION</th>
+                            <th style="text-align:left">ELEMENT NAME</th>
+                            <th style="text-align:left">ELEMENT VALUE</th>
                         </thead>
                         
                         <tbody>
                         <tr ng-repeat="caption in captions">
-                            <td>{{caption.id}}</td>
+                            <td>{{$index + 1}}</td>
                             <td>
                                 <label for="caption.label">{{caption.label}}</label>
                             </td>

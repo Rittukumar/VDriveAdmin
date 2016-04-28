@@ -53,7 +53,7 @@
 <div class="col-md-12" style="margin-top: 10px;">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
         <li><a href="#home">Home</a> <span class="divider"></span></li>
-        <li><a href="#profile/{{userId}}">Mysite</a></li>
+        <li><a href="#profile/myprofile/{{userId}}">Mysite</a></li>
         <li class="active">Stream It</li>
     </ul>
 </div>
@@ -128,7 +128,7 @@
                 <!--title-->
                 <div class="col-md-12 zero-padding-left-right trending-title">
                     <input type="text" class="form-control" placeholder="Post title" data-ng-model="woice" maxlength="255" novalidate/>
-                    <span class="pull-right" ng-hide="woice == dirty">{{255 - woice.length}}</span>
+                    <span class="pull-right" ng-hide="woice == dirty" style="color:#E50880;">{{255 - woice.length}}</span>
                 </div>
 
                 
@@ -136,7 +136,7 @@
                 <!--Description-->
                 <div class="col-md-6 zero-padding-left-right trending-whats-recommendation" style="margin-bottom:2px;padding-bottom:5px;">
                     <textarea class="form-control" rows="7" placeholder="Enter your description" maxlength="800" data-ng-model="description" novalidate/>
-                    <span class="pull-right" ng-hide="description == dirty">{{800 - description.length}}</span>
+                    <span class="pull-right" ng-hide="description == dirty" style="color:#E50880;">{{800 - description.length}}</span>
                 </div>
                 <!--Category-->
                 <div class="col-md-6" style="padding-right:0px">
@@ -274,7 +274,7 @@
             <!-- Posting area Ends-->
             <!-- Content area starts -->
             <!-- show Posts -->
-            <div class="col-md-6 grid-view" style="padding:5px;" ng-repeat="(key, post) in posts track by key">
+            <div class="col-md-6 grid-view" style="padding:5px;" ng-repeat="post in posts">
             <div class="col-md-12 trending-section" style="border:solid 1px #ccc;border-radius:4px;" ng-if="post">
                 <div class="col-md-12 zero-padding-left-right" >
                     <!-- username-->

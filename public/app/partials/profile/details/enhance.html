@@ -120,7 +120,7 @@
 <div class="col-md-12" style="margin-top: 10px;">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
         <li><a href="#home">Home</a> <span class="divider"></span></li>
-        <li><a href="#profile/{{userId}}">Profile</a></li>
+        <li><a href="#profile/myprofile/{{userId}}">Profile</a></li>
         <li class="active">Details</li>
     </ul>
 </div>
@@ -167,7 +167,7 @@
         <form>
             <div class="form-group">
                 <textarea placeholder="About me" name="aboutme" id="aboutme" class="form-control input-lg"
-                          tabindex="5" ng-model="enhancedProfile.aboutme">
+                          tabindex="5" ng-model="enhancedProfile.aboutme" maxlength="255">
                 </textarea>
                 <span class="pull-right" ng-hide="enhancedProfile.aboutme == dirty" style="color:#E50880;">{{255 - enhancedProfile.aboutme.length}}</span>
             </div>

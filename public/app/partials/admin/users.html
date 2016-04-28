@@ -23,15 +23,16 @@
                     <a href="#/admin/addNewUser" class="btn btn-primary"><span class="fa fa-plus"></span> Add User</a>
                 </div>
 
-                <table ng-table="userAdminTableParams" template-pagination="custom/pager" class="table table-bordred table-striped">
+                <table ng-table="userAdminTableParams" template-pagination="custom/pager" class="table table-bordred table-striped userlist">
                  <div class="col-md-4">
                     <input type="text" class="form-control" placeholder="search user" ng-model="evesearch"/>
                  </div>
 
-                    <tr ng-repeat="user in getUser | filter:evesearch | orderBy:'firstname':false" class="text-left">
-                        <td data-title="'First Name'">{{user.firstname}} </td>
+                    <tr ng-repeat="user in getUser | filter:evesearch | orderBy:'firstname':false">
+                        <td data-title="'First Name'" style="text-align: left;">{{user.firstname}} </td>
                         <td data-title="'Last Name'">{{user.lastname}}</td>
                         <td data-title="'Email'">{{user.email}}</td>
+                        <td data-title="'User Type'">{{user.role}}</td>
                         <td data-title="'Status'"><label>
                         		<font color="orange">{{ user.blocked == 1 ? 'Blocked':''}} </font>
                         		<font color="red">{{ user.deleted == 1 ? 'Deleted':''}} </font>

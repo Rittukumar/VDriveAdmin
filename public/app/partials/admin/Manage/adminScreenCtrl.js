@@ -6,25 +6,10 @@ evezownApp.controller('adminScreenCtrl',
     {
 
         
-    $scope.title = "Screens";
+    $scope.title = "Site Content Conrol";
     $scope.allscreens = [];
     $scope.captions = [];
     $scope.showTable = false;
-
- //    $scope.items = [{
-	//   id: 1,
-	//   label: 'LandingPage'
-	// }, {
-	//   id: 2,
-	//   label: 'Blogs'
-	// }, {
-	//   id: 3,
-	//   label: 'articles'
-	// }, {
-	//   id: 4,
-	//   label: 'events'
-	// }];
-
 
 	//get all the screens
     $scope.GetAllScreens = function()
@@ -34,6 +19,8 @@ evezownApp.controller('adminScreenCtrl',
             {
                 console.log(data.data);
                 $scope.allscreens = data.data;
+                $scope.Screen = data.data[0];
+                $scope.GetCaptions($scope.Screen.id);
             }).error(function (data)
             {
                 console.log(data);
@@ -43,7 +30,7 @@ evezownApp.controller('adminScreenCtrl',
     $scope.GetAllScreens();
 
     //get all the captions based on the screen
-    $scope.GetCaptions = function($screen)
+    $scope.GetCaptions = function()
     {
 
 
@@ -57,69 +44,6 @@ evezownApp.controller('adminScreenCtrl',
                 console.log(data);
             });
 
-
-   //      if($scope.Screen.id == 1)
-   //      {
-   //      	$scope.captions = [{
-			//   id: 1,
-			//   label: 'mysite',
-			//   description: 'Description1'
-			// }, {
-			//   id: 2,
-			//   label: 'marketplace',
-			//   description: 'Description1'
-			// }, {
-			//   id: 3,
-			//   label: 'jobs',
-			//   description: 'Description1'
-			// }, {
-			//   id: 4,
-			//   label: 'stores',
-			//   description: 'Description1'
-			// }];
-   //      }
-
-   //      if($scope.Screen.id == 2)
-   //      {
-   //      	$scope.captions = [{
-			//   id: 1,
-			//   label: 'mysite2',
-			//   description: 'Description2'
-			// }, {
-			//   id: 2,
-			//   label: 'marketplace2',
-			//   description: 'Description2'
-			// }, {
-			//   id: 3,
-			//   label: 'jobs2',
-			//   description: 'Description2'
-			// }, {
-			//   id: 4,
-			//   label: 'stores2',
-			//   description: 'Description2'
-			// }];
-   //      }
-
-   //      if($scope.Screen.id == 3)
-   //      {
-   //      	$scope.captions = [{
-			//   id: 1,
-			//   label: 'mysite3',
-			//   description: 'Description3'
-			// }, {
-			//   id: 2,
-			//   label: 'marketplace3',
-			//   description: 'Description3'
-			// }, {
-			//   id: 3,
-			//   label: 'jobs3',
-			//   description: 'Description3'
-			// }, {
-			//   id: 4,
-			//   label: 'stores3',
-			//   description: 'Description3'
-			// }];
-   //      }
         $scope.showTable = true;
 
 
