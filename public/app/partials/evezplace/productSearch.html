@@ -69,7 +69,7 @@
                     </div>
                     
                     
-                    <uib-pagination ng-show="Products.length > 0" total-items="userPagination.total"
+                    <uib-pagination ng-show="userPagination.total > 12" total-items="userPagination.total"
                                 ng-model="currentUserPage"
                                 max-size="maxSize"
                                 class="pagination-custom pagination-sm pull-right"
