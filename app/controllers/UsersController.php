@@ -941,4 +941,23 @@ class UsersController extends AppController
         }
     }
 
+
+    public function checkforPasswordField(){
+
+        try{
+
+            $data     = Input::all();
+            $user_id  = $data['user_id'];
+
+            $checkforPassword = User::where('id', $user_id)->where('password', '')->pluck('id');
+
+            return $checkforPassword;
+
+        }catch (Exception $e){
+             return $this->setStatusCode(500)->respondWithError('Error occured!');  
+        }
+        
+    }
+
+
 }

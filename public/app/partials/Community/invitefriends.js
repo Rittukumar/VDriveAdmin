@@ -281,8 +281,8 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
                 description: message,
                 picture: 'http://evezown.com/img/logo.png'
             },
-            function (response) {
-                if (response && !response.error_message) {
+            function (response) { 
+                if (response && !response.error_msg) {
                   toastr.success('Invite Friends Successful');
                 } else {
                   //toastr.error('Error Please Try Again Later');
