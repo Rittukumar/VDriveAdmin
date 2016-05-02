@@ -16,11 +16,11 @@ use Intervention\Image\Facades\Image;
 Route::get('/', function () {
     return View::make('hello');
 });
- 
-Route::post('paymentstatus/paymentstatus', function () {
- 	$inputArray = Input::all();
-	return View::make('paymentstatus')->with('data',$inputArray);
-}); 
+
+// Route::post('paymentstatus/paymentstatus', function () {
+//  	$inputArray = Input::all();
+// 	return View::make('paymentstatus')->with('data',$inputArray);
+// }); 
 
 Route::get('payupaymentsuccess/payupaymentsuccess', function () {
 	return View::make('payupaymentsuccess');
@@ -197,6 +197,10 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('cart/checkcart', 'CartController@checkCartProducts');
     Route::post('cart/getcart', 'CartController@getCartProducts');
     Route::post('cart/deletecart', 'CartController@deleteCart');
+
+    //payment
+    Route::post('payment/stripePayment', 'PaymentController@stripePayment');
+    Route::post('paymentstatus/paymentstatus', 'PaymentController@payuPayment');
 
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');
@@ -472,6 +476,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('image/show/{imagename}/{w?}/{h?}', 'ImageController@showScaledImage');
 
     Route::post('buyer', 'OrderController@getBuyerDetails');
+    Route::post('buyer/createbuyer', 'OrderController@createBuyer');
     Route::post('orders', 'OrderController@store');
     Route::get('orders/{buyer_id}/buyer', 'OrderController@getBuyersOrder');
     Route::post('orders/payu/hash', 'OrderController@getHash');

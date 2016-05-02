@@ -18,7 +18,8 @@
     "tymon/jwt-auth": "0.4.*",
     "firebase/php-jwt": "~3.0.0",
     "guzzlehttp/guzzle": "~6.1.1",
-    "guzzlehttp/oauth-subscriber": "dev-master"
+    "guzzlehttp/oauth-subscriber": "dev-master",
+    "laravel/cashier": "~2.0"
   },
   "autoload": {
     "classmap": [

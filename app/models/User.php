@@ -4,10 +4,13 @@ use Zizaco\Confide\ConfideUser;
 use Zizaco\Confide\ConfideUserInterface;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Auth\UserInterface;
+use Laravel\Cashier\BillableTrait;
+use Laravel\Cashier\BillableInterface;
 
-class User extends Eloquent implements ConfideUserInterface {
+class User extends Eloquent implements ConfideUserInterface, BillableInterface {
 	use ConfideUser;
 	use HasRole;
+	use BillableTrait;
 
 	/**
 	 * The attributes that should be hidden for arrays.
