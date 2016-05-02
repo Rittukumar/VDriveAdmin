@@ -277,6 +277,8 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('users/store/updatestorestatus/update', 'StoreController@updateStoreStatus');
     Route::get('users/store/getstorestatus/{store_id}/get', 'StoreController@getStoreStatus');
     Route::get('users/store/getstorestatus/enums', 'StoreController@getStoreStatusEnum');
+    Route::post('users/store/setstorestatus/Accept', 'StoreController@StoreAcceptByAdmin');
+    Route::post('users/store/setstorestatus/Reject', 'StoreController@StoreRejectByAdmin');
 
 
     //UpdateStoreFooterInfo
@@ -292,6 +294,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('stores/{store_id}/get', 'StoreController@getStoreById');
     Route::get('stores/subcategory/{store_subcategory_id}/get', 'StoreController@getStoreBySubCategoryId');
     Route::get('stores/owner/{user_id}/get', 'StoreController@getStoreByOwner');
+    Route::get('stores/owner/guestuser/{user_id}/get', 'StoreController@getStoreGuestUser');
     Route::get('stores/owner/{user_id}/type/{typeId}/get', 'StoreController@getStoreByOwnerAndType');
     Route::get('stores/type/{typeId}/get', 'StoreController@getStoreByType');
     Route::post('stores/search/advanced', 'StoreController@searchStore');

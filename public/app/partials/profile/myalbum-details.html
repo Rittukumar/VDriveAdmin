@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="">
-                <a href="#profile/{{userId}}" >Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" >Mysite</a>
             </li>
             <li ng-if="loggedInUserId == currentUserId">
                 <a href="#myalbums/{{userId}}" class="active">Gallery</a>
@@ -66,7 +66,7 @@
 
     </div>
 </div>
-<div class="col-md-12 user-details"  ng-controller="profileCtrl">
+<div class="col-md-12 user-details" ng-controller="profileCtrl">
     <div class="row coralbg white custom-profile-userpic">
         <div class="col-md-3 top-margin">
             <div class="user-image biothumb">
@@ -125,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" id="topview">
             <h3>About Me</h3>
 
             <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>

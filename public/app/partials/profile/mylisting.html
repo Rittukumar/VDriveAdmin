@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -74,7 +74,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-md-9 no-pad">
                     <div class="user-pad-profile">
                         <!--name-->
@@ -124,29 +123,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <h3>About Me</h3>
+            </div>
 
-                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
-                </div>
+            <div class="col-md-12"  id="topview">
+                <h3>About Me</h3>
+                <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
 
         </div>
+
         <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>
 
-        <div class="col-md-10 user-menu user-pad" ng-if="Role == 2">
-            <div class="col-md-12">
-                <div class="empty-section text-center">
+        <!--For Member-->
+        <div class="col-md-10 user-menu user-pad" ng-if="Role != 1">
+            <div class="col-md-12 col-xs-12">
+                <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
 
-                    <h3 style="font-weight: 200">You should have Business subscription to access this service</h3>
+                    <h3 style="font-weight: 200">This feature is not available for you. This feature is available only in the premium edition. In order to enable this feature please send a subscription request to evezown editor</h3>
+
+                    <div class="col-md-2 col-xs-12 col-md-offset-5 text-center">
+                        <a href class="btn btn-primary"> Subscribe Now</a>
+                    </div>
+
                 </div>
             </div>
         </div>
 
-        <div class="col-md-10 user-menu user-pad" ng-if="Role != 2">
+        <!--For Admin-->
+        <div class="col-md-10 user-menu user-pad" ng-if="Role == 1">
             <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
 			        <div class="fragment">
 			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
@@ -181,10 +188,10 @@
                                         <div class="store-browse-title">
                                             <div class="row">
                                                 <div class="col-xs-6">
-                                                    <a href="#classifieds/{{item.id}}"  style="color: #ffffff;"><h5 style="padding: 10px">{{item.title}}</h5></a>
+                                                    <a href="#classifieds/{{item.id}}/profile"  style="color: #ffffff;"><h5 style="padding: 10px">{{item.title}}</h5></a>
                                                 </div>
                                                 <div class="col-xs-6" ng-if="currentUserId == loggedInUserId">
-                                                    <a href="#classified/{{item.id}}/manage/classified_type" class="pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">Manage Ads & Campaigns<span class="fa fa-chevron-right"></span></a>
+                                                    <a href="#classified/{{item.id}}/manage/classified_type/profile" class="pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">Manage Ads & Campaigns<span class="fa fa-chevron-right"></span></a>
                                                 </div>
                                             </div>
 

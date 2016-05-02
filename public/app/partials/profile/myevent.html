@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -123,102 +123,125 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <h3>About Me</h3>
+            </div>
 
-                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
-                </div>
+            <div class="col-md-12" id="topview">
+                <h3>About Me</h3>
+                <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
 
         </div>
+
         <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>
-        <div class="col-md-7 user-menu user-pad" ng-controller="eventCtrl">
-        		<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
-			        <div class="fragment">
-			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
-			            <p>
-			                You can create Events, online events as well as reflect real life events- parties, get together and seminars, host of features available to automate all your event planning and execution! Capture the fun element 
-			            </p>
-			        </div>
-			    </div>
-            <div class="col-md-12 panel-heading">
-                <div class="col-md-2">
-                    <h5>
-                        Events ({{myEvents.length}})
-                    </h5>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
-                </div>
-                <div class="col-md-3 col-md-offset-4 pull-right" ng-if="loggedInUserId == currentUserId">
-                    <a href="#createevent" class="btn btn-primary"><span class="fa fa-plus"></span> Create Event</a>
-                </div>
-            </div>
-            <div class="col-md-12 circle-section">
-                <ul class="row event-list">
-                    <!-- Row 1 -->
-                    <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
-                        <article>
-                            <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
-                                <div class="img" ng-if="event.event_image == null">
-                                    <img alt="{{event.title}}" src="img/event.png">
-                                </div>
-                                <div class="img" ng-if="event.event_image != null">
-                                    <img alt="{{event.title}}" src="{{service_url}}image/show/{{event.event_image.large_image_url}}">
-                                </div>
-                                <div class="detail">
-                                    <time class="event-info" datetime="{{event.start_date}}">{{event.start_date}} {{event.start_time}}</time>
-                                    <h1>{{event.title | strLimit: 18}}</h1>
 
-                                    <div class="tease"><p>{{event.description | strLimit: 100}}</p></div>
-                                </div>
-                            </a>
-                        </article>
-                    </li>
-                </ul>
+        <!--For Member-->
+        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1">
+            <div class="col-md-12 col-xs-12">
+                <div class="col-md-12 col-xs-12 empty-section text-center">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">This feature is not available for you. This feature is available only in the premium edition. In order to enable this feature please send a subscription request to evezown editor</h3>
+
+                    <div class="col-md-2 col-xs-12 col-md-offset-5 text-center">
+                        <a href class="btn btn-primary"> Subscribe Now</a>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <div class="col-md-3" style="padding-right: 0px" ng-controller="eventCtrl" ng-if="loggedInUserId == currentUserId">
-            <!-- Friend requests -->
-            <div class="panel" style="background: #f7f7f7;">
-                <div class="panel-heading">
-                    <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Event Requests ({{allEventInvites.length}})</h5>
-                </div>
-                <ul class="list-group" ng-repeat="request in allEventInvites">
-                    <li class="list-group-item col-sm-12">
-                        <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
-                            <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
-                            <a href="#eventdetails/{{request.event.id}}"> {{request.event.title}}</a>
-                        </div>
-                        <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
-                            <a href ng-click="SetInviteStatus('yes',request.event.id)"><span class="fa fa-check"></span></a>
-                        </div>
-                        <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
-                            <a href="" ng-click="SetInviteStatus('no',request.event.id)"><span class="fa fa-times"></span></a>
-                        </div>
-                        <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
-                            <a href="" ng-click="SetInviteStatus('maybe',request.event.id)" class="pull-right"><span>maybe</span></a>
-                        </div>
 
-                    </li>
-                </ul>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!--<ul class="pagination pagination-sm pull-right">-->
-                            <!--<li class="disabled"><a href="javascript:void(0)">«</a></li>-->
-                            <!--<li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a>-->
-                            <!--</li>-->
-                            <!--<li><a href="">2</a></li>-->
-                            <!--<li><a href="javascript:void(0)">»</a></li>-->
-                            <!--</ul>-->
+        <!--For Admin-->
+        <div ng-show="Role == 1">
+            <div class="col-md-7 user-menu user-pad" ng-controller="eventCtrl">
+            		<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+    			        <div class="fragment">
+    			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+    			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
+    			            <p>
+    			                You can create Events, online events as well as reflect real life events- parties, get together and seminars, host of features available to automate all your event planning and execution! Capture the fun element 
+    			            </p>
+    			        </div>
+    			    </div>
+                <div class="col-md-12 panel-heading">
+                    <div class="col-md-2">
+                        <h5>
+                            Events ({{myEvents.length}})
+                        </h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
+                    </div>
+                    <div class="col-md-3 col-md-offset-4 pull-right" ng-if="loggedInUserId == currentUserId">
+                        <a href="#createevent" class="btn btn-primary"><span class="fa fa-plus"></span> Create Event</a>
+                    </div>
+                </div>
+                <div class="col-md-12 circle-section">
+                    <ul class="row event-list">
+                        <!-- Row 1 -->
+                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
+                            <article>
+                                <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
+                                    <div class="img" ng-if="event.event_image == null">
+                                        <img alt="{{event.title}}" src="img/event.png">
+                                    </div>
+                                    <div class="img" ng-if="event.event_image != null">
+                                        <img alt="{{event.title}}" src="{{service_url}}image/show/{{event.event_image.large_image_url}}">
+                                    </div>
+                                    <div class="detail">
+                                        <time class="event-info" datetime="{{event.start_date}}">{{event.start_date}} {{event.start_time}}</time>
+                                        <h1>{{event.title | strLimit: 18}}</h1>
+
+                                        <div class="tease"><p>{{event.description | strLimit: 100}}</p></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+       
+
+            <div class="col-md-3" style="padding-right: 0px" ng-controller="eventCtrl" ng-if="loggedInUserId == currentUserId">
+                <!-- Friend requests -->
+                <div class="panel" style="background: #f7f7f7;">
+                    <div class="panel-heading">
+                        <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Event Requests ({{allEventInvites.length}})</h5>
+                    </div>
+                    <ul class="list-group" ng-repeat="request in allEventInvites">
+                        <li class="list-group-item col-sm-12">
+                            <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
+                                <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
+                                <a href="#eventdetails/{{request.event.id}}"> {{request.event.title}}</a>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+                                <a href ng-click="SetInviteStatus('yes',request.event.id)"><span class="fa fa-check"></span></a>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+                                <a href="" ng-click="SetInviteStatus('no',request.event.id)"><span class="fa fa-times"></span></a>
+                            </div>
+                            <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+                                <a href="" ng-click="SetInviteStatus('maybe',request.event.id)" class="pull-right"><span>maybe</span></a>
+                            </div>
+
+                        </li>
+                    </ul>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--<ul class="pagination pagination-sm pull-right">-->
+                                <!--<li class="disabled"><a href="javascript:void(0)">«</a></li>-->
+                                <!--<li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a>-->
+                                <!--</li>-->
+                                <!--<li><a href="">2</a></li>-->
+                                <!--<li><a href="javascript:void(0)">»</a></li>-->
+                                <!--</ul>-->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
 </div>
 </div>

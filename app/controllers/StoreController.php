@@ -1314,7 +1314,7 @@ class StoreController extends AppController
 
             StoreStatus::create([
                 'store_id' => $storeId,
-                'status_id' => 2,
+                'status_id' => 1,
             ]);
 
             $successResponse = [
@@ -1352,6 +1352,15 @@ class StoreController extends AppController
 
             $storeStatus = StoreStatus::where('store_id', $storeId)->first();
 
+            $StoreOwnerDetails = StoreFrontInfo::where('store_id', $storeId)->first();
+
+            $StoreOwnerEmail = $StoreOwnerDetails->store_contact_email;
+
+            $StoreDetails = Store::where('id', $storeId)->first();
+
+            $StoreName = $StoreDetails->title;
+
+
             if (!$storeStatus) {
                 $storeStatus = StoreStatus::create([
                     'store_id' => $storeId,
@@ -1362,10 +1371,287 @@ class StoreController extends AppController
                 $storeStatus->save();
             }
 
+            // Send an request & notification email to admin.
+
+            $user = array(
+                'email' => $StoreOwnerEmail,
+                'name' => $StoreName
+            );
+
+            $data = array(
+                'email' => $StoreOwnerEmail,
+                'name' => $StoreName
+            );
+
+            Mail::send('emails.storePublishRequest', $data, function ($message) use ($user) {
+                $message->from($user['email']);
+                $message->to('editor@evezown.com')->subject('Store publish request');
+            });
+
             $successResponse = [
                 'status' => true,
                 'id' => $storeStatus->id,
-                'message' => 'Store updated successfully!'
+                'message' => 'Request send to admin'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+
+            //return $this->setStatusCode(500)->respondWithError($e);
+            return $e;
+        }
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     * POST /update store status
+     *
+     * @return Response
+     */
+    public function StoreAcceptByAdmin()
+    {
+        try {
+            $input = Input::all();
+
+            $input_array = $input['data'];
+
+            $storeId = $input_array['storeId'];
+
+            $storeEmail = $input_array['storeEmail'];
+
+            $storeName = $input_array['storeName'];
+
+            $storeSubscription = $input_array['storeSubscription_id'];
+
+            $storeSubscription_type = $input_array['storeSubscription_type'];
+
+            $subscriprionPriceFree ="";
+            $subscriprionPricePremium ="";
+            $subscriprionPriceCustomized ="";
+
+            if (isset($input_array['freeprice'])) {
+
+                $subscriprionPriceFree = $input_array['freeprice'];
+            }
+            if (isset($input_array['premiumprice'])) {
+                
+                $subscriprionPricePremium = $input_array['premiumprice'];
+            }
+            if (isset($input_array['customizedprice'])) {
+                
+                $subscriprionPriceCustomized = $input_array['customizedprice'];
+            }
+            
+            //inserting into store_subscription_offer table
+            if($storeSubscription == 1)
+            {
+                //For Free
+                $SubscriptionFree = StoreSubscriptionOffer::where('store_id', $storeId)->where('subscription_id', 1)->first();
+
+                if(!$SubscriptionFree)
+                {
+                    $SubscriptionFree = StoreSubscriptionOffer::create([
+                    'store_id' => $storeId,
+                    'amount' => $subscriprionPriceFree,
+                    'subscription_id' => 1
+                    ]);
+                }
+
+                else
+                {
+                    $SubscriptionFree->amount = $subscriprionPriceFree;
+                    $SubscriptionFree->save();
+                }
+
+                //For Free - Premium
+                $SubscriptionPremium = StoreSubscriptionOffer::where('store_id', $storeId)->where('subscription_id', 2)->first();
+
+                if(!$SubscriptionPremium)
+                {
+                    $SubscriptionPremium = StoreSubscriptionOffer::create([
+                    'store_id' => $storeId,
+                    'amount' => $subscriprionPricePremium,
+                    'subscription_id' => 2
+                    ]);
+                }
+
+                else
+                {
+                    $SubscriptionPremium->amount = $subscriprionPricePremium;
+                    $SubscriptionPremium->save();
+                }
+            }
+
+            if($storeSubscription == 2)
+            {
+                $SubscriptionPremium = StoreSubscriptionOffer::where('store_id', $storeId)->where('subscription_id', 2)->first();
+
+                if(!$SubscriptionPremium)
+                {
+                    $SubscriptionPremium = StoreSubscriptionOffer::create([
+                    'store_id' => $storeId,
+                    'amount' => $subscriprionPricePremium,
+                    'subscription_id' => 2
+                    ]);
+                }
+
+                else
+                {
+                    $SubscriptionPremium->amount = $subscriprionPricePremium;
+                    $SubscriptionPremium->save();
+                }
+            }
+
+            if($storeSubscription == 3)
+            {
+                $SubscriptionCustomized = StoreSubscriptionOffer::where('store_id', $storeId)->where('subscription_id', 3)->first();
+
+                if(!$SubscriptionCustomized)
+                {
+                    $SubscriptionCustomized = StoreSubscriptionOffer::create([
+                    'store_id' => $storeId,
+                    'amount' => $subscriprionPriceCustomized,
+                    'subscription_id' => 3
+                    ]);
+                }
+
+                else
+                {
+                    $SubscriptionCustomized->amount = $subscriprionPriceCustomized;
+                    $SubscriptionCustomized->save();
+                }
+            }
+
+            $storeStatus = StoreStatus::where('store_id', $storeId)->first();
+
+            if (!$storeStatus) {
+                $storeStatus = StoreStatus::create([
+                    'store_id' => $storeId,
+                    'status_id' => 6
+                ]);
+            } else {
+                $storeStatus->status_id = 6;
+                $storeStatus->save();
+            }
+
+            // Send an email to store admin.
+
+            $user = array(
+                'email' => $storeEmail,
+                'name' => $storeName
+            );
+
+
+            if($storeSubscription == 1)
+            {
+                $data = array(
+                'email' => $storeEmail,
+                'name' => $storeName,
+                'Subscription_type' => $storeSubscription_type,
+                'Fprice' => $subscriprionPriceFree,
+                'Pprice' => $subscriprionPricePremium
+                );
+            }
+
+            if($storeSubscription == 2)
+            {
+                $data = array(
+                'email' => $storeEmail,
+                'name' => $storeName,
+                'Subscription_type' => $storeSubscription_type,
+                'Pprice' => $subscriprionPricePremium
+                );
+            }
+
+            if($storeSubscription == 3)
+            {
+                $data = array(
+                'email' => $storeEmail,
+                'name' => $storeName,
+                'Subscription_type' => $storeSubscription_type,
+                'Cprice' => $subscriprionPriceCustomized
+                );
+            }
+            
+
+            Mail::send('emails.storeResponseApprove', $data, function ($message) use ($user) {
+                $message->from('editor@evezown.com');
+                $message->to($user['email'])->subject('Store publish response');
+            });
+
+            $successResponse = [
+                'status' => true,
+                'message' => 'Resopnse send to store admin'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+
+            //return $this->setStatusCode(500)->respondWithError($e);
+            return $e;
+        }
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     * POST /update store status
+     *
+     * @return Response
+     */
+    public function StoreRejectByAdmin()
+    {
+        try {
+            $input = Input::all();
+
+
+            $input_array = $input['data'];
+
+            $storeId = $input_array['storeId'];
+
+            $storeEmail = $input_array['storeEmail'];
+
+            $storeName = $input_array['storeName'];
+
+            $emailContent = $input_array['EmailContent'];
+
+            $storeStatus = StoreStatus::where('store_id', $storeId)->first();
+
+            if (!$storeStatus) {
+                $storeStatus = StoreStatus::create([
+                    'store_id' => $storeId,
+                    'status_id' => 1
+                ]);
+            } else {
+                $storeStatus->status_id = 1;
+                $storeStatus->save();
+            }
+
+            // Send an email to store admin.
+
+            $user = array(
+                'email' => $storeEmail,
+                'name' => $storeName,
+                'content' => $emailContent
+            );
+
+            $data = array(
+                'email' => $storeEmail,
+                'name' => $storeName,
+                'content' => $emailContent
+            );
+
+            Mail::send('emails.storeResponseReject', $data, function ($message) use ($user) {
+                $message->from('editor@evezown.com');
+                $message->to($user['email'])->subject('Store publish response');
+            });
+
+            $successResponse = [
+                'status' => true,
+                'message' => 'Resopnse send to store admin'
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);
@@ -1507,7 +1793,7 @@ class StoreController extends AppController
             $store = Store::with('profile', 'profile_images',
                 'collage_image1', 'collage_image2',
                 'collage_image3', 'StoreFrontInfo',
-                'owner', 'BusinessInfo', 'Tags',
+                'owner', 'BusinessInfo','Subscription_offer','Tags',
                 'StoreFrontPromotion',
                 'StoreFrontPromotion.image.image1',
                 'StoreFrontPromotion.image.image2',
@@ -1717,6 +2003,35 @@ class StoreController extends AppController
                 'StoreFrontPromotion.image.image3', 'StoreFrontPromotion.image.image4',
                 'StoreCommerce', 'StoreStatus')
                 ->where('owner_id', $user_id)->get();
+
+            if (!$myStores) {
+                return $this->responseNotFound('Store Listing Not Found!');
+            }
+            return $myStores->toJson();
+
+        } catch (Exception $e) {
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+
+    public function getStoreGuestUser($user_id)
+    {
+        try {
+            $myStores = Store::with('profile', 'profile_images', 'collage_image1',
+                'collage_image2', 'collage_image3', 'StoreFrontInfo',
+                'owner', 'BusinessInfo', 'Tags', 'StoreFrontPromotion',
+                'StoreFrontPromotion.image.image1', 'StoreFrontPromotion.image.image2',
+                'StoreFrontPromotion.image.image3', 'StoreFrontPromotion.image.image4',
+                'StoreCommerce', 'StoreStatus')
+                ->where('owner_id', $user_id)
+                ->whereExists(function ($query) {
+                        $query->select(DB::raw(1))
+                            ->from('store_status')
+                            ->whereRaw('stores.id = store_status.store_id')
+                            ->whereRaw('store_status.status_id = 2');
+                    })
+                ->get();
 
             if (!$myStores) {
                 return $this->responseNotFound('Store Listing Not Found!');

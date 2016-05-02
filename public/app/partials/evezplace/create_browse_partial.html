@@ -1,7 +1,16 @@
 <div class="create-browse-section" ng-controller="createBrowseController">
     <div class="row" id="store-button-section" ng-if="!isClassified">
         
-        <div class="col-md-6">
+        <div class="col-md-4 col-xs-12">
+             <a ng-if="!isProductPlusService" href="#store/browse" id="btn-browse-store" class="btn btn-block">Browse Existing {{storeType}} <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+             <a ng-if="isProductPlusService" href="#store/browse" id="btn-browse-store" class="btn btn-block">Browse {{storeType}} <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+        </div>
+        
+        <div class="col-md-4 col-xs-12">
+             <a href="#classifieds/browse" id="btn-browse-classifieds" class="btn btn-block">Browse Ads & Campaigns <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+        </div>
+
+        <div class="col-md-4 col-xs-12">
             <div class="input-group add-on">
                 <div class="icon-addon addon-md">
                     <input type="text" class="form-control" ng-model="SearchValue" placeholder="Search Products" style="height:42px;font-size:16px;margin-bottom:2px;" ng-enter="SearchProducts(SearchValue)">
@@ -13,17 +22,14 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-3">
-             <a ng-if="!isProductPlusService" href="#store/browse" id="btn-browse-store" class="btn btn-block">Browse Existing {{storeType}} <span class="fa fa-angle-right fa-2x pull-right"></span></a>
-             <a ng-if="isProductPlusService" href="#store/browse" id="btn-browse-store" class="btn btn-block">Browse {{storeType}} <span class="fa fa-angle-right fa-2x pull-right"></span></a>
-        </div>
-        
-        <div class="col-md-3">
-             <a href="#classifieds/browse" id="btn-browse-classifieds" class="btn btn-block">Browse Ads & Campaigns <span class="fa fa-angle-right fa-2x pull-right"></span></a>
-        </div>
+    
     </div>
     <div class="row" id="store-button-section" ng-if="isClassified">
+        
+        <div class="col-md-6">
+             <a href="#classifieds/browse" id="btn-browse-classifieds" class="btn btn-block">Browse Ads & Campaigns <span class="fa fa-angle-right fa-2x pull-right"></span></a>
+        </div>
+
         <div class="col-md-6">
             <div class="input-group add-on">
                 <div class="icon-addon addon-md">
@@ -37,8 +43,5 @@
             </div>
         </div>
        
-        <div class="col-md-6">
-             <a href="#classifieds/browse" id="btn-browse-classifieds" class="btn btn-block">Browse Ads & Campaigns <span class="fa fa-angle-right fa-2x pull-right"></span></a>
-        </div>
     </div>
 </div>

@@ -1,17 +1,17 @@
-<div class="col-xs-12 col-sm-9" ng-controller="evezplaceRecommendationCtrl">
-    <div class="evezplace-reco-products-section">
+<div class="col-xs-12 col-md-9 no-padding" ng-controller="evezplaceRecommendationCtrl">
+    <div class="col-xs-12 evezplace-reco-products-section">
 
-        <div class="col-sm-12" style="padding-left: 0px" id="evezplace-reco-title">
-            <div class="col-sm-9">
+        <div class="col-md-12 col-xs-12" style="padding-left: 0px" id="evezplace-reco-title">
+            <div class="col-md-9 col-xs-8">
                 <h5>MarketPlace Recommendations </h5>
             </div>
-            <div class="col-sm-3" style="padding-right: 0px">
+            <div class="col-md-3 col-xs-4" style="padding-right: 0px">
                 <a href="" class="btn btn-link pull-right">Show All <span
                         class="fa fa-angle-right fa-2x pull-right"></span></a>
             </div>
         </div>
         <div class="row" ng-repeat="recommendations4 in recommendations">
-            <div class="col-md-3 recommendation-box" ng-repeat="recommendation in recommendations4">
+            <div class="col-md-3 col-xs-3 recommendation-box" ng-repeat="recommendation in recommendations4">
                 <div class="living_box">
                     <a href="{{recommendation.link}}">
                         <img ng-if="recommendation.image != null"
@@ -24,18 +24,18 @@
                              class="img-responsive center-block">
                     </a>
                 </div>
-                <div class="col-sm-12 text-center">
+                <div class="col-md-12 col-xs-12 text-center">
                     <p>{{recommendation.title}}</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="trending-products-section">
-        <div class="col-sm-12" style="padding-left: 0px" id="trending-products-title">
-            <div class="col-sm-9">
+    <div class="col-xs-12 trending-products-section">
+        <div class="col-md-12 col-xs-12" style="padding-left: 0px" id="trending-products-title">
+            <div class="col-md-9 col-xs-8">
                 <h5>Trending This Month</h5>
             </div>
-            <div class="col-sm-3" style="padding-right: 0px">
+            <div class="col-md-3 col-xs-4" style="padding-right: 0px">
                 <!-- <a href="#store/products" class="btn btn-link pull-right">Show All <span
                         class="fa fa-angle-right fa-2x pull-right"></span></a> -->
                 <a href="" class="btn btn-link pull-right">Show All <span
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="row" ng-repeat="trendingItems4 in trendingItems">
-            <div class="col-md-3 recommendation-box" ng-repeat="trendingItem in trendingItems4">
+            <div class="col-md-3 col-xs-3 recommendation-box" ng-repeat="trendingItem in trendingItems4">
                 <div class="living_box">
                     <a href="{{trendingItem.link}}">
                         <img ng-if="trendingItem.image != null"
@@ -56,7 +56,7 @@
                              class="img-responsive center-block">
                     </a>
                 </div>
-                <div class="col-sm-12 text-center">
+                <div class="col-md-12 col-xs-12 text-center">
                     <p>{{trendingItem.title}}</p>
                 </div>
             </div>

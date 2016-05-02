@@ -62,15 +62,31 @@ evezownApp
                     $scope.currentProfileImage = AuthService.getImage();
                 });
             });
+            $location.hash('topview');
         }
 
         function getStoresByOwnerId() {
-            $http.get(PATHS.api_url + 'stores/owner/' + $scope.currentUserId + '/get').
+            //if loggedin user then get all stores
+            if($scope.loggedInUserId == $scope.currentUserId)
+            {
+                $http.get(PATHS.api_url + 'stores/owner/' + $scope.currentUserId + '/get').
                 success(function (data) {
                     $scope.browseMyItems = data;
                 }).then(function () {
 
                 });
+            }
+            //if visiting friends profile, show active stores only
+            else
+            {
+                $http.get(PATHS.api_url + 'stores/owner/guestuser/' + $scope.currentUserId + '/get').
+                success(function (data) {
+                    $scope.browseMyItems = data;
+                }).then(function () {
+
+                });
+            }
+            
         }
 
         getStoresByOwnerId();

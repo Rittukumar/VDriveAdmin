@@ -287,7 +287,6 @@
     padding-left: 0px;
     padding-right: 2px;
     margin-top: 8px;
-    height: 440px;
     overflow: hidden;
 }
 
@@ -948,4 +947,18 @@ input.ng-valid-required.ng-valid:not(.ng-invalid), textarea.ng-valid-required.ng
 .icon-addon .form-control:focus + .fa,
 .icon-addon:hover .fa {
     color: #692668;
+}
+
+/*Mobile optimization customized style*/
+@media (max-width: 768px) {
+
+    #left-promotion {
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    opacity: 0.8;
+    padding: 10px;
+    background: #ffffff;
+    }
+
 }

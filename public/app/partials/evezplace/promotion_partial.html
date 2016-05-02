@@ -15,19 +15,19 @@
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="col-md-8 large-cover-pic ">
+    <div class="col-md-12 col-xs-12">
+        <div class="col-md-8 col-xs-12 large-cover-pic ">
             <img ng-src="{{promotion.left_image.large_image_url}}"
                  class="img-responsive" alt=""/>
 
-            <div id="left-promotion">
+            <div class="col-md-8 col-xs-12" id="left-promotion">
                 <h5>{{promotion.left_small_caption}}</h5>
 
                 <h3>{{promotion.left_large_caption | filter:addEllipsis }}</h3>
                 <a href="{{promotion.left_link}}" class="btn btn-primary btn-lg pull-right">{{promotion.left_button_text}}</a>
             </div>
         </div>
-        <div class="col-md-4 small-cover-pic">
+        <div class="col-md-4 col-xs-12 small-cover-pic">
             <div class="small-cover-pic-top">
                 <a style="color: #333333; text-align: center" href="{{promotion.right_top_link}}">
                     <img ng-src="{{promotion.right_top_image.large_image_url}}"

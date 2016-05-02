@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -67,13 +67,13 @@
         </div>
         <div class="col-md-12 user-details">
             <div class="row coralbg white custom-profile-userpic">
+
                 <div class="col-md-3 top-margin">
                     <div class="user-image biothumb">
                         <img ng-src="{{currentProfileImage}}" src="http://placehold.it/300x450"
                              class="img-responsive thumbnail" />
                     </div>
                 </div>
-
 
                 <div class="col-md-9 no-pad">
                     <div class="user-pad-profile">
@@ -124,26 +124,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <h3>About Me</h3>
+            </div>
 
-                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
-                </div>
+            <div class="col-md-12"  id="topview">
+                <h3>About Me</h3>
+                <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
 
         </div>
+
         <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>
+
+        <!--For Member-->
         <div class="col-md-10 user-menu user-pad" ng-if="Role == 2">
-            <div class="col-md-12">
-                <div class="empty-section text-center">
+            <div class="col-md-12 col-xs-12">
+                <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
 
-                    <h3 style="font-weight: 200">You should have Business subscription to access this service</h3>
+                    <h3 style="font-weight: 200">This feature is not available for you. This feature is available only in the premium edition. In order to enable this feature please send a subscription request to evezown editor</h3>
+
+                    <div class="col-md-2 col-xs-12 col-md-offset-5 text-center">
+                        <a href class="btn btn-primary"> Subscribe Now</a>
+                    </div>
+
                 </div>
             </div>
         </div>
+
+        <!--For Business-->
         <div class="col-md-10 user-menu user-pad" ng-if="Role != 2">
             <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
 		        <div class="fragment">
@@ -179,7 +189,7 @@
                             <div class="store-browse-title">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <a href="#store/{{item.id}}" style="color: #ffffff; font-size: 1.2em"><h5 style="padding: 10px">{{item.title}}</h5></a>
+                                        <a href="#store/{{item.id}}/profile" style="color: #ffffff; font-size: 1.2em"><h5 style="padding: 10px">{{item.title}}</h5></a>
                                     </div>
                                     <div class="col-xs-6" ng-if="loggedInUserId == currentUserId">
                                         <a href="#store/{{item.id}}/manage/store_info" class="btn btn-link btn-sm pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">manage store</a>

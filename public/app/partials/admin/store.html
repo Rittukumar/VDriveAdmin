@@ -22,29 +22,23 @@
 
                                 <thead>
 
-                                <th><input type="checkbox" id="checkall"/></th>
+                                <th>SL.NO</th>
                                 <th>Title</th>
                                 <th>Owner</th>
                                 <th>Address</th>
                                 <th>City, State, Country</th>
                                 <th>Pincode</th>
-                                <th>Edit</th>
                                 <th>Status</th>
                                 </thead>
                                 <tbody>
 
                                 <tr ng-repeat="store in stores | filter:storesearch">
-                                    <td><input type="checkbox" class="checkthis"/></td>
-                                    <td>{{store.title}}</td>
+                                    <td>{{$index + 1}}</td>
+                                    <td><a href="#admin/store/{{store.id}}/manage/admin_store_info">{{store.title}}</a></td>
                                     <td>{{store.profile.firstname}} {{store.profile.lastname}}</td>
                                     <td>{{store.street_address}}</td>
                                     <td>{{store.city}} {{store.state}} {{store.country}}</td>
                                     <td>{{store.zip}}</td>
-                                    <td>
-                                        <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                            <a href="#admin/store/{{store.id}}/manage/admin_store_info"><span class="glyphicon glyphicon-pencil"></span></a>
-                                        </p>
-                                    </td>
                                     <td>
                                         <p data-placement="top" data-toggle="tooltip" title="status">
                                             <select class=" form-control" id="status-type" ng-options="status.id as status.status for status in storeStatusEnum" data-ng-model="store.store_status.status_id" ng-change="UpdateStoreStatus(store)">
@@ -144,50 +138,3 @@
     </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

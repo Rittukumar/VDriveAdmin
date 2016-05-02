@@ -1601,6 +1601,12 @@ evezownApp
                 $http.get(PATHS.api_url + 'stores/' + $scope.currentStoreId + '/get').
                 success(function (data) {
                     $scope.currentStore = data;
+                    //Get store subscription offers if any
+                    $scope.storeStatus = $scope.currentStore[0].store_status.status_id;
+                    $scope.Subscription_offer = $scope.currentStore[0].subscription_offer;
+                    $scope.Subscription_type = $scope.currentStore[0].store_subscription_id;
+                    
+
                     if ($scope.currentStore.length > 0) {
 
                         if (($location.path() == '/store/create/step1') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_info') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_info')) {
@@ -1748,6 +1754,35 @@ evezownApp
                 });
             }
 
+        }
+
+        $scope.StoreSubscriptionPayFree = function(subscriptiontype)
+        {
+            $scope.Selected_Store = $scope.currentStore[0];
+
+            if(subscriptiontype == "free")
+            {
+                $scope.FreeAmt = $scope.Subscription_offer[0].amount;
+            }
+            else if(subscriptiontype == "premium")
+            {
+                $scope.PremiumAmt = $scope.Subscription_offer[1].amount;
+            }
+        }
+
+        $scope.SubscriptionPay = function(subscriptiontype,amount)
+        {
+
+            $scope.Selected_Store = $scope.currentStore[0];
+            
+            if(subscriptiontype == "premium")
+            {
+                $scope.PremiumAmt = amount;
+            }
+            else if(subscriptiontype == "customized")
+            {
+                $scope.CutomizedAmt = amount;
+            }
         }
 
 
