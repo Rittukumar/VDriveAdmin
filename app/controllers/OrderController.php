@@ -127,6 +127,67 @@ class OrderController extends AppController
         return $data->toJson();
     }
 
+
+    public function createBuyer(){
+
+        try{
+
+            $buyerEmail = Input::get('email');
+            $buyerPhone = Input::get('phone');
+            $buyerCode  = Input::get('code');
+
+            $buyer = Buyer::where('email', $buyerEmail)
+                            ->orWhere('phone', $buyerPhone)
+                            ->orWhere('code', $buyerCode)->first();
+
+            if (!$buyer) {
+
+                $code = 'Evezown-'.$this->getRandomString();
+
+                $buyer = Buyer::create([
+                    'email' => $buyerEmail,
+                    'phone' => $buyerPhone,
+                    'code'  => $code
+                ]);
+
+                if($buyer){
+
+                    $data = array(
+                    'buyerEmail' => $buyer['email'],
+                    'buyerPhone' => $buyer['phone'],
+                    'code'       => $code,
+                    );
+
+                    Mail::send('emails.buyercode', $data, function ($message) use ($buyer) {
+                        $message->from('editor@evezown.com', 'Evezown Admin');
+                        $message->to($buyer['email'], $buyer['email'])->subject('Your Buyer Code!');
+                    });
+
+                }
+
+            } else {
+
+                $buyer->email = $buyerEmail;
+                $buyer->phone = $buyerPhone;
+
+                $buyer->save();
+            }
+
+            $successResponse = [
+                'status'  => true,
+                'buyer'   => $buyer->id
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        }catch (Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+
+        }
+
+    }
+
     /**
      * Show the form for creating a new resource.
      * GET /order/create
@@ -137,71 +198,60 @@ class OrderController extends AppController
     {
 
         try {
-            
+
             $inputArray = Input::all();
 
+            $orders = $this->saveOrders($inputArray, '');
+
+             $successResponse = [
+                'status'  => true,
+                'orders'  => $orders
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+
+            $errorMessage = [
+                'status' => false,
+                'message' => 'Submit order failed. Please try again.'
+            ];
+
+            //return $this->setStatusCode(500)->respondWithError($errorMessage);
+            return $e;
+        }
+    }
+
+
+    public function saveOrders($orders, $stripe_payment_details){
+
+            $inputArray = $orders;
+           
             $billingAddress = ($inputArray['billing_address'] != null) ? $inputArray['billing_address'] : '';
 
             $shippingAddress = ($inputArray['shipping_address'] != null) ? $inputArray['shipping_address'] : '';
 
-            $transactionIds = [];
+            $saved_orders = [];
 
-            $user = $inputArray['user'];
+            $userId       = $inputArray['userId'];
+            $buyerId      = $inputArray['buyerId'];
+            $buyerArray   = isset($inputArray['buyer']) ? $inputArray['buyer'] : '';
+            $buyerEmail   = isset($buyerArray['email']) ? $buyerArray['email'] : '';
+            $buyerPhone   = isset($buyerArray['phone']) ? $buyerArray['phone'] : '';
+            $buyerCode    = isset($buyerArray['code']) ? $buyerArray['code'] : '';
+            $chequeNumber = $inputArray['chequeNumber'];
+            $chequeDate   = $inputArray['chequeDate'];
+            $paymentMode  = $inputArray['paymentMode'];
 
-            $buyerArray = isset($inputArray['buyer']) ? $inputArray['buyer'] : '';
-            $buyerEmail = isset($buyerArray['email']) ? $buyerArray['email'] : '';
-            $buyerPhone = isset($buyerArray['phone']) ? $buyerArray['phone'] : '';
-            $buyerCode  = isset($buyerArray['code']) ? $buyerArray['code'] : '';
-
-            if(empty($user))
+            if(empty($userId))
             {
-                
-                $buyer = Buyer::where('email', $buyerEmail)
-                        ->orWhere('phone', $buyerPhone)
-                        ->orWhere('code', $buyerCode)->first();
-
-                if (!$buyer) {
-
-                    $code = 'Evezown-'.$this->getRandomString();
-
-                    $buyer = Buyer::create([
-                        'email' => $buyerEmail,
-                        'phone' => $buyerPhone,
-                        'code'  => $code
-                    ]);
-
-                    if($buyer){
-
-                        $data = array(
-                        'buyerEmail' => $buyer['email'],
-                        'buyerPhone' => $buyer['phone'],
-                        'code'       => $code,
-                        );
-
-                        Mail::send('emails.buyercode', $data, function ($message) use ($buyer) {
-                            $message->from('editor@evezown.com', 'Evezown Admin');
-                            $message->to($buyer['email'], $buyer['email'])->subject('Your Buyer Code!');
-                        });
-
-                    }
-
-                } else {
-
-                    $buyer->email = $buyerEmail;
-                    $buyer->phone = $buyerPhone;
-
-                    $buyer->save();
-                }
-
-
                 $customerKey   = 'buyer_id';
-                $customerValue =  $buyer->id;
+                $customerValue =  $buyerId;
 
             }else{
 
                 $customerKey   = 'user_id';
-                $customerValue =  $user;
-
+                $customerValue =  $userId;
             }
 
                //Method to save the billing and the shipping address.
@@ -266,7 +316,6 @@ class OrderController extends AppController
                 $i++;
                 $transactionIds[$i] = $order['transaction_id'];
 
-                try {
 
                     // Insert order status history (status = 'placed')
                     $orderStatusHistory = new OrderStatusHistory([
@@ -290,12 +339,41 @@ class OrderController extends AppController
                         ]);
 
                         $orderItem->orderItemStatus()->save($orderItemStatus);
+
+
+                        //Insert Order Payment Details  
+                            
+                            $orderpaymentdetails = new \OrderPayment();
+
+                            $orderpaymentdetails->order_id        = $order->id;
+                            $orderpaymentdetails->payment_mode_id = $paymentMode;
+                            $orderpaymentdetails->check_dd_number = empty($chequeNumber)? '' : $chequeNumber;
+                            $orderpaymentdetails->check_dd_date   = empty($chequeDate)? '' : $chequeDate;
+                            $orderpaymentdetails->status          = $order->current_status_id;
+
+
+                            $orderpaymentdetails->save();
+                            unset($orderpaymentdetails);
+                        
+
+                        //Insert Stripe Payment Details  
+                        if(!empty($stripe_payment_details)){
+                            
+                            $stripe_details = new \PaymentDetails();
+
+                            $stripe_details->order_id  = $order->id;
+                            $stripe_details->charge_id = $stripe_payment_details['charge_id'];
+                            $stripe_details->price     = $value['price'];
+                            $stripe_details->last_four = $stripe_payment_details['last_four'];
+                            $stripe_details->card_type = $stripe_payment_details['card_type'];
+
+
+                            $stripe_details->save();
+                            unset($stripe_details);
+                        }
                         
                     }
 
-                } catch (Exception $ex) {
-                    return $this->setStatusCode(500)->respondWithError($ex);
-                }
 
                 // Send notification mail to buyer and store.
                 $storeItem = Store::find($storeId);
@@ -304,7 +382,7 @@ class OrderController extends AppController
 
                 $orderId = $order->id;
 
-                $customer = empty($user)?'buyer':'user';
+                $customer = empty($userId)?'buyer':'user';
 
                 $order = Order::with($customer, 'orderItems.productSku.ProductImages.image',
                     'orderItems.productSku.product')->find($orderId);
@@ -331,28 +409,14 @@ class OrderController extends AppController
                         $message->to($store['email'], $store['email'])->subject('You received an order!');
                     });
                 }
+
+                $saved_orders[] = $order;
             }
 
-            $successResponse = [
-                'status' => true,
-                'transactions' => $transactionIds,
-                'message' => 'Order has been placed successfully',
-                'orderId' => $order->id
-            ];
+            return $saved_orders;
 
-            return $this->setStatusCode(200)->respond($successResponse);
-
-        } catch (Exception $e) {
-
-            $errorMessage = [
-                'status' => false,
-                'message' => 'Submit order failed. Please try again.'
-            ];
-
-            //return $this->setStatusCode(500)->respondWithError($errorMessage);
-            return $e;
-        }
     }
+
     
     public function addBillingAndShippingAddress($billingAddress,$shippingAddress)
     {	

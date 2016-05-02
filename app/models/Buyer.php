@@ -1,6 +1,8 @@
 <?php
-
-class Buyer extends \Eloquent {
+use Laravel\Cashier\BillableTrait;
+use Laravel\Cashier\BillableInterface;
+class Buyer extends \Eloquent implements BillableInterface{
+	use BillableTrait;
 	protected $fillable = ['email', 'phone', 'code', 'status'];
 
 	public function billingAddress() {

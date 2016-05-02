@@ -162,7 +162,8 @@ return array(
 		'Zizaco\Confide\ServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-		'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
+		'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+		'Laravel\Cashier\CashierServiceProvider'
 	),
 
 	/*
