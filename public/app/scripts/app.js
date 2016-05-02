@@ -9,7 +9,7 @@ var evezownApp = angular.module('evezownapp', ['ngRoute', 'ui.bootstrap', 'ngAni
     'textAngular', 'nsPopover', 'videosharing-embed', 'ui.bootstrap.datetimepicker',
     'google.places', 'ngTagsInput', 'angular-flexslider', 'daterangepicker', 'ngTable',
     'socialLinks', 'colorpicker.module', 'angular-intro', 'ngFabForm', 'ngMessages', 'ngSanitize',
-    'ngFileUpload', '720kb.socialshare', 'Firestitch.angular-counter','angular-hmac-sha512','slick', 'readMore', 'LocalStorageModule']);
+    'ngFileUpload', '720kb.socialshare', 'Firestitch.angular-counter','angular-hmac-sha512','slick', 'readMore', 'LocalStorageModule', 'angularPayments']);
 evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider,
                             USER_ROLES, LightboxProvider, $httpProvider, FacebookProvider,
                             $linkedInProvider, $authProvider, PATHS, ngDialogProvider, $crypthmacProvider, localStorageServiceProvider) {
@@ -1318,6 +1318,15 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/payu/:checkouttype/:stype', {
+                controller: 'ShoppingCartCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
+                }
+            });
+
+        $routeProvider
+
             .when('/order-success', {
                 templateUrl: 'partials/evezplace/browse/store/order-success.html',
                 data: {
@@ -1593,6 +1602,8 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         });
 
         localStorageServiceProvider.setPrefix('evezowncart');
+
+        Stripe.setPublishableKey('pk_test_PkqvWTApkszG3EmDfxFcMHSj');
 
         LightboxProvider.getImageUrl = function (imageUrl) {
             return imageUrl;
