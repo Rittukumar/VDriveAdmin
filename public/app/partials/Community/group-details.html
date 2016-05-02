@@ -217,7 +217,7 @@
                            class="form-control"/>
                 </div>
                 <ul class="list-group" ng-repeat="member in selectedGroup.members | limitTo:5 | filter:queryGroupMembers">
-                    <li class="list-group-item col-sm-12">
+                    <li class="list-group-item col-sm-12" ng-if="member.profile.user_id != loggedInUserId">
                         <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
                             <a href="#profile/{{member.profile.user_id}}"><img
                                     ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
@@ -230,7 +230,21 @@
                                class="btn btn-link btn-sm"><span class="fa fa-check"></span>Remove</a>
                         </div>
                     </li>
+
                 </ul>
+                <ul class="list-group" ng-if="selectedGroup.group_owner.user_id != loggedInUserId">
+                    <li class="list-group-item col-sm-12" >
+                        <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
+                            <a href="#profile/{{selectedGroup.group_owner.user_id}}"><img
+                                    ng-src="{{service_url+'image/show/'+selectedGroup.group_owner.profile_image.large_image_url}}"
+                                    class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>
+                                {{selectedGroup.group_owner.firstname}}, {{selectedGroup.group_owner.lastname}}</a>
+                        </div>
+                        <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px; color:green;">
+                            Creator
+                        </div>
+                    </li>
+                </ul>   
             </div>
         </div>
     </div>
