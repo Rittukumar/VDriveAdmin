@@ -44,8 +44,13 @@ class PostsTransformer extends Fractal\TransformerAbstract
             'user'    => $post['user'],
             'commentsCount' => count($post['comments']),
             'avgGrade' => $avgGrade,
-            'rewoicesCount' => count($post['rewoices'])
+            'rewoicesCount' => count($post['rewoices']),
+            'deleted' => 0
         ];
+
+        }else{
+
+            return ['deleted' => 1];
 
         }
 

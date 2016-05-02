@@ -27,7 +27,17 @@ class ClassifiedsController extends AppController
         try {
             $limit = Input::get('limit') ?: 15;
 
-            $classifieds = Classified::with('contact', 'location', 'images', 'tags')->paginate($limit);
+            $classifieds = Classified::with('contact', 'location', 'images', 'tags')
+                                        ->whereExists(function($query)
+                                        {
+                                            $query->select(DB::raw(1))
+                                                  ->from('users')
+                                                  ->whereRaw('users.id = classifieds.user_id')
+                                                  ->whereRaw('blocked = 0')
+                                                  ->whereRaw('deleted = 0');
+                                        })
+                                        ->paginate($limit);
+
 
             if (!$classifieds) {
                 return $this->responseNotFound('No classifieds exist!');
@@ -59,7 +69,16 @@ class ClassifiedsController extends AppController
             $limit = Input::get('limit') ?: 15;
 
             $query = Classified::with('contact', 'location', 'images', 'tags')
-                ->where('status', 1)->orderBy('updated_at', 'desc');
+                ->where('status', 1)
+                ->whereExists(function($query)
+                    {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = classifieds.user_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                ->orderBy('updated_at', 'desc');
 
             if ($subCatId > 0) {
                 $query->where('classified_subcategory_id', $subCatId);
@@ -96,7 +115,15 @@ class ClassifiedsController extends AppController
             $input = Input::all();
 
             $query = Classified::with('contact', 'location', 'images', 'tags')
-                ->where('status', 1);
+                                ->where('status', 1)
+                                ->whereExists(function($query)
+                                    {
+                                        $query->select(DB::raw(1))
+                                              ->from('users')
+                                              ->whereRaw('users.id = classifieds.user_id')
+                                              ->whereRaw('blocked = 0')
+                                              ->whereRaw('deleted = 0');
+                                    });
 
             if (isset($input['searchKey'])) {
                 $query->where('title', 'LIKE', '%' . $input['searchKey'] . '%');
@@ -172,9 +199,17 @@ class ClassifiedsController extends AppController
             $limit = Input::get('limit') ?: 15;
 
             $classifieds = Classified::with('contact', 'location', 'images', 'tags')
-                ->where('user_id', $userId)
-                ->orderBy('updated_at', 'desc')
-                ->paginate($limit);
+                                        ->where('user_id', $userId)
+                                        ->whereExists(function($query)
+                                            {
+                                                $query->select(DB::raw(1))
+                                                      ->from('users')
+                                                      ->whereRaw('users.id = classifieds.user_id')
+                                                      ->whereRaw('blocked = 0')
+                                                      ->whereRaw('deleted = 0');
+                                            })
+                                        ->orderBy('updated_at', 'desc')
+                                        ->paginate($limit);
 
             if (!$classifieds) {
                 return $this->responseNotFound('No classifieds exist!');
@@ -204,7 +239,16 @@ class ClassifiedsController extends AppController
     public function getClassified($classifiedId)
     {
         try {
-            $classified = Classified::with('contact', 'location', 'images', 'tags.tag')->find($classifiedId);
+            $classified = Classified::with('contact', 'location', 'images', 'tags.tag')
+                                     ->whereExists(function($query)
+                                        {
+                                            $query->select(DB::raw(1))
+                                                  ->from('users')
+                                                  ->whereRaw('users.id = classifieds.user_id')
+                                                  ->whereRaw('blocked = 0')
+                                                  ->whereRaw('deleted = 0');
+                                        })
+                                     ->find($classifiedId);
 
             if (!$classified) {
                 return $this->responseNotFound('No classified exist!');

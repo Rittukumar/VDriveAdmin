@@ -275,7 +275,7 @@
             <!-- Content area starts -->
             <!-- show Posts -->
             <div class="col-md-6 grid-view" style="padding:5px;" ng-repeat="post in posts">
-            <div class="col-md-12 trending-section" style="border:solid 1px #ccc;border-radius:4px;" ng-if="post">
+            <div class="col-md-12 trending-section" style="border:solid 1px #ccc;border-radius:4px;" ng-if="post.deleted == 0">
                 <div class="col-md-12 zero-padding-left-right" >
                     <!-- username-->
                     <div class="col-md-2 col-xs-2">

@@ -62,19 +62,35 @@ class GroupsController extends AppController
         try {
             $limit = Input::get('limit') ?: 15;
 
-            $groupIds = [];
-             
-             $joinedGroupIds = GroupUser::where('user_id',$id)->get();
-            
-                if(!$joinedGroupIds->isEmpty())
-                {   
-                    foreach ($joinedGroupIds as $key => $value) 
-                    {
-                      $groupIds[] = $value->group_id;
-                    }
-                }
 
-            $groups = Group::with('owner.profile_image', 'members.profile.profile_image','group_image')->whereIn('id', $groupIds)->orWhere('owner_id', $id)->paginate($limit);
+            $groups = Group::with('owner.profile_image', 'members.profile.profile_image','group_image')
+                            ->orWhere('owner_id', $id)
+                            ->whereExists(function($query)
+                                {
+                                    $query->select(DB::raw(1))
+                                          ->from('users')
+                                          ->whereRaw('users.id = groups.owner_id')
+                                          ->whereRaw('blocked = 0')
+                                          ->whereRaw('deleted = 0');
+                                })
+                            ->orWhereExists(function($query)  use ($id)
+                                {
+                                    $query->select(DB::raw(1))
+                                          ->from('group_user_profile')
+                                          ->whereRaw('group_user_profile.group_id = groups.id')
+                                          ->whereRaw('user_id = '. $id);
+                                })
+                            ->whereExists(function($query)
+                                {
+                                    $query->select(DB::raw(1))
+                                          ->from('users')
+                                          ->whereRaw('users.id = groups.owner_id')
+                                          ->whereRaw('blocked = 0')
+                                          ->whereRaw('deleted = 0');
+                                })
+                            ->paginate($limit);
+
+            
             
             if (!$groups) {
                 return $this->responseNotFound('Groups Not Found!');

@@ -478,10 +478,15 @@ class WoiceController extends AppController
                 
                 ->Where('title', 'LIKE', "%$title%")    
                 ->Where('post_type_id', 'LIKE', "$postTypeId")
+                ->orwhereNull('post_type_id')
                 ->Where('classification_id', 'LIKE', "$classificationId")
+                ->orwhereNull('classification_id')
                 ->Where('brand_id', 'LIKE', "$postBrand")
+                ->orwhereNull('brand_id')
                 ->Where('cat_id', 'LIKE', "$search_category")
+                ->orwhereNull('cat_id')
                 ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
+                ->orwhereNull('sub_cat_id')
                 ->orderBySubmitDate()->paginate($limit);
 
 
@@ -532,14 +537,14 @@ class WoiceController extends AppController
                 $posts = new \Illuminate\Database\Eloquent\Collection($all);
 
 
-//            if(isset($inputs_array['communityId']))
-//            {
-//                $communityId = $inputs_array['communityId'];
-//            }
+            // if(isset($inputs_array['communityId']))
+            // {
+            //    $communityId = $inputs_array['communityId'];
+            // }
 
 
-//            $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')->where('post_type_id', $postTypeId)->Where('brand_id','=',$postBrand)->Where('price_range','<=',$priceRange)->Where('visibility_id','=',$communityId)->Where('title', 'LIKE', "%$title%")->Where('description', 'LIKE', "%$title%")->Where('testimonial', 'LIKE', "%$title%")
-//                ->orderBySubmitDate()->paginate($limit);
+            // $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')->where('post_type_id', $postTypeId)->Where('brand_id','=',$postBrand)->Where('price_range','<=',$priceRange)->Where('visibility_id','=',$communityId)->Where('title', 'LIKE', "%$title%")->Where('description', 'LIKE', "%$title%")->Where('testimonial', 'LIKE', "%$title%")
+            // ->orderBySubmitDate()->paginate($limit);
 
             if ($posts->isEmpty()) {
                 $errorMessage = [
@@ -569,6 +574,7 @@ class WoiceController extends AppController
             return $this->setStatusCode(500)->respondWithError($errorMessage);
         }
     }
+
 
     public function getRecco($user_id)
     {
