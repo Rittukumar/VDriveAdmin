@@ -112,13 +112,6 @@ evezownApp
             });
         };
 
-        /*
-         / Discard promotion details
-         */
-        $scope.discardPromotionDetails = function (index) {
-
-        };
-
         $scope.uploadLeftPromotionPic = function () {
             var leftPromotionImageDialog = ngDialog.open(
                 {

@@ -263,13 +263,6 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
         });
     }
 
-    // Delete the cookie and related data of the classified.
-    $scope.discardClassified = function () {
-        if ($scope.addClassified.id > 0) {
-            $cookieStore.remove('createClassifiedId');
-        }
-    }
-
     $scope.trustSrc = function (src) {
         return $sce.trustAsResourceUrl(src);
     }
