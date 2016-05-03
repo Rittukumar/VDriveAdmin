@@ -1515,7 +1515,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/classifieds/:id/:pagesrc', {
+            .when('/classifieds/:id/:pagesrc/:view', {
                 templateUrl: 'partials/evezplace/browse/classifieds/classified_details.html',
                 controller: 'ClassifiedDetailsCtrl',
                 data: {
