@@ -414,7 +414,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         $routeProvider
 
             .when('/redirectHome', {
-                templateUrl: 'partials/home/home.html',
+                templateUrl: 'partials/evezplace/home.html',
                 controller: 'HomeController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
@@ -423,7 +423,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         $routeProvider
 
             .when('/', {
-                templateUrl: 'partials/home/home.html',
+                templateUrl: 'partials/evezplace/home.html',
                 controller: 'HomeController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
@@ -432,7 +432,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         $routeProvider
 
             .when('/home', {
-                templateUrl: 'partials/home/home.html',
+                templateUrl: 'partials/evezplace/home.html',
                 controller: 'ApplicationCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
@@ -947,7 +947,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/mystores/:id', {
                 templateUrl: 'partials/profile/mystores.html',
-                controller: 'groups',
+                controller: 'profileCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1463,7 +1463,27 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/store/:id/:pagesrc', {
+                templateUrl: 'partials/evezplace/browse/store/store_front.html',
+                controller: 'StoreFrontController',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
+                }
+            });
+
+        $routeProvider
+
             .when('/store/products/:id', {
+                templateUrl: 'partials/evezplace/browse/store/product_detail.html',
+                controller: 'ProductDetailsCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
+                }
+            });
+
+        $routeProvider
+
+            .when('/store/products/:id/:pagesrc', {
                 templateUrl: 'partials/evezplace/browse/store/product_detail.html',
                 controller: 'ProductDetailsCtrl',
                 data: {
@@ -1486,6 +1506,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         $routeProvider
 
             .when('/classifieds/:id', {
+                templateUrl: 'partials/evezplace/browse/classifieds/classified_details.html',
+                controller: 'ClassifiedDetailsCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
+                }
+            });
+
+        $routeProvider
+
+            .when('/classifieds/:id/:pagesrc', {
                 templateUrl: 'partials/evezplace/browse/classifieds/classified_details.html',
                 controller: 'ClassifiedDetailsCtrl',
                 data: {
@@ -1828,11 +1858,11 @@ evezownApp.constant('AUTH_EVENTS', {
 });
 
 evezownApp.constant('PATHS', {
-    //api_url: 'http://localhost:8000/v1/'
+    api_url: 'http://localhost:8000/v1/'
     //api_url: 'http://creativethoughts.co.in/evezown/api/public/v1/'
     //api_url: 'http://evezown.com/api/public/v1/'
     //api_url: 'http://evezown.com/beta/api/public/v1/'
-    api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
+    //api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
 });
 
 evezownApp.constant('USER_ROLES', {
@@ -1973,6 +2003,27 @@ evezownApp.directive('ngReallyClick', [function() {
     }
 }]);
 
+evezownApp.directive('httpPrefix', function() {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function(scope, element, attrs, controller) {
+            function ensureHttpPrefix(value) {
+                // Need to add prefix if we don't have http:// prefix already AND we don't have part of it
+                if(value && !/^(https?):\/\//i.test(value)
+                   && 'http://'.indexOf(value) !== 0 && 'https://'.indexOf(value) !== 0 ) {
+                    controller.$setViewValue('http://' + value);
+                    controller.$render();
+                    return 'http://' + value;
+                }
+                else
+                    return value;
+            }
+            controller.$formatters.push(ensureHttpPrefix);
+            controller.$parsers.splice(0, 0, ensureHttpPrefix);
+        }
+    };
+});
 
 evezownApp.directive('ngEnter', function () {
         return {

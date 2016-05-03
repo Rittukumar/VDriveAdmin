@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -122,62 +122,84 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <h3>About Me</h3>
+                </div> 
+            </div>
 
-                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
-                </div>
+            <div class="col-md-12"  id="topview">
+                <h3>About Me</h3>
+                <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
 
         </div>
+
         <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>
-<div class="col-md-10 user-menu user-pad"  ng-controller="forums">
-	  <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
-        <div class="fragment">
-            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Discussion</h4>
-            <p>
-                Open forum for discussing topics which are trending or close to your heart, you can initiate it or simply contribute to others. 
-            </p>
-        </div>
-    </div>
-    <div class="col-md-12 panel-heading no-padding">
-        <div class="col-md-2 no-padding">
-            <h4>
-                Discussions ({{myForums.length}})
-            </h4>
-        </div>
-        <div class="col-md-4 no-padding">
-            <input type="text" class="form-control" placeholder="Search Discussion" ng-model="forumsearch"/>
-        </div>
-        <div class="col-md-2 col-md-offset-2 pull-right no-padding" ng-if="loggedInUserId == currentUserId">
-            <a href ng-click="CreateForum()" class="btn btn-primary"><span class="fa fa-plus"></span> Discussion</a>
-        </div>
-    </div>
-    <div class="col-md-12 album-section" style="margin-top:30px;">
-        <div class="row forum-section">
-            <div class="category" ng-repeat="forum in myForums | filter:forumsearch">
-                <h5 class="category-title"><i class="glyphicon glyphicon-envelope"></i>&nbsp;&nbsp;<a
-                        href="#forums/{{forum.id}}/{{currentUserId}}" class="topic-link">{{forum.topic_title}}</a></h5>
 
-                <p class="category-description">{{forum.topic_description}}</p>
+        <!--For Member-->
+        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1">
+             <div class="col-md-12 col-xs-12">
+                <div class="col-md-12 col-xs-12 empty-section text-center">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
 
-                <div class="category-info">
-                    <p>
-                        <span><strong>{{forum.replies.length}}</strong> Posts | </span>
-                        <span>Last post by <strong>{{forum.created_by.firstname}} {{forum.created_by.lastname}}</strong>  <time class="relative" without-suffix datetime="{{forum.created_date.date}}"></time> ago | </span>
-                        <span ng-if="loggedInUserId == forum.owner_id"><a href ng-click="DeleteForum(forum)" class="topic-link">Delete</a></span>
-                    </p>
+                    <h3 style="font-weight: 200">This feature is not available for you. This feature is available only in the premium edition. In order to enable this feature please send a subscription request to evezown editor</h3>
+
+                    <div class="col-md-2 col-xs-12 col-md-offset-5 text-center">
+                        <a href class="btn btn-primary"> Subscribe Now</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--For Admin-->
+        <div ng-show="Role == 1">
+            <div class="col-md-10 user-menu user-pad"  ng-show="Role != 2" ng-controller="forums">
+            	  <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                    <div class="fragment">
+                        <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+                        <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Discussion</h4>
+                        <p>
+                            Open forum for discussing topics which are trending or close to your heart, you can initiate it or simply contribute to others. 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12 panel-heading no-padding">
+                    <div class="col-md-2 no-padding">
+                        <h4>
+                            Discussions ({{myForums.length}})
+                        </h4>
+                    </div>
+                    <div class="col-md-4 no-padding">
+                        <input type="text" class="form-control" placeholder="Search Discussion" ng-model="forumsearch"/>
+                    </div>
+                    <div class="col-md-2 col-md-offset-2 pull-right no-padding" ng-if="loggedInUserId == currentUserId">
+                        <a href ng-click="CreateForum()" class="btn btn-primary"><span class="fa fa-plus"></span> Discussion</a>
+                    </div>
+                </div>
+                <div class="col-md-12 album-section" style="margin-top:30px;">
+                    <div class="row forum-section">
+                        <div class="category" ng-repeat="forum in myForums | filter:forumsearch">
+                            <h5 class="category-title"><i class="glyphicon glyphicon-envelope"></i>&nbsp;&nbsp;<a
+                                    href="#forums/{{forum.id}}/{{currentUserId}}" class="topic-link">{{forum.topic_title}}</a></h5>
+
+                            <p class="category-description">{{forum.topic_description}}</p>
+
+                            <div class="category-info">
+                                <p>
+                                    <span><strong>{{forum.replies.length}}</strong> Posts | </span>
+                                    <span>Last post by <strong>{{forum.created_by.firstname}} {{forum.created_by.lastname}}</strong>  <time class="relative" without-suffix datetime="{{forum.created_date.date}}"></time> ago | </span>
+                                    <span ng-if="loggedInUserId == forum.owner_id"><a href ng-click="DeleteForum(forum)" class="topic-link">Delete</a></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    </div>
-</div>
+
 <script type="text/ng-template" id="templateId">
     <div class="ngdialog-buttons popuptemplate" ng-controller="forums">
         <h4>Start Discussion</h4>

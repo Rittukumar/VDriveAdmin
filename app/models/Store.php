@@ -33,6 +33,10 @@ class Store extends \Eloquent {
         return $this->belongsTo('StoreBusinessInfo', 'id','store_id');
     }
 
+    public function Subscription_offer() {
+        return $this->hasMany('StoreSubscriptionOffer', 'store_id');
+    }
+
     public function Tags() {
         return $this->hasMany('StoreTags','store_id')->join('tags', 'store_tags.tag_id', '=', 'tags.id');
     }

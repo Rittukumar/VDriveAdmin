@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -123,14 +123,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <h3>About Me</h3>
+            </div>
 
-                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
-                </div>
+            <div class="col-md-12"  id="topview">
+                <h3>About Me</h3>
+                <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
 
         </div>
+        
         <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>

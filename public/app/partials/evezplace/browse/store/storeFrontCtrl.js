@@ -19,6 +19,9 @@ evezownApp.controller('StoreFrontController', function ($scope, ngDialog, $filte
 
     var storeId = $routeParams.id;
 
+    $scope.PageSource = $routeParams.pagesrc;
+
+
     function getStoreFrontDetails(storeId) {
         StoreService.getStoreFrontDetails(storeId).
         then(function (data) {
@@ -161,7 +164,7 @@ evezownApp.controller('StoreFrontController', function ($scope, ngDialog, $filte
             , {
                 data: {
                     StoreId: $routeParams.id,
-                    storeStatus: 3
+                    storeStatus: 8
                 },
                 headers: {'Content-Type': 'application/json'}
             }).

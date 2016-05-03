@@ -17,7 +17,8 @@ evezownApp
 
         $scope.loggedInUserId = $cookieStore.get('userId');
 
-
+        $scope.PageSource = $routeParams.pagesrc;
+        
         $scope.shareUrl = function () {
             return $location.absUrl();
         };

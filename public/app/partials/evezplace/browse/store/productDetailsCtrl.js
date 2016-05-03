@@ -16,6 +16,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
 
     $scope.productSkuVariants = null;
 
+    $scope.PageSource = $routeParams.pagesrc;
 
     $scope.productDetails.hasRelatedProducts = false;
 

@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li id="step1"  data-toggle="tab" data-slide-to="0">
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li id="step10"  data-toggle="tab" data-slide-to="9">
                 <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Manage Mysite</a>
@@ -121,7 +121,7 @@
     </div>
 
 </div>
-<div class="col-md-12" style="margin-top: 10px;">
+<div class="col-md-12" style="margin-top: 10px;" id="topview">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
         <li><a href="#home">Home</a> <span class="divider"></span></li>
         <li><a href="#profile/myprofile/{{userId}}">Profile</a></li>
@@ -163,11 +163,11 @@
     </div>
 </div>
 
-<div class="col-md-10 user-menu user-pad" ng-controller="trending">
+<div class="col-md-10 user-menu user-pad">
 	<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
         
     </div>
-    <div class="signup-section" ng-controller="registerCtrl">
+    <div class="signup-section">
         <form>
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-6">

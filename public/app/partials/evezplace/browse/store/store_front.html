@@ -21,8 +21,10 @@
 <div class="row" ng-controller="StoreFrontController">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px">
         <li><a href="#home">Home</a> <span class="divider"></span></li>
-        <li><a href="#evezplace">Marketplace</a> <span class="divider"></span></li>
-        <li><a href="#store/browse">Browse Stores</a></li>
+        <li ng-if="PageSource == 'profile'"><a href="#profile/myprofile/{{loggedInUserId}}"> Mysite</a> <span class="divider"></span></li>
+        <li ng-if="PageSource == 'profile'"><a href="#mystores/{{loggedInUserId}}">Stores</a> <span class="divider"></span></li>
+        <li ng-if="PageSource == 'marketplace'"><a href="#evezplace">Marketplace</a> <span class="divider"></span></li>
+        <li ng-if="PageSource == 'marketplace'"><a href="#store/browse">Browse Stores</a></li>
         <li class="active">{{storefront.title}}</li>
     </ul>
 
@@ -94,7 +96,7 @@
                         <slick infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true">
                             <div class="col-md-3" ng-repeat="product in productLine.products">
                                 <div class="living_box" style="max-height: 100px;">
-                                    <a href="#store/products/{{product.id}}">
+                                    <a href="#store/products/{{product.id}}/{{PageSource}}">
                                         <img ng-src="{{imageUrl + product.product_sk_u[0].product_images[0].image.large_image_url +
                                                     '/600/600'}}" style="width: 100%;"
                                                     class="img-responsive center-block"

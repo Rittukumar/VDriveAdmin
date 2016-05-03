@@ -2,9 +2,11 @@
 
 <ul class="breadcrumb" style="background: transparent; padding-left: 0px; margin-top: 10px;">
     <li><a href="#home">Home</a> <span class="divider"></span></li>
-    <li><a href="#evezplace">Marketplace</a> <span class="divider"></span></li>
-    <li><a href="#store/browse">Browse Stores</a></li>
-    <li><a href="#store/{{productDetails.store.id}}">{{productDetails.store.name}}</a></li>
+    <li ng-if="PageSource == 'profile'"><a href="#profile/myprofile/{{loggedInUserId}}"> Mysite</a> <span class="divider"></span></li>
+    <li ng-if="PageSource == 'profile'"><a href="#mystores/{{loggedInUserId}}">Stores</a> <span class="divider"></span></li>
+    <li ng-if="PageSource == 'marketplace'"><a href="#evezplace">Marketplace</a> <span class="divider"></span></li>
+    <li ng-if="PageSource == 'marketplace'"><a href="#store/browse">Browse Stores</a></li>
+    <li><a href="#store/{{productDetails.store.id}}/{{PageSource}}">{{productDetails.store.name}}</a></li>
     <li class="active">{{productDetails.title}}</li>
 </ul>
 

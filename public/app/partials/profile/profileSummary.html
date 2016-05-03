@@ -53,10 +53,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-if="loggedInUserId == currentUserId">
-                <a href="#profile/{{loggedInUserId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{loggedInUserId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId != currentUserId">
-                <a href="#profile/{{loggedInUserId}}">Mysite</a>
+                <a href="#profile/myprofile/{{loggedInUserId}}">Mysite</a>
             </li>
             <!-- <li ng-if="loggedInUserId == currentUserId"> -->
             <li>
@@ -208,7 +208,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" id="topview">
                     <h3>About Me</h3>
 
                     <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
