@@ -66,6 +66,8 @@ class DatabaseSeeder extends Seeder {
         $this->call('ImageTableAvatarImageSeeder');
 
         $this->call('screensTableSeeder');
+
+        $this->call('PaymentModeTableSeeder');
         
         
        // -- Following Seeder are not required. This is for testing purpose. -- 
