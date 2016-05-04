@@ -6,8 +6,10 @@
     <li ng-if="PageSource == 'profile'"><a href="#mystores/{{loggedInUserId}}">Stores</a> <span class="divider"></span></li>
     <li ng-if="PageSource == 'marketplace'"><a href="#evezplace">Marketplace</a> <span class="divider"></span></li>
     <li ng-if="PageSource == 'marketplace'"><a href="#store/browse">Browse Stores</a></li>
-    <li><a href="#store/{{productDetails.store.id}}/{{PageSource}}">{{productDetails.store.name}}</a></li>
-    <li class="active">{{productDetails.title}}</li>
+    <li ng-if="PageSource == 'marketplace' || PageSource == 'profile'"><a href="#store/{{productDetails.store.id}}/{{PageSource}}">{{productDetails.store.name}}</a></li>
+    <li ng-if="PageSource == 'marketplace' || PageSource == 'profile'" class="active">{{productDetails.title}}</li>
+    <li ng-if="PageSource != 'marketplace' && PageSource != 'profile'"><a href="#evezplace">Marketplace</a> <span class="divider"></span></li>
+    <li ng-if="PageSource != 'marketplace' && PageSource != 'profile'"><a href back-button>Search</a> <span class="divider"></span></li>
 </ul>
 
 <div class="row" ng-controller="ProductDetailsCtrl" style="margin-top: 10px; background-color: #f2f2f2">

@@ -74,7 +74,7 @@ evezownApp
                 $scope.profile.other_info1 = data.other_info1;
                 $scope.profile.userId = data.id;
             });
-            $location.hash('topview');
+            $location.hash('view');
         }
 
         function fetchEnhancedProfile(userID) {

@@ -1515,7 +1515,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/classifieds/:id/:pagesrc', {
+            .when('/classifieds/:id/:pagesrc/:view', {
                 templateUrl: 'partials/evezplace/browse/classifieds/classified_details.html',
                 controller: 'ClassifiedDetailsCtrl',
                 data: {
@@ -2021,6 +2021,18 @@ evezownApp.directive('httpPrefix', function() {
             }
             controller.$formatters.push(ensureHttpPrefix);
             controller.$parsers.splice(0, 0, ensureHttpPrefix);
+        }
+    };
+});
+
+evezownApp.directive( 'backButton', function() {
+    return {
+        restrict: 'A',
+        link: function( scope, element, attrs ) {
+            element.on( 'click', function () {
+                history.back();
+                scope.$apply();
+            } );
         }
     };
 });

@@ -54,7 +54,7 @@
                         <!--Product 1-->
                         <div class="col-md-3" ng-repeat="product in Products">
                             <div class="living_box" style="max-height: 100px;">
-                                <a href="#store/products/{{product.id}}">
+                                <a href="#store/products/{{product.id}}/{{searchkey}}">
                                     <img ng-src="{{imageUrl + product.product_sk_u[0].product_images[0].image.large_image_url +
                                                     '/600/600'}}" style="width: 100%;"
                                                     class="img-responsive center-block"

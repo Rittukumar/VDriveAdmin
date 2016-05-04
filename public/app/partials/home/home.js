@@ -302,7 +302,9 @@ evezownApp
                 },
                 {
                     element: '#step4',
-                    intro: 'So get started with your Evezown experience.'
+                    intro: "<div class='tour-step'><b><h3>So get started with your Evezown experience.</h3></b>" +
+                    "</div>"
+                    
                 }
             ],
             showStepNumbers: false,

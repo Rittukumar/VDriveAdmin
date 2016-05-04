@@ -62,7 +62,7 @@ evezownApp
                     $scope.currentProfileImage = AuthService.getImage();
                 });
             });
-            $location.hash('topview');
+            $location.hash('view');
         }
 
         function getStoresByOwnerId() {
