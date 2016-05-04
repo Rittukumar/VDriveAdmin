@@ -87,7 +87,11 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-osx-font-smoothing: grayscale;
 }
 /* Products slider in store front prev next button style end*/
-
+/*Take a tour*/
+.tour-step
+{
+    width:400px;
+}
 /*Admin*/
 /*Admin news letter table scroll*/
 .table-scroll {
@@ -124,6 +128,11 @@ input[type=number]::-webkit-outer-spin-button {
     .navbar-default .navbar-toggle {
         margin-top: 40px;
         margin-bottom: 40px;
+    }
+
+    .tour-step
+    {
+        width:200px;
     }
 }
 
