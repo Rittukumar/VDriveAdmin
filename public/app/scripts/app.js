@@ -2025,6 +2025,18 @@ evezownApp.directive('httpPrefix', function() {
     };
 });
 
+evezownApp.directive( 'backButton', function() {
+    return {
+        restrict: 'A',
+        link: function( scope, element, attrs ) {
+            element.on( 'click', function () {
+                history.back();
+                scope.$apply();
+            } );
+        }
+    };
+});
+
 evezownApp.directive('ngEnter', function () {
         return {
            link: function (scope, elements, attrs) {
