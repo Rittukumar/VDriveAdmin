@@ -586,12 +586,8 @@ evezownApp
             $scope.currentUserId = $routeParams.id;
             AuthService.getProfileImage(PATHS.api_url + 'users/' + $scope.currentUserId + '/profile_image/current').success(function(data) {
                 
-                if (data.toLowerCase().indexOf("http") >= 0){
-                    $scope.profileImage = data;
-                }else{
-                    $scope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
-                }
-            
+                $scope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
+                            
             });
         }
         else {
