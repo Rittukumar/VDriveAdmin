@@ -315,9 +315,9 @@ evezownApp.controller('showEventEvezplaceCtrl', function ($scope, EventService, 
     };
 
     if(event.trending != null) {
-        $scope.options.priority = event.trending.priority;
+        $scope.options.priority = parseInt(event.trending.priority);
         $scope.options.selectedSectionId = event.trending.evezown_section_id;
-        $scope.options.is_show_evezplace = event.trending.is_show_evezplace;
+        $scope.options.is_show_evezplace = parseInt(event.trending.is_show_evezplace);
     }
 
     getEvezplaceSection($scope.userId);
