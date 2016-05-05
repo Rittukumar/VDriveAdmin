@@ -70,7 +70,7 @@ class AuthController extends AppController {
         $providerId        = $profile['id']; 
         $providerUsername  = $profile['name'];
         $providerEmail     = $profile['email']; 
-        $providerPicture   = $profile['picture']['data']['url'];
+        $providerPicture   = isset($profile['picture']['data']['url'])?$profile['picture']['data']['url']: '';
         $providerfirstName = $profile['first_name']; 
         $providerlastName  = $profile['last_name'];
          
@@ -147,7 +147,7 @@ class AuthController extends AppController {
         $providerId        = $profile['sub']; 
         $providerUsername  = $profile['name'];
         $providerEmail     = $profile['email'];
-        $providerPicture   = $profile['picture'];  
+        $providerPicture   = isset($profile['picture'])?$profile['picture']:'';  
         $providerNames     = explode(' ', $profile['name']);
         $providerfirstName = isset($providerNames[0])?$providerNames[0]:''; 
         $providerlastName  = isset($providerNames[1])?$providerNames[1]:'';
@@ -226,7 +226,7 @@ class AuthController extends AppController {
         $providerId        = $profile['id']; 
         $providerUsername  = $profile['firstName'].' '.$profile['lastName'];
         $providerEmail     = $profile['emailAddress']; 
-        $providerPicture   = $profile['pictureUrl'];
+        $providerPicture   = isset($profile['pictureUrl'])?$profile['pictureUrl']:'';
         $providerfirstName = $profile['firstName']; 
         $providerlastName  = $profile['lastName'];
         
@@ -295,7 +295,7 @@ class AuthController extends AppController {
         if(!empty($providerPicture)){
 
             $picture = $this->downloadSocialProfileImage($providerPicture, $user->id);
-            
+
             $evezImg = EvezownImage::create([
                         'large_image_url' => $picture
                     ]
