@@ -8,9 +8,8 @@
 </div>
 
 <ul class="breadcrumb create-store-breadcrumb">
-    <li><a href="#evezplace">MarketPlace</a></li>
-    <li><a href="#whatdoiget">Create Store Info</a></li>
-    <li>Create Store Front</li>
+    <li><a href="#mystores/{{userId}}">Mysite</a></li>
+    <li>Terms & Conditions</li>
 </ul>
 
 <div ng-include src='"partials/evezplace/create_store_menu.html"' ng-controller="CreateStoreController"></div>
@@ -105,8 +104,7 @@
                 <label for="storePhone1">Additional/Mandatory Disclosures/Info</label>
             </div>
             <div class="col-md-4">
-                <input  type="url" placeholder="Link #1" class="form-control" id="link1" name="link1" onblur = "checkURL(this)"
-                       ng-model="formData.link1">
+                <input type="text" placeholder="Link #1" class="form-control" ng-model="formData.link1" http-prefix>
             </div>
         </div>
     </div>
@@ -114,8 +112,7 @@
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
         <div class="form-group">
             <div class="col-md-4 col-md-offset-6">
-                <input type="url" placeholder="Link #2" class="form-control" id="link2" name="link2" onblur = "checkURL(this)"
-                       ng-model="formData.link2">
+                <input type="text" placeholder="Link #2" class="form-control" ng-model="formData.link2" http-prefix>
             </div>
         </div>
     </div>
@@ -123,8 +120,7 @@
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
         <div class="form-group">
             <div class="col-md-4 col-md-offset-6">
-                <input type="url" placeholder="Link #3" class="form-control" id="link3" name="link3" onblur = "checkURL(this)"
-                       ng-model="formData.link3">
+                <input type="text" placeholder="Link #3" class="form-control" ng-model="formData.link3" http-prefix>
             </div>
         </div>
     </div>
@@ -148,16 +144,4 @@
 
          return true;
       }
-       //link format
-      function checkURL (checkurl) {
-    var string = checkurl.value;
-    console.log(checkurl);
-    if (!~string.indexOf("http")){
-        console.log("checkurl");
-        string = "http://" + string;
-    }
-    checkurl.value = string;
-    return checkurl
-}
-      
    </SCRIPT>

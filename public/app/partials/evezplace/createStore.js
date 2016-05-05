@@ -1602,7 +1602,9 @@ evezownApp
                 success(function (data) {
                     $scope.currentStore = data;
                     //Get store subscription offers if any
-                    $scope.storeStatus = $scope.currentStore[0].store_status.status_id;
+                    if ($scope.currentStore[0].store_status) {
+                       $scope.storeStatus = $scope.currentStore[0].store_status.status_id;
+                    }
                     $scope.Subscription_offer = $scope.currentStore[0].subscription_offer;
                     $scope.Subscription_type = $scope.currentStore[0].store_subscription_id;
                     
@@ -1648,7 +1650,10 @@ evezownApp
                             $scope.formData.billingName = $scope.currentStore[0]['business_info']['billing_info_name'];
                             $scope.formData.billingAddress = $scope.currentStore[0]['business_info']['billing_info_address'];
                             $scope.formData.billingContactNumber = $scope.currentStore[0]['business_info']['billing_info_contact_number'];
-                            $scope.formData.storeContactEmail = $scope.currentStore[0]['store_front_info']['store_contact_email'];
+                            
+                            if ($scope.currentStore[0]['store_front_info']) {
+                               $scope.formData.storeContactEmail = $scope.currentStore[0]['store_front_info']['store_contact_email'];
+                            }
                             $scope.formData.StoreName = $scope.currentStore[0]['title'];
                             $scope.GetSelectedStoreSubscription();
                         }
@@ -1699,9 +1704,9 @@ evezownApp
                         }
                         else if (($location.path() == '/store/create/step4') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_crm') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front_footer') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front_footer')) {
                             $scope.formData.storeEmail = $scope.currentStore[0]['store_front_info']['store_contact_email'];
-                            $scope.formData.storePhone1 = $scope.currentStore[0]['store_front_info']['store_contact_phone1'];
-                            $scope.formData.storePhone2 = $scope.currentStore[0]['store_front_info']['store_contact_phone2'];
-                            $scope.formData.storePhone3 = $scope.currentStore[0]['store_front_info']['store_contact_phone3'];
+                            $scope.formData.storePhone1 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone1']);
+                            $scope.formData.storePhone2 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone2']);
+                            $scope.formData.storePhone3 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone3']);
                             $scope.formData.termsconditions = $scope.currentStore[0]['store_front_info']['store_terms_conditions'];
                             $scope.formData.policies = $scope.currentStore[0]['store_front_info']['store_policies'];
                             $scope.formData.salesReturnPolicy = $scope.currentStore[0]['store_front_info']['store_sales_exchange_policy'];
