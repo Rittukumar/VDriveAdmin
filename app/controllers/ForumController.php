@@ -24,7 +24,7 @@ class ForumController extends AppController {
 		try {
 			$limit = Input::get('limit') ?: 15;
 
-			$forums = Forum::with('replies.user.profile_image', 'created_by.profile_image', 'subcategory.category')->paginate($limit);
+			$forums = Forum::with('replies.user.profile_image', 'created_by.profile_image', 'subcategory.category','trending')->paginate($limit);
 
 			if (!$forums) {
 				return $this->responseNotFound('Discussion Not Found!');
