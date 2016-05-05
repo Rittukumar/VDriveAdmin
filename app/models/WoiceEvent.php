@@ -35,5 +35,8 @@ class WoiceEvent extends \Eloquent {
         return $this->hasMany('EventGrade');
     }
 
+    public function trending() {
+		return $this->hasOne('EvezplaceTrendingEvent', 'event_id');
+	}
 
 }

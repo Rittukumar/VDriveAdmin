@@ -29,7 +29,8 @@ class ForumTransformer extends Fractal\TransformerAbstract
             'created_by' => $forum->created_by,
             'created_date' => $forum->created_at,
             'updated_date' => $forum->updated_at,
-            'scale' => $forum->scale
+            'scale' => $forum->scale,
+            'trending' => $forum->trending
         ];
     }
 }

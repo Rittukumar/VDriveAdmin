@@ -26,7 +26,7 @@ class EventController extends AppController {
 			$limit = Input::get('limit') ?: 50;
 
 			$events = WoiceEvent::with('attendees.profile.profile_image',
-									'event_image', 'location', 'owner')
+									'event_image', 'location','owner','trending')
 									->paginate($limit);
 
 			if(! $events)
