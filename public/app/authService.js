@@ -51,12 +51,8 @@ evezownApp
             }).success(function (data) {
                 if (data) {
 
-                    if (data.toLowerCase().indexOf("http") >= 0){
-                        imageName = data;
-                    }else{
-                        imageName = PATHS.api_url + 'image/show/' + data + '/200/200';
-                    }
-                    
+                    imageName = PATHS.api_url + 'image/show/' + data + '/200/200';
+                                        
                 }
                 else {
                     imageName = null;
