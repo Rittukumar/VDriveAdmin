@@ -1,3 +1,8 @@
+<style type="text/css">
+.variants{
+    font-size: 11px;
+}
+</style>
 <div class="col-xs-12">
      <h3>Cart ({{shoppingCartCount}})</h3>
 </div>
@@ -25,7 +30,7 @@
                         <tr ng-repeat="shoppingCartItem in shoppingCartStore.products" class="text-center">
 
                             <td class="col-sm-2 col-md-2 col-lg-2" data-title="'Product'">
-                                <a href="#store/products/{{shoppingCartItem.product_id}}">
+                                <a href="#store/products/{{shoppingCartItem.product_id}}/marketplace">
                                     <img
                                         ng-src="{{imageUrl}}image/show/{{shoppingCartItem.image.image.large_image_url}}/175"
                                         class="img-responsive img-thumbnail"
@@ -33,9 +38,18 @@
                                 </a>
                             </td>
                             <td class="col-sm-2 col-md-2 col-lg-2" data-title="''">
-                                <a style="text-decoration: none" href="#store/products/{{shoppingCartItem.product_id}}">
+                                <a style="text-decoration: none" href="#store/products/{{shoppingCartItem.product_id}}/marketplace">
                                     <span style="font-weight: 600; color: #692668;">{{shoppingCartItem.title}}</span>
                                 </a>
+                                <p class="variants" ng-if="shoppingCartItem.variants.color">Color : 
+                                    <a class="btn" style="width: 22px; height: 22px; margin-right: 5px"
+                                       href="javascript:void(0)"
+                                       ng-style="{backgroundColor: shoppingCartItem.variants.color}" >
+                                    </a>
+                                </p>
+                                <p class="variants" ng-if="shoppingCartItem.variants.size">Size : {{shoppingCartItem.variants.size}}</p>
+                                <p class="variants" ng-if="shoppingCartItem.variants.volume">Volume : {{shoppingCartItem.variants.volume}}</p>
+                                <p class="variants" ng-if="shoppingCartItem.variants.weight">Weight : {{shoppingCartItem.variants.weight}}</p>
                             </td>
                             <td data-title="'Price'">{{shoppingCartItem.price}}</td>
                             <td data-title="'Quantity'">

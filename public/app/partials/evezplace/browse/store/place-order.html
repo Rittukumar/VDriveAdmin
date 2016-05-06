@@ -54,6 +54,9 @@ Label the data
 box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
 }
 
+.variants{
+    font-size: 11px;
+}
 </style>
 
 <div class="col-sm-12" ng-if="isShoppingCartEmpty">
@@ -315,6 +318,15 @@ box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
                                     <a style="text-decoration: none" href="#store/products/{{shoppingCartItem.product_id}}">
                                         <span style="font-weight: 600; color: #692668;">{{shoppingCartItem.title}}</span>
                                     </a>
+                                    <p class="variants" ng-if="shoppingCartItem.variants.color">Color : 
+                                    <a class="btn" style="width: 22px; height: 22px; margin-right: 5px"
+                                       href="javascript:void(0)"
+                                       ng-style="{backgroundColor: shoppingCartItem.variants.color}" >
+                                    </a>
+                                    </p>
+                                    <p class="variants" ng-if="shoppingCartItem.variants.size">Size : {{shoppingCartItem.variants.size}}</p>
+                                    <p class="variants" ng-if="shoppingCartItem.variants.volume">Volume : {{shoppingCartItem.variants.volume}}</p>
+                                    <p class="variants" ng-if="shoppingCartItem.variants.weight">Weight : {{shoppingCartItem.variants.weight}}</p>
                                 </td>
 
                                 <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Quantity">
@@ -366,129 +378,11 @@ box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
                 <div class="col-sm-12 col-xs-12 no-padding">
                     <h4 style="padding: 10px 5px; background: #57C5A0; color: #ffffff;">4. PAYMENT METHOD</h4>
                 </div>
-                
-                <div class="col-md-12 col-xs-12 no-padding" style="margin-bottom: 10px;">
-                    <div class="col-md-3 col-xs-12 user-menu-btns">
-                        <div class="btn-group-vertical square" id="responsive">
-                            <a ng-click="GetIndex(0)" class="btn btn-block {{currentSection0}}">
-                                <p style="font-size: 16px;">Cash On Delivery</p>
-                            </a>
-                            <a ng-click="GetIndex(1);" class="btn btn-block {{currentSection1}}">
-                                <p style="font-size: 16px;">Bank Payment</p>
-                            </a>
-                            <a ng-click="GetIndex(2);" class="btn btn-block {{currentSection2}}">
-                                <p style="font-size: 16px;">Cheque Payment</p>
-                            </a>
-                            <a ng-click="GetIndex(3);" class="btn btn-block {{currentSection3}}">
-                                <p style="font-size: 16px;">Pay Online</p>
-                            </a>
-                            <a ng-click="GetIndex(4);" class="btn btn-block {{currentSection4}}">
-                                <p style="font-size: 16px;">PayU Money</p>
-                            </a>
-                        </div>          
-                    </div>
 
-                    <div class="col-md-6 col-xs-12" ng-show="CashOnDelivery">
-                        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
-                            <div class="fragment">
-                                <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-                                <h4>You selected cash on delivery</h4>
-                                <!-- <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium ad aliquam cupiditate dicta
-                                </p> -->
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                        <a href="" class="btn btn-primary btn-block" style="margin-top:10px;margin-bottom:10px;" ng-click="SubmitPayment(1)">SUBMIT ORDER</a>
-                        </div>
-                    </div>
+                <div class="col-md-12 col-xs-12 no-padding" style="margin-bottom: 10px;" ng-include='"partials/payment/allPayment.html"'>
 
-                    <div class="col-md-6 col-xs-12" ng-show="BankPayment">
-                        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
-                            <div class="fragment">
-                                <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-                                <h4>You selected Bank Payment</h4>
-                                <!-- <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium ad aliquam cupiditate dicta
-                                </p> -->
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                        <a href="" class="btn btn-primary btn-block" style="margin-top:10px;margin-bottom:10px;" ng-click="SubmitPayment(2)">SUBMIT ORDER</a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xs-12" ng-show="ChequePayment">
-                        <div class="col-md-12 col-xs-12">
-                            <h4>Enter Cheque Details</h4>
-                        </div>
-                        <div class="col-md-12 col-xs-12">
-                            <label>
-                            Cheque.NO
-                                <input type="text" class="form-control" ng-model="orderData.chequeNumber" required/>
-                            </label>
-                            <label>
-                            Date
-                                <input date-range-picker options="{format: 'YYYY/MMM/DD', timePicker: false, singleDatePicker: true, minDate: date}" id="classifiedDuration" class="form-control date-picker" type="text" ng-model="orderData.chequeDate" style="font-weight: 600"/>
-                            </label>
-                        </div>
-                        <div class="col-md-12 col-xs-12">
-                            <a href="" class="btn btn-primary btn-block" ng-click="SubmitPayment(3)" style="margin-top:10px;margin-bottom:10px;">SUBMIT ORDER</a>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xs-12" ng-show="PayOnline" ng-include='"partials/stripe/stripe.html"'>
-                                                    
-                    </div>
-
-                    <div class="col-md-6 col-xs-12" ng-show="PayUmoney">
-                        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
-                            <div class="fragment">
-                                <!-- <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-                                <h4>You selected Online Payment</h4>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium ad aliquam cupiditate dicta
-                                </p> -->
-                                <img ng-src="img/payUmoney.png" class="img-responsive" alt=""/>
-                            </div>
-                        </div>
-                        <form action="https://secure.payu.in/_payment" method="post" target="_top" name="payuForm" id="payuForm">
-                            <input type="hidden" name="key"  ng-value="MERCHANT_KEY" />
-                            <input type="hidden" name="hash"  ng-value="encrypttext"/>
-                            <input type="hidden" name="txnid"  ng-value="transactions" />
-                            
-                             <input type="hidden" name="orders" value="orderData" />
-                            <input type="hidden" name="amount"  ng-value="orderAmount" />
-                            <input type="hidden" name="productinfo"  ng-value="productInfo" />
-                            <input type="hidden" name="surl"  ng-value="surl" />
-                            <input type="hidden" name="furl"  ng-value="furl" />
-                            <input type="hidden" name="firstname"  ng-value="orderData.buyer.name" />
-                            <input type="hidden" name="email"  ng-value="orderData.buyer.email" />
-                            <input type="hidden" name="phone"  ng-value="orderData.buyer.phone" />
-                            <input type="hidden" name="service_provider" value="payu_paisa" />
-
-                            <input name="lastname" id="lastname" type="hidden" ng-value="orderData.buyer.code" />
-                            <input name="curl" ng-value="curl" type="hidden"/>
-                            <input name="address1" type="hidden" ng-value="" />
-                            <input name="address2" type="hidden" ng-value="" />
-                            <input name="city" type="hidden" ng-value="" />
-                            <input name="state" type="hidden" ng-value="" />
-                            <input name="country" type="hidden" ng-value="" />
-                            <input name="zipcode" type="hidden" ng-value="" />
-                            <input name="udf1" type="hidden" ng-value="" />
-                            <input name="udf2" type="hidden" ng-value="" />
-                            <input name="udf3" type="hidden" ng-value="" />
-                            <input name="udf4" type="hidden" ng-value="" />
-                            <input name="udf5" type="hidden" ng-value="" />
-                            <input type="submit" class="btn btn-primary btn-block" value="Pay Through PayU Money" style="margin-top:10px;margin-bottom:10px;"/>
-                        </form>
-                    </div>
-
-                    <div class="col-md-3 col-xs-12" style="background-color: #F6F6F6;">
-                        <h4 class="text-center" style="color: #e50880;">Total Amount</h4>
-                        <h4 class="text-center" style="color:#57C5A0;">&#x20b9;{{totalPrice}}</h4>
-                    </div>
                 </div>
+                
             </div>
 </div>
 </div>
