@@ -153,9 +153,9 @@ evezownApp.controller('showBlogEvezplaceCtrl', function ($scope, BlogService, Ev
     };
 
     if(blog.trending != null) {
-        $scope.options.priority = blog.trending.priority;
+        $scope.options.priority = parseInt(blog.trending.priority);
         $scope.options.selectedSectionId = blog.trending.evezown_section_id;
-        $scope.options.is_show_evezplace = blog.trending.is_show_evezplace;
+        $scope.options.is_show_evezplace = parseInt(blog.trending.is_show_evezplace);
     }
 
     getEvezplaceSection($scope.userId);
