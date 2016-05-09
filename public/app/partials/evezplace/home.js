@@ -17,7 +17,7 @@ evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $lo
     }, {
         Index: 2,
         Title: 'productServices',
-        LinkText: 'Store/Business'
+        LinkText: 'Business (Product + Service)'
     }, {
         Index: 3,
         Title: 'Ads & Campaigns',
