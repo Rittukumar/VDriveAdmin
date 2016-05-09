@@ -18,7 +18,7 @@ class CreateStoreSubscriptionOfferTable extends Migration {
             $table->foreign('store_id')->references('id')->on('stores');
             $table->integer('amount')->unsigned()->nullable();
             $table->integer('subscription_id')->unsigned()->index()->nullable();
-            $table->foreign('subscription_id')->references('store_subscription_id')->on('stores');
+            $table->foreign('subscription_id')->references('id')->on('store_subscription_type');
             $table->timestamps();
         });
 	}
