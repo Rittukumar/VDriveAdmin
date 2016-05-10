@@ -4,7 +4,7 @@
 evezownApp
     .controller('BrowseStoreCtrl', function ($scope, $rootScope, $http, PATHS, $cookieStore,
                                              $routeParams, EvezplaceHomeService, StoreService) {
-        $scope.browseItems = [];
+        //$scope.browseItems = [];
         $scope.browseMyItems = [];
         $scope.storePagination = {};
         $scope.service_url = PATHS.api_url;

@@ -86,7 +86,7 @@
                                 ng-change="pageChanged()">
                 </uib-pagination>
             </div>
-            <div class="empty-section text-center" ng-if="browseItems.length == 0">
+            <div class="empty-section text-center" ng-show="browseItems.length == 0">
                 <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
 
                 <h3 style="font-weight: 200">No stores exist under this category!</h3>

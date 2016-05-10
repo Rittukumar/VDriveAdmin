@@ -5,7 +5,7 @@ evezownApp
     .controller('BrowseClassifiedsCtrl', function ($scope, usSpinnerService,
                                                    ClassifiedsService, EvezplaceHomeService,
                                                    PATHS) {
-        $scope.browseItems = [];
+        //$scope.browseItems = [];
 
 
         $scope.ImageUrlPath = PATHS.api_url + 'image/show/';
