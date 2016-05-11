@@ -5,31 +5,107 @@
 
 evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreService,
                                                     usSpinnerService, $http, ngTableParams, $rootScope, ngFabForm,
-                                                    PATHS, $location, localStorageService, $routeParams) {
+                                                    PATHS, $location, localStorageService, $routeParams, $filter) {
+
+
+
+
+    $scope.orderSuccess = function (){
+
+        if($rootScope.checkOutType == 'cart'){
+
+            angular.forEach($scope.shoppingCartItems, function(value, key) {
+
+                if(value.storeId == $rootScope.storeId) {
+                    $scope.shoppingCartItems.splice(key, 1);
+                }
+            });
+
+            if($scope.shoppingCartItems.length > 0)
+            { 
+
+                localStorageService.remove('shoppingCartItems');
+                localStorageService.set('shoppingCartItems', $scope.shoppingCartItems);
+                $rootScope.$broadcast('shoppingCartItems', {message: $scope.shoppingCartItems});
+
+                if($cookieStore.get('userId')){
+                    var cart_data = {
+                                        cart_contents : $scope.shoppingCartItems,
+                                        user_id       : $cookieStore.get('userId')
+                                    };
+                                
+                    $http.post(PATHS.api_url + 'cart/addcart', cart_data)
+                    
+                }
+              
+            }else{
+
+                localStorageService.clearAll();
+                $rootScope.$broadcast('shoppingCartItems', {message: null});
+                if($cookieStore.get('userId'))
+                {
+                    var cart_data = { user_id : $cookieStore.get('userId')};
+                    $http.post(PATHS.api_url + 'cart/deletecart', cart_data)
+                    
+                }
+            }
+        }else{
+            $cookieStore.remove('expressBuyItems');
+        }
+
+        location.reload(); 
+        
+        $location.path('/order-success');
+
+    };
 
 
 
     $scope.init = function () {
 
-        if ($routeParams.checkouttype == 'cart') {
+        if ($routeParams.checkOutType == 'cart') {
 
-            $rootScope.checkOutType  = $routeParams.checkouttype;
+            $rootScope.checkOutType  = $routeParams.checkOutType;
             $scope.shoppingCartItems = StoreService.getShoppingCartItems();
+            
+            var selectedStore = $filter('filter')($scope.shoppingCartItems, {storeId: $routeParams.storeId}, true);
 
-        }else if ($routeParams.checkouttype == 'buy') {
+            if (selectedStore.length > 0) 
+            {
+              $rootScope.storeId  = $routeParams.storeId;
+            }
 
-            $rootScope.checkOutType  = $routeParams.checkouttype;
+            if ($routeParams.status == 'success') {
+
+                $scope.orderSuccess();
+
+            }else if ($routeParams.status == 'fail') {
+
+                $location.path('/store/browse');
+
+            }
+
+        }else if ($routeParams.checkOutType == 'buy') {
+
+            $rootScope.checkOutType  = $routeParams.checkOutType;
             $scope.shoppingCartItems = $cookieStore.get('expressBuyItems') || [];
 
-        }else if ($routeParams.checkouttype == 'success') {
+            var selectedStore = $filter('filter')($scope.shoppingCartItems, {storeId: $routeParams.storeId}, true);
 
-            $rootScope.checkOutType  = $routeParams.stype;
-            $scope.payuPayment($routeParams.checkouttype);
+            if (selectedStore.length > 0) 
+            {
+              $rootScope.storeId  = $routeParams.storeId;
+            }
 
-        }else if ($routeParams.checkouttype == 'fail') {
+            if ($routeParams.status == 'success') {
+                
+                $scope.orderSuccess();
 
-            $rootScope.checkOutType  = $routeParams.stype;
-            $scope.payuPayment($routeParams.checkouttype);
+            }else if ($routeParams.status == 'fail') {
+
+                $location.path('/store/browse');
+
+            }
 
         }
     };
@@ -180,17 +256,23 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
         $scope.totalPrice = 0;
         $scope.totalShipping = 0;
-
+        $scope.total_price = 0;
         $scope.shoppingCartCount = 0;
 
         $scope.isShoppingCartEmpty = StoreService.isShoppingCartEmpty;
 
         angular.forEach($scope.shoppingCartItems, function(value) {
+            $scope.shopPrice = 0; $scope.price = 0;
             angular.forEach(value.products, function(product) {
-                $scope.totalPrice =  +$scope.totalPrice +  (+product.price * +product.quantity);
+                $scope.price      =  (+product.price * +product.quantity);
+                $scope.shopPrice +=  $scope.price
+                $scope.totalPrice =  +$scope.totalPrice +  $scope.price;
                 //$scope.totalShipping = +$scope.totalShipping + +product.shippingCharge;
             });
-            value.total_price = $scope.totalPrice;
+            value.total_price = $scope.shopPrice;
+            if(value.storeId == $rootScope.storeId){
+              $scope.total_price = $scope.shopPrice;
+            }
             $scope.shoppingCartCount = +$scope.shoppingCartCount + +value.products.length;
         });
 
@@ -228,17 +310,24 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
     function onQuantityChange($type) {
         $scope.totalPrice = 0;
         $scope.totalShipping = 0;
-
+        $scope.total_price = 0;
         $scope.shoppingCartCount = 0;
 
         $scope.isShoppingCartEmpty = !($scope.shoppingCartItems.length > 0);
-
+        
         angular.forEach($scope.shoppingCartItems, function(value) {
+            $scope.shopPrice = 0; $scope.price = 0;
             angular.forEach(value.products, function(product) {
-                $scope.totalPrice =  +$scope.totalPrice +  (+product.price * +product.quantity);
+                $scope.price      =  (+product.price * +product.quantity);
+                $scope.shopPrice +=  $scope.price
+                $scope.totalPrice =  +$scope.totalPrice +  $scope.price;
                 //$scope.totalShipping = +$scope.totalShipping + +product.shippingCharge;
             });
-            value.total_price = $scope.totalPrice;
+            value.total_price = $scope.shopPrice;
+            if(value.storeId == $rootScope.storeId){
+              $scope.total_price = $scope.shopPrice;
+            }
+
             $scope.shoppingCartCount = +$scope.shoppingCartCount + +value.products.length;
         });
          
@@ -456,10 +545,35 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
             }
             
     };
+
+
+    $scope.payuSubmit = function($event) {
+      
+      $event.preventDefault();
+
+      var $data = {
+            'email'  : $scope.orderData.buyer.email,
+            'orders' : $scope.orderData
+        }
+
+        $http.post(PATHS.api_url + 'orders/paymentOrders', $data)
+            .success(function(response){
+
+               $('form[name="payuForm"]')[0].submit();
+                
+            }).error(function (response)
+            {
+               toastr.error('Please Try Again Later!');
+               
+            });
+            
+    }
   
 
     $scope.prepareBuyObject = function(){
         angular.forEach($scope.shoppingCartItems, function (value) {
+
+            if(value.storeId == $rootScope.storeId){
 
             var order = {
                 storeId: value.storeId,
@@ -479,6 +593,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
                     title: product.title,
                     quantity: product.quantity,
                     price: product.price,
+                    variants: product.variants,
                     image: product.image,
                     isCollapsed: true
                 };
@@ -486,8 +601,10 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
                 order.totalAmount = +order.totalAmount + (+orderProduct.price * +orderProduct.quantity);
                 order.orderItems.push(orderProduct);
             });
-
+            
             $scope.orderData.orders.push(order);
+            
+            }
         });
     };
 
@@ -619,9 +736,9 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
     $scope.getHash = function()
     {
-          $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
-          $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
-          $scope.curl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
+          $scope.surl = "http://localhost:8000/v1/paymentstatus/paymentstatus";
+          $scope.furl = "http://localhost:8000/v1/paymentstatus/paymentstatus";
+          $scope.curl = "http://localhost:8000/v1/paymentstatus/paymentstatus";
           $scope.udf1 = "";
           $scope.udf2 = "";
           $scope.udf3 = "";
@@ -699,7 +816,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
             var $payInfo = {
                'token'              : result.id,
                'orders'             : $scope.orderData,
-               'total'              : $scope.totalPrice,
+               'total'              : $scope.orderData.orders[0].totalAmount,
                'customer_stripe_id' : customer_stripe_id,
                'customer_id'        : customer_id,
                'type'               : type
@@ -722,40 +839,6 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
     $scope.hideAlerts = function () {
         $scope.stripeError = null;
         $scope.stripeSuccess = null;
-    };
-
-
-    $scope.payuPayment = function ($type) {
-
-        if($type == 'success'){
-
-            $scope.orderSuccess();
-
-        }else{
-
-            $location.path('store/browse');
-
-        }
-         
-    };
-
-
-    $scope.orderSuccess = function (){
-
-        if($rootScope.checkOutType == 'cart'){
-            localStorageService.clearAll();
-            $rootScope.$broadcast('shoppingCartItems', {message: null});
-            if($cookieStore.get('userId'))
-            {
-                var cart_data = { user_id : $cookieStore.get('userId')};
-                $http.post(PATHS.api_url + 'cart/deletecart', cart_data)
-            }
-        }else{
-            $cookieStore.remove('expressBuyItems');
-        }
-
-        $location.path('/order-success');
-
     };
 
 

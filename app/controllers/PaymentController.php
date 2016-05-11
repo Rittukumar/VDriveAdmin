@@ -30,8 +30,8 @@ class PaymentController extends AppController {
                 $stripe_payment_details['last_four']  = isset($stripe->source['last4']) ? $stripe->source['last4'] : '';
                 $stripe_payment_details['card_type']  = isset($stripe->source['brand']) ? $stripe->source['brand'] : '';
 
-                
-                if(!empty($this->storeOrder($orders, $stripe_payment_details)))
+               
+                if($this->storeOrder($orders, $stripe_payment_details) == 'success')
                 {
                     $mess = ['status' => "OK","message" =>"Payment ok"];
                     return $mess;
@@ -51,7 +51,7 @@ class PaymentController extends AppController {
 
         }catch (Exception $e){
 
-            return $e;//$this->setStatusCode(500)->respondWithError($e);
+            return $this->setStatusCode(500)->respondWithError($e);
             
         }
             
@@ -59,6 +59,8 @@ class PaymentController extends AppController {
 
 
     public function stripeIntegration($token, $price, $customer_stripe_id, $customer_id, $type){
+
+        try{
 
         $cents  = round(bcmul($price, 100));
 
@@ -153,31 +155,58 @@ class PaymentController extends AppController {
 
         }
 
+        }catch (Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($e);
+            
+        }
+
     }
 
 
     public function payuPayment(){
 
-        $inputArray = Input::all();
-        $inputArray['orders']['paymentMode'] = 5;
-        $inputArray['order_success'] = '';
-        $status = $inputArray['status'];
+        try{
 
-        if($status == 'success')
-        {
+            $inputArray = Input::all();
+            
+            $payuOrder = PaymentOrders::where('email', $inputArray['email'])->pluck('orders');
 
-          if(!empty($this->storeOrder($inputArray['orders'], '')))
+            $inputArray['orders'] = json_decode($payuOrder, true);
+
+            $inputArray['orders']['paymentMode'] = 5;
+
+            $inputArray['order_success'] = '';
+
+            $status = $inputArray['status'];
+
+
+            if($status == 'success')
             {
-                $inputArray['order_success'] = 'success';
-                return View::make('paymentstatus')->with('data',$inputArray);
-            }
-            else
-            {
-                return View::make('paymentstatus')->with('data',$inputArray);
+
+              if($this->storeOrder($inputArray['orders'], '') == 'success')
+                {
+
+                    $delete = PaymentOrders::where('email', $inputArray['email'])->delete();
+
+                    $inputArray['order_success'] = 'success';
+
+                    return View::make('paymentstatus')->with('data',$inputArray);
+                }
+                else
+                {
+                    return View::make('paymentstatus')->with('data',$inputArray);
+                }
+
+            }else{
+               return View::make('paymentstatus')->with('data',$inputArray);
             }
 
-        }else{
-           return View::make('paymentstatus')->with('data',$inputArray);
+        }catch (Exception $e){
+
+            return View::make('paymentstatus')->with('data',$inputArray);
+            
+
         }
 
     }

@@ -3,11 +3,11 @@
     <a href="#store/browse" style="margin-bottom: 20px" class="btn btn-primary btn-lg">Browse Stores Now</a>
 </div>
 <div class="shoppingcart" ng-if="!isShoppingCartEmpty">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-xs-12">
             <p style="color: #2d9db8; font-weight: 400">CART ({{shoppingCartCount}})</p>
         </div>
-    </div>
+    </div> -->
     <hr style="margin-top: 5px; margin-bottom: 5px">
     <div class="row" ng-repeat="shoppingCartStore in shoppingCartItems" style="margin-bottom: 5px">
         <div class="col-sm-12">
@@ -58,7 +58,7 @@
                            <!-- <a href="#checkout/cart" class="btn btn-primary pull-right" style="border-radius: 3px">checkout</a> -->
                         </div>
                         <div class="col-xs-6">
-                            <a href="#store/shopping/cart" class="btn btn-default  pull-right" style="border-radius: 3px">view cart</a>
+                            <a href="#store/shopping/{{shoppingCartStore.storeId}}/cart" class="btn btn-default  pull-right" style="border-radius: 3px">view cart</a>
                         </div>
                     </div>
                 </div>

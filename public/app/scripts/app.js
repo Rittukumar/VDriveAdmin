@@ -1298,7 +1298,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/checkout/:checkouttype', {
+            .when('/checkout/:storeId/:checkOutType', {
                 templateUrl: 'partials/evezplace/browse/store/place-order.html',
                 controller: 'ShoppingCartCtrl',
                 data: {
@@ -1308,7 +1308,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/shopping/:checkouttype', {
+            .when('/store/shopping/:storeId/:checkOutType', {
                 templateUrl: 'partials/evezplace/browse/store/shopping-cart.html',
                 controller: 'ShoppingCartCtrl',
                 data: {
@@ -1318,7 +1318,8 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/payu/:checkouttype/:stype', {
+            .when('/payu/:status/:storeId/:checkOutType', {
+                templateUrl: 'partials/evezplace/browse/store/payuPayment.html',
                 controller: 'ShoppingCartCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]

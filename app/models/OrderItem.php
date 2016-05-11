@@ -3,7 +3,7 @@
 class OrderItem extends \Eloquent
 {
     protected $fillable = ['order_id', 'product_id', 'quantity', 'price', 'expected_shipping_date',
-        'expected_delivery_date'];
+        'expected_delivery_date', 'color', 'size', 'volume', 'weight'];
 
     public function order() {
         return $this->belongsTo('Order', 'order_id');

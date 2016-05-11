@@ -3,9 +3,9 @@
     font-size: 11px;
 }
 </style>
-<div class="col-xs-12">
+<!-- <div class="col-xs-12">
      <h3>Cart ({{shoppingCartCount}})</h3>
-</div>
+</div> -->
 
 <div class="col-sm-12" ng-if="isShoppingCartEmpty">
     <div class="row" style="margin-top: 120px; margin-bottom: 120px">
@@ -16,10 +16,10 @@
     </div>
 </div>
 
-<div class="row" ng-if="!isShoppingCartEmpty">
+<div class="row" ng-if="storeId">
     <div class="col-sm-12">
         <div class="col-sm-8">
-            <div class="row" ng-repeat="shoppingCartStore in shoppingCartItems">
+            <div class="row" ng-repeat="shoppingCartStore in shoppingCartItems" ng-if="shoppingCartStore.storeId == storeId">
                 <div class="col-sm-12">
                     <h4 style="padding: 10px 5px; background: #692668; color: #ffffff;
                                 font-weight: 300">Store: <span>{{shoppingCartStore.storeTitle}}</span></h4>
@@ -54,7 +54,7 @@
                             <td data-title="'Price'">{{shoppingCartItem.price}}</td>
                             <td data-title="'Quantity'">
                                 <div fs-counter value="shoppingCartItem.quantity"
-                                     data-min="0"
+                                     data-min="1"
                                      data-max="20"
                                      data-step="1"
                                      data-width="130px"
@@ -64,7 +64,7 @@
                             <td data-title="'Total'">&#x20b9; {{+shoppingCartItem.quantity * +shoppingCartItem.price}}
                             </td>
                             <td class="col-sm-2 col-md-2 col-lg-2" data-title="''">
-                                <a ng-click="removeFromCart(shoppingCartItem.product_id, 'true')" class="btn btn-link pull-right"><span
+                                <a ng-click="removeFromCart(shoppingCartItem.product_id, checkOutType)" class="btn btn-link pull-right"><span
                                         style="color: #e51385">remove</span></a>
                             </td>
                         </tr>
@@ -76,7 +76,7 @@
             <div class="verticalLine">
             </div>
         </div>
-        <div class="col-sm-4" id="shoppingCartTotal">
+        <div class="col-sm-4" id="shoppingCartTotal" >
             <div class="cart-sidebar actions">
                 <div class="cart_totals ">
                     <div class="col-xs-12">
@@ -85,7 +85,7 @@
 
                     <div class="col-xs-12">
                         <h4>Subtotal <span class="pull-right"
-                                           style="font-weight: 300">&#x20b9;&nbsp;{{totalPrice}}</span></h4>
+                                           style="font-weight: 300">&#x20b9;&nbsp;{{total_price}}</span></h4>
                     </div>
                     <div class="col-xs-12">
                         <h4>Shipping <span class="pull-right"
@@ -94,7 +94,7 @@
 
                     <div class="col-xs-12" style="border-top: thin dashed #777777;">
                         <h4>Total <span style="font-weight: bold"
-                                        class="pull-right">&#x20b9;&nbsp;{{ +totalPrice + +totalShipping}}
+                                        class="pull-right">&#x20b9;&nbsp;{{ +total_price + +totalShipping}}
                                     </span>
                         </h4>
                     </div>
@@ -102,11 +102,11 @@
 
                 <div class="row">
                     <div class="col-sm-12" style="margin-bottom: 10px">
-                        <a href="#checkout/cart" class="btn btn-primary btn-block btn-lg">Place Order</a>
+                        <a href="#checkout/{{storeId}}/cart" class="btn btn-primary btn-block btn-lg">Place Order</a>
                     </div>
 
                     <div class="col-sm-12">
-                        <a href="#store/browse" class="btn btn-block btn-primary btn-lg">Continue Shopping</a>
+                        <a href="#store/{{storeId}}/browse" class="btn btn-block btn-primary btn-lg">Continue Shopping</a>
                     </div>
                 </div>
             </div>

@@ -225,9 +225,11 @@ class OrderController extends AppController
 
     public function saveOrders($orders, $stripe_payment_details){
 
+        try{
+
             $inputArray = $orders;
            
-            $billingAddress = ($inputArray['billing_address'] != null) ? $inputArray['billing_address'] : '';
+            $billingAddress  = ($inputArray['billing_address'] != null) ? $inputArray['billing_address'] : '';
 
             $shippingAddress = ($inputArray['shipping_address'] != null) ? $inputArray['shipping_address'] : '';
 
@@ -297,10 +299,12 @@ class OrderController extends AppController
 
             $i = -1;
 
+            // Create Orders
             foreach ($inputArray['orders'] as $inputs) {
-                $storeId = $inputs['storeId'];
+
+                $storeId     = $inputs['storeId'];
                 $totalAmount = $inputs['totalAmount'];
-                $items = $inputs['orderItems'];
+                $items       = $inputs['orderItems'];
                 
 
                 $order = Order::create([
@@ -324,15 +328,21 @@ class OrderController extends AppController
 
                     $order->orderStatusHistories()->save($orderStatusHistory);
 
+                    // Insert order Items 
                     foreach ($items as $value) {
                         $newOrderItem = new OrderItem([
                             'product_id' => $value['product_id'],
-                            'quantity' => $value['quantity'],
-                            'price' => $value['price']
+                            'quantity'   => $value['quantity'],
+                            'price'      => $value['price'],
+                            'color'      => $value['variants']['color'],
+                            'size'       => $value['variants']['size'],
+                            'volume'     => $value['variants']['volume'],
+                            'weight'     => $value['variants']['weight']
                         ]);
 
                         $orderItem = $order->orderItems()->save($newOrderItem);
 
+                       // Insert order Item status history 
                         $orderItemStatus = new OrderItemStatusHistory([
                             'status_id' => 1,
                             'status_comment' => 'order placed'
@@ -342,7 +352,6 @@ class OrderController extends AppController
 
 
                         //Insert Order Payment Details  
-                            
                             $orderpaymentdetails = new \OrderPayment();
 
                             $orderpaymentdetails->order_id        = $order->id;
@@ -413,7 +422,16 @@ class OrderController extends AppController
                 $saved_orders[] = $order;
             }
 
-            return $saved_orders;
+            if(!empty($saved_orders)){
+                return 'success';
+            }
+
+
+        }catch (Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+
+        }
 
     }
 
@@ -427,6 +445,7 @@ class OrderController extends AppController
     		return $this->setStatusCode(500)->respondWithError($ex);
     	}
     }
+
 
     function getRandomString($type = 'alnum', $length = 8)
     {
@@ -769,6 +788,52 @@ class OrderController extends AppController
     function destroy($id)
     {
         //
+    }
+
+
+    public function savePaymentOrders(){
+
+        try{
+
+            $email  = Input::get('email');
+            $orders = Input::get('orders');
+
+            $paymentOrder = PaymentOrders::where('email', $email)->first();
+
+            if(!$paymentOrder)
+            {
+
+                $paymentOrder = new PaymentOrders;
+                $paymentOrder->email  = $email;
+                $paymentOrder->orders = json_encode($orders);
+
+                $paymentOrder->save(); 
+            }
+            else
+            {
+                $paymentOrder = PaymentOrders::find($payuOrder->id);
+
+                $paymentOrder->email  = $email;
+                $paymentOrder->orders = json_encode($orders);
+
+                $paymentOrder->save(); 
+
+            }
+
+             $successResponse = [
+                'status'       => true,
+                'paymentOrder' => $paymentOrder->id
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        }catch (Exception $e){
+
+            //return $this->setStatusCode(500)->respondWithError($errorMessage);
+
+            return $e;
+        }
+
     }
 
 }
