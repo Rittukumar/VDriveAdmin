@@ -54,6 +54,10 @@ evezownApp
             name: 'Discussion',
             link : 'mydiscussion/' + $routeParams.id
 
+        },{
+            name: 'Buy History',
+            link : 'buyHistory/' + $routeParams.id
+
         });
 
         $scope.navClass = function (page) {
