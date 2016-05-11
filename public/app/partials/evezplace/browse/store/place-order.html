@@ -69,7 +69,7 @@ box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
     </div>
 </div>
 
-<div style="margin:0 auto;width:80%;" ng-if="!isShoppingCartEmpty">
+<div style="margin:0 auto;width:80%;" ng-if="storeId">
 <div class="col-md-12 col-xs-12 no-padding shopping-cart-checkout text-align:center;" style="margin-bottom: 20px">
     <!-- ng-if="!isShoppingCartEmpty" -->
     <div class="col-md-12 col-xs-12 no-padding">
@@ -299,7 +299,7 @@ box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
                 </div>
                 
 
-                <div class="col-md-12 col-xs-12 no-padding"  ng-repeat="shoppingCartStore in shoppingCartItems">
+                <div class="col-md-12 col-xs-12 no-padding"  ng-repeat="shoppingCartStore in shoppingCartItems" ng-if="shoppingCartStore.storeId == storeId">
                     <div class="col-sm-12 col-xs-12 no-padding" id="no-more-tables">
                         <table class="table">
                             <tbody>
@@ -366,7 +366,7 @@ box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
                     <a href="" class="btn btn-primary btn-block" ng-click="submitOrder()" style="margin-top:10px;margin-bottom:10px;">CONTINUE</a>
                 </div>
                 <div class="col-md-4 text-right pull-right" style="color: #e50880;">
-                    <h4>Amount Payable : <b style="color:#57C5A0;">&#x20b9; {{totalPrice}}</b></h4>
+                    <h4>Amount Payable : <b style="color:#57C5A0;">&#x20b9; {{total_price}}</b></h4>
                 </div>
             </div>
             </div>

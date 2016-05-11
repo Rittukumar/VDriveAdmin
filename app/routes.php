@@ -233,7 +233,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('users/{id}/{group_id}/groupfriends', 'FriendsController@getFriendsForGroup');
     Route::get('users/{id}/{event_id}/eventfriends', 'FriendsController@getFriendsForEvents');
     //getFriendsForCircle
-//getFriendsForEvents
+    //getFriendsForEvents
     Route::post('users/autofriend', 'FriendsController@autoFriend');
     Route::post('users/friend/request', 'FriendsController@sendFriendRequest');
     Route::post('users/friend/request/accept', 'FriendsController@acceptFriendInviteRequest');
@@ -482,8 +482,10 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('buyer/createbuyer', 'OrderController@createBuyer');
     Route::post('orders', 'OrderController@store');
     Route::get('orders/{buyer_id}/buyer', 'OrderController@getBuyersOrder');
-    Route::post('orders/payu/hash', 'OrderController@getHash');
     //getHash()
+    Route::post('orders/payu/hash', 'OrderController@getHash');
+    Route::post('orders/paymentOrders', 'OrderController@savePaymentOrders');
+    
 });
 
 Route::group(array('prefix' => 'v1', 'before' => 'jwt-auth'), function () {

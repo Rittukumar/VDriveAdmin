@@ -22,12 +22,12 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
 
     $scope.selectedProduct = {};
     $scope.selectedProduct.color = "";
-    $scope.selectedProduct.size = "";
+    $scope.selectedProduct.size  = "";
     $scope.selectedProduct.volume = "";
     $scope.selectedProduct.weight = "";
 
-    $scope.productDetails.size_options = [];
-    $scope.productDetails.color_options = [];
+    $scope.productDetails.size_options   = [];
+    $scope.productDetails.color_options  = [];
     $scope.productDetails.volume_options = [];
     $scope.productDetails.weight_options = [];
 
@@ -240,7 +240,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
+    $scope.format  = $scope.formats[0];
 
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -320,7 +320,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                 stock_quantity: $product.product_stock.quantity,
                 variants: {
                     color: $product.color,
-                    size: $product.size,
+                    size:  $product.size,
                     volume: $product.volume,
                     weight: $product.weight
                 }
@@ -381,7 +381,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                 storeTitle: $product.product.product_line.store.title,
                 storeId: $product.product.product_line.store.id
             };
-
+         
            var product = {
                 id: $product.id,
                 product_id: $product.product.id,
@@ -404,8 +404,8 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
 
 
         $cookieStore.put('expressBuyItems', expressBuyItems);
-
-        $location.path("/checkout/buy");
+         
+        $location.path("/checkout/"+store.storeId+"/buy");
     };
 
 

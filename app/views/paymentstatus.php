@@ -35,7 +35,8 @@
 			$status = $data["status"];
 			$amount = $data["amount"];
 			$order_success = $data["order_success"];
-			$checkouttype  = $data["checkOutType"];
+			$checkOutType  = $data["address1"];
+			$storeId  = $data["zipcode"];
 		?>
 
 <?php if ($status ==  "success" && $order_success ==  "success") { 
@@ -48,10 +49,11 @@
 		<p style="padding:0px 0px 0px 20px;font-size:20px;"><label>Amount Paid : </label> <b style="color:#55C334;">&#x20B9;<?php echo $amount ?></b></p>
 	</div>
 		<p style="text-align:center;color:#8E8E94;">Thank you for shopping with us.</p>
-
-	    <form name="test" method="get" action="http://www.evezown.com/#/payu/success/"<?php echo $checkouttype; ?> style="text-align:center">
-			<input type="submit" class="button" value="Return to Evezown" style="margin-bottom: 20px;">
-	    </form>
+        
+        <div style="background-color:#FFFFFF;width:100%;float:left;text-align:center;">
+			<br><p><a href="http://localhost:9000/#/payu/success/<?php echo $storeId; ?>/<?php echo $checkOutType; ?>" class="button">Return to Evezown</a></p><br>
+		</div>
+   
 </div>
 <?php }
 else { ?>
@@ -61,10 +63,9 @@ else { ?>
 	
 			<p style="padding:0px 20px 0px 20px;color:#8E8E94;text-align:center;">Your payment has been failed! please try again:</p>
 
-
-			<form name="test" method="get" action="http://www.evezown.com/#/payu/fail/"<?php echo $checkouttype; ?> style="text-align:center">
-			<input type="submit" class="button" value="Return to Evezown" style="margin-bottom: 20px;">
-	    	</form>
+			<div style="background-color:#FFFFFF;width:100%;float:left;text-align:center;">
+				<br><p><a href="http://localhost:9000/#/payu/fail/<?php echo $storeId; ?>/<?php echo $checkOutType; ?>" class="button">Return to Evezown</a></p><br>
+			</div>
 
 		</div>
 <?php } ?>
