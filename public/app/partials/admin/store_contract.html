@@ -36,7 +36,7 @@
                                     <td>{{contracts.profile.firstname}} {{contracts.profile.lastname}}</td>
                                     <td>{{contracts.store_front_info.store_contact_email}}</td>
                                     <td>{{contracts.store_front_info.store_contact_phone1}}</td>
-                                    <td><a ng-if="contracts.business_info.contract_aggreement  != 1" target="_self" href="http://localhost:8000/files/{{contracts.business_info.store_contract_file}}">Download</a></td>                       
+                                    <td><a ng-if="contracts.business_info.contract_aggreement  != 1" target="_self" href="{{FilePath}}files/{{contracts.business_info.store_contract_file}}">Download</a></td>                       
                                     <td data-title="'Status'"><label>
                                         <font color="black">{{contracts.business_info.contract_aggreement  == 1 ? 'Not Uploaded':''}} </font>
                                         <font color="orange">{{contracts.business_info.contract_aggreement  == 2 ? 'Uploaded':''}} </font>
@@ -56,10 +56,9 @@
                                             <label ng-if="contracts.business_info.contract_aggreement == 1"></label>
                                         </span>
                                         </p>
-                                    </td>                             
+                                    </td>
                                 </tr>
                             </tbody>
-
                             </table>
 
                             <div class="clearfix"></div>
@@ -150,50 +149,3 @@
     </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -10,6 +10,8 @@ evezownApp
         $scope.storeStatusEnum = [];
         $scope.title = "Stores";
         usSpinnerService.spin('spinner-1');
+        $scope.PublicPath = PATHS.api_url;
+        $scope.FilePath = $scope.PublicPath.substr(0, $scope.PublicPath.length - 3);
 
         $scope.GetAllStores = function()
         {
