@@ -9,6 +9,7 @@ use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Http\Response;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class OrderController extends AppController
 {
@@ -829,9 +830,50 @@ class OrderController extends AppController
 
         }catch (Exception $e){
 
-            //return $this->setStatusCode(500)->respondWithError($errorMessage);
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
 
-            return $e;
+        }
+
+    }
+
+
+    public function buyHistory($userId)
+    {
+
+        try{
+
+            $limit = Input::get('limit') ?: 10;
+
+            $orders = Order::with('orderItems.productSku.ProductImages.image',
+                                  'orderItems.productSku.product', 'orderItems.orderItemStatus', 'currentOrderStatus', 
+                                  'orderStatusHistories','user', 'buyer', 'store')
+                            ->where('current_status_id', 1)
+                            ->whereExists(function ($query) use ($userId){
+                                $query->select(DB::raw(1))
+                                    ->from('stores')
+                                    ->whereRaw('stores.id = orders.store_id')
+                                    ->whereRaw('stores.owner_id = '.$userId);
+                            })->paginate($limit);
+
+
+            if (!$orders) {
+                return $this->responseNotFound('Orders Not Found!');
+            }
+
+            $fractal = new Manager();
+
+            $buyHistoryResource = new Collection($orders, new BuyHistoryTransformer);
+
+            $buyHistoryResource->setPaginator(new IlluminatePaginatorAdapter($orders));
+
+            $data = $fractal->createData($buyHistoryResource);
+
+
+            return $data->toJson();
+               
+        }catch (Exception $e){
+
+           return $this->setStatusCode(500)->respondWithError($errorMessage);
         }
 
     }

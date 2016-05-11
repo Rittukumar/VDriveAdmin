@@ -485,6 +485,7 @@ Route::group(array('prefix' => 'v1'), function () {
     //getHash()
     Route::post('orders/payu/hash', 'OrderController@getHash');
     Route::post('orders/paymentOrders', 'OrderController@savePaymentOrders');
+    Route::get('orders/{user_id}/buyHistory', 'OrderController@buyHistory');
     
 });
 

@@ -952,6 +952,14 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
             });
+
+        $routeProvider
+
+            .when('/buyHistory/:id', {
+                templateUrl: 'partials/profile/buyHistory.html',
+                controller: 'orderCtrl',
+            });
+
         $routeProvider
 
             .when('/profile/:id/personalinfo', {
