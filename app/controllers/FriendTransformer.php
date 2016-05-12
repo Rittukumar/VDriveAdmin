@@ -16,14 +16,15 @@ class FriendTransformer extends Fractal\TransformerAbstract
      * @param UserProfile $user
      * @return array
      */
-    public function transform(Friend $user)
+    public function transform(Friend $friends)
     {
         return [
-            'id'    => (int) $user->id,
-            'user_id'    => (int) $user->profile['user_id'],
-            'firstname' => $user->profile['firstname'],
-            'lastname' => $user->profile['lastname'],
-            'active'    => (int) $user->active
+            'id'    => (int) $friends['id'],
+            'user_id' => (int) $friends['user_id'],
+            'friend_user_id' => (int) $friends['friend_user_id'],
+            'status' => $friends['status'],
+            'profile' => $friends['profile'],
+            'user' => $friends['user']
         ];
     }
 }
