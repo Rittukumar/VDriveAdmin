@@ -618,6 +618,17 @@ class UsersController extends AppController
                             ->whereRaw('friends.friend_user_id = user_profile.user_id')
                             ->whereRaw('friends.user_id = ' . $user_id);
                     })
+                    ->whereExists(function ($query){
+                        $query->select(DB::raw(1))
+                            ->from('stores')
+                            ->whereRaw('stores.owner_id = user_profile.user_id')
+                            ->whereExists(function ($query) {
+                              $query->select(DB::raw(1))
+                                ->from('store_status')
+                                ->whereRaw('store_status.store_id = stores.id')
+                                ->whereRaw('store_status.status_id = 3');
+                        });
+                   })
                     ->paginate($limit);
             }
             catch (Exception $ex) {
