@@ -423,6 +423,7 @@ class WoiceController extends AppController
             $search_category = null;
             $search_subcategory = null;
             $priceRange = null;
+            $search_location = null;
             
             $posts = array();
 
@@ -472,6 +473,13 @@ class WoiceController extends AppController
                 }
             }
 
+            if (isset($inputs_array['searchLocation'])) {
+                $search_location = $inputs_array['searchLocation'];
+                if($search_location == ""){
+                    $search_location ="%";
+                }
+            }
+
           
             
             $allposts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user', 'users')
@@ -487,6 +495,11 @@ class WoiceController extends AppController
                 ->orwhereNull('cat_id')
                 ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
                 ->orwhereNull('sub_cat_id')
+                ->orWhereExists(function ($query) use ($search_location) {
+                    $query->select(DB::raw(1))
+                        ->from('locations')
+                        ->where('location', 'LIKE', "$search_location");
+                })
                 ->orderBySubmitDate()->paginate($limit);
 
 

@@ -9,8 +9,8 @@
  */
 
 evezownApp.controller('SearchProductController', function ($scope, $rootScope, $cookieStore, SECTIONS, $location, $routeParams, PATHS, $http) {
-
-    
+ 
+     
     $scope.Ranges = ['0 - 1000','1000 - 10,000','10,000 - 25,000','25,000 - 35,000','35,000 - 50,000','50,000 and above'];
 
     // selected Ranges
@@ -34,7 +34,8 @@ evezownApp.controller('SearchProductController', function ($scope, $rootScope, $
     $scope.currentUserPage = 1;
 
     $scope.GetProducts = function () {
-        $http.get(PATHS.api_url +  'products/search/' + $scope.searchkey +'?page='+$scope.currentUserPage).
+        
+        $http.get(PATHS.api_url +  'products/search/' + $scope.searchkey +'?page='+$scope.currentUserPage+'&filter='+JSON.stringify($scope.selectedRange)).
         success(function(data) {
                 console.log(data);
                 $rootScope.Products = data.data;
@@ -51,7 +52,7 @@ evezownApp.controller('SearchProductController', function ($scope, $rootScope, $
     // toggle selection for a given range
     $scope.PriceRange = function(Range) 
     {
-
+         
         var idx = $scope.selectedRange.indexOf(Range);
 
         // is already selected, then remove
@@ -65,6 +66,8 @@ evezownApp.controller('SearchProductController', function ($scope, $rootScope, $
           $scope.selectedRange.push(Range);
           //alert($scope.selectedRange);
         }
+       
+         $scope.GetProducts();
     };
 
 });
