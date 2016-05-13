@@ -14,9 +14,9 @@ class AddCheckDdNumberAndCheckDdDateToOrderPaymentsTable extends Migration {
 	{
 		Schema::table('order_payments', function(Blueprint $table)
 		{
-			$table->string('check_dd_number', 100)->unsigned()->nullable();
-			$table->date('check_dd_date')->unsigned()->nullable();
-			$table->string('status', 20)->unsigned()->nullable();
+			$table->string('check_dd_number', 100)->nullable();
+			$table->date('check_dd_date')->nullable();
+			$table->string('status', 20)->nullable();
 		});
 	}
 
