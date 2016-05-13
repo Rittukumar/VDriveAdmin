@@ -57,10 +57,10 @@ evezownApp.factory('ClassifiedsService', ['$http', '$q', 'PATHS' ,function ($htt
         return deferred.promise;
     }
 
-    ClassifiedsService.getClassifiedsByUserId = function ($userId) {
+    ClassifiedsService.getClassifiedsByUserId = function ($userId, $myId) {
         var deferred = $q.defer();
         //alert(PATHS.api_url +  'users/'+$userId+'/classifieds');
-        $http.get(PATHS.api_url +  'users/'+$userId+'/classifieds')
+        $http.get(PATHS.api_url +  'users/'+$userId+'/'+$myId+'/classifieds')
             .success(function(data){
                 deferred.resolve(data.data);
             })

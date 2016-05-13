@@ -2015,7 +2015,7 @@ class StoreController extends AppController
         }
     }
 
-    public function getStoreGuestUser($user_id)
+    public function getStoreGuestUser($userId, $myId)
     {
         try {
             $myStores = Store::with('profile', 'profile_images', 'collage_image1',
@@ -2024,14 +2024,62 @@ class StoreController extends AppController
                 'StoreFrontPromotion.image.image1', 'StoreFrontPromotion.image.image2',
                 'StoreFrontPromotion.image.image3', 'StoreFrontPromotion.image.image4',
                 'StoreCommerce', 'StoreStatus')
-                ->where('owner_id', $user_id)
-                ->whereExists(function ($query) {
+                    ->orWhere(function ($query)  use ($userId){
+                        $query->where('visibility_id', 1);
+                        $query->where('owner_id', $userId);
+                    })
+                    ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
                             ->whereRaw('store_status.status_id = 2');
                     })
-                ->get();
+                    ->orWhereExists(function ($query) use ($myId) {
+                        $query->where('visibility_id', 2);
+                        $query->select(DB::raw(1))
+                            ->from('circle_friends')
+                            ->whereRaw('circle_friends.friend_user_id = ' . $myId)
+                            ->whereExists(function ($query) {
+                                $query->select(DB::raw(1))
+                                    ->from('circles')
+                                    ->whereRaw('circles.id = stores.circle_id')
+                                    ->whereRaw('circles.id = circle_friends.circle_id')
+                                    ->whereRaw('circles.user_id = stores.owner_id');
+                            });
+                    })
+                    ->whereExists(function ($query) {
+                        $query->select(DB::raw(1))
+                            ->from('store_status')
+                            ->whereRaw('stores.id = store_status.store_id')
+                            ->whereRaw('store_status.status_id = 2');
+                    })
+                    ->orWhereExists(function ($query) use ($myId) {
+                        $query->where('visibility_id', 3);
+                        $query->select(DB::raw(1))
+                            ->from('friends')
+                            ->whereRaw('friends.user_id = stores.owner_id')
+                            ->whereRaw('friends.friend_user_id = ' . $myId);
+                    })
+                    ->whereExists(function ($query) {
+                        $query->select(DB::raw(1))
+                            ->from('store_status')
+                            ->whereRaw('stores.id = store_status.store_id')
+                            ->whereRaw('store_status.status_id = 2');
+                    })
+                    ->orWhere(function ($query) use ($myId, $userId) {
+                       
+                        $query->where('visibility_id', 4);
+                        $query->where('owner_id', '!=', $myId);
+                        $query->where('owner_id', '!=', $userId);
+                    })
+
+                    ->orWhere(function ($query) use ($userId) {
+                       
+                        $query->orwhereNull('visibility_id');
+                        $query->where('owner_id', $userId);
+                    })
+                    
+                    ->get();
 
             if (!$myStores) {
                 return $this->responseNotFound('Store Listing Not Found!');

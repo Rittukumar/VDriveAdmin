@@ -79,7 +79,7 @@ evezownApp
             //if visiting friends profile, show active stores only
             else
             {
-                $http.get(PATHS.api_url + 'stores/owner/guestuser/' + $scope.currentUserId + '/get').
+                $http.get(PATHS.api_url + 'stores/owner/guestuser/' + $scope.currentUserId +'/' + $scope.loggedInUserId + '/get').
                 success(function (data) {
                     $scope.browseMyItems = data;
                 }).then(function () {

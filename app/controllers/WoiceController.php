@@ -500,7 +500,7 @@ class WoiceController extends AppController
                         ->from('locations')
                         ->where('location', 'LIKE', "$search_location");
                 })
-                ->orderBySubmitDate()->paginate($limit);
+                ->orderBySubmitDate()->get();
 
 
                 $all = [];
