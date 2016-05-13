@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="row" ng-if="storeId">
+<div class="row" ng-if="storeId && !isShoppingCartEmpty">
     <div class="col-sm-12">
         <div class="col-sm-8">
             <div class="row" ng-repeat="shoppingCartStore in shoppingCartItems" ng-if="shoppingCartStore.storeId == storeId">
@@ -76,7 +76,7 @@
             <div class="verticalLine">
             </div>
         </div>
-        <div class="col-sm-4" id="shoppingCartTotal" >
+        <div class="col-sm-4" id="shoppingCartTotal">
             <div class="cart-sidebar actions">
                 <div class="cart_totals ">
                     <div class="col-xs-12">
