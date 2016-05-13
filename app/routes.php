@@ -294,7 +294,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('stores/{store_id}/get', 'StoreController@getStoreById');
     Route::get('stores/subcategory/{store_subcategory_id}/get', 'StoreController@getStoreBySubCategoryId');
     Route::get('stores/owner/{user_id}/get', 'StoreController@getStoreByOwner');
-    Route::get('stores/owner/guestuser/{user_id}/get', 'StoreController@getStoreGuestUser');
+    Route::get('stores/owner/guestuser/{user_id}/{my_id}/get', 'StoreController@getStoreGuestUser');
     Route::get('stores/owner/{user_id}/type/{typeId}/get', 'StoreController@getStoreByOwnerAndType');
     Route::get('stores/type/{typeId}/get', 'StoreController@getStoreByType');
     Route::post('stores/search/advanced', 'StoreController@searchStore');
@@ -351,7 +351,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('classifieds', 'ClassifiedsController@index');
     Route::get('classifieds/{sub_cat_id}', 'ClassifiedsController@getClassifieds');
     Route::post('classifieds/search/advanced', 'ClassifiedsController@searchClassifieds');
-    Route::get('users/{user_id}/classifieds', 'ClassifiedsController@getMyClassifieds');
+    Route::get('users/{user_id}/{my_id}/classifieds', 'ClassifiedsController@getMyClassifieds');
     Route::get('users/classifieds/{classified_id}', 'ClassifiedsController@getClassified');
     Route::get('users/classifieds/tags/{tag_id}/remove', 'ClassifiedsController@removeClassifiedTag');
     Route::post('users/classifieds/{classified_id}/status/update', 'ClassifiedsController@updateClassifiedStatus');

@@ -193,13 +193,67 @@ class ClassifiedsController extends AppController
      * @param $userId
      * @return Exception|string
      */
-    public function getMyClassifieds($userId)
+    public function getMyClassifieds($userId, $myId)
     {
         try {
             $limit = Input::get('limit') ?: 15;
 
-            $classifieds = Classified::with('contact', 'location', 'images', 'tags')
-                                        ->where('user_id', $userId)
+            $Id = ($userId == $myId)? $myId : '';
+
+            if(!empty($Id))
+            {
+
+                $classifieds = Classified::with('contact', 'location', 'images', 'tags')
+                                           ->where('user_id', $Id)
+                                           ->whereExists(function($query)
+                                            {
+                                                $query->select(DB::raw(1))
+                                                      ->from('users')
+                                                      ->whereRaw('users.id = classifieds.user_id')
+                                                      ->whereRaw('blocked = 0')
+                                                      ->whereRaw('deleted = 0');
+                                            })
+                                           ->orderBy('updated_at', 'desc')
+                                           ->paginate($limit);
+
+            }else{
+
+                $classifieds = Classified::with('contact', 'location', 'images', 'tags')
+                                        ->orWhere(function ($query)  use ($userId){
+                                            $query->where('visibility_id', 1);
+                                            $query->where('user_id', $userId);
+                                        })
+                                        ->orWhereExists(function ($query) use ($myId) {
+                                            $query->where('visibility_id', 2);
+                                            $query->select(DB::raw(1))
+                                                ->from('circle_friends')
+                                                ->whereRaw('circle_friends.friend_user_id = ' . $myId)
+                                                ->whereExists(function ($query) {
+                                                    $query->select(DB::raw(1))
+                                                        ->from('circles')
+                                                        ->whereRaw('circles.id = classifieds.circle_id')
+                                                        ->whereRaw('circles.id = circle_friends.circle_id')
+                                                        ->whereRaw('circles.user_id = classifieds.user_id');
+                                                });
+                                        })
+                                        ->orWhereExists(function ($query) use ($myId) {
+                                            $query->where('visibility_id', 3);
+                                            $query->select(DB::raw(1))
+                                                ->from('friends')
+                                                ->whereRaw('friends.user_id = classifieds.user_id')
+                                                ->whereRaw('friends.friend_user_id = ' . $myId);
+                                        })
+                                        ->orWhere(function ($query) use ($myId, $userId) {
+                                           
+                                            $query->where('visibility_id', 4);
+                                            $query->where('user_id', '!=', $myId);
+                                            $query->where('user_id', '!=', $userId);
+                                        })
+                                        ->orWhere(function ($query) use ($userId) {
+                                           
+                                            $query->orwhereNull('visibility_id');
+                                            $query->where('user_id', $userId);
+                                        })
                                         ->whereExists(function($query)
                                             {
                                                 $query->select(DB::raw(1))
@@ -210,6 +264,8 @@ class ClassifiedsController extends AppController
                                             })
                                         ->orderBy('updated_at', 'desc')
                                         ->paginate($limit);
+
+            }
 
             if (!$classifieds) {
                 return $this->responseNotFound('No classifieds exist!');
@@ -226,7 +282,7 @@ class ClassifiedsController extends AppController
             return $data->toJson();
         } catch (Exception $e) {
 
-            return $e;
+            return $this->setStatusCode(500)->respondWithError($e);
         }
     }
 

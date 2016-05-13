@@ -88,7 +88,7 @@ evezownApp.controller('classifiedProfileCtrl', function ($scope, usSpinnerServic
     }
     $scope.getClassifiedsByUserId = function ()
     {
-        ClassifiedsService.getClassifiedsByUserId($scope.currentUserId).
+        ClassifiedsService.getClassifiedsByUserId($scope.currentUserId, $scope.loggedInUserId).
         then(function (data)
         {
             console.log(data);
