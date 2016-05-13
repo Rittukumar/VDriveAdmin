@@ -177,9 +177,9 @@ evezownApp.controller('TopMenuCtrl', function ($scope, $cookieStore, StoreServic
     $scope.imageUrl = PATHS.api_url;
     console.log($scope.shoppingCartItems);
 
-    $scope.isShoppingCartEmpty = StoreService.isShoppingCartEmpty();
+    $rootScope.isShoppingCartEmpty = StoreService.isShoppingCartEmpty();
 
-    console.log('Is shopping cart empty: ' + $scope.isShoppingCartEmpty);
+    console.log('Is shopping cart empty: ' + $rootScope.isShoppingCartEmpty);
 
     $scope.totalPrice = 0;
     $scope.totalShipping = 0;
@@ -247,7 +247,7 @@ evezownApp.controller('TopMenuCtrl', function ($scope, $cookieStore, StoreServic
             $rootScope.shoppingCartCount = +$rootScope.shoppingCartCount + +value.products.length;
         });
 
-        $scope.isShoppingCartEmpty = !($scope.shoppingCartItems != null && $scope.shoppingCartItems.length > 0);
+        $rootScope.isShoppingCartEmpty = !($scope.shoppingCartItems != null && $scope.shoppingCartItems.length > 0);
     });
 
     $scope.GetCaptions = function(id)

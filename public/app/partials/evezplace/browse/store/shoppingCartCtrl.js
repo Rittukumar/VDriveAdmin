@@ -112,7 +112,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
     $scope.init();
 
-    $scope.isShoppingCartEmpty = StoreService.isShoppingCartEmpty();
+    $rootScope.isShoppingCartEmpty = StoreService.isShoppingCartEmpty();
 
     //$scope.Store_ID = $scope.expressBuyItems[0].storeId;
      
@@ -259,7 +259,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         $scope.total_price = 0;
         $scope.shoppingCartCount = 0;
 
-        $scope.isShoppingCartEmpty = StoreService.isShoppingCartEmpty;
+        $rootScope.isShoppingCartEmpty = StoreService.isShoppingCartEmpty;
 
         angular.forEach($scope.shoppingCartItems, function(value) {
             $scope.shopPrice = 0; $scope.price = 0;
