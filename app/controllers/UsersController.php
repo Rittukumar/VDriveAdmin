@@ -971,4 +971,39 @@ class UsersController extends AppController
     }
 
 
+    public function getUserProfileCount($userId){
+
+        try{
+
+            $friendsList = Friend::where('user_id', $userId)->count();
+
+            $circlesList = Circle::where('user_id', $userId)->count();
+
+            $eventssList = WoiceEvent::where('owner_id', $userId)->count();
+
+            $blogsList   = Blog::where('author_id', $userId)->count();
+
+            $albumsList  = Album::where('owner_id', $userId)->count();
+
+            $successResponse = [
+                'status' => true,
+                'friendsList' => $friendsList,
+                'circlesList' => $circlesList,
+                'eventssList' => $eventssList,
+                'blogsList'   => $blogsList,
+                'albumsList'  => $albumsList
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+
+        }catch (Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+        }
+
+
+    }
+
+
 }
