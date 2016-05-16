@@ -68,6 +68,17 @@
     </div>
     </a>
 
+    <uib-pagination ng-show="userPagination.total > 12" total-items="userPagination.total"
+                    ng-model="currentUserPage"
+                    max-size="maxSize"
+                    class="pagination-custom pagination-sm pull-right"
+                    boundary-links="true"
+                    rotate="false"
+                    items-per-page = "12"
+                    num-pages="numPages"
+                    ng-change="pageChanged()">
+    </uib-pagination>
+
 </div>
 </div>
 
