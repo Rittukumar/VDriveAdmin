@@ -67,7 +67,8 @@ evezownApp
         $scope.ShowPayment = false;
         $scope.PayOnline = false;
         $scope.PayUmoney = false;
-        $scope.PaymentOpen = "";
+        $scope.PaymentDetailsDiv = "";
+        $scope.StoreDetailsDiv = "";
         //   $scope.selectedStoreListing = null;
 
         $scope.selectedSubscription = null;
@@ -98,8 +99,8 @@ evezownApp
         $scope.SALT = "09BHBbap";
         $scope.PAYU_BASE_URL = "https://secure.payu.in/_payment";
 
-        $scope.surl = "http://localhost:8000/v1/storeSubscription/subPayment";
-        $scope.furl = "http://localhost:8000/v1/storeSubscription/subPayment";
+        $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
+        $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
         $scope.service_url = PATHS.api_url;
         $scope.usertoken = $cookieStore.get('userToken');
         $scope.encrypttext = "";
@@ -1616,12 +1617,20 @@ evezownApp
                 $http.get(PATHS.api_url + 'stores/' + $scope.currentStoreId + '/get').
                 success(function (data) {
                     $scope.currentStore = data;
+
                     //Get store subscription offers if any
                     if ($scope.currentStore[0].store_status) {
                        $scope.storeStatus = $scope.currentStore[0].store_status.status_id;
                     }
                     $scope.Subscription_offer = $scope.currentStore[0].subscription_offer;
                     $scope.Subscription_type = $scope.currentStore[0].store_subscription_id;
+
+                    //For UI Div Alignments
+                    if($scope.Subscription_type == 1)
+                    {
+                        $scope.StoreDetailsDiv = "col-md-offset-3";
+                    }
+                    //Div alignments ends
                     
 
                     if ($scope.currentStore.length > 0) {
@@ -1810,9 +1819,9 @@ evezownApp
         {
 
             //Payment details
-            $scope.surl = "http://localhost:8000/v1/storeSubscription/subPayment";
-            $scope.furl = "http://localhost:8000/v1/storeSubscription/subPayment";
-            $scope.curl = "http://localhost:8000/v1/storeSubscription/subPayment";
+            $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
+            $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
+            $scope.curl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
             $scope.udf1 = "";
             $scope.udf2 = "";
             $scope.udf3 = "";
@@ -1873,61 +1882,26 @@ evezownApp
                 $scope.currentSection4 = 'active';
             }
         }
-        
-        //Payment Free-premium
-        $scope.StoreSubscriptionPayFree = function(subscriptiontype)
-        {
 
-            if(subscriptiontype == "" || subscriptiontype == undefined)
-            {
-                toastr.error('Please select subscription type');
-            }
-            else if(subscriptiontype == "free")
-            {
-                $scope.sub_type = 1;
-                $scope.totalPrice = $scope.Subscription_offer[0].amount;
-                $scope.ShowPayment = true;
-                $scope.PaymentOpen = "col-md-offset-3";
-                $scope.GetIndex(3);
-                $scope.PreparePayee();
-            }
-            else if(subscriptiontype == "premium")
-            {
-                $scope.sub_type = 2;
-                $scope.totalPrice = $scope.Subscription_offer[1].amount;
-                $scope.ShowPayment = true;
-                $scope.PaymentOpen = "col-md-offset-3";
-                $scope.GetIndex(3);
-                $scope.PreparePayee();
-            }
-        }
-
-        //Payment premium-customized
+        //Payment for selected subscription
         $scope.SubscriptionPay = function(subscriptiontype,amount)
         {
+            $scope.sub_type = subscriptiontype;
+            $scope.totalPrice = amount;
+            $scope.ShowPayment = true;
 
-            if(subscriptiontype == "" || subscriptiontype == undefined)
+            //Div alignments
+            if($scope.Subscription_type == 1)
             {
-                toastr.error('Please select subscription type');
+                $scope.PaymentDetailsDiv = "col-md-offset-3";
             }
-            else if(subscriptiontype == "premium")
+            else
             {
-                $scope.sub_type = 2;
-                $scope.totalPrice = amount;
-                $scope.ShowPayment = true;
-                $scope.PaymentOpen = "col-md-offset-3";
-                $scope.GetIndex(3);
-                $scope.PreparePayee();
+                $scope.StoreDetailsDiv = "col-md-offset-3";
             }
-            else if(subscriptiontype == "customized")
-            {
-                $scope.sub_type = 3;
-                $scope.totalPrice = amount;
-                $scope.ShowPayment = true;
-                $scope.PaymentOpen = "col-md-offset-3";
-                $scope.GetIndex(3);
-                $scope.PreparePayee();
-            }
+
+            $scope.GetIndex(3);
+            $scope.PreparePayee();
         }
 
 

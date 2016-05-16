@@ -21,11 +21,11 @@
 <!--psyment offer-->
 <div ng-controller="CreateStoreController">
 
-    <div class="col-sm-9"  ng-show="Subscription_offer.length > 0 && storeStatus == 6">
+    <div class="col-sm-9"  ng-show="Subscription_offer.length > 0 && storeStatus == 6 && Subscription_type == 1">
         <div class="row">
             <div class="create-store-section">
 
-                <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;" ng-show="Subscription_type == 1">
+                <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;">
                     <div class="row" ng-repeat="Subscription in Subscription_offer">
                         <h3 class="text-center">Pay & Activate Store</h3><br>
                         <div class="col-md-12 col-xs-12">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-md-offset-4">
-                                <button class="btn btn-primary btn-block" type="button" ng-click="SubscriptionPay('customized',Subscription_offer[0].amount)">Pay Now</button><br>
+                                <button class="btn btn-primary btn-block" type="button" ng-click="SubscriptionPay(Subscription.subscription_id,Subscription.amount)">Pay Now</button><br>
                             </div>
                         </div>
                     </div>
@@ -58,11 +58,11 @@
         </div>
     </div>
 
-    <div class="col-sm-9"  ng-show="Subscription_offer.length > 0 && storeStatus == 6">
+    <div class="col-sm-9"  ng-show="Subscription_offer.length > 0 && storeStatus == 6 && Subscription_type != 1">
         <div class="row">
             <div class="create-store-section">
 
-                <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;" ng-show="Subscription_type != 1">
+                <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;">
                     <div class="row" ng-repeat="Subscription in Subscription_offer" ng-show="Subscription.subscription_id == Subscription_type">
                         <h3 class="text-center">Pay & Activate Store</h3><br>
                         <div class="col-md-12 col-xs-12">
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4 col-md-offset-4">
-                                <button class="btn btn-primary btn-block" type="button" ng-click="SubscriptionPay('customized',Subscription_offer[0].amount)">Pay Now</button><br>
+                                <button class="btn btn-primary btn-block" type="button" ng-click="SubscriptionPay(Subscription.subscription_id,Subscription.amount)">Pay Now</button><br>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
     </div>
 
     <!--Payment Division-->
-    <div class="col-sm-9" ng-show="ShowPayment">
+    <div class="col-sm-9 {{PaymentDetailsDiv}}" ng-show="ShowPayment">
         <div class="row">
             <!-- <div style="background-color:red"> -->
                 <!-- <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;"> -->
@@ -110,7 +110,7 @@
     </div>
 
 
-    <div class="col-sm-9 {{PaymentOpen}}">
+    <div class="col-sm-9 {{StoreDetailsDiv}}">
         <div class="row">
             <div class="create-store-section">
                 <div class="row">

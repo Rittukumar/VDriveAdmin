@@ -232,7 +232,7 @@ class PaymentController extends AppController {
         $UserEmail = $inputArray['email'];
         $UserPhone = $inputArray['phone'];
        
-        if($status == 'failure')
+        if($status == 'success')
         {
             try 
             {
@@ -283,8 +283,8 @@ class PaymentController extends AppController {
                 return View::make('subscriptionStatus')->with('data',$inputArray);
 
             } catch (Exception $e) {
-                //return $this->setStatusCode(500)->respondWithError($e);
-                return $e;
+                return $this->setStatusCode(500)->respondWithError($e);
+                //return $e;
             }
         }
         else
