@@ -938,7 +938,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/mylisting/:id', {
                 templateUrl: 'partials/profile/mylisting.html',
-                controller: 'groups',
+                controller: 'profileCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }

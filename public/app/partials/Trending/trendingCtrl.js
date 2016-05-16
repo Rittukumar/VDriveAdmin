@@ -21,7 +21,7 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
     $scope.isUploadingBrand = false;
     $scope.isActive = ['active', '', '', '', ''];
     $rootScope.aboutPost = "Just sharing";
-    $scope.myposts = [];
+    //$scope.myposts = [];
     $scope.visibilties = [];
     $scope.loggedInUser = $cookieStore.get('userId');
     $scope.selectEves = 'all eves';
@@ -212,6 +212,7 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
         {
             $scope.url = PATHS.api_url + 'users/' + $cookieStore.get('userId')+ '/posts';
         }
+        usSpinnerService.spin('spinner-1');
         $http.post($scope.url, { loggedin_user_id : $cookieStore.get('userId')}).
             success(function (data) {
                 if (itemId == '') {
@@ -250,6 +251,7 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
                     $rootScope.reco = '';
                 }
                 $scope.myposts = data.data;
+                usSpinnerService.stop('spinner-1');
 
             });
     }
