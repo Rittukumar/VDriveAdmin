@@ -70,13 +70,13 @@
                     </li>
                     <li class="col-sm-4">
                         <ul>
-                            <li ng-repeat="subcat in category.subcategories | slice:0:11" style="padding: 2px"><a href="">{{
+                            <li ng-repeat="subcat in category.subcategories | slice:0:11" style="padding: 2px"><a href="#/store/browse/{{subcat.id}}">{{
                                 subcat.subcategory_name }}</a></li>
                         </ul>
                     </li>
                     <li class="col-sm-4">
                         <ul>
-                            <li ng-repeat="subcat in category.subcategories | slice:11:33" style="padding: 2px"><a href="">{{
+                            <li ng-repeat="subcat in category.subcategories | slice:11:33" style="padding: 2px"><a href="#/store/browse/{{subcat.id}}">{{
                                 subcat.subcategory_name }}</a></li>
                         </ul>
                     </li>
@@ -91,7 +91,7 @@
                                 category.category_name }}</a>
                             <ul style="padding: 10px 0px 10px 0px">
                                 <li style="list-style: none; padding: 3px 0px"
-                                    ng-repeat="subcat in category.subcategories"><a href="">{{
+                                    ng-repeat="subcat in category.subcategories"><a href="#/store/browse/{{subcat.id}}">{{
                                     subcat.subcategory_name }}</a></li>
                             </ul>
                         </li>

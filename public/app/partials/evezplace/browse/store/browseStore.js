@@ -64,6 +64,12 @@ evezownApp
         // Set the subcategory id as -1 on initial load (no selection)
         $scope.GetProductsBySubCatId($scope.currentSubCategoryId);
 
+        //get the stores based on subcategory(Navigating From product menu)
+        if($routeParams.subcatId != undefined)
+        {
+            $scope.GetProductsBySubCatId($routeParams.subcatId);
+        }
+
         $scope.GetProductsByOwnerId = function () {
             $http.get(PATHS.api_url + 'stores/owner/' + $scope.currentUserId + '/get').
                 success(function (data) {

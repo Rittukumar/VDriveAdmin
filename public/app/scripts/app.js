@@ -1287,6 +1287,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/store/browse/:subcatId', {
+                templateUrl: 'partials/evezplace/browse/store/browse.html',
+                controller: 'BrowseStoreCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
+                }
+            });
+
+        $routeProvider
+
             .when('/search/products/:searchKey', {
                 templateUrl: 'partials/evezplace/productSearch.html',
                 controller: 'SearchProductController',

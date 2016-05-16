@@ -98,7 +98,7 @@ evezownApp.controller('BrowseStoreController', function ($scope) {
 evezownApp.controller('BrowseStoreMenuController', function ($scope, $location,
                                                              EvezplaceHomeService,$http,PATHS,$rootScope,$routeParams) {
 
-    
+    //search
     if($routeParams.searchKey != undefined)
     {
         $scope.SearchKey = $routeParams.searchKey;
@@ -108,10 +108,19 @@ evezownApp.controller('BrowseStoreMenuController', function ($scope, $location,
         $scope.SearchKey = "";
     }
 
+    //Navigating from top product menu
+    if($routeParams.subcatId != undefined)
+    {
+        $scope.SubCatID = $routeParams.subcatId;
+    }
+
     $scope.getCategories = function () {
         var currentRoute = $location.path().substring(1);
 
         if (currentRoute == 'store/browse') {
+            $scope.currentSection = 3;
+        }
+        else if (currentRoute == 'store/browse/' +  $scope.SubCatID) {
             $scope.currentSection = 3;
         }
         else if (currentRoute == 'store/services') {
