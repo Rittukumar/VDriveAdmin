@@ -219,6 +219,79 @@ class PaymentController extends AppController {
     }
 
 
+    //Store subscription payment
+    public function SubscriptionPayment()
+    {
+        $inputArray = Input::all();
+        $status = $inputArray['status'];
+        $TransactionId = $inputArray['txnid'];
+        $PaymentAmount = $inputArray['amount'];
+        $StoreSubscription = $inputArray['productinfo'];
+        $StoreName = $inputArray['firstname'];
+        $StoreId = $inputArray['zipcode'];
+        $UserEmail = $inputArray['email'];
+        $UserPhone = $inputArray['phone'];
+       
+        if($status == 'failure')
+        {
+            try 
+            {
+                //Update store status(store_status table)
+                $storeStatus = StoreStatus::where('store_id', $StoreId)->first();
+                
+
+                if($StoreSubscription == 1)
+                {
+                    $storeStatus->status_id = 2;
+                    $storeStatus->save();
+                }
+                else
+                {
+                    $storeStatus->status_id = 7;
+                    $storeStatus->save();
+                }
+
+                //Update store subscription(stores table)
+                $Store_Sub = Store::find($StoreId);
+
+                $Store_Sub->store_subscription_id = $StoreSubscription;
+
+                $Store_Sub->save();
+                
+
+                // Send an notification email to store admin and editor.
+
+                $user = array(
+                    'email' => $UserEmail,
+                    'name' => $StoreName
+                );
+
+                $data = array(
+                    'email' => $UserEmail,
+                    'name' => $StoreName,
+                    'subscription' => $StoreSubscription,
+                    'payment' => $PaymentAmount
+                );
+
+                $emails = [$UserEmail, 'editor@evezown.com'];
+
+                Mail::send('emails.storePaymentSuccess', $data, function ($message) use ($user, $emails) {
+                    $message->from('editor@evezown.com');
+                    $message->to($emails)->subject('Store Activated successfully');
+                });
+
+                return View::make('subscriptionStatus')->with('data',$inputArray);
+
+            } catch (Exception $e) {
+                //return $this->setStatusCode(500)->respondWithError($e);
+                return $e;
+            }
+        }
+        else
+        {
+           return View::make('subscriptionStatus')->with('data',$inputArray);
+        }
+    }
   
 }
 

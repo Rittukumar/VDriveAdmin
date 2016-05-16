@@ -15,6 +15,7 @@ evezownApp
                                              AuthService, Session, $cookieStore, profileService, PATHS, $http, localStorageService, $controller) {
         $scope.userRoles = USER_ROLES;
         $rootScope.profileImage = null;
+        $scope.Role = $cookieStore.get('userRole');
         //$scope.$on('profileImage', function(event, msg) {
         //    $scope.profileImage = PATHS.api_url +'image/show/'+msg;
         //});
@@ -167,6 +168,10 @@ evezownApp
             //});
         }
 
+        $scope.accessCtrl =  function()
+        {
+            toastr.info("You should have Business subscription to access this feature");
+        }
 
     });
 

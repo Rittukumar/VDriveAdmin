@@ -85,6 +85,7 @@ module.exports = function(config) {
       'libs/textAngular/src/textAngularSetup.js',
       'libs/toastr/toastr.js',
       'libs/whatsapp-sharing/dist/whatsapp-button.js',
+      'libs/angular-payments/lib/angular-payments.js',
       // endbower
       "app/scripts/**/*.js",
       "test/mock/**/*.js",

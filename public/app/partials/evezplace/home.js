@@ -1,6 +1,13 @@
 evezownApp
-    .controller('EvezplaceController', function ($scope) {
+    .controller('EvezplaceController', function ($scope, $cookieStore) {
         $scope.title = "EvezPlace";
+
+        $scope.Role = $cookieStore.get('userRole');
+        
+        $scope.accessCtrl =  function()
+        {
+            toastr.info("You should have Business subscription to access this feature");
+        }
     });
 
 evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $location,
@@ -138,7 +145,7 @@ evezownApp.controller('BrowseStoreMenuController', function ($scope, $location,
     };
 });
 
-evezownApp.controller('StoreInfoController', function ($scope, $location) {
+evezownApp.controller('StoreInfoController', function ($scope, $location, $cookieStore) {
 
     $scope.storeInfoNavLinks = [{
         Title: 'whatdoiget',
@@ -157,6 +164,21 @@ evezownApp.controller('StoreInfoController', function ($scope, $location) {
 
         return page === currentRoute ? 'active' : '';
     };
+
+    $scope.Create_Store = function() {
+
+        $scope.loggedInUserId = $cookieStore.get('userId');
+        
+        if($scope.loggedInUserId)
+        {
+            $location.path("/store/create/step1");
+        }
+        else
+        {
+            $cookieStore.put('FromSource', "FromCreateStore");
+            $location.path("/login");
+        }
+    }
 });
 
 //evezplace home page images
