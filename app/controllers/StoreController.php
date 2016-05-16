@@ -1403,7 +1403,79 @@ class StoreController extends AppController
         }
     }
 
+    /**
+     * Store a newly created resource in storage.
+     * POST /upgrade to premium/customized
+     *
+     * @return Response
+     */
+    public function upgradeSubscription()
+    {
+        
+        try {
 
+            $input = Input::all();
+
+            $input_array = $input['data'];
+
+            $storeId = $input_array['StoreId'];
+
+            $storeSubscription = $input_array['storeSubscription'];
+
+            //stores table
+            $StoreDetails = Store::where('id', $storeId)->first();
+            $StoreDetails->store_subscription_id = $storeSubscription;
+            $StoreDetails->save();
+
+            //store status table
+            $storeStatus = StoreStatus::where('store_id', $storeId)->first();
+            $storeStatus->status_id = 8;
+            $storeStatus->save();
+
+            //send email to admin(get details of store)
+            $StoreOwnerDetails = StoreFrontInfo::where('store_id', $storeId)->first();
+            $StoreOwnerEmail = $StoreOwnerDetails->store_contact_email;
+            $StoreOwnerPhone = $StoreOwnerDetails->store_contact_phone1;
+            $StoreName = $StoreDetails->title;
+            
+
+            // Send an request & notification email to admin.
+
+            $user = array(
+                'email' => $StoreOwnerEmail,
+                'name' => $StoreName
+            );
+
+            $data = array(
+                'email' => $StoreOwnerEmail,
+                'name' => $StoreName,
+                'phone' => $StoreOwnerPhone
+            );
+            //mail to admin
+            Mail::send('emails.storeSubscriptionRequest', $data, function ($message) use ($user) {
+                $message->from($user['email']);
+                $message->to('editor@evezown.com')->subject('Store Subscription Request');
+            });
+            //mail to user
+            Mail::send('emails.SubscriptionRequestUser', $data, function ($message) use ($user) {
+                $message->from('editor@evezown.com');
+                $message->to($user['email'])->subject('Store Subscription Request');
+            });
+
+            $successResponse = [
+                'status' => true,
+                'message' => 'Check your mail for further updates'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+
+            //return $this->setStatusCode(500)->respondWithError($e);
+            return $e;
+        }
+    }
+    
     /**
      * Store a newly created resource in storage.
      * POST /update store status

@@ -14,8 +14,8 @@
             <div id="top-nav" class="top-nav">
                 <div class="row">
                     <ul class="nav navbar-nav">
-                        <li ng-class="{ active: isActive('/profile/{{userId}}')}"><a href="#profile/myprofile/{{userId}}">{{TopMenuCaptions[0].description}}</a></li>
                         <li ng-class="{ active: isActive('/evezplace')}"><a href="#evezplace">{{TopMenuCaptions[1].description}}</a></li>
+                        <li ng-class="{ active: isActive('/mystores/{{userId}}')}"><a href="#mystores/{{userId}}">{{TopMenuCaptions[0].description}}</a></li>
                         <li ng-class="{ active: isActive('/wopportunity')}"><a href="#wopportunity">{{TopMenuCaptions[2].description}}</a>
                         </li>
                     </ul>
@@ -42,9 +42,12 @@
             </div>
             <div id="bottom-nav" class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4">
-                        <a href="#buyer/orders" class="btn btn-link" style="color: #E50880; padding-left: 5px">
-                            {{TopMenuCaptions[9].description}}
+                    <div class="col-md-4" style="margin-top: -10px">
+                        <a href="#buyer/orders" class="btn btn-link pull-right" style="color: #E50880; padding-left: 5px" title="Track Your Order">
+                        <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-tty fa-stack-1x fa-inverse"></i>
+                        </span>
                         </a>
                     </div>
                     <div class="col-md-4" style="margin-top: -10px">

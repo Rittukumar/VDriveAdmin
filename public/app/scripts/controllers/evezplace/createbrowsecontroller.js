@@ -10,6 +10,7 @@
 evezownApp.controller('createBrowseController', function ($scope, $rootScope, $cookieStore, SECTIONS, $location) {
 
     $scope.storeType = "Stores";
+    $scope.Role = $cookieStore.get('userRole');
 
     $rootScope.$on('selectedEvezplaceSectionIndex', function (event, args) {
         var index = args.index;
@@ -47,5 +48,10 @@ evezownApp.controller('createBrowseController', function ($scope, $rootScope, $c
         {
             $location.path('/search/products/' + SearchValue);
         }
+    }
+
+    $scope.accessCtrl =  function()
+    {
+        toastr.info("You should have Business subscription to access this feature");
     }
 });

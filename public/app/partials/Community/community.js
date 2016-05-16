@@ -6,6 +6,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
         $scope.caption = true;
         $scope.carouselTitle = "Evezown";
         $scope.service_url = PATHS.api_url;
+        $scope.userPagination = {};
 
         //$scope.currentUserId = $cookieStore.get('userId');
     $scope.loggedInUserId = $cookieStore.get('userId');
@@ -34,13 +35,22 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
         //        console.log(data);
         //    });
     }
+
+    $scope.pageChanged = function () {
+            console.log('Page changed to: ' + $scope.currentUserPage);
+            $scope.fetchFriends();
+        };
+
+        $scope.maxSize = 5;
+        $scope.currentUserPage = 1;
     
     $scope.fetchFriends = function()
     {
-        $http.get(PATHS.api_url + 'users/' + $scope.loggedInUserId + '/friends')
+        $http.get(PATHS.api_url + 'users/' + $scope.loggedInUserId + '/friends?page='+$scope.currentUserPage)
             .success(function (data)
             {
                     $rootScope.friendList = data.data;
+                    $scope.userPagination = data.meta.pagination;
             })
             .error(function (err)
             {

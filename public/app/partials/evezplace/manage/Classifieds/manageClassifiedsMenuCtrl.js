@@ -21,12 +21,12 @@ evezownApp.controller('ManageClassifiedMenuCtrl', function ($scope, $location, $
         },
         {
             id: 1,
-            name: 'Ads & Campaigns Info',
+            name: 'Ads & Campaigns Layout',
             link: 'classified/' + $rootScope.currentClassifiedId + '/manage/classified_info'
         },
         {
             id: 2,
-            name: 'Ads & Campaigns Promotion',
+            name: 'Stream In & Stream Out',
             link: 'classified/' + $rootScope.currentClassifiedId + '/manage/classified_promotion'
         },
         {

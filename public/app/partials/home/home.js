@@ -195,7 +195,31 @@ evezownApp
                             $cookieStore.put('api_key', Session.api_key);
                             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                             toastr.success('Login', 'You have logged in successfully');
-                            $location.path('/profile/myprofile/'+ $cookieStore.get('userId'));
+
+                            //Geting profile image of user
+                            AuthService.getProfileImage(PATHS.api_url + 'users/' + $cookieStore.get('userId') + '/profile_image/current')
+                            .success(function(data) {
+                                $rootScope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
+                                $rootScope.userId = $cookieStore.get('userId');
+
+                                //If user came from create store
+                                if($cookieStore.get('FromSource') == "FromCreateStore")
+                                {
+                                    $location.path("/store/create/step1");
+                                    $cookieStore.remove('FromSource');   
+                                }
+                                //If user come from create campaign
+                                else if($cookieStore.get('FromSource') == "FromCreateCampaign")
+                                {
+                                    $location.path("/classifieds/create/step1");
+                                    $cookieStore.remove('FromSource');
+                                }
+                                //If user come through login
+                                else
+                                {
+                                    $location.path('/mystores/'+ $cookieStore.get('userId'));
+                                }      
+                            });  
                         });
                 
                 });
@@ -214,7 +238,31 @@ evezownApp
                 $cookieStore.put('api_key', Session.api_key);
                 $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                 toastr.success('Login', 'You have logged in successfully');
-                $location.path('/profile/myprofile/'+ $cookieStore.get('userId'));
+
+                //Geting profile image of user
+                AuthService.getProfileImage(PATHS.api_url + 'users/' + $cookieStore.get('userId') + '/profile_image/current')
+                .success(function(data) {
+                    $rootScope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
+                    $rootScope.userId = $cookieStore.get('userId');
+
+                    //If user came from create store
+                    if($cookieStore.get('FromSource') == "FromCreateStore")
+                    {
+                        $location.path("/store/create/step1");
+                        $cookieStore.remove('FromSource');   
+                    }
+                    //If user come from create campaign
+                    else if($cookieStore.get('FromSource') == "FromCreateCampaign")
+                    {
+                        $location.path("/classifieds/create/step1");
+                        $cookieStore.remove('FromSource');
+                    }
+                    //If user come through login
+                    else
+                    {
+                        $location.path('/mystores/'+ $cookieStore.get('userId'));
+                    }      
+                });  
             });
         }
 
@@ -253,10 +301,10 @@ evezownApp
     });
 
 evezownApp
-    .controller('HomeController', function ($rootScope, $scope, AuthService, $cookieStore, ArticleService, $http, PATHS) {
+    .controller('HomeController', function ($rootScope, $scope, AuthService, $cookieStore, ArticleService, $http, PATHS, $location) {
         $scope.caption = true;
         $scope.carouselTitle = "Evezown";
-
+        $scope.Role = $cookieStore.get('userRole');
         //  $rootScope.isLoggedIn = AuthService.isLoggedIn();
         $scope.CompletedEvent = function (scope) {
             console.log("Completed Event called");
@@ -333,6 +381,27 @@ evezownApp
             });
         }
         $scope.GetCaptions(3);
+
+        $scope.accessCtrl =  function()
+        {
+            toastr.info("You should have Business subscription to access this feature");
+        }
+
+        $scope.Create_Campaign = function()
+        {
+            
+            $scope.loggedInUserId = $cookieStore.get('userId');
+
+            if($scope.loggedInUserId)
+            {
+                $location.path("/classifieds/create/step1");
+            }
+            else
+            {
+                $cookieStore.put('FromSource', "FromCreateCampaign");
+                $location.path("/login");
+            }
+        }
 
     });
 

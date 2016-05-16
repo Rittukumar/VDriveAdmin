@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="">
-                <a href="#profile/myprofile/{{userId}}" >Mysite</a>
+                <a href="#mystores/{{userId}}" >Mysite</a>
             </li>
             <li ><a href="#myevents/{{currentUserId}}" class="{{isActive[1]}}">Events</a>
             </li>
@@ -114,7 +114,7 @@
             <b>Event Details: </b> {{selectedEvent.description}}
         </h5>
         <h5 style="text-transform: none">
-            <b>Created By: </b> <a href="#profile/{{selectedEvent.owner_id}}">{{selectedEvent.owner.firstname}}
+            <b>Created By: </b> <a href="#mystores/{{selectedEvent.owner_id}}">{{selectedEvent.owner.firstname}}
             {{selectedEvent.owner.lastname}}</a>
         </h5>
     </div>
@@ -279,7 +279,7 @@
                 <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"
                     style="padding-left: 10px; padding-right: 10px; padding-top:10px "
                     ng-repeat="friend in selectedEvent.attendees | filter:friendsearch | orderBy:'firstname':true">
-                    <a href="#profile/{{friend.friend_user_id}}">
+                    <a href="#mystores/{{friend.friend_user_id}}">
                         <center>
                             <div>
                                 <img ng-src="{{service_url+'image/show/'+friend.profile.profile_image.large_image_url}}"
@@ -301,7 +301,7 @@
                     ng-repeat="member in friendList | limitTo:5 | filter:queryMembers | orderBy:'firstname':true">
                     <li class="list-group-item col-sm-12">
                         <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
-                            <a href="#profile/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                            <a href="#mystores/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
                                                                   class="img-thumbnail" style="width: 32px; height: 32px"
                                                                   alt=""/> {{member.profile.firstname}}, {{member.profile.lastname}}</a>
                         </div>

@@ -8,7 +8,7 @@
             <div class="interviews-section">
                 <div class="row" ng-repeat="blog in relatedBlogs | limitTo:5">
                     <div class="col-md-12">
-                        <div class="trending_box">
+                        <!-- <div class="trending_box">
                             <a href="#/blogs/{{blog.id}}">
                                 <img ng-if="blog.blog_image != null"
                                      ng-src="{{imagePath}}{{blog.blog_image.large_image_url}}/300"
@@ -22,7 +22,7 @@
                                     <span class="trending_label">{{blog.subcategory.subcategory_name}}</span>
                                 </span>
                             </a>
-                        </div>
+                        </div> -->
                         <div class="trending_desc">
                             <span class="trending_title"><a href="#/blogs/{{blog.id}}">{{blog.title}}</a></span>
                             <span class="trending_author">by <a href="#profile/myprofile/{{blog.author.id}}">{{blog.author.firstname}},
@@ -43,7 +43,7 @@
             <div class="interviews-section">
                 <div class="row" ng-repeat="event in relatedEvents | limitTo:5">
                     <div class="col-md-12">
-                        <div class="trending_box">
+                        <!-- <div class="trending_box">
                             <a href="#/eventdetails/{{event.id}}">
                                 <img ng-if="event.event_image != null"
                                      ng-src="{{imagePath}}{{event.event_image.large_image_url}}/300"
@@ -54,7 +54,7 @@
                                      src="img/event.png"
                                      class="img-responsive" alt=""/>
                             </a>
-                        </div>
+                        </div> -->
                         <div class="trending_desc">
                             <span class="trending_title"><a
                                     href="#/eventdetails/{{event.id}}">{{event.title}}</a></span>

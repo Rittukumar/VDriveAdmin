@@ -3,10 +3,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-if="loggedInUserId == currentUserId">
-                <a href="#profile/myprofile/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#mystores/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId != currentUserId">
-                <a href="#profile/myprofile/{{loggedInUserId}}">Mysite</a>
+                <a href="#mystores/{{loggedInUserId}}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId == currentUserId">
                 <a href="#community" class="{{isActive[2]}}" ng-class="{ active: isActive('/community')}">Build Community</a>
