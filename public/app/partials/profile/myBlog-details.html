@@ -110,39 +110,7 @@
                     </h4>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <a href ng-controller="community">
-                        <div class="col-md-2  well text-center" id="user-profile">
-                            <h3>{{friendList.length}}</h3>
-                            <h4>Connects</h4>
-                        </div>
-                    </a>
-
-                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="circles">
-                        <h3>{{myCircles.length}}</h3>
-                        <h4>Circles</h4>
-                    </div>
-                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="eventCtrl">
-                        <h3>{{myEvents.length}}</h3>
-                        <h4>Events</h4>
-                    </div>
-                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="blogCntrl">
-                        <h3>{{myBlogs.length}}</h3>
-                        <h4>Blogs</h4>
-                    </div>
-                    <div class="col-md-2  well text-center" id="user-profile" ng-controller="albums">
-                        <h3>{{myAlbums.length}}</h3>
-                        <h4>gallery</h4>
-                    </div>
-                    <div class="col-md-2  well text-center" id="user-more">
-                        <h3><i class="fa fa-circle"></i>
-                            <i class="fa fa-circle"></i>
-                            <i class="fa fa-circle"></i>
-                        </h3>
-                    </div>
-                </div>
-            </div>
+            <div class="row" ng-include='"partials/profile/userProfileCount.html"'><div>
         </div>
         <div class="col-md-12" id="view">
             <h3>About Me</h3>

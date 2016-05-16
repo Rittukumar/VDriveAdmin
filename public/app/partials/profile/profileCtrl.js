@@ -91,6 +91,25 @@ evezownApp
 
         getStoresByOwnerId();
 
+
+
+        $scope.getUserProfileCount =  function () {
+
+            $http.get(PATHS.api_url + 'users/' + $scope.loggedInUserId +'/getUserProfileCount').
+            success(function (data) {
+
+                $rootScope.friendsList = data.friendsList;
+                $rootScope.circlesList = data.circlesList;
+                $rootScope.eventssList = data.eventssList;
+                $rootScope.blogsList   = data.blogsList;
+                $rootScope.albumsList  = data.albumsList;
+                
+            });
+
+        };
+
+        $scope.getUserProfileCount();
+
         //function fetchProfileImage(userId)
         //{
         //    var imagePath = PATHS.api_url + 'users/' + userId + '/profile_image/current';
