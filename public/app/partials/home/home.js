@@ -350,7 +350,17 @@ evezownApp
                 },
                 {
                     element: '#step4',
-                    intro: "<div class='tour-step'><b><h3>So get started with your Evezown experience.</h3></b>" +
+                    intro: "Create store under available subscription types: Free, Premium and Customized",
+                    position: 'bottom'
+                },
+                {
+                    element: '#step5',
+                    intro: "Create your own advert to promote your bisuness and services through ads & campaigns",
+                    position: 'bottom'
+                },
+                {
+                    element: '#step6',
+                    intro: "<div class='tour-step'><b><h3>Thankyou</h3></b>" +
                     "</div>"
                     
                 }
@@ -361,7 +371,7 @@ evezownApp
             nextLabel: '<strong>NEXT!</strong>',
             prevLabel: '<span style="color:green">Previous</span>',
             skipLabel: 'Exit',
-            doneLabel: 'Thanks'
+            doneLabel: 'Exit'
         };
 
         $scope.ShouldAutoStart = false;

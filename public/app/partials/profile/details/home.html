@@ -2,13 +2,13 @@
 <nav class="navbar navbar-default" id="navContainer">
     <div id="navbar1">
         <ul class="nav navbar-nav">
-            <li id="step1"  data-toggle="tab" data-slide-to="0">
+            <li>
                 <a href="#mystores/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
-            <li id="step10"  data-toggle="tab" data-slide-to="9">
+            <li>
                 <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Create / Edit Profile</a>
             </li>
-            <li id="step11"  data-toggle="tab" data-slide-to="10" ng-class="{ active: isActive('/explore')}">
+            <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
                 <script type="text/ng-template" id="explore">
                     <div class="triangle"></div>
@@ -27,7 +27,7 @@
                     Explore
                 </a>
             </li>
-            <li id="step12"  data-toggle="tab" data-slide-to="11" ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
                                                                       id="search">Search&nbsp;<span
                     class="fa fa-search" id="searchIcon"></span></a>
             </li>

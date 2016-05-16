@@ -228,6 +228,11 @@ evezownApp
                     {
                         element: '#step9',
                         intro: 'Your Feedback/suggestions for further improvements'
+                    },
+                    {
+                        element: '#step10',
+                        intro: "<div class='tour-step'><b><h3>Thankyou</h3></b>" +
+                        "</div>"
                     }
                 ],
                 showStepNumbers: false,
@@ -236,7 +241,7 @@ evezownApp
                 nextLabel: '<strong>NEXT!</strong>',
                 prevLabel: '<span style="color:green">Previous</span>',
                 skipLabel: 'Exit',
-                doneLabel: 'Thanks'
+                doneLabel: 'Exit'
             };
 
             $scope.ShouldAutoStart = false;
