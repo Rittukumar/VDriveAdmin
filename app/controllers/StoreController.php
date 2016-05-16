@@ -2150,6 +2150,12 @@ class StoreController extends AppController
                         $query->orwhereNull('visibility_id');
                         $query->where('owner_id', $userId);
                     })
+                    ->whereExists(function ($query) {
+                        $query->select(DB::raw(1))
+                            ->from('store_status')
+                            ->whereRaw('stores.id = store_status.store_id')
+                            ->whereRaw('store_status.status_id = 2');
+                    })
                     
                     ->get();
 
