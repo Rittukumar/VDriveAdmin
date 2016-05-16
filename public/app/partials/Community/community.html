@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li id="step1"  data-toggle="tab" data-slide-to="0">
-                <a href="#profile/myprofile/{{userId}}" class="{{isActive[1]}}">Mysite</a>
+                <a href="#mystores/{{userId}}" class="{{isActive[1]}}">Mysite</a>
             </li>
             <li id="step2"  data-toggle="tab" data-slide-to="1">
                 <a href="#community" ng-class="{ active: isActive('/community')}">Build Community</a>
@@ -55,7 +55,7 @@
 <div class="col-md-12" style="margin-top: 10px;">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
         <li><a href="#home">Home</a> <span class="divider"></span></li>
-        <li><a href="#profile/myprofile/{{userId}}">Mysite</a></li>
+        <li><a href="#mystores/{{userId}}">Mysite</a></li>
         <li class="active">Build Community</li>
     </ul>
 </div>
@@ -93,7 +93,7 @@
     <div class="col-md-12 panel-heading  custom-invite-eves" style="padding-left: 0px">
         <div class="col-md-3" style="padding-left: 0px">
             <h5 style="color: #337ab7; font-weight: 600; font-size: 16px">
-                Friends ({{friendList.length}})
+                Friends ({{userPagination.total}})
             </h5>
         </div>
         <div class="col-md-4">
@@ -113,7 +113,7 @@
         <ul class="row" style="padding-left: 0px">
             <!-- <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 0px; padding-right: 0px" ng-repeat="friend in friendList | filter:evesearch | orderBy:'firstname':true" ng-if="friend.id != currentUserId">-->
             <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 0px; padding-right: 0px" ng-repeat="friend in FilteredFriend = (friendList | filter:evesearch) | orderBy:'firstname':true" ng-if="friend.friend_user_id != currentUserId">
-               <a href="#profile/myprofile/{{friend.friend_user_id}}">
+               <a href="#mystores/{{friend.friend_user_id}}">
                     <center>
                         <div class="profile-img-crop">
                             <img ng-src="{{service_url+'image/show/'+friend.profile.profile_image.large_image_url}}"
@@ -126,6 +126,17 @@
             <p style="text-align:center;" ng-hide="FilteredFriend.length">No friends found</p>
         </ul>
     </div>
+
+    <uib-pagination ng-show="userPagination.total > 12" total-items="userPagination.total"
+                    ng-model="currentUserPage"
+                    max-size="maxSize"
+                    class="pagination-custom pagination-sm pull-right"
+                    boundary-links="true"
+                    rotate="false"
+                    items-per-page = "12"
+                    num-pages="numPages"
+                    ng-change="pageChanged()">
+    </uib-pagination>
 </div>
 <div class="col-md-3 custom-search-eves" style="padding-right: 0px" >
     <!-- Search members -->
@@ -136,7 +147,7 @@
         <ul class="list-group" ng-repeat="member in members | limitTo:5 | orderBy:'firstname':true">
             <li class="list-group-item col-sm-12">
                 <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
-                    <a href="#profile/myprofile/{{member.user_id}}"><img ng-src="{{service_url+'image/show/'+member.users.profile.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{member.firstname}}, {{member.lastname}}</a>
+                    <a href="#mystores/{{member.user_id}}"><img ng-src="{{service_url+'image/show/'+member.users.profile.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{member.firstname}}, {{member.lastname}}</a>
                 </div>
                 <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px">
                     <a href ng-click="ConnectMember(member)" class="btn btn-link btn-sm"><span class="fa fa-check"></span> Connect</a>
@@ -166,7 +177,7 @@
         <ul class="list-group" ng-repeat="request in memberRequests | limitTo:10 | orderBy:'firstname':true">
             <li class="list-group-item col-sm-12">
                 <div class="col-sm-10" style="padding-left: 0px; padding-right: 0px">
-                    <a href="#profile/myprofile/{{request.requester_user_id}}"><img ng-src="{{service_url+'image/show/'+request.requester.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{request.requester_firstname}}, {{request.requester_lastname}}</a>
+                    <a href="#mystores/{{request.requester_user_id}}"><img ng-src="{{service_url+'image/show/'+request.requester.profile_image.large_image_url}}" class="img-thumbnail" style="width: 32px; height: 32px; padding: 0px" alt=""/> {{request.requester_firstname}}, {{request.requester_lastname}}</a>
                 </div>
                 <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
                     <a href ng-click="AcceptRequest(request)"><span class="fa fa-check"></span></a>

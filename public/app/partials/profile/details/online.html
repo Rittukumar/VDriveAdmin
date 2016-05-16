@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/myprofile/{{userId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#mystores/{{userId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li>
                 <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Create / Edit Profile</a>
@@ -75,12 +75,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12 col-xs-12">
-                    <a href="#" ng-controller="community">
-                        <div class="col-md-2 col-xs-2 well text-center" id="user-profile">
-                            <h3>{{friendList.length}}</h3>
-                            <h4>Connects</h4>
-                        </div>
-                    </a>
+                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="community">
+                        <h3>{{friendList.length}}</h3>
+                        <h4>Friends</h4>
+                    </div>
 
                     <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="circles">
                         <h3>{{myCircles.length}}</h3>

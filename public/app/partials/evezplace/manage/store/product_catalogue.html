@@ -21,10 +21,23 @@
 <!--Description Ends-->
 
 <div class="col-sm-9" ng-controller="ManageStoreCtrl">
+    
+    <!--Products count-->
+    <div class="row">
+        <!--Free-->
+        <div class="col-md-12" ng-show="currentStore[0].store_subscription_id == 1">
+                <h4 class="text-center">{{totalProducts}} of {{MaxProductsFree}} products added (<a href="" ng-click="changeSubscription(2)"><span style="color: #e51385">upgrade</span></a> to add more)</h4>
+        </div>
+        <!--Premium-->
+        <div class="col-md-12" ng-show="currentStore[0].store_subscription_id == 2">
+                <h4 class="text-center">{{totalProducts}} of {{MaxProductsPremium}} products added (<a href="" ng-click="changeSubscription(3)"><span style="color: #e51385">upgrade</span></a> to add more)</h4>
+        </div>
+    </div>
+    
     <div class="row">
         <div class="create-store-section" style="background-color: #ffffff;">
-
-            <div style="border: 1px solid #692668; border-radius: 5px" ng-if="AllProductLines.length < 4">
+        
+            <div style="border: 1px solid #692668; border-radius: 5px">
                 <div class="row">
                     <div class="col-md-9 col-md-offset-1">
                         <h4 style="color: #e51385">Create Product/Service Lines</h4>
@@ -116,9 +129,6 @@
                                 </td> -->
                             </tr>
                         </table>
-                        <p class="pull-right">{{AllProductLines.length}} of {{productLineTableParams.count()}} product
-                            lines added (<a
-                                    href=""><span style="color: #e51385">upgrade</span></a> to add more)</p>
                     </div>
                 </div>
             </div>

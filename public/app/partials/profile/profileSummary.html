@@ -53,14 +53,14 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-if="loggedInUserId == currentUserId">
-                <a href="#profile/myprofile/{{loggedInUserId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#mystores/{{loggedInUserId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId != currentUserId">
-                <a href="#profile/myprofile/{{loggedInUserId}}">Mysite</a>
+                <a href="#mystores/{{loggedInUserId}}">Mysite</a>
             </li>
             <!-- <li ng-if="loggedInUserId == currentUserId"> -->
             <li>
-                <a href="#profile/myprofile/{{userId}}" class="active" ng-class="{ active: isActive('/profile/myprofile/{{userId}}')}">My Profile</a>
+                <a href="#mystores/{{userId}}" class="active" ng-class="{ active: isActive('/profile/myprofile/{{userId}}')}">My Profile</a>
             </li>
             <!-- <li ng-if="loggedInUserId != currentUserId">
                 <a href="#community" class="active" ng-class="{ active: isActive('/community')}">Build Community</a>

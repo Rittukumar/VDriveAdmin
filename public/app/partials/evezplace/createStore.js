@@ -64,7 +64,10 @@ evezownApp
         $scope.selectedSubscription = null;
 
         $scope.classifiedImages = [];
-
+        $scope.ShowPayment = false;
+        $scope.PayOnline = false;
+        $scope.PayUmoney = false;
+        $scope.PaymentOpen = "";
         //   $scope.selectedStoreListing = null;
 
         $scope.selectedSubscription = null;
@@ -88,6 +91,18 @@ evezownApp
         else {
             $scope.currentStoreId = $cookieStore.get('storeId');
         }
+
+        //Payment details
+        $scope.MERCHANT_KEY = "MtAc0u";
+        $scope.Merchant_Id = "5212138";
+        $scope.SALT = "09BHBbap";
+        $scope.PAYU_BASE_URL = "https://secure.payu.in/_payment";
+
+        $scope.surl = "http://localhost:8000/v1/storeSubscription/subPayment";
+        $scope.furl = "http://localhost:8000/v1/storeSubscription/subPayment";
+        $scope.service_url = PATHS.api_url;
+        $scope.usertoken = $cookieStore.get('userToken');
+        $scope.encrypttext = "";
 
 
         $scope.addMoreOwner = function () {
@@ -1761,32 +1776,157 @@ evezownApp
 
         }
 
+        //Prepare payee details
+        $scope.PreparePayee = function()
+        {   
+            //Store Details
+            $scope.Selected_Store = $scope.currentStore[0];
+            //$scope.Store_id = $scope.currentStore[0].id;
+            $scope.name = $scope.Selected_Store.title;
+            $scope.email = $scope.Selected_Store.store_front_info.store_contact_email;
+            $scope.phone = $scope.Selected_Store.store_front_info.store_contact_phone1;
+            $scope.zipcode = $scope.currentStore[0].id;
+            $scope.productInfo = $scope.sub_type;
+            $scope.orderAmount    = $scope.totalPrice;
+            $scope.transactions   = $scope.makeUniqeId();
+            $scope.getHash();
+
+        };
+
+        //Make Unique ID
+        $scope.makeUniqeId = function()
+        {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for( var i=0; i < 5; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            return text;
+        }
+        
+
+        $scope.getHash = function()
+        {
+
+            //Payment details
+            $scope.surl = "http://localhost:8000/v1/storeSubscription/subPayment";
+            $scope.furl = "http://localhost:8000/v1/storeSubscription/subPayment";
+            $scope.curl = "http://localhost:8000/v1/storeSubscription/subPayment";
+            $scope.udf1 = "";
+            $scope.udf2 = "";
+            $scope.udf3 = "";
+            $scope.udf4 = "";
+            $scope.udf5 = "";
+            $scope.udf6 = "";
+            $scope.udf7 = "";
+            $scope.udf8 = "";
+            $scope.udf9 = "";
+            $scope.udf10 = "";
+            $http.post(PATHS.api_url + 'orders/payu/hash'
+              , {
+                    data:
+                    {
+                        key:$scope.MERCHANT_KEY,
+                        txnid:$scope.transactions,
+                        amount:$scope.orderAmount,
+                        firstname:$scope.name,
+                        email : $scope.email,
+                        phone : $scope.phone,
+                        productinfo : $scope.productInfo,
+                        surl : $scope.surl,
+                        furl :$scope.furl,
+                        service_provider : "payu_paisa",
+                        salt : $scope.SALT
+                    },
+                      headers: {'Content-Type': 'application/json'}
+                }).
+            success(function (data, status, headers, config)
+            {
+                $scope.encrypttext = data;
+
+            }).error(function (data)
+            {
+
+            }).then(function()
+            {
+
+            });
+        }
+
+
+        //Payment Type
+        $scope.GetIndex = function (index) {
+
+            if (index == 3) {
+
+                $scope.PayOnline = true;
+                $scope.PayUmoney = false;
+                $scope.currentSection3 = 'active';
+                $scope.currentSection4 = 'inactive';
+            }
+            if (index == 4) {
+
+                $scope.PayOnline = false;
+                $scope.PayUmoney = true;
+                $scope.currentSection3 = 'inactive';
+                $scope.currentSection4 = 'active';
+            }
+        }
+        
+        //Payment Free-premium
         $scope.StoreSubscriptionPayFree = function(subscriptiontype)
         {
-            $scope.Selected_Store = $scope.currentStore[0];
 
-            if(subscriptiontype == "free")
+            if(subscriptiontype == "" || subscriptiontype == undefined)
             {
-                $scope.FreeAmt = $scope.Subscription_offer[0].amount;
+                toastr.error('Please select subscription type');
+            }
+            else if(subscriptiontype == "free")
+            {
+                $scope.sub_type = 1;
+                $scope.totalPrice = $scope.Subscription_offer[0].amount;
+                $scope.ShowPayment = true;
+                $scope.PaymentOpen = "col-md-offset-3";
+                $scope.GetIndex(3);
+                $scope.PreparePayee();
             }
             else if(subscriptiontype == "premium")
             {
-                $scope.PremiumAmt = $scope.Subscription_offer[1].amount;
+                $scope.sub_type = 2;
+                $scope.totalPrice = $scope.Subscription_offer[1].amount;
+                $scope.ShowPayment = true;
+                $scope.PaymentOpen = "col-md-offset-3";
+                $scope.GetIndex(3);
+                $scope.PreparePayee();
             }
         }
 
+        //Payment premium-customized
         $scope.SubscriptionPay = function(subscriptiontype,amount)
         {
 
-            $scope.Selected_Store = $scope.currentStore[0];
-            
-            if(subscriptiontype == "premium")
+            if(subscriptiontype == "" || subscriptiontype == undefined)
             {
-                $scope.PremiumAmt = amount;
+                toastr.error('Please select subscription type');
+            }
+            else if(subscriptiontype == "premium")
+            {
+                $scope.sub_type = 2;
+                $scope.totalPrice = amount;
+                $scope.ShowPayment = true;
+                $scope.PaymentOpen = "col-md-offset-3";
+                $scope.GetIndex(3);
+                $scope.PreparePayee();
             }
             else if(subscriptiontype == "customized")
             {
-                $scope.CutomizedAmt = amount;
+                $scope.sub_type = 3;
+                $scope.totalPrice = amount;
+                $scope.ShowPayment = true;
+                $scope.PaymentOpen = "col-md-offset-3";
+                $scope.GetIndex(3);
+                $scope.PreparePayee();
             }
         }
 

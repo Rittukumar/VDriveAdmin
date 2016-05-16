@@ -2,19 +2,19 @@
     <button type="button" class="close " data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     
-        <h1 style="color: #e51385">Step 1</h1>
+        <h1 style="color: #e51385">Create Store</h1>
 
-        <p>Create your store front in 6 easy steps. Provide the following basic information to get started. For more info about creating a store<a href="#whatdoiget"> Click here</a></p>
+        <p>Create your store front in 6 easy steps. Provide the following basic information to get started. <b style="font-weight: 500">For more info about creating a store<a href="#whatdoiget" style="text-decoration:none;"> Click here</a></b></p>
 </div>
-
-<ul class="breadcrumb create-store-breadcrumb">
-    <li><a href="#mystores/{{userId}}">Mysite</a></li>
-    <li>Create Store Front</li>
-</ul>
 
 <div ng-include src='"partials/evezplace/create_store_menu.html"' ng-controller="CreateStoreController"></div>
 
 <div class="create-store-section" ng-controller="CreateStoreController">
+    <!--Hint-->
+    <div class="col-md-2 col-xs-2 pull-right">
+         <span class="fa fa-question-circle pull-right"> - Help</span>
+    </div>
+    <!--Hint ends-->
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h3 style="color: #e51385">Basic Info</h3>
@@ -22,23 +22,31 @@
     </div>
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-4">
+            <div class="col-md-offset-2 col-md-4 col-xs-12">
                 <label for="title">Store Title <b style="color:red;">*</b></label>
             </div>
-            <div class="col-md-4">
-                <input type="text" class="form-control" id="title" name="name" ng-model="formData.title" required>
+            <div class="col-md-4 col-xs-10">
+                <input type="text" placeholder="Title" class="form-control" id="title" name="name" ng-model="formData.title" required>
+            </div>
+            <div class="col-md-2 col-xs-2" style="padding: 6px 0px 0px 0px;">
+                 <span custom-popover popover-html="Enter your store title here" popover-placement="bottom" popover-label="" class="fa fa-question-circle"></span>
             </div>
         </div>
     </div>
     <div class="row" style="margin-top: 10px; margin-bottom: 10px">
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-4">
+            <div class="col-md-offset-2 col-md-4 col-xs-12">
                 <label for="storeAboutUs">Store Description <b style="color:red;">*</b></label>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-10">
                 <textarea rows="4" placeholder="About Us" class="form-control" id="storeAboutUs" name="storeAboutUs"
                           ng-model="formData.storeDescription"></textarea>
             </div>
+            <!--popover-->
+            <div class="col-md-2 col-xs-2" style="padding: 6px 0px 0px 0px;">
+                 <span custom-popover popover-html="1. Add a description about your store here <br><br>2. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." popover-placement="bottom" popover-label="" class="fa fa-question-circle"></span>
+            </div>
+            <!--popover ends-->
         </div>
     </div>
 

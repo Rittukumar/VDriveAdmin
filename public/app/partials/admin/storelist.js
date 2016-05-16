@@ -197,7 +197,22 @@ evezownApp
             //Other options
             else
             {
-                alert("other");
+                $http.post(PATHS.api_url + 'users/store/updatestorestatus/update'
+                    , {
+                        data: {
+                            StoreId: store.id,
+                            storeStatus: store.store_status.status_id
+                        },
+                        headers: {'Content-Type': 'application/json'}
+                    }).
+                success(function (data, status, headers, config) {
+                    toastr.success(data.message, 'Store');
+
+                }).error(function (data) {
+                    toastr.error(data.error.message, 'Store');
+                }).then(function () {
+                    $scope.GetAllStores();
+                });
             }
         }
 

@@ -29,25 +29,24 @@
                             <input type="hidden" name="key"  ng-value="MERCHANT_KEY" />
                             <input type="hidden" name="hash"  ng-value="encrypttext"/>
                             <input type="hidden" name="txnid"  ng-value="transactions" />
-                            
-                             <input type="hidden" name="orders" value="orderData" />
+
+                            <input type="hidden" name="orders" value="orderData" />
                             <input type="hidden" name="amount"  ng-value="orderAmount" />
                             <input type="hidden" name="productinfo"  ng-value="productInfo" />
                             <input type="hidden" name="surl"  ng-value="surl" />
                             <input type="hidden" name="furl"  ng-value="furl" />
-                            <input type="hidden" name="firstname"  ng-value="orderData.buyer.name" />
-                            <input type="hidden" name="email"  ng-value="orderData.buyer.email" />
-                            <input type="hidden" name="phone"  ng-value="orderData.buyer.phone" />
+                            <input type="hidden" name="firstname"  ng-value="name" />
+                            <input type="hidden" name="email"  ng-value="email" />
+                            <input type="hidden" name="phone"  ng-value="phone" />
                             <input type="hidden" name="service_provider" value="payu_paisa" />
 
-                            <input name="lastname" id="lastname" type="hidden" ng-value="orderData.buyer.code" />
                             <input name="curl" ng-value="curl" type="hidden"/>
                             <input name="address1" type="hidden" ng-value="" />
                             <input name="address2" type="hidden" ng-value="" />
                             <input name="city" type="hidden" ng-value="" />
                             <input name="state" type="hidden" ng-value="" />
                             <input name="country" type="hidden" ng-value="" />
-                            <input name="zipcode" type="hidden" ng-value="" />
+                            <input name="zipcode" type="hidden" ng-value="zipcode" />
                             <input name="udf1" type="hidden" ng-value="" />
                             <input name="udf2" type="hidden" ng-value="" />
                             <input name="udf3" type="hidden" ng-value="" />

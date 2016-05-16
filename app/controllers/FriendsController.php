@@ -24,7 +24,7 @@ class FriendsController extends AppController {
 	public function index($id)
 	{
 		try{
-			$limit = Input::get('limit') ?: 10;
+			$limit = Input::get('limit') ?: 12;
 
 			$friends = Friend::with('profile','profile.profile_image','user')->where('user_id', $id)
 			               ->whereExists(function($query)

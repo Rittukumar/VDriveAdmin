@@ -359,7 +359,7 @@
     margin-bottom: 4px;
 }
 
-#btn-create-store {
+/*#btn-create-store {
     background-color: #692668;
     color: #ffffff;
     text-align: left;
@@ -367,10 +367,10 @@
     font-size: 14px;
     padding: 10px 20px;
     margin-bottom: 2px;
-}
+}*/
 
 #btn-browse-store {
-    background-color: #2d9db8;
+    background-color: #2D9DB8;
     color: #ffffff;
     text-align: left;
     font-weight: 500;
