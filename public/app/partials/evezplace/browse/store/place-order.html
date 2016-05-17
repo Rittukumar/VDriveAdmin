@@ -1,388 +1,647 @@
 <style>
-    @media only screen and (max-width: 800px) {
-/* Force table to not be like tables anymore */
-#no-more-tables table,
-#no-more-tables thead,
-#no-more-tables tbody,
-#no-more-tables th,
-#no-more-tables td,
-#no-more-tables tr {
-display: block;
+/* vendor prefixes removed for clarity */
+
+.ribbon {
+    width: 100%;
+    margin: 10px auto;
+    padding: 0 10px 0;
+    position: relative;
+    color: #444;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
- 
-/* Hide table headers (but not display: none;, for accessibility) */
-#no-more-tables thead tr {
-position: absolute;
-top: -9999px;
-left: -9999px;
+.ribbon h3 {
+    display: block;
+    height: 10%;
+    line-height: 1.2;
+    width: 103%;
+    padding: 5px 10px;
+    position: relative;
+    left: -16px;
+    top: 8px;
+    color: #fff;
+    text-shadow: 0 1px 1px #111;
+    border-top: 1px solid #16b594;
+    border-bottom: 1px solid #16b594;
+    background: #16b594;
+    background: linear-gradient(top, #383838 0%, #262626 100%);
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
- 
-#no-more-tables tr { border: 1px solid #ccc; }
-  
-#no-more-tables td {
-/* Behave like a "row" */
-border: none;
-border-bottom: 1px solid #eee;
-position: relative;
-padding-left: 50%;
-white-space: normal;
-text-align:left;
+.ribbon h3::before,
+.ribbon h3::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -11px;
+    z-index: -10;
+    border: 5px solid;
+    border-color: #666 transparent transparent transparent;    
 }
- 
-#no-more-tables td:before {
-/* Now like a table header */
-position: absolute;
-/* Top/left values mimic padding */
-top: 6px;
-left: 6px;
-width: 45%;
-padding-right: 10px;
-white-space: nowrap;
-text-align:left;
-font-weight: bold;
-}
- 
-/*
-Label the data
-*/
-#no-more-tables td:before { content: attr(data-title); }
+.ribbon h3::before {left: 0;}
+.ribbon h3::after {right: 0;}
+
+
+
+/* containing element */
+.page
+{
+
+
+    margin: 0 auto;
+    background-color: #fff;
+    
 }
 
-.shopping-cart-checkout{
--webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
--moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.24);
+.page h2
+{
+    position: relative;
+    width: 50%;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 5px 30px 5px 10px;
+    margin:10px 7px 10px -25px;
+    color: #fff;
+    background-color: #16b594;
+    text-shadow: 0px 1px 2px #bbb;
+    -webkit-box-shadow: 0px 2px 4px #888;
+    -moz-box-shadow: 0px 2px 4px #888;
+    box-shadow: 0px 2px 4px #888;
+}
+.page h2:after
+{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0px;
+    top: 100%;
+    border-width: 5px 5px;
+    border-style: solid;
+    border-color: #666 #666 transparent transparent;
+}
+.page h2:before
+{
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: -2px;
+    top: 0px;
+    border-color: transparent #fff transparent transparent;
+}
+/*li*/
+.ccbtn_active {
+    /* background: rgb(0, 169, 148) linear-gradient(to right, rgba(0, 169, 148, 1) 1%, rgba(0, 84, 166, 1) 100%);*/
+    background:#4d4d4d;
+    position: relative;
+    list-style-type: none; /* drop the bullets */
+    color: white;
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 15pt;
+    padding: 5pt;
+    padding-left: 10pt;
+    line-height: 20pt;
+    width: 200pt;
+    margin-right:10px;
 }
 
-.variants{
-    font-size: 11px;
+.ccbtn_active:hover {
+  color: #fff;
 }
-</style>
 
-<div class="col-sm-12" ng-if="isShoppingCartEmpty">
-    <div class="row" style="margin-top: 120px; margin-bottom: 120px">
-        <div class="no-shopping-item text-center">
-            <p ng-show="checkOutType == 'cart'">Your shopping cart is currently empty</p>
-            <p ng-show="checkOutType == 'buy'">You Don't Have Any Products To Buy</p>
-            <a href="#store/browse" class="btn btn-primary btn-lg">browse stores now</a>
+.ccbtn_active:after {
+  content: "";
+ /*   border-left: .5em solid rgb(0, 84, 166); 
+    border-top: 15pt solid transparent; 
+    border-bottom: 15pt solid transparent;*/
+    border-left: .5em solid #4d4d4d; 
+    border-top: 15pt solid transparent; 
+    border-bottom: 15pt solid transparent;
+    background:#dcdada;
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: -.5em; /* This has to be the same value as 'border-left's width */
+    top: 0;
+}
+
+/*bt li **/
+.ccbtn {
+    /* background: rgb(0, 169, 148) linear-gradient(to right, rgba(0, 169, 148, 1) 1%, rgba(0, 84, 166, 1) 100%);*/
+    background:#dcdada;
+    position: relative;
+    list-style-type: none; /* drop the bullets */
+    color: white;
+    font-family: Verdana, Arial, Helvetica;
+    font-size: 15pt;
+    padding: 5pt;
+    padding-left: 10pt;
+    line-height: 20pt;
+    width: 200pt;
+    margin-right:10px;
+}
+
+.ccbtn:hover {
+  color: #fff;
+}
+
+.ccbtn:after {
+  content: "";
+ /*   border-left: .5em solid rgb(0, 84, 166); 
+    border-top: 15pt solid transparent; 
+    border-bottom: 15pt solid transparent;*/
+    border-left: .5em solid #dcdada; 
+    border-top: 15pt solid transparent; 
+    border-bottom: 15pt solid transparent;
+    
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: -.5em; /* This has to be the same value as 'border-left's width */
+    top: 0;
+}
+
+/* ------------------------------------------------- */
+#content{
+    width:100%;
+}
+#tabs {
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#tabs li {
+    float: left;
+    margin: 0 -15px 0 0;
+}
+
+#tabs a {
+    float: left;
+    position: relative;
+    padding: 0 40px;
+    height: 0;
+    line-height: 30px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;      
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid #3D3D3D;
+    border-bottom-color: #777\9;
+    opacity: .3;
+    filter: alpha(opacity=30);      
+}
+
+#tabs a:hover,
+#tabs a:focus {
+    border-bottom-color: #F90;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+#tabs a:focus {
+    outline: 0;
+}
+
+#tabs #current {
+    z-index: 3;
+    border-bottom-color: #3d3d3d;
+    opacity: 1;
+    filter: alpha(opacity=100);      
+}
+/*popup css*/
+/*corresel*/
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;
+/*    --------------------------------------------------
+    :: Login Section
+    -------------------------------------------------- */
+    #login {
+        padding-top: 50px
+    }
+    #login .form-wrap {
+        width: 80%;
+        margin: 0 auto;
+    }
+    #login h1 {
+        color: #1fa67b;
+        font-size: 18px;
+        text-align: center;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+    #login .form-group {
+        margin-bottom: 25px;
+    }
+    #login .checkbox {
+        margin-bottom: 20px;
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+    #login .checkbox.show:before {
+        content: '\e013';
+        color: #1fa67b;
+        font-size: 17px;
+        margin: 1px 0 0 3px;
+        position: absolute;
+        pointer-events: none;
+        font-family: 'Glyphicons Halflings';
+    }
+    #login .checkbox .character-checkbox {
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        vertical-align: middle;
+        display: inline-block;
+    }
+    #login .checkbox .label {
+        color: #6d6d6d;
+        font-size: 13px;
+        font-weight: normal;
+    }
+    #login .btn.btn-custom {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    #login .forget {
+        font-size: 13px;
+        text-align: center;
+        display: block;
+    }
+
+/*    --------------------------------------------------
+    :: Inputs & Buttons
+    -------------------------------------------------- */
+    .form-control {
+        color: #212121;
+    }
+    .btn-custom {
+        color: #fff;
+        background-color: #1fa67b;
+    }
+    .btn-custom:hover,
+    .btn-custom:focus {
+        color: #fff;
+    }
+    .hrs{
+        background:url(../../images/hrs.png) no-repeat;
+        padding:10px;
+        min-height:300px;
+    }
+    .panel-heading{
+        background:#1fa67b;
+    }
+
+    /*-------buttons*/
+    .btn-social{position:relative;padding-left:44px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.btn-social :first-child{position:absolute;left:0;top:0;bottom:0;width:32px;line-height:34px;font-size:1.6em;text-align:center;border-right:1px solid rgba(0,0,0,0.2)}
+    .btn-social.btn-lg{padding-left:61px}.btn-social.btn-lg :first-child{line-height:45px;width:45px;font-size:1.8em}
+    .btn-social.btn-sm{padding-left:38px}.btn-social.btn-sm :first-child{line-height:28px;width:28px;font-size:1.4em}
+    .btn-social.btn-xs{padding-left:30px}.btn-social.btn-xs :first-child{line-height:20px;width:20px;font-size:1.2em}
+    .btn-social-icon{position:relative;padding-left:44px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;height:34px;width:34px;padding-left:0;padding-right:0}.btn-social-icon :first-child{position:absolute;left:0;top:0;bottom:0;width:32px;line-height:34px;font-size:1.6em;text-align:center;border-right:1px solid rgba(0,0,0,0.2)}
+    .btn-social-icon.btn-lg{padding-left:61px}.btn-social-icon.btn-lg :first-child{line-height:45px;width:45px;font-size:1.8em}
+    .btn-social-icon.btn-sm{padding-left:38px}.btn-social-icon.btn-sm :first-child{line-height:28px;width:28px;font-size:1.4em}
+    .btn-social-icon.btn-xs{padding-left:30px}.btn-social-icon.btn-xs :first-child{line-height:20px;width:20px;font-size:1.2em}
+    .btn-social-icon :first-child{border:none;text-align:center;width:100% !important}
+    .btn-social-icon.btn-lg{height:45px;width:45px;padding-left:0;padding-right:0}
+    .btn-social-icon.btn-sm{height:30px;width:30px;padding-left:0;padding-right:0}
+    .btn-social-icon.btn-xs{height:22px;width:22px;padding-left:0;padding-right:0}
+    .btn-google-plus{color:#fff;background-color:#dd4b39;border-color:rgba(0,0,0,0.2)}.btn-google-plus:hover,.btn-google-plus:focus,.btn-google-plus:active,.btn-google-plus.active,.open .dropdown-toggle.btn-google-plus{color:#fff;background-color:#ca3523;border-color:rgba(0,0,0,0.2)}
+    .btn-google-plus:active,.btn-google-plus.active,.open .dropdown-toggle.btn-google-plus{background-image:none}
+    .btn-google-plus.disabled,.btn-google-plus[disabled],fieldset[disabled] .btn-google-plus,.btn-google-plus.disabled:hover,.btn-google-plus[disabled]:hover,fieldset[disabled] .btn-google-plus:hover,.btn-google-plus.disabled:focus,.btn-google-plus[disabled]:focus,fieldset[disabled] .btn-google-plus:focus,.btn-google-plus.disabled:active,.btn-google-plus[disabled]:active,fieldset[disabled] .btn-google-plus:active,.btn-google-plus.disabled.active,.btn-google-plus[disabled].active,fieldset[disabled] .btn-google-plus.active{background-color:#dd4b39;border-color:rgba(0,0,0,0.2)}
+    .btn-facebook{color:#fff;background-color:#3b5998;border-color:rgba(0,0,0,0.2)}.btn-facebook:hover,.btn-facebook:focus,.btn-facebook:active,.btn-facebook.active,.open .dropdown-toggle.btn-facebook{color:#fff;background-color:#30487b;border-color:rgba(0,0,0,0.2)}
+    .btn-facebook:active,.btn-facebook.active,.open .dropdown-toggle.btn-facebook{background-image:none}
+    .btn-facebook.disabled,.btn-facebook[disabled],fieldset[disabled] .btn-facebook,.btn-facebook.disabled:hover,.btn-facebook[disabled]:hover,fieldset[disabled] .btn-facebook:hover,.btn-facebook.disabled:focus,.btn-facebook[disabled]:focus,fieldset[disabled] .btn-facebook:focus,.btn-facebook.disabled:active,.btn-facebook[disabled]:active,fieldset[disabled] .btn-facebook:active,.btn-facebook.disabled.active,.btn-facebook[disabled].active,fieldset[disabled] .btn-facebook.active{background-color:#3b5998;border-color:rgba(0,0,0,0.2)}
+    /*gradient*/
+    .grad{
+        background: rgba(216,208,239,1);
+        background: -moz-linear-gradient(top, rgba(216,208,239,1) 0%, rgba(235,233,249,1) 48%, rgba(206,199,236,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(216,208,239,1)), color-stop(48%, rgba(235,233,249,1)), color-stop(100%, rgba(206,199,236,1)));
+        background: -webkit-linear-gradient(top, rgba(216,208,239,1) 0%, rgba(235,233,249,1) 48%, rgba(206,199,236,1) 100%);
+        background: -o-linear-gradient(top, rgba(216,208,239,1) 0%, rgba(235,233,249,1) 48%, rgba(206,199,236,1) 100%);
+        background: -ms-linear-gradient(top, rgba(216,208,239,1) 0%, rgba(235,233,249,1) 48%, rgba(206,199,236,1) 100%);
+        background: linear-gradient(to bottom, rgba(216,208,239,1) 0%, rgba(235,233,249,1) 48%, rgba(206,199,236,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8d0ef', endColorstr='#cec7ec', GradientType=0 );
+        color:#666666;
+    }
+
+    .variants{
+      font-size: 11px;
+    }
+    </style> 
+
+    <div class="col-sm-12" ng-if="isShoppingCartEmpty">
+        <div class="row" style="margin-top: 120px; margin-bottom: 120px">
+            <div class="no-shopping-item text-center">
+                <p ng-show="checkOutType == 'cart'">Your shopping cart is currently empty</p>
+                <p ng-show="checkOutType == 'buy'">You Don't Have Any Products To Buy</p>
+                <a href="#store/browse" class="btn btn-primary btn-lg">browse stores now</a>
+            </div>
         </div>
     </div>
-</div>
 
-<div style="margin:0 auto;width:80%;" ng-if="storeId && !isShoppingCartEmpty">
-<div class="col-md-12 col-xs-12 no-padding shopping-cart-checkout text-align:center;" style="margin-bottom: 20px">
-    <!-- ng-if="!isShoppingCartEmpty" -->
-    <div class="col-md-12 col-xs-12 no-padding">
-             <!-- ng-if="!isOrderSuccess" -->
-             <!--User Details-->
-        <div class="CartDetails" style="{{CartDetails}}">
-            <div class="col-sm-12 col-xs-12 no-padding">
-                <h4 style="padding: 10px 5px;margin-top: 0px; background: #57C5A0; color: #ffffff;">1. CONTACT INFO</h4>
+    <div class="container" ng-if="storeId && !isShoppingCartEmpty">
+
+    <div class="col-md-12" style="box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;padding:10px 0px 10px 0px; border-bottom:thin solid #999;">
+           
+    <div class="CartDetails" style="{{CartDetails}}">
+
+    <div class="col-md-12" style="box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;">
+
+        <div class="ribbon">
+          <h3>1.CONTACT INFO</h3>
+        </div> 
+
+       <div class="col-md-12 col-xs-12" ng-show="!EmailEdit">
+            <div class="col-md-4 col-xs-4">
+                <p>Name</p>
+                <p>Email</p>
+                <p>Phone</p>
+                <!-- <p>BuyerCode</p> -->
             </div>
-            <div class="col-md-12 col-xs-12" ng-show="!EmailEdit">
-                <div class="col-md-4 col-xs-4">
-                    <p>Name</p>
-                    <p>Email</p>
-                    <p>Phone</p>
-                    <!-- <p>BuyerCode</p> -->
-                </div>
-                <div class="col-md-4 col-xs-4">
-                    <p>{{orderData.buyer.name}}</p>
-                    <p>{{orderData.buyer.email}}</p>
-                    <p>{{orderData.buyer.phone}}</p>
-                   <!--  <input type="text" ng-model="orderData.buyer.code" placeholder="BuyerCode(Optional)" class="col-md-8 col-xs-12"/> -->
-                </div>
-                <div class="col-md-4 col-xs-12">
-                    <a  href="" ng-click="EmailEdit=true" class="btn btn-primary pull-right" style="margin-top:10px;">CHANGE DETAILS</a>
-                </div>
+            <div class="col-md-4 col-xs-4">
+                <p>{{orderData.buyer.name}}</p>
+                <p>{{orderData.buyer.email}}</p>
+                <p>{{orderData.buyer.phone}}</p>
+               <!--  <input type="text" ng-model="orderData.buyer.code" placeholder="BuyerCode(Optional)" class="col-md-8 col-xs-12"/> -->
             </div>
-            <div class="col-md-12 col-xs-12" ng-show="EmailEdit">
-                <div class="col-md-4 col-xs-4">
-                    <h4>Name</h4>
-                    <h4>Email</h4>
-                    <h4>Phone</h4>
-                    <h4 ng-if="!loggedInUser">BuyerCode</h4>
-                </div>
-                <div class="col-md-8 col-xs-8" style="margin-top: 5px">
-                    <input type="text"  ng-model="orderData.buyer.name" placeholder="Name" class="col-md-6 col-xs-12" required/>
-                </div>
-                <div class="col-md-8 col-xs-8" style="margin-top: 5px">
-                    <input type="email"  ng-model="orderData.buyer.email" placeholder="Email" class="col-md-6 col-xs-12" required/>
-                </div>
-                <div class="col-md-8 col-xs-8" style="margin-top: 5px">
-                    <input type="number" minlength="6" maxlength="13" ng-model="orderData.buyer.phone" placeholder="Phone" class="col-md-6 col-xs-12" required/>
-                </div>
-                <div class="col-md-8 col-xs-8" style="margin-top: 5px">
-                    <input ng-if="!loggedInUser"  type="text" ng-model="orderData.buyer.code" placeholder="BuyerCode(Optional)" class="col-md-6 col-xs-12"/>
-                </div>
+            <div class="col-md-4 col-xs-12">
+                <a href="" ng-click="EmailEdit=true"  class="btn btn-sunny" style="text-decoration:none; color: burlywood;" >&nbsp; &nbsp;CHANGE DETAILS&nbsp; &nbsp;</a>
             </div>
-            <!--User Details ends-->
-
-            <!--Address Details-->
-            <div class="col-sm-12 col-xs-12 no-padding">
-                <h4 style="padding: 10px 5px; background: #57C5A0; color: #ffffff;">2. DELIVERY DETAILS</h4>
+        </div>
+        <div class="col-md-12 col-xs-12" ng-show="EmailEdit">
+            <div class="col-md-4 col-xs-4">
+                <h4>Name</h4>
+                <h4>Email</h4>
+                <h4>Phone</h4>
+                <h4 ng-if="!loggedInUser">BuyerCode</h4>
             </div>
-
-            <div class="col-md-12 col-xs-12 form-group" ng-show="!AddressEdit">
-                <div class="col-md-3">
-                    <h4 style="color: #e50880;">Delivery Address</h4>
-                    <p>Address 1</p>
-                    <p>City</p>
-                    <p>State</p>
-                    <p>Country</p>
-                    <p>PinCode</p>
-                </div>
-                <div class="col-md-3">
-                    <h4 style="color: #e50880;">Billing Address</h4>
-                    <p>{{orderData.billing_address.addressLine1}}</p>
-                    <p>{{orderData.billing_address.city}}</p>
-                    <p>{{orderData.billing_address.state}}</p>
-                    <p>{{orderData.billing_address.country}}</p>
-                    <p>{{orderData.billing_address.pincode}}</p>
-                </div>
-                <div class="col-md-3">
-                    <h4 style="color: #e50880;">Shipping Address</h4>
-                    <p>{{orderData.shipping_address.addressLine1}}</p>
-                    <p>{{orderData.shipping_address.city}}</p>
-                    <p>{{orderData.shipping_address.state}}</p>
-                    <p>{{orderData.shipping_address.country}}</p>
-                    <p>{{orderData.shipping_address.pincode}}</p>
-                </div>
-                <div class="col-md-3">
-                    <a href="" ng-click="AddressEdit=true" class="btn btn-primary pull-right" style="margin-top:10px;">CHANGE DETAILS</a>
-                </div>
+            <div class="col-md-8 col-xs-8" style="margin-top: 5px">
+                <input type="text"  ng-model="orderData.buyer.name" placeholder="Name" class="col-md-6 col-xs-12" required/>
             </div>
-
-            <div class="col-md-12 col-xs-12" ng-show="AddressEdit">
-                <div class="order-billing col-md-12 col-xs-12 no-padding">
-                    <!--Address labels-->
-                    <div class="col-md-4 col-xs-12">
-                        <h4 style="color: #e50880;">Delivery Details</h4>
-                        <div class="col-md-12 no-padding">
-                            <h4>Address Line 1</h4>
-                        </div>
-                        <div class="col-md-12 no-padding">
-                            <h4>Address Line 2</h4>
-                        </div>
-                        <div class="col-md-12 no-padding">
-                            <h4>Address Line 3</h4>
-                        </div>
-                        <div class="col-md-12 no-padding">
-                            <h4>City</h4>
-                        </div>
-                        <div class="col-md-12 no-padding">
-                            <h4>State</h4>
-                        </div>
-                        <div class="col-md-12 no-padding">
-                            <h4>Country</h4>
-                        </div>
-                        <div class="col-md-12 no-padding">
-                            <h4>Pincode</h4>
-                        </div>
-                    </div>
-                    <!--Billing address-->
-                    <div class="col-md-4 col-xs-12">
-                        <h4 style="color: #e50880;">Billing Address</h4>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <input type="text" ng-model="orderData.billing_address.addressLine1"
-                                           class="form-control" required/>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text" ng-model="orderData.billing_address.addressLine2"
-                                           class="form-control" placeholder="(Optional)"/>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text" ng-model="orderData.billing_address.addressLine3"
-                                           class="form-control" placeholder="(Optional)"/>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="city"
-                                           ng-model="orderData.billing_address.city" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="state"
-                                           ng-model="orderData.billing_address.state" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="country"
-                                           ng-model="orderData.billing_address.country" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="number" minlength="4" maxlength="8" ng-model="orderData.billing_address.pincode"
-                                           class="form-control" required/>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="checkbox" style="margin-top: 0px">
-                                        <input type="checkbox" id="checkbox1"
-                                               ng-model="orderData.isShippingEqualBilling"
-                                                ng-change="copyBillingAddress(orderData)">
-                                        <label for="checkbox1">
-                                            Is shipping address same as billing address?
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Shipping address-->
-                    <div class="col-md-4 col-xs-12" ng-if="!orderData.isShippingEqualBilling">
-                        <h4 style="color: #e50880;">Shipping Address</h4>
-                        <div class="form-group">
-                            <div class="row" style="margin-bottom: 10px">
-                                <div class="col-md-12">
-                                    <input ng-model="orderData.shipping_address.addressLine1"
-                                           type="text"
-                                           class="form-control" required/>
-                                </div>
-                                <div class="col-md-12">
-                                    <input ng-model="orderData.shipping_address.addressLine2"
-                                           type="text"
-                                           class="form-control" placeholder="(Optional)"/>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" ng-model="orderData.shipping_address.addressLine3" placeholder="(Optional)"/>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="city"
-                                           ng-model="orderData.shipping_address.city" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="state"
-                                           ng-model="orderData.shipping_address.state" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="text"
-                                           class="form-control"
-                                           name="country"
-                                           ng-model="orderData.shipping_address.country" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <input type="number" minlength="4" maxlength="8" class="form-control"
-                                           ng-model="orderData.shipping_address.pincode" required/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-8 col-xs-8" style="margin-top: 5px">
+                <input type="email"  ng-model="orderData.buyer.email" placeholder="Email" class="col-md-6 col-xs-12" required/>
             </div>
-            <!--Address Details ends-->
-
-            <!--Order Summary-->
-            <div class="col-sm-12 col-xs-12 no-padding">
-                <h4 style="padding: 10px 5px; background: #57C5A0; color: #ffffff;">3. ORDER SUMMARY</h4>
+            <div class="col-md-8 col-xs-8" style="margin-top: 5px">
+                <input type="number" minlength="6" maxlength="13" ng-model="orderData.buyer.phone" placeholder="Phone" class="col-md-6 col-xs-12" required/>
             </div>
-            <div class="col-md-12 col-xs-12">
-                <div class="col-md-12 col-xs-12 no-padding hidden-xs">
-                    <div class="col-sm-12 col-xs-12 no-padding text-center">
-                        <table class="table" style=margin-bottom:2px;>
-                            <th class="col-sm-2 col-md-2 col-lg-2 col-sx-6" style="padding:4px;"></th>
-                            <th class="col-sm-2 col-md-2 col-lg-2 col-sx-6 text-center" style="padding:4px;"><b>ITEM/STORE</b></th>
-                            <th class="col-sm-2 col-md-2 col-lg-2 col-sx-6 text-center" style="padding:4px;"><b>QUANTITY</b></th>
-                            <th class="col-sm-2 col-md-2 col-lg-2 col-sx-6 text-center" style="padding:4px;"><b>PRICE</b></th>
-                            <th class="col-sm-2 col-md-2 col-lg-2 col-sx-6 text-center" style="padding:4px;"><b>DELIVERY DATE</b></th>
-                            <th class="col-sm-2 col-md-2 col-lg-2 col-sx-6 text-center" style="padding:4px;"><b>SUB TOTAL</b></th>
-                            <th class="col-sm-2 col-md-2 col-lg-2 col-sx-6 text-center" style="padding:4px;"><b>Remove</b></th>
-                        </table>
-                    </div>
-                </div>
-                
+            <div class="col-md-8 col-xs-8" style="margin-top: 5px">
+                <input ng-if="!loggedInUser"  type="text" ng-model="orderData.buyer.code" placeholder="BuyerCode(Optional)" class="col-md-6 col-xs-12"/>
+            </div>
+        </div>
 
-                <div class="col-md-12 col-xs-12 no-padding"  ng-repeat="shoppingCartStore in shoppingCartItems" ng-if="shoppingCartStore.storeId == storeId">
-                    <div class="col-sm-12 col-xs-12 no-padding" id="no-more-tables">
-                        <table class="table">
-                            <tbody>
-                            <tr ng-repeat="shoppingCartItem in shoppingCartStore.products" class="text-center" >
-                                <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="">
-                                    <a href="#store/products/{{shoppingCartItem.product_id}}">
-                                        <img
-                                            ng-src="{{imageUrl}}image/show/{{shoppingCartItem.image.image.large_image_url}}/175"
-                                            class="img-responsive img-thumbnail"
-                                            alt="{{shoppingCartItem.title}}"/>
-                                    </a>
-                                </td>
+    </div>
 
-                                <td class="col-sm-2 col-md-2 col-lg-2" data-title="Product Name">
-                                    <label>Store Title</label><br>
-                                    <a style="text-decoration: none" href="#store/products/{{shoppingCartItem.product_id}}">
-                                        <span style="font-weight: 600; color: #692668;">{{shoppingCartItem.title}}</span>
-                                    </a>
-                                    <p class="variants" ng-if="shoppingCartItem.variants.color">Color : 
-                                    <a class="btn" style="width: 22px; height: 22px; margin-right: 5px"
-                                       href="javascript:void(0)"
-                                       ng-style="{backgroundColor: shoppingCartItem.variants.color}" >
-                                    </a>
-                                    </p>
-                                    <p class="variants" ng-if="shoppingCartItem.variants.size">Size : {{shoppingCartItem.variants.size}}</p>
-                                    <p class="variants" ng-if="shoppingCartItem.variants.volume">Volume : {{shoppingCartItem.variants.volume}}</p>
-                                    <p class="variants" ng-if="shoppingCartItem.variants.weight">Weight : {{shoppingCartItem.variants.weight}}</p>
-                                </td>
+     <div class="col-md-12" style="box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;">
 
-                                <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Quantity">
-                                    <div fs-counter value="shoppingCartItem.quantity"
-                                         data-min="1"
-                                         data-max="20"
-                                         data-step="1"
-                                         data-width="130px"
-                                         data-editable="false"
-                                         style="margin-top: 5px"></div>
-                                </td>
+        <div class="ribbon">
+          <h3>2.DELIVERY DETAILS</h3>
+        </div> 
 
-                                <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Price">{{shoppingCartItem.price}}</td>
+        <div class="col-md-12 col-md-offset-1">
+        <div class="panel panel-default col-md-3" style="padding:0px;margin:10px;height:500px;" ng-repeat="(key, value) in orderData.address">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                     Address
+                    <span class="glyphicon glyphicon-pencil pull-right" style="margin-left:8%;" ></span>
+                    <span class="glyphicon glyphicon-trash pull-right" ></span>
+                </h3>
+            </div>
+            <div class="panel-body" style="margin:0 auto; text-align:center;" >
+             
+               <address>
+                <strong>Delivery Address</strong><br>
+                <span ng-if="value.billing_address.address_line1">{{value.billing_address.address_line1}}<br></span>
+                <span ng-if="value.billing_address.address_line2">{{value.billing_address.address_line2}}<br></span>
+                <span ng-if="value.billing_address.address_line3">{{value.billing_address.address_line3}}<br></span>
+                City:{{value.billing_address.city}}<br>
+                State:{{value.billing_address.state}}<br>
+                Country:{{value.billing_address.country}}<br>
+                Pin Code:{{value.billing_address.pincode}} 
+               </address>
+            <hr/>
+             <address>
+                <b>Shipping Address</b><br>
+                <span ng-if="value.shipping_address.address_line1">{{value.shipping_address.address_line1}}<br></span>
+                <span ng-if="value.shipping_address.address_line2">{{value.shipping_address.address_line2}}<br></span>
+                <span ng-if="value.shipping_address.address_line3">{{value.shipping_address.address_line3}}<br></span>
+                CITY:{{value.shipping_address.city}}<br>
+                STATE:{{value.shipping_address.state}}<br>
+                COUNTRY:{{value.shipping_address.country}}<br>
+                PIN CODE:{{value.shipping_address.pincode}} 
+               </address>
+            <hr />
+           
+            <button class="btn btn-default" style="text-decoration:none; color: #333;background-color:#fff;">&nbsp;&nbsp;&nbsp;&nbsp;DELIVER HERE&nbsp;&nbsp;&nbsp;&nbsp;</button>    
+            </div>
+        </div>
+        <hr />
+        </div>
 
-                                <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Delivery Date">5-10-2016</td>
+        <div style="margin:0 auto; text-align:center"> <button role="button" data-toggle="modal"  data-target="#myModalhelpline1" class="btn btn-sunny" style="width:30%; margin-bottom:3%;margin-top:2%;">Add New Address</button></div>
 
-                                <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Sub Total">&#x20b9; {{+shoppingCartItem.quantity * +shoppingCartItem.price}}
-                                </td>
+      </div>
 
-                                <td class="col-sm-2 col-md-2 col-lg-2" data-title="Remove">
-                                    <a ng-click="removeFromCart(shoppingCartItem.product_id, checkOutType)"><i class="fa fa-times-circle" style="font-size: 24px;color:#D41600;cursor: pointer;">&nbsp;&nbsp;&nbsp;</i></a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            
-            <!--Order Summary ends-->
 
-            <!--Grand total-->
+    <div class="col-md-12" style="box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;">
+
+        <div class="ribbon">
+         <h3>3.ORDER SUMMARY</h3>
+        </div>  
+
+     <div class="col-md-12">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        
+                    </th>
+                    <th>
+                        Item/Store
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Unit Price
+                    </th>
+                    <th>
+                        DELIVERY DATE
+                    </th>
+                    <th>
+                        SUB TOTAL
+                    </th>
+                    <th>
+                        Remove
+                    </th>
+                </tr>
+            </thead>
+
+
+            <tbody ng-repeat="shoppingCartStore in shoppingCartItems" ng-if="shoppingCartStore.storeId == storeId">
+                <tr ng-repeat="shoppingCartItem in shoppingCartStore.products">
+                    <td>
+                        {{$index+1}}
+                    </td>
+                    <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="">
+                        <a href="#store/products/{{shoppingCartItem.product_id}}">
+                            <img
+                                ng-src="{{imageUrl}}image/show/{{shoppingCartItem.image.image.large_image_url}}/175"
+                                class="img-responsive img-thumbnail"
+                                alt="{{shoppingCartItem.title}}"/>
+                        </a>
+                    </td>
+                    <td class="col-sm-2 col-md-2 col-lg-2" data-title="Product Name">
+                        <label>Store Title</label><br>
+                        <a style="text-decoration: none" href="#store/products/{{shoppingCartItem.product_id}}">
+                            <span style="font-weight: 600; color: #692668;">{{shoppingCartItem.title}}</span>
+                        </a>
+                        <p class="variants" ng-if="shoppingCartItem.variants.color">Color : 
+                        <a class="btn" style="width: 22px; height: 22px; margin-right: 5px"
+                           href="javascript:void(0)"
+                           ng-style="{backgroundColor: shoppingCartItem.variants.color}" >
+                        </a>
+                        </p>
+                        <p class="variants" ng-if="shoppingCartItem.variants.size">Size : {{shoppingCartItem.variants.size}}</p>
+                        <p class="variants" ng-if="shoppingCartItem.variants.volume">Volume : {{shoppingCartItem.variants.volume}}</p>
+                        <p class="variants" ng-if="shoppingCartItem.variants.weight">Weight : {{shoppingCartItem.variants.weight}}</p>
+                    </td>
+                    <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Quantity">
+                        <div fs-counter value="shoppingCartItem.quantity"
+                             data-min="1"
+                             data-max="20"
+                             data-step="1"
+                             data-width="130px"
+                             data-editable="false"
+                             style="margin-top: 5px"></div>
+                    </td>
+                    
+                    <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Price">{{shoppingCartItem.price}}</td>
+
+                    <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Delivery Date">5-10-2016</td>
+
+                    <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Sub Total">&#x20b9; {{+shoppingCartItem.quantity * +shoppingCartItem.price}}
+                    </td>
+
+                    <td class="col-sm-2 col-md-2 col-lg-2" data-title="Remove">
+                        <a ng-click="removeFromCart(shoppingCartItem.product_id, checkOutType)"><i class="fa fa-times-circle" style="font-size: 24px;color:#D41600;cursor: pointer;">&nbsp;&nbsp;&nbsp;</i></a>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
             <div class="col-md-12 col-xs-12">
                <!--  <div class="col-md-4">
                     <a href="#store/browse"  ng-show="checkOutType" class="btn btn-primary btn-block" style="margin-top:10px;margin-bottom:10px;">CONTINUE SHOPPING</a>
                 </div> -->
                 <div class="col-md-4">
-                    <a href="" class="btn btn-primary btn-block" ng-click="submitOrder()" style="margin-top:10px;margin-bottom:10px;">CONTINUE</a>
+                    <a href="" class="btn btn-primary btn-block" ng-click="submitOrder(checkOutType)" style="margin-top:10px;margin-bottom:10px;">CONTINUE</a>
                 </div>
                 <div class="col-md-4 text-right pull-right" style="color: #e50880;">
-                    <h4>Amount Payable : <b style="color:#57C5A0;">&#x20b9; {{total_price}}</b></h4>
+                    <h4>Amount Payable : <b style="color:#57C5A0;">&#x20b9; {{totalPrice}}</b></h4>
                 </div>
             </div>
-            </div>
+
+    </div>
+
+    </div>
+
+    </div>
+
+
+    <div class="col-md-12" style="box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;"  ng-show="PaymentOptions">
+
+        <div class="ribbon">
+          <h3>4.PAYMENT METHOD</h3>
+        </div> 
+
+        <div class="col-md-12 col-xs-12 no-padding" style="margin-bottom: 10px;" ng-include='"partials/payment/allPayment.html"'>
         </div>
-            <!--Grand Total ends-->
 
-            <!--Payment Method-->
-            <div class="" ng-show="PaymentOptions">
-                <div class="col-sm-12 col-xs-12 no-padding">
-                    <h4 style="padding: 10px 5px; background: #57C5A0; color: #ffffff;">4. PAYMENT METHOD</h4>
-                </div>
+    </div>
 
-                <div class="col-md-12 col-xs-12 no-padding" style="margin-bottom: 10px;" ng-include='"partials/payment/allPayment.html"'>
+    </div> 
 
-                </div>
-                
-            </div>
-</div>
-</div>
+    </div>
+
+
+    <script>
+    $(document).ready(function(){
+
+        $("#new_add").hide();
+
+        $("#chag_add").click(function(){
+           $("#new_add").show();
+       });
+    });
+    </script>
+
+    <script>
+
+    function resetTabs(){
+        $("#content > div").hide(); //Hide all content
+        $("#tabs a").attr("id",""); //Reset id's      
+    }
+
+    var myUrl = window.location.href; //get URL
+    var myUrlTab = myUrl.substring(myUrl.indexOf("#")); // For localhost/tabs.html#tab2, myUrlTab = #tab2     
+    var myUrlTabName = myUrlTab.substring(0,4); // For the above example, myUrlTabName = #tab
+
+    (function(){
+        $("#content > div").hide(); // Initially hide all content
+        $("#tabs li:first a").attr("id","current"); // Activate first tab
+        $("#content > div:first").fadeIn(); // Show first tab content
+        
+        $("#tabs a").on("click",function(e) {
+            e.preventDefault();
+            if ($(this).attr("id") == "current"){ //detection for current tab
+               return       
+           }
+           else{             
+            resetTabs();
+            $(this).attr("id","current"); // Activate this
+            $($(this).attr('name')).fadeIn(); // Show content for current tab
+          }
+        });
+
+            for (i = 1; i <= $("#tabs li").length; i++) {
+              if (myUrlTab == myUrlTabName + i) {
+                  resetTabs();
+                  $("a[name='"+myUrlTab+"']").attr("id","current"); // Activate url tab
+                  $(myUrlTab).fadeIn(); // Show url tab content        
+              }
+          }
+      })()
+   </script>
+   <script>
+      $(document).ready(function() {
+        $('.collapse').on('show.bs.collapse', function() {
+            var id = $(this).attr('id');
+            $('a[href="#' + id + '"]').closest('.panel-heading').addClass('active-faq');
+            $('a[href="#' + id + '"] .panel-title span').html('<i class="glyphicon glyphicon-minus"></i>');
+        });
+        $('.collapse').on('hide.bs.collapse', function() {
+            var id = $(this).attr('id');
+            $('a[href="#' + id + '"]').closest('.panel-heading').removeClass('active-faq');
+            $('a[href="#' + id + '"] .panel-title span').html('<i class="glyphicon glyphicon-plus"></i>');
+        });
+      });
+   </script>
+
+

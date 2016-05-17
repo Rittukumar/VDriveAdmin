@@ -80,6 +80,12 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('admin/{admin_id}/{screen_id}/getscreenfields', 'ScreenController@getScreenField');
     Route::post('admin/{admin_id}/saveScreenFields', 'ScreenController@saveScreenFields');
 
+    //categories and subcategories
+    Route::get('admin/{admin_id}/categories', 'MasterController@getAllCategories');
+    Route::get('admin/{admin_id}/{category_id}/subcategorybyId', 'MasterController@getsubCategoryById');
+    Route::get('admin/{admin_id}/{category_id}/deletecategory', 'MasterController@deleteCategory');
+    Route::get('admin/{admin_id}/{subcategory_id}/deletesubcategory', 'MasterController@deleteSubCategory');
+
     // Eveplace promotion section
     Route::get('evezplace/{section_id}/promotion', 'AdminEvezplacePromotionController@index');
     Route::post('admins/{user_id}/evezplace/{section_id}/promotion', 'AdminEvezplacePromotionController@store');
@@ -137,6 +143,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('users/{user_id}/invites', 'UsersController@inviteHistory');
     Route::post('users/checkforPasswordField', 'UsersController@checkforPasswordField');
     Route::get('users/{user_id}/getUserProfileCount', 'UsersController@getUserProfileCount');
+    Route::get('users/{user_id}/getUserDetails', 'UsersController@getUserDetails');
     
     // User details routes
     Route::get('users/{user_id}/personal_info', 'UserDetailsController@getPersonalInfo');

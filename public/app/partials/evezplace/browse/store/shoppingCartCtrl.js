@@ -207,23 +207,29 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
     $scope.getUserDetails = function ($userId) {
         
-        $http.get(PATHS.api_url +  'users/' + $userId)
-            .success(function(data){
-                $scope.orderData.buyer.email = data.data.email;
-                $scope.orderData.buyer.name = data.data.firstname + data.data.lastname;
-                $scope.orderData.buyer.phone = data.data.phone;
+        $http.get(PATHS.api_url +  'users/' + $userId + '/getUserDetails')
+            .success(function(data){console.log('data.userDetails');
+                $scope.userDetails       = data.userDetails;
+                $scope.orderData.address = data.address;
+                console.log(data.userDetails); console.log(data.address);
+                
 
-                $scope.orderData.billing_address.addressLine1 = data.data.street_address;
-                $scope.orderData.billing_address.city = data.data.city;
-                $scope.orderData.billing_address.state = data.data.state;
-                $scope.orderData.billing_address.country = data.data.country;
-                $scope.orderData.billing_address.pincode = data.data.pincode;
+                $scope.orderData.buyer.email = data.userDetails.email;
+                $scope.orderData.buyer.name  = data.userDetails.profile.firstname +' '+ data.userDetails.profile.lastname;
+                $scope.orderData.buyer.phone = data.userDetails.profile.phone;
+                
 
-                $scope.orderData.shipping_address.addressLine1 = data.data.street_address;
-                $scope.orderData.shipping_address.city = data.data.city;
-                $scope.orderData.shipping_address.state = data.data.state;
-                $scope.orderData.shipping_address.country = data.data.country;
-                $scope.orderData.shipping_address.pincode = data.data.pincode;
+                // $scope.orderData.billing_address.addressLine1 = data.data.street_address;
+                // $scope.orderData.billing_address.city = data.data.city;
+                // $scope.orderData.billing_address.state = data.data.state;
+                // $scope.orderData.billing_address.country = data.data.country;
+                // $scope.orderData.billing_address.pincode = data.data.pincode;
+
+                // $scope.orderData.shipping_address.addressLine1 = data.data.street_address;
+                // $scope.orderData.shipping_address.city = data.data.city;
+                // $scope.orderData.shipping_address.state = data.data.state;
+                // $scope.orderData.shipping_address.country = data.data.country;
+                // $scope.orderData.shipping_address.pincode = data.data.pincode;
 
             })
             .error(function(err){

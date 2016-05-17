@@ -76,4 +76,14 @@ class User extends Eloquent implements ConfideUserInterface, BillableInterface {
 	{
 		return $this->belongsToMany('Role','assigned_roles');
 	}
+
+	public function billing_address()
+	{
+		return $this->hasMany('OrderBillingAddress', 'user_id', 'id');
+	}
+
+	public function shipping_address()
+	{
+		return $this->hasMany('OrderShippingAddress', 'user_id', 'id');
+	}
 }
