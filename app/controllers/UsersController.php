@@ -1006,4 +1006,47 @@ class UsersController extends AppController
     }
 
 
+
+    public function getUserDetails($userId){
+
+        try{
+
+             $user    = User::with('profile','billing_address','shipping_address')->find($userId);
+
+             $address = $this->getAddress($user->billing_address, $user->shipping_address); 
+
+             $successResponse = [
+                 'status' => true,
+                 'userDetails' => $user,
+                 'address'     => $address
+             ];
+
+             return $this->setStatusCode(200)->respond($successResponse);
+
+        }catch(Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+        }
+
+    }
+
+
+    public function getAddress($billing_address, $shipping_address)
+    {
+       $address = [];
+
+       if(!$billing_address->isEmpty() && !$shipping_address->isEmpty()){
+           foreach ($billing_address as $key => $value) {
+
+             $newarray[$key]['billing_address']  = $value;
+             $newarray[$key]['shipping_address'] = $shipping_address[$key];
+              
+           }
+       }
+
+       return $newarray;
+
+    }
+
+
 }
