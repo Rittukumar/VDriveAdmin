@@ -23,7 +23,7 @@
                 <label>Your Target Audience (send to)</label>
             </div>
             <div class="col-md-4">
-                <label>Your Personal Circles</label>
+                <label>Select Visibility</label>
             </div>
         </div>
     </div>
@@ -34,13 +34,8 @@
         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
             <div class="form-group">
                 <div class="col-md-offset-6 col-md-4">
-                    <input type="checkbox"
-                           id="isMyEves"
-                           name="isMyEves"
-                           ng-model="addClassified.step3.is_my_eves"
-                           ng-checked="addClassified.step3.is_my_eves"
-                           style="width: 16px; height: 16px"> <label
-                        for="isMyEves">My Friends</label>
+                  <input type="radio" ng-model="addClassified.step3.visibility" value="1" ng-click="HideCircles()">
+                  <label for="All">All</label>
                 </div>
             </div>
         </div>
@@ -48,15 +43,16 @@
         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
             <div class="form-group">
                 <div class="col-md-offset-6 col-md-4">
-                    <input type="checkbox"
-                           id="isMyCircles"
-                           name="isMyCircles"
-                           value="isMyCircles"
-                           ng-model="addClassified.step3.is_my_circles"
-                           ng-checked="addClassified.step3.is_my_circles"
-                           style="width: 16px; height: 16px">
-                    <label
-                            for="isMyCircles">My Circles</label>
+                  <input type="radio" ng-model="addClassified.step3.visibility" value="2" ng-click="getCircles()">
+                    <label for="Circles">Circles</label>
+                </div>
+
+                <div class="col-md-offset-4 col-md-4 no-padding" ng-show="Showcircles">
+                    
+                    <div class="col-md-offset-7 col-md-4 no-padding">
+                        <select class="form-control" ng-model="addClassified.step3.SelectedCircle" ng-options="circle as circle.title for circle in Circles">
+                        </select>
+                    </div>   
                 </div>
             </div>
         </div>
@@ -64,49 +60,17 @@
         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
             <div class="form-group">
                 <div class="col-md-offset-6 col-md-4">
-                    <input type="checkbox"
-                           id="isOnlyMe"
-                           name="isOnlyMe"
-                           value="isOnlyMe"
-                           ng-model="addClassified.step3.is_only_me"
-                           ng-checked="addClassified.step3.is_only_me"
-                           style="width: 16px; height: 16px"> <label
-                        for="isOnlyMe">Only Me</label>
+                  <input type="radio" ng-model="addClassified.step3.visibility" value="3" ng-click="HideCircles()">
+                  <label for="Friends">Friends</label>
                 </div>
             </div>
         </div>
 
-        <!-- <div class="row" style="margin-top: 20px; margin-bottom: 10px">
-            <div class="form-group">
-                <div class="col-md-offset-6 col-md-2">
-                    <input type="checkbox"
-                           id="isReccoItChannel"
-                           name="isReccoItChannel"
-                           value="isReccoItChannel"
-                           ng-model="addClassified.step3.is_recco_it_channel"
-                           ng-checked="addClassified.step3.is_recco_it_channel"
-                           style="width: 16px; height: 16px">
-                    <label
-                            for="isReccoItChannel">Recco It Channel</label>
-                </div>
-                <div class="col-md-2">
-                    <a href="" class="btn btn-primary btn-sm btn-block">Subscribe to Recco It</a>
-                </div>
-            </div>
-        </div> -->
-
         <div class="row" style="margin-top: 10px; margin-bottom: 10px">
             <div class="form-group">
                 <div class="col-md-offset-6 col-md-4">
-                    <input type="checkbox"
-                           id="isOpenToPublic"
-                           name="isOpenToPublic"
-                           value="isOpenToPublic"
-                           ng-model="addClassified.step3.is_open_to_public"
-                           ng-checked="addClassified.step3.is_open_to_public"
-                           style="width: 16px; height: 16px">
-                    <label
-                            for="isOpenToPublic">Open to Public</label>
+                  <input type="radio" ng-model="addClassified.step3.visibility" value="4" ng-click="HideCircles()">
+                  <label for="me">Me</label>
                 </div>
             </div>
         </div>

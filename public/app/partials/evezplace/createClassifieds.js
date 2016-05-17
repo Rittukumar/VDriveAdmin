@@ -25,7 +25,6 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
 
     $scope.addClassified.classifiedDateRange = {startDate: new Date(), endDate: new Date()};
 
-
     $scope.addClassified.id = $cookieStore.get('createClassifiedId') == undefined
         ? 0 : $cookieStore.get('createClassifiedId');
 
@@ -251,16 +250,65 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
         }
     }
 
-    /* Save create classified step 2 */
+    /* Save create classified step 3 */
     $scope.saveClassifiedsStep3 = function () {
-        usSpinnerService.spin('spinner-1');
-        ClassifiedsService.saveClassifiedsStep3($scope.addClassified.step3, $scope.loggedInUserId).then(function (data) {
+
+        $scope.IsCreateClassified = false;
+
+        if($scope.addClassified.step3.visibility == undefined)
+        {
+            toastr.error("Please select Visibility",'Target Audiance');
+        }
+        else if($scope.addClassified.step3.visibility == "2")
+        {
+            if($scope.addClassified.step3.SelectedCircle == undefined)
+            {
+                toastr.error("Please select a circle",'Target Audiance');
+            }
+            else
+            {
+                $scope.IsCreateClassified = true;
+            }
+        }
+        else if($scope.addClassified.step3.visibility == "1" || $scope.addClassified.step3.visibility == "3" || $scope.addClassified.step3.visibility == "4")
+        {
+            $scope.IsCreateClassified = true;
+        }
+        
+        //create classified
+        if($scope.IsCreateClassified)
+        {
+            usSpinnerService.spin('spinner-1');
+            ClassifiedsService.saveClassifiedsStep3($scope.addClassified.step3, $scope.loggedInUserId).then(function (data) {
             usSpinnerService.stop('spinner-1');
             toastr.success(data.message, 'Create Ads & Campaigns');
             $cookieStore.remove('createClassifiedId');
             $location.path('classifieds/create/success');
+            });
+        }
+  
+    }
 
+
+    //get circles created by user
+    $scope.Showcircles = false;
+    $scope.getCircles = function()
+    {
+        $scope.loggedInUserId = $cookieStore.get('userId');
+        $http.get(PATHS.api_url + 'users/'+$scope.loggedInUserId+'/circles').
+        success(function (data, status, headers, config)
+        {
+            $scope.Showcircles = true;
+            $scope.Circles = data.data;
+        }).error(function (data)
+        {
+            console.log(data);
         });
+    }
+
+    $scope.HideCircles = function()
+    {
+        $scope.Showcircles = false;
     }
 
     $scope.trustSrc = function (src) {

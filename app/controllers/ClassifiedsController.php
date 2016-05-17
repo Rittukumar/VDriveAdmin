@@ -587,7 +587,13 @@ class ClassifiedsController extends AppController
     {
         try {
             $input_array = Input::all();
-
+            $Visibility_id = $input_array['visibility'];
+            if($Visibility_id == 2 && isset($input_array['SelectedCircle']['id']))
+            {
+               $Circle_id = $input_array['SelectedCircle']['id'];
+            }else{
+               $Circle_id = null;
+            }
             $classifiedId = $input_array['classifiedId'];
             $isMyEves = $input_array['is_my_eves'];
             $isMyCircles = $input_array['is_my_circles'];
@@ -634,6 +640,8 @@ class ClassifiedsController extends AppController
             $classified->is_sends_analytics = $isSendsAnalytics;
             $classified->is_gradeit_analytics = $isGradeitAnalytics;
             $classified->is_visibility_summary_analytics = $isVisibilitySummaryAnalytics;
+            $classified->visibility_id = $Visibility_id;
+            $classified->circle_id = $Circle_id;
 
             $classified->save();
 
