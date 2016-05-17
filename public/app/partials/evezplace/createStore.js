@@ -62,6 +62,7 @@ evezownApp
 
         $scope.storeSubscription = [];
         $scope.selectedSubscription = null;
+        $scope.Showcircles = false;
 
         $scope.classifiedImages = [];
         $scope.ShowPayment = false;
@@ -157,6 +158,25 @@ evezownApp
 
         $scope.SetStoreSubscription = function (sub) {
             $scope.selectedSubscription = sub;
+        }
+
+        //get circles created by user
+        $scope.getCircles = function()
+        {
+            $http.get(PATHS.api_url + 'users/'+$scope.loggedInUserId+'/circles').
+            success(function (data, status, headers, config)
+            {
+                $scope.Showcircles = true;
+                $scope.Circles = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+
+        $scope.HideCircles = function()
+        {
+            $scope.Showcircles = false;
         }
 
         $scope.SaveStoreStep1 = function (formData, owners) {
@@ -821,6 +841,8 @@ evezownApp
 
         $scope.SaveStoreStep6 = function (formData) {
             
+            $scope.IsValidatedStep6 = false;
+
             if($cookieStore.get('IsStep2')== null){
                toastr.error('Please complete step2 and save', 'Store');
                $location.path('/store/create/step2');
@@ -839,7 +861,29 @@ evezownApp
             else if (!formData.free) {
                 toastr.error('Please Choose Stream -it subscription', 'Store');
             }
-            else {
+            else if (!formData.visibility)
+            {
+                toastr.error('Please select Stream In & Stream Out visibility', 'Store');
+            }
+            else if (formData.visibility == "2")
+            {
+                if(formData.SelectedCircle == undefined || formData.SelectedCircle == "")
+                {
+                    toastr.error("Please select a circle",'Stream In & Stream Out');
+                }
+                else
+                {
+                    $scope.IsValidatedStep6 = true;
+                }
+            }
+            else if(formData.visibility == "1" || formData.visibility == "3" || formData.visibility == "4")
+            {
+                $scope.IsValidatedStep6 = true;
+                formData.SelectedCircle = "";
+            }
+
+            if($scope.IsValidatedStep6)
+            {
                 $http.post(PATHS.api_url + 'users/store/step6/' + $scope.loggedInUserId + '/add'
                     , {
                         data: {
@@ -850,12 +894,13 @@ evezownApp
                             twitterLink: $scope.twitterLink,
                             linkedinLink: $scope.linkedinLink,
                             storePriceList: $scope.priceList,
-                            websiteUrl: $scope.websiteUrl
+                            websiteUrl: $scope.websiteUrl,
+                            visibility_id: formData.visibility,
+                            circle_id: formData.SelectedCircle
                         },
                         headers: {'Content-Type': 'application/json'}
                     }).
                 success(function (data, status, headers, config) {
-                    //
                     toastr.success(data.message, 'Store');
                     $location.path('/store/create/success');
                 }).error(function (data) {
@@ -1626,7 +1671,7 @@ evezownApp
                     $scope.Subscription_type = $scope.currentStore[0].store_subscription_id;
 
                     //For UI Div Alignments
-                    if($scope.Subscription_type == 1)
+                    if($scope.Subscription_type == 1 && $scope.Subscription_offer.length > 0)
                     {
                         $scope.StoreDetailsDiv = "col-md-offset-3";
                     }
