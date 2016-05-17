@@ -29,7 +29,7 @@ evezownApp.controller('searchController', function ($scope, FileUploader, PATHS,
     {
        if($scope.search_title == undefined || $scope.search_title == "")
        {
-           toastr.error('Please enter a search key', 'Stream It');
+           toastr.error('Please enter a search keyword', 'Stream It');
        }
        else
        {

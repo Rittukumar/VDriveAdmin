@@ -78,7 +78,7 @@ evezownApp
 
 evezownApp.controller('classifiedProfileCtrl', function ($scope, usSpinnerService, ClassifiedsService, PATHS,$cookieStore,$routeParams) {
 
-    $scope.browseItems = [];
+    //$scope.browseItems = [];
     $scope.loggedInUserId = $cookieStore.get('userId');
     $scope.currentUserId = $routeParams.id;
     $scope.ImageUrlPath = PATHS.api_url + 'image/show/';
@@ -87,12 +87,14 @@ evezownApp.controller('classifiedProfileCtrl', function ($scope, usSpinnerServic
         $scope.currentUserId = $scope.loggedInUserId;
     }
     $scope.getClassifiedsByUserId = function ()
-    {
+    {   
+        usSpinnerService.spin('spinner-1');
         ClassifiedsService.getClassifiedsByUserId($scope.currentUserId, $scope.loggedInUserId).
         then(function (data)
         {
             console.log(data);
             $scope.browseItems = data;
+            usSpinnerService.stop('spinner-1');
         });
     }
 

@@ -202,6 +202,7 @@ Route::group(array('prefix' => 'v1'), function () {
     //payment
     Route::post('payment/stripePayment', 'PaymentController@stripePayment');
     Route::post('paymentstatus/paymentstatus', 'PaymentController@payuPayment');
+    Route::post('storeSubscription/subPayment', 'PaymentController@SubscriptionPayment');
 
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');

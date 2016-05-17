@@ -26,6 +26,7 @@ evezownApp
 
         $scope.addClassified.classifiedDateRange = {startDate: new Date(), endDate: new Date()};
 
+        $scope.Showcircles = false;
 
         $scope.addClassified.id = $routeParams.id;
 
@@ -73,6 +74,36 @@ evezownApp
             });
         }
 
+        //get circles created by user
+        $scope.getCircles = function()
+        {
+            $http.get(PATHS.api_url + 'users/'+$scope.loggedInUserId+'/circles').
+            success(function (data, status, headers, config)
+            {
+                $scope.Showcircles = true;
+                $scope.Circles = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            }).then(function (data){
+                    //Get selected circle
+                    if($scope.addClassified.step3.SelectedCircleID){
+                    angular.forEach($scope.Circles, function (value, key)
+                        {
+                            if(value.id == $scope.addClassified.step3.SelectedCircleID)
+                            {
+                                $scope.addClassified.step3.SelectedCircle =  value;
+                            }
+                        });
+                    }
+                    
+            });
+        }
+
+        $scope.HideCircles = function()
+        {
+            $scope.Showcircles = false;
+        }
 
         $scope.GetCategories();
 
@@ -126,6 +157,13 @@ evezownApp
 
                 // For step 3
                 $scope.addClassified.step3 = {};
+                $scope.addClassified.step3.visibility = data.visibility_id;
+                $scope.addClassified.step3.SelectedCircleID = data.circle_id;
+                if($scope.addClassified.step3.visibility == "2")
+                {
+                    //get all circles created by user
+                    $scope.getCircles();
+                }
                 $scope.addClassified.step3.classifiedId = data.id;
                 $scope.addClassified.step3.is_my_eves = data.is_my_eves;
                 $scope.addClassified.step3.is_my_circles = data.is_my_circles;

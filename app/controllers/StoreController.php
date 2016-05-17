@@ -1275,10 +1275,25 @@ class StoreController extends AppController
         try {
             $input = Input::all();
 
-
             $input_array = $input['data'];
 
             $storeId = $input_array['StoreId'];
+
+            /*Save/Update visibility*/
+            $Visibility_id = $input_array['visibility_id'];
+            if($Visibility_id == 2 && isset($input_array['circle_id']['id']))
+            {
+               $Circle_id = $input_array['circle_id']['id'];
+            }else{
+               $Circle_id = null;
+            }
+
+            $storeVisibility = Store::find($storeId);
+            $storeVisibility->visibility_id = $Visibility_id;
+            $storeVisibility->circle_id = $Circle_id;
+            $storeVisibility->save();
+            /*Save/Update visibility ends*/
+
             $linkPersonalProfileToStore = $input_array['linkPersonalProfileToStore'];
             $reccoSub = $input_array['reccoSub'];
             $facebookLink = $input_array['facebookLink'];
@@ -1327,7 +1342,8 @@ class StoreController extends AppController
 
         } catch (Exception $e) {
 
-            return $this->setStatusCode(500)->respondWithError($e);
+            //return $this->setStatusCode(500)->respondWithError($e);
+            return $e;
         }
     }
 
@@ -2149,6 +2165,12 @@ class StoreController extends AppController
                        
                         $query->orwhereNull('visibility_id');
                         $query->where('owner_id', $userId);
+                    })
+                    ->whereExists(function ($query) {
+                        $query->select(DB::raw(1))
+                            ->from('store_status')
+                            ->whereRaw('stores.id = store_status.store_id')
+                            ->whereRaw('store_status.status_id = 2');
                     })
                     
                     ->get();

@@ -37,7 +37,7 @@
 			$storeId = $data["zipcode"];
 		?>
 
-<?php if ($status ==  "failure") { 
+<?php if ($status ==  "success") { 
 	?>
 <div class="col-md-12 col-xs-12" style="background-color: #FFFFFF;width:90%;margin: auto;">
 	

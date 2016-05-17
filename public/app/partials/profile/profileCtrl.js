@@ -1,7 +1,7 @@
 evezownApp
 // inject the invite service into our controller
     .controller('profileCtrl', function ($scope, AuthService, ngDialog, profileService,
-                                         $http, PATHS, FileUploader, $routeParams, $cookieStore,
+                                         $http, PATHS, usSpinnerService, FileUploader, $routeParams, $cookieStore,
                                          ImageService, $rootScope, $location) {
 
         $scope.loggedInUserId = $cookieStore.get('userId');
@@ -69,21 +69,21 @@ evezownApp
             //if loggedin user then get all stores
             if($scope.loggedInUserId == $scope.currentUserId)
             {
+                usSpinnerService.spin('spinner-1');
                 $http.get(PATHS.api_url + 'stores/owner/' + $scope.currentUserId + '/get').
                 success(function (data) {
                     $scope.browseMyItems = data;
-                }).then(function () {
-
+                    usSpinnerService.stop('spinner-1');
                 });
             }
             //if visiting friends profile, show active stores only
             else
             {
+                usSpinnerService.spin('spinner-1');
                 $http.get(PATHS.api_url + 'stores/owner/guestuser/' + $scope.currentUserId +'/' + $scope.loggedInUserId + '/get').
                 success(function (data) {
                     $scope.browseMyItems = data;
-                }).then(function () {
-
+                    usSpinnerService.stop('spinner-1');
                 });
             }
             
@@ -228,6 +228,11 @@ evezownApp
                     {
                         element: '#step9',
                         intro: 'Your Feedback/suggestions for further improvements'
+                    },
+                    {
+                        element: '#step10',
+                        intro: "<div class='tour-step'><b><h3>Thankyou</h3></b>" +
+                        "</div>"
                     }
                 ],
                 showStepNumbers: false,
@@ -236,7 +241,7 @@ evezownApp
                 nextLabel: '<strong>NEXT!</strong>',
                 prevLabel: '<span style="color:green">Previous</span>',
                 skipLabel: 'Exit',
-                doneLabel: 'Thanks'
+                doneLabel: 'Exit'
             };
 
             $scope.ShouldAutoStart = false;

@@ -34,16 +34,63 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h5 style="color: #e51385; font-weight: 700; font-size: 1.2em">Stream It</h5>
+            <h5 style="color: #e51385; font-weight: 700; font-size: 1.2em">Stream In & Stream Out</h5>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-offset-2 col-md-4">
+
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-1 col-xs-1 no-padding">
+                        <input type="radio" ng-model="formData.visibility" value="1" ng-click="HideCircles()">
+                    </div>
+                    <div class="col-md-2 col-xs-11 no-padding">
+                        <label for="All">All</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-1 col-xs-1 no-padding">
+                        <input type="radio" ng-model="formData.visibility" value="2" ng-click="getCircles()">
+                    </div>
+                    <div class="col-md-2 col-xs-11 no-padding">
+                        <label for="All">Circles</label>
+                    </div>
+                    <div class="col-md-6 col-xs-12" ng-show="Showcircles">
+                        <select class="form-control" ng-model="formData.SelectedCircle" ng-options="circle as circle.title for circle in Circles">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-1 col-xs-1 no-padding">
+                        <input type="radio" ng-model="formData.visibility" value="3" ng-click="HideCircles()">
+                    </div>
+                    <div class="col-md-2 col-xs-11 no-padding">
+                        <label for="All">Friends</label>
+                    </div>
+                </div>
+
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-1 col-xs-1 no-padding">
+                        <input type="radio" ng-model="formData.visibility" value="4" ng-click="HideCircles()">
+                    </div>
+                    <div class="col-md-2 col-xs-11 no-padding">
+                        <label for="All">Me</label>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-offset-2 col-md-8">
             <p>Stream it is Evezown's advertising channel, you can promote your stores to larger audience by buying
                 Stream-it subscription. For paid store it comes in built.</p>
         </div>
-    </div>
+    </div> -->
+
 
     <div class="row" style="margin-top: 10px">
         <div class="col-md-offset-2 col-md-8">

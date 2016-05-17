@@ -2,13 +2,13 @@
 <nav class="navbar navbar-default" id="navContainer">
     <div id="navbar1">
         <ul class="nav navbar-nav">
-            <li id="step1"  data-toggle="tab" data-slide-to="0">
+            <li>
                 <a href="#mystores/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
-            <li id="step10"  data-toggle="tab" data-slide-to="9">
+            <li>
                 <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Create / Edit Profile</a>
             </li>
-            <li id="step11"  data-toggle="tab" data-slide-to="10" ng-class="{ active: isActive('/explore')}">
+            <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
                 <script type="text/ng-template" id="explore">
                     <div class="triangle"></div>
@@ -27,7 +27,7 @@
                     Explore
                 </a>
             </li>
-            <li id="step12"  data-toggle="tab" data-slide-to="11" ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
                                                                       id="search">Search&nbsp;<span
                     class="fa fa-search" id="searchIcon"></span></a>
             </li>
@@ -71,37 +71,7 @@
                 </div>
                 <!--Profession ends-->
             </div>
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="community">
-                        <h3>{{friendList.length}}</h3>
-                        <h4>Friends</h4>
-                    </div>
-
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="circles">
-                        <h3>{{myCircles.length}}</h3>
-                        <h4>Circles</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="eventCtrl">
-                        <h3>{{myEvents.length}}</h3>
-                        <h4>Events</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="blogCntrl">
-                        <h3>{{myBlogs.length}}</h3>
-                        <h4>Blogs</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="albums">
-                        <h3>{{myAlbums.length}}</h3>
-                        <h4>Gallery</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-more">
-                        <h3><i class="fa fa-circle"></i>
-                            <i class="fa fa-circle"></i>
-                            <i class="fa fa-circle"></i>
-                        </h3>
-                    </div>
-                </div>
-            </div>
+            <div class="row" ng-include='"partials/profile/userProfileCount.html"' ng-controller = "profileCtrl"></div>
         </div>
         <div class="col-md-12">
             <div class="carousel-inner"
