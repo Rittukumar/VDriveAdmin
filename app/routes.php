@@ -85,6 +85,8 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('admin/{admin_id}/{category_id}/subcategorybyId', 'MasterController@getsubCategoryById');
     Route::get('admin/{admin_id}/{category_id}/deletecategory', 'MasterController@deleteCategory');
     Route::get('admin/{admin_id}/{subcategory_id}/deletesubcategory', 'MasterController@deleteSubCategory');
+    Route::post('admin/{admin_id}/saveCategory', 'MasterController@saveCategory');
+    Route::post('admin/{admin_id}/saveSubCategory', 'MasterController@saveSubCategory');
 
     // Eveplace promotion section
     Route::get('evezplace/{section_id}/promotion', 'AdminEvezplacePromotionController@index');
@@ -144,6 +146,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('users/checkforPasswordField', 'UsersController@checkforPasswordField');
     Route::get('users/{user_id}/getUserProfileCount', 'UsersController@getUserProfileCount');
     Route::get('users/{user_id}/getUserDetails', 'UsersController@getUserDetails');
+    Route::get('buyers/{code}/getBuyerDetails', 'UsersController@getBuyerDetails');
     
     // User details routes
     Route::get('users/{user_id}/personal_info', 'UserDetailsController@getPersonalInfo');

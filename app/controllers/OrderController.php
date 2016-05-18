@@ -143,7 +143,7 @@ class OrderController extends AppController
 
             if (!$buyer) {
 
-                $code = 'Evezown-'.$this->getRandomString();
+                $code = 'EvezownBuyer-'.$this->getRandomString();
 
                 $buyer = Buyer::create([
                     'email' => $buyerEmail,
