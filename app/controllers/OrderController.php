@@ -273,29 +273,42 @@ class OrderController extends AppController
                             ];
                     return $this->setStatusCode(404)->respondWithError($errorMessage);
                 }
-                
-                $orderBillingAddress = OrderBillingAddress::create([
-                        $customerKey    => $customerValue,
-                        'address_line1' => isset($billingAddress['addressLine1']) ? $billingAddress['addressLine1'] : '',
-                        'address_line2' => isset($billingAddress['addressLine2']) ? $billingAddress['addressLine2'] : '',
-                        'address_line3' => isset($billingAddress['addressLine3']) ? $billingAddress['addressLine3'] : '',
-                        'city'          => isset($billingAddress['city']) ? $billingAddress['city'] : '',
-                        'state'         => isset($billingAddress['state']) ? $billingAddress['state'] : '',
-                        'country'       => isset($billingAddress['country']) ? $billingAddress['country'] : '',
-                        'pincode'       => isset($billingAddress['pincode']) ? $billingAddress['pincode'] : ''
-                        ]);
-                
-                
-                $orderShippingAddress = OrderShippingAddress::create([
-                        $customerKey    => $customerValue,
-                        'address_line1' => isset($shippingAddress['addressLine1']) ? $shippingAddress['addressLine1'] : '',
-                        'address_line2' => isset($shippingAddress['addressLine2']) ? $shippingAddress['addressLine2'] : '',
-                        'address_line3' => isset($shippingAddress['addressLine3']) ? $shippingAddress['addressLine3'] : '',
-                        'city'          => isset($shippingAddress['city']) ? $shippingAddress['city'] : '',
-                        'state'         => isset($shippingAddress['state']) ? $shippingAddress['state'] : '',
-                        'country'       => isset($shippingAddress['country']) ? $shippingAddress['country'] : '',
-                        'pincode'       => isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '',
-                        ]);
+
+
+                if(isset($billingAddress['id']))
+                {
+                    $orderBillingAddress = OrderBillingAddress::find($billingAddress['id']);
+                }
+                else
+                {
+                    $orderBillingAddress = new OrderBillingAddress;
+                }
+                   $orderBillingAddress->$customerKey   = $customerValue;
+                   $orderBillingAddress->address_line1  = isset($billingAddress['addressLine1']) ? $billingAddress['addressLine1'] : '';
+                   $orderBillingAddress->address_line2  = isset($billingAddress['addressLine2']) ? $billingAddress['addressLine2'] : '';
+                   $orderBillingAddress->address_line3  = isset($billingAddress['addressLine3']) ? $billingAddress['addressLine3'] : '';
+                   $orderBillingAddress->city           = isset($billingAddress['city']) ? $billingAddress['city'] : '';
+                   $orderBillingAddress->state          = isset($billingAddress['state']) ? $billingAddress['state'] : '';
+                   $orderBillingAddress->country        = isset($billingAddress['country']) ? $billingAddress['country'] : '';
+                   $orderBillingAddress->pincode        = isset($billingAddress['pincode']) ? $billingAddress['pincode'] : '';
+
+
+                if(isset($shippingAddress['id']))
+                {
+                    $orderShippingAddress = OrderBillingAddress::find($shippingAddress['id']);
+                }
+                else
+                {
+                    $orderShippingAddress = new OrderBillingAddress;
+                }
+                   $orderShippingAddress->$customerKey   = $customerValue;
+                   $orderShippingAddress->address_line1  = isset($shippingAddress['addressLine1']) ? $shippingAddress['addressLine1'] : '';
+                   $orderShippingAddress->address_line2  = isset($shippingAddress['addressLine2']) ? $shippingAddress['addressLine2'] : '';
+                   $orderShippingAddress->address_line3  = isset($shippingAddress['addressLine3']) ? $shippingAddress['addressLine3'] : '';
+                   $orderShippingAddress->city           = isset($shippingAddress['city']) ? $shippingAddress['city'] : '';
+                   $orderShippingAddress->state          = isset($shippingAddress['state']) ? $shippingAddress['state'] : '';
+                   $orderShippingAddress->country        = isset($shippingAddress['country']) ? $shippingAddress['country'] : '';
+                   $orderShippingAddress->pincode        = isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '';
                 
 
             $i = -1;
