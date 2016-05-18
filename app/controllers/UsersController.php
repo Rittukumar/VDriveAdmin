@@ -1031,6 +1031,30 @@ class UsersController extends AppController
     }
 
 
+    public function getBuyerDetails($code){
+
+        try{
+
+             $buyer   = Buyer::with('billing_address','shipping_address')->where('code',$code)->first();
+
+             $address = $this->getAddress($buyer->billing_address, $buyer->shipping_address); 
+
+             $successResponse = [
+                 'status' => true,
+                 'buyerDetails' => $buyer,
+                 'address'      => $address
+             ];
+
+             return $this->setStatusCode(200)->respond($successResponse);
+
+        }catch(Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+
+    }
+
+
     public function getAddress($billing_address, $shipping_address)
     {
        $address = [];
@@ -1038,13 +1062,13 @@ class UsersController extends AppController
        if(!$billing_address->isEmpty() && !$shipping_address->isEmpty()){
            foreach ($billing_address as $key => $value) {
 
-             $newarray[$key]['billing_address']  = $value;
-             $newarray[$key]['shipping_address'] = $shipping_address[$key];
+             $address[$key]['billing_address']  = $value;
+             $address[$key]['shipping_address'] = $shipping_address[$key];
               
            }
        }
 
-       return $newarray;
+       return $address;
 
     }
 

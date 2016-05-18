@@ -12,7 +12,12 @@ class MasterController extends AppController
 
 			$categories = Category::all();
 
-			return $categories;
+			$successResponse = [
+                 'status' => true,
+                 'categories' => $categories,
+             ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
 
 		}catch(Exception $e){
 
@@ -30,11 +35,95 @@ class MasterController extends AppController
 
 			$subcategories = SubCategory::where('category_id', '=', $categoryId)->get();
 
-			return $subcategories;
+			$successResponse = [
+                 'status' => true,
+                 'subcategories' => $subcategories,
+             ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
 
 		}catch(Exception $e){
 
 			return $this->setStatusCode(500)->respondWithError($errorMessage);
+		}
+
+	}
+
+
+	public function saveCategory()
+	{
+		try{
+
+			$all = Input::all();
+
+			$categoryId   = $all['id'];
+			$categoryName = $all['category_name'];
+			$sectionId    = $all['section_id'];
+
+			if(empty($categoryId))
+		    {
+		       $category = new \Category();
+		    }
+		    else
+		    {
+		       $category = \Category::find($categoryId);
+		    }          
+      
+		    $category -> category_name = $categoryName;
+		    $category -> section_id    = $sectionId;
+
+		    $category -> save();
+
+		    $successResponse = [
+                 'status' => true
+             ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+		}catch(Exception $e){
+
+			return $this->setStatusCode(500)->respondWithError($errorMessage);
+
+		}
+
+	}
+
+
+	public function saveSubCategory()
+	{
+
+		try{
+
+			$all = Input::all();
+
+			$subcategoryId   = $all['id'];
+			$subcategoryName = $all['subcategory_name'];
+			$categoryId      = $all['category_id'];
+
+			if(empty($subcategoryId))
+		    {
+		       $subcategory = new \SubCategory();
+		    }
+		    else
+		    {
+		       $subcategory = SubCategory::find($subcategoryId);
+		    }                       
+      
+		    $subcategory -> subcategory_name = $subcategoryName;
+		    $subcategory -> category_id      = $categoryId;
+
+		    $subcategory -> save();
+
+		    $successResponse = [
+                 'status' => true
+             ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+		}catch(Exception $e){
+
+			return $this->setStatusCode(500)->respondWithError($errorMessage);
+
 		}
 
 	}
@@ -46,6 +135,12 @@ class MasterController extends AppController
 		try{
 
 			$delete = Category::where('id', $categoryId)->delete();
+
+			$successResponse = [
+                 'status' => true
+             ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
 
 		}catch(Exception $e){
 
@@ -62,6 +157,12 @@ class MasterController extends AppController
 		try{
 
 			$delete = SubCategory::where('id', $subcategoryId)->delete();
+
+			$successResponse = [
+                 'status' => true
+             ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
 
 		}catch(Exception $e){
 
