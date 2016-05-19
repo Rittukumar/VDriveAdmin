@@ -1,7 +1,7 @@
 
                     <div class="col-md-3 col-xs-12 user-menu-btns">
                         <div class="btn-group-vertical square" id="responsive">
-                            <a ng-click="GetIndex(0)" class="btn btn-block {{currentSection0}}">
+                            <!-- <a ng-click="GetIndex(0)" class="btn btn-block {{currentSection0}}">
                                 <p style="font-size: 16px;">Cash On Delivery</p>
                             </a>
                             <a ng-click="GetIndex(1);" class="btn btn-block {{currentSection1}}">
@@ -12,21 +12,19 @@
                             </a>
                             <a ng-click="GetIndex(3);" class="btn btn-block {{currentSection3}}">
                                 <p style="font-size: 16px;">Pay Online</p>
-                            </a>
+                            </a> -->
                             <a ng-click="GetIndex(4);" class="btn btn-block {{currentSection4}}">
                                 <p style="font-size: 16px;">PayU Money</p>
                             </a>
                         </div>          
                     </div>
 
-                    <div class="col-md-6 col-xs-12" ng-show="CashOnDelivery">
-                        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                    <!-- <div class="col-md-6 col-xs-12" ng-show="CashOnDelivery">
+                        <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
                             <div class="fragment">
                                 <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
                                 <h4>You selected cash on delivery</h4>
-                                <!-- <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium ad aliquam cupiditate dicta
-                                </p> -->
+                                
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -35,13 +33,11 @@
                     </div>
 
                     <div class="col-md-6 col-xs-12" ng-show="BankPayment">
-                        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                        <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
                             <div class="fragment">
                                 <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
                                 <h4>You selected Bank Payment</h4>
-                                <!-- <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium ad aliquam cupiditate dicta
-                                </p> -->
+                                
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -70,10 +66,10 @@
 
                     <div class="col-md-6 col-xs-12" ng-show="PayOnline" ng-include='"partials/payment/stripe/stripe.html"'>
                                                     
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6 col-xs-12" ng-show="PayUmoney">
-                        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                        <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
                             <div class="fragment">
                                 <!-- <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
                                 <h4>You selected Online Payment</h4>
