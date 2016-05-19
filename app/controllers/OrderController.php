@@ -296,14 +296,15 @@ class OrderController extends AppController
                    $orderBillingAddress->country        = isset($billingAddress['country']) ? $billingAddress['country'] : '';
                    $orderBillingAddress->pincode        = isset($billingAddress['pincode']) ? $billingAddress['pincode'] : '';
 
+                   $orderBillingAddress->save();
 
                 if(isset($shippingAddress['id']))
                 {
-                    $orderShippingAddress = OrderBillingAddress::find($shippingAddress['id']);
+                    $orderShippingAddress = OrderShippingAddress::find($shippingAddress['id']);
                 }
                 else
                 {
-                    $orderShippingAddress = new OrderBillingAddress;
+                    $orderShippingAddress = new OrderShippingAddress;
                 }
                    $orderShippingAddress->$customerKey   = $customerValue;
                    $orderShippingAddress->address_line1  = isset($shippingAddress['address_line1']) ? $shippingAddress['address_line1'] : '';
@@ -313,7 +314,8 @@ class OrderController extends AppController
                    $orderShippingAddress->state          = isset($shippingAddress['state']) ? $shippingAddress['state'] : '';
                    $orderShippingAddress->country        = isset($shippingAddress['country']) ? $shippingAddress['country'] : '';
                    $orderShippingAddress->pincode        = isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '';
-                
+                   
+                   $orderShippingAddress->save();
 
             $i = -1;
 
