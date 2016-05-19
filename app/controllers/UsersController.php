@@ -999,7 +999,7 @@ class UsersController extends AppController
 
         }catch (Exception $e){
 
-            return $this->setStatusCode(500)->respondWithError($errorMessage);
+            return $this->setStatusCode(500)->respondWithError($e);
         }
 
 
@@ -1029,7 +1029,7 @@ class UsersController extends AppController
 
         }catch(Exception $e){
 
-            return $this->setStatusCode(500)->respondWithError($errorMessage);
+            return $this->setStatusCode(500)->respondWithError($e);
         }
 
     }

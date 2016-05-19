@@ -21,7 +21,7 @@ class MasterController extends AppController
 
 		}catch(Exception $e){
 
-			return $this->setStatusCode(500)->respondWithError($errorMessage);
+			return $this->setStatusCode(500)->respondWithError($e);
 
 		}
 
@@ -44,7 +44,7 @@ class MasterController extends AppController
 
 		}catch(Exception $e){
 
-			return $this->setStatusCode(500)->respondWithError($errorMessage);
+			return $this->setStatusCode(500)->respondWithError($e);
 		}
 
 	}
@@ -82,7 +82,7 @@ class MasterController extends AppController
 
 		}catch(Exception $e){
 
-			return $this->setStatusCode(500)->respondWithError($errorMessage);
+			return $this->setStatusCode(500)->respondWithError($e);
 
 		}
 
@@ -122,7 +122,7 @@ class MasterController extends AppController
 
 		}catch(Exception $e){
 
-			return $this->setStatusCode(500)->respondWithError($errorMessage);
+			return $this->setStatusCode(500)->respondWithError($e);
 
 		}
 
@@ -144,7 +144,7 @@ class MasterController extends AppController
 
 		}catch(Exception $e){
 
-			return $this->setStatusCode(500)->respondWithError($errorMessage);
+			return $this->setStatusCode(500)->respondWithError($e);
 
 		}
 
@@ -166,7 +166,7 @@ class MasterController extends AppController
 
 		}catch(Exception $e){
 
-			return $this->setStatusCode(500)->respondWithError($errorMessage);
+			return $this->setStatusCode(500)->respondWithError($e);
 
 		}
 
