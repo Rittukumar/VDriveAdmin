@@ -656,7 +656,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         //$scope.currentIndex = index;
     }
 
-    $scope.GetIndex(0);
+    $scope.GetIndex(4);
 
 
     $scope.SubmitPayment= function(src) { 
