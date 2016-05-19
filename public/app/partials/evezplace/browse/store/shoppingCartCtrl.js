@@ -253,6 +253,12 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
       $scope.getUserDetails($scope.loggedInUser);
     }
 
+    $scope.EditContactDetails = function()
+    {
+        $scope.ContactEdit = true;
+        $scope.BuyerBlock = false;
+    }
+
     $scope.CreateNewbuyer = function()
     {
         $scope.Newbuyer = true;
