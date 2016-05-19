@@ -1013,7 +1013,7 @@ class UsersController extends AppController
 
              $user    = User::with('profile','billing_address','shipping_address')->find($userId);
 
-             if (!$buyer) {
+             if (!$user) {
                 return $this->responseNotFound('User Not Found!');
             }
 

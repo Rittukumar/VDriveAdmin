@@ -288,32 +288,34 @@ class OrderController extends AppController
                     $orderBillingAddress = new OrderBillingAddress;
                 }
                    $orderBillingAddress->$customerKey   = $customerValue;
-                   $orderBillingAddress->address_line1  = isset($billingAddress['addressLine1']) ? $billingAddress['addressLine1'] : '';
-                   $orderBillingAddress->address_line2  = isset($billingAddress['addressLine2']) ? $billingAddress['addressLine2'] : '';
-                   $orderBillingAddress->address_line3  = isset($billingAddress['addressLine3']) ? $billingAddress['addressLine3'] : '';
+                   $orderBillingAddress->address_line1  = isset($billingAddress['address_line1']) ? $billingAddress['address_line1'] : '';
+                   $orderBillingAddress->address_line2  = isset($billingAddress['address_line2']) ? $billingAddress['address_line2'] : '';
+                   $orderBillingAddress->address_line3  = isset($billingAddress['address_line3']) ? $billingAddress['address_line3'] : '';
                    $orderBillingAddress->city           = isset($billingAddress['city']) ? $billingAddress['city'] : '';
                    $orderBillingAddress->state          = isset($billingAddress['state']) ? $billingAddress['state'] : '';
                    $orderBillingAddress->country        = isset($billingAddress['country']) ? $billingAddress['country'] : '';
                    $orderBillingAddress->pincode        = isset($billingAddress['pincode']) ? $billingAddress['pincode'] : '';
 
+                   $orderBillingAddress->save();
 
                 if(isset($shippingAddress['id']))
                 {
-                    $orderShippingAddress = OrderBillingAddress::find($shippingAddress['id']);
+                    $orderShippingAddress = OrderShippingAddress::find($shippingAddress['id']);
                 }
                 else
                 {
-                    $orderShippingAddress = new OrderBillingAddress;
+                    $orderShippingAddress = new OrderShippingAddress;
                 }
                    $orderShippingAddress->$customerKey   = $customerValue;
-                   $orderShippingAddress->address_line1  = isset($shippingAddress['addressLine1']) ? $shippingAddress['addressLine1'] : '';
-                   $orderShippingAddress->address_line2  = isset($shippingAddress['addressLine2']) ? $shippingAddress['addressLine2'] : '';
-                   $orderShippingAddress->address_line3  = isset($shippingAddress['addressLine3']) ? $shippingAddress['addressLine3'] : '';
+                   $orderShippingAddress->address_line1  = isset($shippingAddress['address_line1']) ? $shippingAddress['address_line1'] : '';
+                   $orderShippingAddress->address_line2  = isset($shippingAddress['address_line2']) ? $shippingAddress['address_line2'] : '';
+                   $orderShippingAddress->address_line3  = isset($shippingAddress['address_line3']) ? $shippingAddress['address_line3'] : '';
                    $orderShippingAddress->city           = isset($shippingAddress['city']) ? $shippingAddress['city'] : '';
                    $orderShippingAddress->state          = isset($shippingAddress['state']) ? $shippingAddress['state'] : '';
                    $orderShippingAddress->country        = isset($shippingAddress['country']) ? $shippingAddress['country'] : '';
                    $orderShippingAddress->pincode        = isset($shippingAddress['pincode']) ? $shippingAddress['pincode'] : '';
-                
+                   
+                   $orderShippingAddress->save();
 
             $i = -1;
 

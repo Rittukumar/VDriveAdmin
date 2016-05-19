@@ -165,6 +165,27 @@
     top: 0;
 }
 
+/*Select an address using a radio button(hidden)*/
+.radio-toolbar input[type="radio"] {
+    display:none; 
+}
+
+.radio-toolbar label {
+    display:inline-block;
+    border:1px solid #16b594;
+    padding:4px 11px;
+    font-family:Arial;
+    font-size:16px;
+    font-weight:normal;
+    cursor:pointer;
+}
+
+.radio-toolbar input[type="radio"]:checked + label { 
+    background-color:#16b594;
+    color:#FFFFFF;
+}
+/*Select an address using a radio button(hidden)*/
+
 /* ------------------------------------------------- */
 #content{
     width:100%;
@@ -360,14 +381,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;
 
         <div class="ribbon">
           <h3>1.CONTACT INFO</h3>
-        </div> 
+        </div>
 
-       <div class="col-md-12 col-xs-12" ng-show="!EmailEdit">
+        <div class="col-md-12 col-xs-12" ng-show="!ContactEdit">
             <div class="col-md-4 col-xs-4">
                 <p>Name</p>
                 <p>Email</p>
                 <p>Phone</p>
-                <!-- <p>BuyerCode</p> -->
+                <!-- <p>BuyerCode</p>ng-show="!ContactEdit && orderData.buyer.phone == 'null'" -->
             </div>
             <div class="col-md-4 col-xs-4">
                 <p>{{orderData.buyer.name}}</p>
@@ -376,15 +397,15 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;
                <!--  <input type="text" ng-model="orderData.buyer.code" placeholder="BuyerCode(Optional)" class="col-md-8 col-xs-12"/> -->
             </div>
             <div class="col-md-4 col-xs-12">
-                <a href="" ng-click="EmailEdit=true"  class="btn btn-sunny" style="text-decoration:none; color: burlywood;" >&nbsp; &nbsp;CHANGE DETAILS&nbsp; &nbsp;</a>
+                <a href="" ng-click="ContactEdit=true"  class="btn btn-sunny" style="text-decoration:none; color: burlywood;" >&nbsp; &nbsp;CHANGE DETAILS&nbsp; &nbsp;</a>
             </div>
         </div>
-        <div class="col-md-12 col-xs-12" ng-show="EmailEdit">
+
+        <div class="col-md-12 col-xs-12" ng-show="ContactEdit && !BuyerBlock">
             <div class="col-md-4 col-xs-4">
                 <h4>Name</h4>
                 <h4>Email</h4>
                 <h4>Phone</h4>
-                <h4 ng-if="!loggedInUser">BuyerCode</h4>
             </div>
             <div class="col-md-8 col-xs-8" style="margin-top: 5px">
                 <input type="text"  ng-model="orderData.buyer.name" placeholder="Name" class="col-md-6 col-xs-12" required/>
@@ -395,8 +416,43 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;
             <div class="col-md-8 col-xs-8" style="margin-top: 5px">
                 <input type="number" minlength="6" maxlength="13" ng-model="orderData.buyer.phone" placeholder="Phone" class="col-md-6 col-xs-12" required/>
             </div>
-            <div class="col-md-8 col-xs-8" style="margin-top: 5px">
-                <input ng-if="!loggedInUser"  type="text" ng-model="orderData.buyer.code" placeholder="BuyerCode(Optional)" class="col-md-6 col-xs-12"/>
+        </div>
+
+        <div class="col-md-12 col-xs-12" ng-show="!loggedInUser && BuyerBlock">
+            
+            <div ng-show="!Newbuyer">
+                <div class="col-md-4 col-xs-6">
+                    <h4>BuyerCode</h4>
+                </div>
+                <div class="col-md-2 col-xs-6" style="margin-top: 5px">
+                    <input class="form-control" type="text" ng-model="orderData.buyer.code" placeholder="BuyerCode"/>
+                </div>
+                <div class="col-md-2 col-xs-12">
+                    <a href="" class="btn btn-default" ng-click="GetBuyerCode(orderData.buyer.code)" style="border:1px solid #16b594;margin-top:4px;margin-bottom:10px;">Submit</a>
+                </div>
+                <div class="col-md-2 col-xs-12 col-md-offset-2">
+                    <a href="" class="btn btn-default" ng-click="CreateNewbuyer()" style="border:1px solid #16b594;margin-top:4px;margin-bottom:10px;">New Buyer?</a>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12" ng-show="Newbuyer">
+                <div class="col-md-12 col-xs-12 text-right">
+                    <a href="" class="col-md-2 col-md-offset-10 btn btn-default" ng-click="BacktoBuyerCode()" style="border:1px solid #16b594;margin-top:4px;margin-bottom:10px;">Have Buyer Code?</a>
+                </div>
+                <div class="col-md-4 col-xs-4">
+                    <h4>Name</h4>
+                    <h4>Email</h4>
+                    <h4>Phone</h4>
+                </div>
+                <div class="col-md-8 col-xs-8" style="margin-top: 5px">
+                    <input type="text"  ng-model="orderData.buyer.name" placeholder="Name" class="col-md-6 col-xs-12" required/>
+                </div>
+                <div class="col-md-8 col-xs-8" style="margin-top: 5px">
+                    <input type="email"  ng-model="orderData.buyer.email" placeholder="Email" class="col-md-6 col-xs-12" required/>
+                </div>
+                <div class="col-md-8 col-xs-8" style="margin-top: 5px">
+                    <input type="number" minlength="6" maxlength="13" ng-model="orderData.buyer.phone" placeholder="Phone" class="col-md-6 col-xs-12" required/><br><br>
+                </div>
             </div>
         </div>
 
@@ -408,47 +464,185 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;
           <h3>2.DELIVERY DETAILS</h3>
         </div> 
 
-        <div class="col-md-12 col-md-offset-1">
-        <div class="panel panel-default col-md-3" style="padding:0px;margin:10px;height:500px;" ng-repeat="(key, value) in orderData.address">
+        <div class="col-md-12">
+        <div class="panel panel-default col-md-3" style="padding:0px;margin:10px;" ng-repeat="address in orderData.address" >
             <div class="panel-heading">
                 <h3 class="panel-title">
                      Address
-                    <span class="glyphicon glyphicon-pencil pull-right" style="margin-left:8%;" ></span>
-                    <span class="glyphicon glyphicon-trash pull-right" ></span>
+                    <!-- <span class="glyphicon glyphicon-pencil pull-right" style="margin-left:8%;" ></span>
+                    <span class="glyphicon glyphicon-trash pull-right" ></span> -->
                 </h3>
             </div>
             <div class="panel-body" style="margin:0 auto; text-align:center;" >
              
                <address>
                 <strong>Delivery Address</strong><br>
-                <span ng-if="value.billing_address.address_line1">{{value.billing_address.address_line1}}<br></span>
-                <span ng-if="value.billing_address.address_line2">{{value.billing_address.address_line2}}<br></span>
-                <span ng-if="value.billing_address.address_line3">{{value.billing_address.address_line3}}<br></span>
-                City:{{value.billing_address.city}}<br>
-                State:{{value.billing_address.state}}<br>
-                Country:{{value.billing_address.country}}<br>
-                Pin Code:{{value.billing_address.pincode}} 
+                <span ng-if="address.billing_address.address_line1">{{address.billing_address.address_line1}}<br></span>
+                <span ng-if="address.billing_address.address_line2">{{address.billing_address.address_line2}}<br></span>
+                <span ng-if="address.billing_address.address_line3">{{address.billing_address.address_line3}}<br></span>
+                City:{{address.billing_address.city}}<br>
+                State:{{address.billing_address.state}}<br>
+                Country:{{address.billing_address.country}}<br>
+                Pin Code:{{address.billing_address.pincode}} 
                </address>
             <hr/>
              <address>
                 <b>Shipping Address</b><br>
-                <span ng-if="value.shipping_address.address_line1">{{value.shipping_address.address_line1}}<br></span>
-                <span ng-if="value.shipping_address.address_line2">{{value.shipping_address.address_line2}}<br></span>
-                <span ng-if="value.shipping_address.address_line3">{{value.shipping_address.address_line3}}<br></span>
-                CITY:{{value.shipping_address.city}}<br>
-                STATE:{{value.shipping_address.state}}<br>
-                COUNTRY:{{value.shipping_address.country}}<br>
-                PIN CODE:{{value.shipping_address.pincode}} 
+                <span ng-if="address.shipping_address.address_line1">{{address.shipping_address.address_line1}}<br></span>
+                <span ng-if="address.shipping_address.address_line2">{{address.shipping_address.address_line2}}<br></span>
+                <span ng-if="address.shipping_address.address_line3">{{address.shipping_address.address_line3}}<br></span>
+                CITY:{{address.shipping_address.city}}<br>
+                STATE:{{address.shipping_address.state}}<br>
+                COUNTRY:{{address.shipping_address.country}}<br>
+                PIN CODE:{{address.shipping_address.pincode}} 
                </address>
             <hr />
-           
-            <button class="btn btn-default" style="text-decoration:none; color: #333;background-color:#fff;">&nbsp;&nbsp;&nbsp;&nbsp;DELIVER HERE&nbsp;&nbsp;&nbsp;&nbsp;</button>    
+                <div class="radio-toolbar">
+                    <input type="radio" id="{{$index+1}}" name="radios" ng-click="selectedAddress(address)">
+                    <label for="{{$index+1}}">DELIVER HERE</label>  
+                </div>
             </div>
         </div>
         <hr />
         </div>
 
-        <div style="margin:0 auto; text-align:center"> <button role="button" data-toggle="modal"  data-target="#myModalhelpline1" class="btn btn-sunny" style="width:30%; margin-bottom:3%;margin-top:2%;">Add New Address</button></div>
+        <div style="margin:0 auto; text-align:center"> <button role="button"  ng-click="AddNewAddress = !AddNewAddress" class="btn btn-sunny" style="width:30%; margin-bottom:3%;margin-top:2%;">Add New Address</button></div>
+        
+        <!--Add New Address-->
+        <div class="col-md-12" ng-show="AddNewAddress" id="AddNewAddress">
+            <div class="order-billing col-md-12 col-xs-12 no-padding">
+                <!--Address labels-->
+                <div class="col-md-4 col-xs-12">
+                    <h4 style="color: #e50880;">Delivery Details</h4>
+                    <div class="col-md-12 no-padding">
+                        <h4>Address Line 1</h4>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <h4>Address Line 2</h4>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <h4>Address Line 3</h4>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <h4>City</h4>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <h4>State</h4>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <h4>Country</h4>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <h4>Pincode</h4>
+                    </div>
+                </div>
+                <!--Billing address-->
+                <div class="col-md-4 col-xs-12">
+                    <h4 style="color: #e50880;">Billing Address</h4>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" ng-model="orderData.billing_address.address_line1"
+                                       class="form-control" required/>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" ng-model="orderData.billing_address.address_line2"
+                                       class="form-control" placeholder="(Optional)"/>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" ng-model="orderData.billing_address.address_line3"
+                                       class="form-control" placeholder="(Optional)"/>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text"
+                                       class="form-control"
+                                       name="city"
+                                       ng-model="orderData.billing_address.city" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text"
+                                       class="form-control"
+                                       name="state"
+                                       ng-model="orderData.billing_address.state" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text"
+                                       class="form-control"
+                                       name="country"
+                                       ng-model="orderData.billing_address.country" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" ng-model="orderData.billing_address.pincode"
+                                       class="form-control" required/>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="checkbox" style="margin-top: 0px">
+                                    <input type="checkbox" id="checkbox"
+                                           ng-model="orderData.isShippingEqualBilling"
+                                            ng-change="copyBillingAddress(orderData)">
+                                    <label>
+                                        Is shipping address same as billing address?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Shipping address-->
+                <div class="col-md-4 col-xs-12" ng-if="!orderData.isShippingEqualBilling">
+                    <h4 style="color: #e50880;">Shipping Address</h4>
+                    <div class="form-group">
+                        <div class="row" style="margin-bottom: 10px">
+                            <div class="col-md-12">
+                                <input ng-model="orderData.shipping_address.address_line1"
+                                       type="text"
+                                       class="form-control" required/>
+                            </div>
+                            <div class="col-md-12">
+                                <input ng-model="orderData.shipping_address.address_line2"
+                                       type="text"
+                                       class="form-control" placeholder="(Optional)"/>
+                            </div>
+                            <div class="col-md-12">
+                                <input ng-model="orderData.shipping_address.address_line3"
+                                        type="text" class="form-control" placeholder="(Optional)"/>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text"
+                                       class="form-control"
+                                       name="city"
+                                       ng-model="orderData.shipping_address.city" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text"
+                                       class="form-control"
+                                       name="state"
+                                       ng-model="orderData.shipping_address.state" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text"
+                                       class="form-control"
+                                       name="country"
+                                       ng-model="orderData.shipping_address.country" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control"
+                                       ng-model="orderData.shipping_address.pincode" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-2 col-md-offset-7">
+                    <div class="radio-toolbar">
+                        <input type="radio" id="0" name="radios" ng-click="NewAddress()">
+                        <label for="0">DELIVER HERE</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Add New Address Ends-->
 
       </div>
 
