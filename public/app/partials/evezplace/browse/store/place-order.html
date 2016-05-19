@@ -465,45 +465,47 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;
         </div> 
 
         <div class="col-md-12">
-        <div class="panel panel-default col-md-3" style="padding:0px;margin:10px;" ng-repeat="address in orderData.address" >
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                     Address
-                    <!-- <span class="glyphicon glyphicon-pencil pull-right" style="margin-left:8%;" ></span>
-                    <span class="glyphicon glyphicon-trash pull-right" ></span> -->
-                </h3>
-            </div>
-            <div class="panel-body" style="margin:0 auto; text-align:center;" >
-             
-               <address>
-                <strong>Delivery Address</strong><br>
-                <span ng-if="address.billing_address.address_line1">{{address.billing_address.address_line1}}<br></span>
-                <span ng-if="address.billing_address.address_line2">{{address.billing_address.address_line2}}<br></span>
-                <span ng-if="address.billing_address.address_line3">{{address.billing_address.address_line3}}<br></span>
-                City:{{address.billing_address.city}}<br>
-                State:{{address.billing_address.state}}<br>
-                Country:{{address.billing_address.country}}<br>
-                Pin Code:{{address.billing_address.pincode}} 
-               </address>
-            <hr/>
-             <address>
-                <b>Shipping Address</b><br>
-                <span ng-if="address.shipping_address.address_line1">{{address.shipping_address.address_line1}}<br></span>
-                <span ng-if="address.shipping_address.address_line2">{{address.shipping_address.address_line2}}<br></span>
-                <span ng-if="address.shipping_address.address_line3">{{address.shipping_address.address_line3}}<br></span>
-                CITY:{{address.shipping_address.city}}<br>
-                STATE:{{address.shipping_address.state}}<br>
-                COUNTRY:{{address.shipping_address.country}}<br>
-                PIN CODE:{{address.shipping_address.pincode}} 
-               </address>
-            <hr />
-                <div class="radio-toolbar">
+        <slick infinite="false" slides-to-show="3" slides-to-scroll="1" autoplay="false" init-onload=true data="orderData.address">
+            <div class="panel panel-default col-md-4" ng-repeat="address in orderData.address" style="padding:0px;margin:10px;border:1px solid #16b594;">
+                <div class="col-md-12 panel-heading">
+                    <h3 class="panel-title">
+                         Address
+                        <!-- <span class="glyphicon glyphicon-pencil pull-right" style="margin-left:8%;" ></span>
+                        <span class="glyphicon glyphicon-trash pull-right" ></span> -->
+                    </h3>
+                </div>
+                <div class="col-md-6 panel-body" style="margin:0 auto; text-align:left;" >
+                 
+                   <address>
+                    <strong>Delivery Address</strong><br>
+                    <span ng-if="address.billing_address.address_line1">{{address.billing_address.address_line1}}<br></span>
+                    <span ng-if="address.billing_address.address_line2">{{address.billing_address.address_line2}}<br></span>
+                    <span ng-if="address.billing_address.address_line3">{{address.billing_address.address_line3}}<br></span>
+                    {{address.billing_address.city}}<br>
+                    {{address.billing_address.state}}<br>
+                    {{address.billing_address.country}}<br>
+                    {{address.billing_address.pincode}} 
+                   </address>
+                </div>
+                <div class="col-md-6 panel-body" style="margin:0 auto; text-align:left;" >
+                 <address>
+                    <b>Shipping Address</b><br>
+                    <span ng-if="address.shipping_address.address_line1">{{address.shipping_address.address_line1}}<br></span>
+                    <span ng-if="address.shipping_address.address_line2">{{address.shipping_address.address_line2}}<br></span>
+                    <span ng-if="address.shipping_address.address_line3">{{address.shipping_address.address_line3}}<br></span>
+                    {{address.shipping_address.city}}<br>
+                    {{address.shipping_address.state}}<br>
+                    {{address.shipping_address.country}}<br>
+                    {{address.shipping_address.pincode}} 
+                   </address>
+                </div>
+                
+                <div class="col-md-12 radio-toolbar text-center">
                     <input type="radio" id="{{$index+1}}" name="radios" ng-click="selectedAddress(address)">
                     <label for="{{$index+1}}">DELIVER HERE</label>  
                 </div>
             </div>
-        </div>
-        <hr />
+        </slick>
         </div>
 
         <div style="margin:0 auto; text-align:center"> <button role="button"  ng-click="AddNewAddress = !AddNewAddress" class="btn btn-sunny" style="width:30%; margin-bottom:3%;margin-top:2%;">Add New Address</button></div>
