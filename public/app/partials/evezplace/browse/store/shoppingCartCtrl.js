@@ -68,8 +68,8 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
             $rootScope.checkOutType  = $routeParams.checkOutType;
             $scope.shoppingCartItems = StoreService.getShoppingCartItems();
             
-            var selectedStore = $filter('filter')($scope.shoppingCartItems, {storeId: $routeParams.storeId}, true);
-
+            var selectedStore = $filter('filter')($scope.shoppingCartItems, {storeId: parseInt($routeParams.storeId)}, true);
+            
             if (selectedStore.length > 0) 
             {
               $rootScope.storeId  = $routeParams.storeId;
@@ -130,16 +130,21 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
     if($scope.loggedInUser)
     {
-        $scope.EmailEdit = false;
         $scope.AddressEdit = false;
     }
     else
     {
-        $scope.EmailEdit = true;
         $scope.AddressEdit = true;
     }
 
     //$scope.CartDetails="opacity:0.6;pointer-events:none;";
+    $scope.ContactEdit = true;
+
+    $scope.Newbuyer = false;
+
+    $scope.BuyerBlock = true;
+
+    $scope.Dispatch = false;
 
     $scope.PaymentOptions = false;//true;
 
@@ -167,13 +172,13 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
     $scope.orderData.buyer.name  = "";
     $scope.orderData.buyer.phone = "";
 
-    $scope.orderData.billing_address.addressLine1 = "";
+    $scope.orderData.billing_address.address_line1 = "";
     $scope.orderData.billing_address.city = "";
     $scope.orderData.billing_address.state = "";
     $scope.orderData.billing_address.country = "";
     $scope.orderData.billing_address.pincode = "";
 
-    $scope.orderData.shipping_address.addressLine1 = "";
+    $scope.orderData.shipping_address.address_line1 = "";
     $scope.orderData.shipping_address.city = "";
     $scope.orderData.shipping_address.state = "";
     $scope.orderData.shipping_address.country = "";
@@ -208,24 +213,31 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
     $scope.getUserDetails = function ($userId) {
         
         $http.get(PATHS.api_url +  'users/' + $userId + '/getUserDetails')
-            .success(function(data){console.log('data.userDetails');
+            .success(function(data){
                 $scope.userDetails       = data.userDetails;
                 $scope.orderData.address = data.address;
-                console.log(data.userDetails); console.log(data.address);
+                //console.log(data.userDetails); console.log(data.address);
                 
 
                 $scope.orderData.buyer.email = data.userDetails.email;
                 $scope.orderData.buyer.name  = data.userDetails.profile.firstname +' '+ data.userDetails.profile.lastname;
-                $scope.orderData.buyer.phone = data.userDetails.profile.phone;
-                
-
-                // $scope.orderData.billing_address.addressLine1 = data.data.street_address;
+                $scope.orderData.buyer.phone = (isNaN(parseInt(data.userDetails.profile.phone)))?null:parseInt(data.userDetails.profile.phone);
+                if($scope.orderData.buyer.phone == null)
+                {
+                    $scope.ContactEdit = true;
+                    $scope.BuyerBlock = false;
+                }
+                else
+                {
+                    $scope.ContactEdit = false;
+                }
+                // $scope.orderData.billing_address.address_line1 = data.data.street_address;
                 // $scope.orderData.billing_address.city = data.data.city;
                 // $scope.orderData.billing_address.state = data.data.state;
                 // $scope.orderData.billing_address.country = data.data.country;
                 // $scope.orderData.billing_address.pincode = data.data.pincode;
 
-                // $scope.orderData.shipping_address.addressLine1 = data.data.street_address;
+                // $scope.orderData.shipping_address.address_line1 = data.data.street_address;
                 // $scope.orderData.shipping_address.city = data.data.city;
                 // $scope.orderData.shipping_address.state = data.data.state;
                 // $scope.orderData.shipping_address.country = data.data.country;
@@ -239,6 +251,123 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
     if($cookieStore.get('userId')){
       $scope.getUserDetails($scope.loggedInUser);
+    }
+
+    $scope.CreateNewbuyer = function()
+    {
+        $scope.Newbuyer = true;
+    }
+    $scope.BacktoBuyerCode = function()
+    {
+        $scope.Newbuyer = false;
+    }
+
+    $scope.GetBuyerCode = function (code) {
+
+        if(code == "" || code == undefined)
+        {
+            toastr.error('Please enter a buyer code');
+        }
+        else
+        {
+            $http.get(PATHS.api_url +  'buyers/' + code + '/getBuyerDetails')
+            .success(function(data){
+                
+                $scope.userDetails       = data.buyerDetails;
+                $scope.orderData.address = data.address;
+                $scope.BuyerBlock = false;
+                $scope.ContactEdit = false;
+
+                $scope.orderData.buyer.email = data.buyerDetails.email;
+                $scope.orderData.buyer.name  = data.buyerDetails.name;
+                $scope.orderData.buyer.phone = (isNaN(parseInt(data.buyerDetails.phone)))?null:parseInt(data.buyerDetails.phone);
+                if($scope.orderData.buyer.phone == null)
+                {
+                    $scope.ContactEdit = true;
+                }
+                else
+                {
+                    $scope.ContactEdit = false;
+                }
+                
+            }).error(function (data)
+            {
+               toastr.error(data.error.message);
+               $scope.orderData.buyer.code = "";
+               
+            });
+        }
+        
+    }
+
+    $scope.selectedAddress = function(address)
+    {
+        $scope.Dispatch = true;
+        $scope.DispatchAddress = address;
+        toastr.success("Delivery address added successfully");
+    }
+
+    $scope.NewAddress = function()
+    {
+        $scope.Dispatch = false;
+
+        if(!$scope.orderData.billing_address.address_line1)
+        {
+            toastr.error("please enter address line 1",'Billing Address');
+        }
+        else if(!$scope.orderData.billing_address.address_line2)
+        {
+            toastr.error("please enter address line 2",'Billing Address');
+        }
+        else if(!$scope.orderData.billing_address.city)
+        {
+            toastr.error("please enter city",'Billing Address');
+        }
+        else if(!$scope.orderData.billing_address.state)
+        {
+            toastr.error("please enter state",'Billing Address');
+        }
+        else if(!$scope.orderData.billing_address.country)
+        {
+            toastr.error("please enter country",'Billing Address');
+        }
+        else if(!$scope.orderData.billing_address.pincode)
+        {
+            toastr.error("please enter pincode",'Billing Address');
+        }
+        else if($scope.orderData.isShippingEqualBilling == undefined || !$scope.orderData.isShippingEqualBilling)
+        {
+            if(!$scope.orderData.shipping_address.address_line1)
+            {
+                toastr.error("please enter addresss line 1",'Shipping Address');
+            }
+            else if(!$scope.orderData.shipping_address.address_line2)
+            {
+                toastr.error("please enter addresss line 2",'Shipping Address');
+            }
+            else if(!$scope.orderData.shipping_address.city)
+            {
+                toastr.error("please enter city",'Shipping Address');
+            }
+            else if(!$scope.orderData.shipping_address.state)
+            {
+                toastr.error("please enter state",'Shipping Address');
+            }
+            else if(!$scope.orderData.shipping_address.country)
+            {
+                toastr.error("please enter country",'Shipping Address');
+            }
+            else if(!$scope.orderData.shipping_address.pincode)
+            {
+                toastr.error("please enter pincode",'Shipping Address');
+            }
+        }
+        else
+        {
+            $scope.ConstructNewAddress = {'billing_address': $scope.orderData.billing_address, 'shipping_address': $scope.orderData.shipping_address};
+
+            $scope.selectedAddress($scope.ConstructNewAddress);
+        }
     }
 
     
@@ -614,81 +743,52 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         });
     };
 
-
     $scope.submitOrder = function () {
-       
+        
+        
+        if(!$scope.loggedInUser)
+        {
+            if(!$scope.orderData.buyer.code && !$scope.Newbuyer)
+            {
+                toastr.error('Please enter buyer code');
+                return;
+            }
+        }
         //validations - buyer info
         if(!$scope.orderData.buyer.name)
         {
-            toastr.error('Please enter buyer name');
+            toastr.error('Please enter  name');
         }
         else if(!$scope.orderData.buyer.email)
         {
-            toastr.error('Please enter buyer email');
+            toastr.error('Please enter  email');
         }
         else if(!$scope.orderData.buyer.phone)
         {
-            toastr.error('Please enter buyer phone number');
-        }
-
-        //validations - billing address
-        else if(!$scope.orderData.billing_address.addressLine1)
-        {
-            toastr.error('Please enter address' , "Billing");
-        }
-        else if(!$scope.orderData.billing_address.city)
-        {
-            toastr.error('Please enter city', "Billing");
-        }
-        else if(!$scope.orderData.billing_address.state)
-        {
-            toastr.error('Please enter state', "Billing");
-        }
-        else if(!$scope.orderData.billing_address.country)
-        {
-            toastr.error('Please enter country', "Billing");
-        }
-        else if(!$scope.orderData.billing_address.pincode)
-        {
-            toastr.error('Please enter pincode', "Billing");
-        }
-
-        //validations - shipping address
-        else if(!$scope.orderData.shipping_address.addressLine1)
-        {
-            toastr.error('Please enter address', "Shipping");
-        }
-        else if(!$scope.orderData.shipping_address.city)
-        {
-            toastr.error('Please enter city', "Shipping");
-        }
-        else if(!$scope.orderData.shipping_address.state)
-        {
-            toastr.error('Please enter state', "Shipping");
-        }
-        else if(!$scope.orderData.shipping_address.country)
-        {
-            toastr.error('Please enter country', "Shipping");
-        }
-        else if(!$scope.orderData.shipping_address.pincode)
-        {
-            toastr.error('Please enter pincode', "Shipping");
+            toastr.error('Please enter phone number');
         }
 
         else
         {
-            
-            if($cookieStore.get('userId'))
-            {          
-               $scope.orderData.userId  = $cookieStore.get('userId');
-               $scope.prepareOrderData();
+            if($scope.Dispatch)
+            {
+                $scope.orderData.billing_address = $scope.DispatchAddress.billing_address;
+                $scope.orderData.shipping_address = $scope.DispatchAddress.shipping_address;
+                if($cookieStore.get('userId'))
+                {          
+                   $scope.orderData.userId  = $cookieStore.get('userId');
+                   $scope.prepareOrderData();
 
-            }else{
-              
-               $scope.createBuyer();
-              
+                }else{
+                  
+                   $scope.createBuyer();
+                  
+                }
             }
-
+            else
+            {
+                toastr.error("Please select or add a delivery address");
+            }
         }
     }
 
@@ -696,6 +796,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
     $scope.createBuyer = function()
     {
         var $data = {
+            'name'  : $scope.orderData.buyer.name,
             'email' : $scope.orderData.buyer.email,
             'phone' : $scope.orderData.buyer.phone,
             'code'  : $scope.orderData.buyer.code
