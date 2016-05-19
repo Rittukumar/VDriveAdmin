@@ -1013,6 +1013,10 @@ class UsersController extends AppController
 
              $user    = User::with('profile','billing_address','shipping_address')->find($userId);
 
+             if (!$buyer) {
+                return $this->responseNotFound('User Not Found!');
+            }
+
              $address = $this->getAddress($user->billing_address, $user->shipping_address); 
 
              $successResponse = [
@@ -1036,6 +1040,10 @@ class UsersController extends AppController
         try{
 
              $buyer   = Buyer::with('billing_address','shipping_address')->where('code',$code)->first();
+
+             if (!$buyer) {
+                return $this->responseNotFound('Buyer Not Found!');
+            }
 
              $address = $this->getAddress($buyer->billing_address, $buyer->shipping_address); 
 
