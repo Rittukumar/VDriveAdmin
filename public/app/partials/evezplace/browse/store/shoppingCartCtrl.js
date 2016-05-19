@@ -68,7 +68,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
             $rootScope.checkOutType  = $routeParams.checkOutType;
             $scope.shoppingCartItems = StoreService.getShoppingCartItems();
             
-            var selectedStore = $filter('filter')($scope.shoppingCartItems, {storeId: parseInt($routeParams.storeId)}, true);
+            var selectedStore = $filter('filter')($scope.shoppingCartItems, {storeId: $routeParams.storeId}, true);
             
             if (selectedStore.length > 0) 
             {
