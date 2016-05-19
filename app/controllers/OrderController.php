@@ -228,6 +228,14 @@ class OrderController extends AppController
     }
 
 
+    public function updateUserPhone($userId, $phone)
+    {
+
+        UserProfile::where('user_id', $userId)->update(['phone' => $phone]);
+
+    }
+
+
     public function saveOrders($orders, $stripe_payment_details){
 
         try{
@@ -245,7 +253,7 @@ class OrderController extends AppController
             $buyerArray   = isset($inputArray['buyer']) ? $inputArray['buyer'] : '';
             $buyerEmail   = isset($buyerArray['email']) ? $buyerArray['email'] : '';
             $buyerPhone   = isset($buyerArray['phone']) ? $buyerArray['phone'] : '';
-            $buyerCode    = isset($buyerArray['code']) ? $buyerArray['code'] : '';
+            $buyerCode    = isset($buyerArray['code'])  ? $buyerArray['code'] : '';
             $chequeNumber = $inputArray['chequeNumber'];
             $chequeDate   = $inputArray['chequeDate'];
             $paymentMode  = $inputArray['paymentMode'];
@@ -259,6 +267,7 @@ class OrderController extends AppController
 
                 $customerKey   = 'user_id';
                 $customerValue =  $userId;
+                $this->updateUserPhone($userId, $buyerPhone);
             }
 
                //Method to save the billing and the shipping address.
