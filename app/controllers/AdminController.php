@@ -1497,4 +1497,67 @@ class AdminController extends AppController
             return $this->setStatusCode(500)->respondWithError($errorMessage);
         }
     }
+
+        /**
+     * get all configurations
+     * @param $user_id
+     * @return mixed
+     */
+    public function getAdminConfigurations()
+    {
+        try {
+            $AdminConfigurations = AdminConfigurations::all();
+
+            $fractal = new Manager();
+
+            $ConfigurationResource = new Collection($AdminConfigurations, new AdminConfigurationsTransformer);
+
+            $data = $fractal->createData($ConfigurationResource);
+
+            return $data->toJson();
+
+        } catch (Exception $e) {
+            $errorMessage = [
+                'status' => false,
+                'message' => $e
+            ];
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+        }
+    }
+
+        /**
+     * update configurations
+     * @param $user_id
+     * @return mixed
+     */
+    public function updateConfigureData()
+    {
+         
+        try {
+
+            $ConfigureDatas = Input::all();
+
+            $ConfigureArray = $ConfigureDatas['data'];
+
+            $Configurations = $ConfigureArray['ConfigurationDatas'];
+
+            foreach($Configurations as $key => $value)
+            {
+                $ConfigData = AdminConfigurations::find($value['id']);
+                $ConfigData->config_name = $value['name'];
+                $ConfigData->config_value = $value['value'];
+                $ConfigData->save();
+            }
+        } catch (Exception $e) {
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+
+        $successResponse = [
+            'status' => true,
+            'message' => 'Configuration updated successfully!',
+        ];
+
+        return $this->setStatusCode(200)->respond($successResponse);
+    }
 }

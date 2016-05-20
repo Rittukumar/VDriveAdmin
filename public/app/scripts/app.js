@@ -264,6 +264,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/admin/manage/configurations', {
+                templateUrl: 'partials/admin/Manage/configurations.html',
+                controller: 'adminConfigurationCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
+                }
+            });
+
+        $routeProvider
+
             .when('/admin/evezplace/recommendations', {
                 templateUrl: 'views/admin/evezplace/manage_recommendations.html',
                 data: {
