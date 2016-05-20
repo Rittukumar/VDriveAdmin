@@ -605,7 +605,10 @@ evezownApp
                $location.path('/store/create/step3');
             }
             else if (!formData.storeEmail) {
-                toastr.error('Please enter your email id', 'Store');
+                toastr.error('Please enter store contact email id', 'Store Contact');
+            }
+            else if (!formData.storePhone1) {
+                toastr.error('Please enter store contact Number', 'Store Contact');
             }
             else {
                 $http.post(PATHS.api_url + 'users/store/step4/' + $scope.loggedInUserId + '/add'
@@ -642,7 +645,10 @@ evezownApp
 
         $scope.EditStoreStep4 = function (formData) {
             if (!formData.storeEmail) {
-                toastr.error('Please enter your email id', 'Store');
+                toastr.error('Please enter store contact email id', 'Store Contact');
+            }
+            else if (!formData.storePhone1) {
+                toastr.error('Please enter store contact Number', 'Store Contact');
             }
             else {
                 $http.post(PATHS.api_url + 'users/store/step4/' + $scope.loggedInUserId + '/add'
