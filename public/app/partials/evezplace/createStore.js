@@ -1951,7 +1951,7 @@ evezownApp
                 $scope.StoreDetailsDiv = "col-md-offset-3";
             }
 
-            $scope.GetIndex(3);
+            $scope.GetIndex(4);
             $scope.PreparePayee();
         }
 
