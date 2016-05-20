@@ -1,0 +1,84 @@
+<!-- Static navbar -->
+<nav class="navbar navbar-default" id="navContainer">
+    <div id="navbar1">
+        <ul class="nav navbar-nav">
+            <li ng-class="">
+                <a href="#mystores/{{userId}}">Mysite</a>
+            </li>
+            <li><a class="{{isActive[1]}}" href="#manage/database">Manage Database</a></li>
+            <li ng-class="{ active: isActive('/manage/database')}">
+                <!-- Template which needs to be shown on click -->
+                <script type="text/ng-template" id="explore">
+                    <div class="triangle"></div>
+                    <div class="ns-popover-tooltip">
+                        <ul>
+                            <li style="padding: 5px; text-align: center"><a  href="#evezplace">MarketPlace</a></li>
+                            <li style="padding: 5px; text-align: center"><a  href="#wopportunity">Jobs</a></li>
+                        </ul>
+                    </div>
+                </script>
+
+                <a ns-popover
+                   ns-popover-template="explore"
+                   ns-popover-trigger="click"
+                   ns-popover-theme="ns-popover-list-theme">
+                    Explore
+                </a>
+            </li>
+            <li ng-class="{ active: isActive('/search/advanced')}"><a href="#search/advanced"
+                                                                      id="search">Search&nbsp;<span
+                    class="fa fa-search" id="searchIcon"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
+     role="alert" ng-controller="ApplicationCtrl">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+    </button>
+    <h1>Build Community</h1>
+
+    <p style="text-align:justify">Build community helps you replicate your existing, offline community online. You can use features like Connect, Advertise, Circles, Invite People, Invite history. These features are linked to Stream It, the streaming channel for promotion and propagation. This helps you spread the word better among your community about your activities.
+    </p>
+</div>
+
+<div class="col-md-12" style="margin-top: 10px;">
+    <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+        <li><a href="#home">Home</a> <span class="divider"></span></li>
+        <li><a href="#mystores/{{userId}}">Mysite</a></li>
+        <li class="active">Build Community</li>
+    </ul>
+</div>
+
+<div class="col-md-2 user-menu-btns">
+    <div class="btn-group-vertical square" id="responsive">
+        <a href="#community" class="btn btn-default">
+            <p>Invite People</p>
+        </a>
+        <a href="#invitehistory" class="btn btn-default">
+            <p>Invite History</p>
+        </a>
+        <a href="#circles" class="btn btn-default btn-block">
+            <p>Circles</p>
+        </a>
+        <a  href="#manage/database" class="btn btn-default   active">
+            <p>Manage Database</p>
+        </a>
+        <a href="#advertise" class="btn btn-default btn-block">
+            <p>Advertise</p>
+        </a>
+        <!-- <a href="#friends/invite" class="btn btn-default">
+            <p>Invite People</p>
+        </a> -->
+    </div>
+</div>
+<div class="col-md-10 user-menu user-pad">
+    <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px;margin-top:40px;">
+        <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+            <div class="fragment text-center">
+            <h1>Comming soon</h1>
+            </div>
+        </div> 
+    </div>
+</div>

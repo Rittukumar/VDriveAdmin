@@ -683,6 +683,17 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
             });
+
+        $routeProvider
+
+            .when('/manage/database', {
+                templateUrl: 'partials/Community/managedatabase.html',
+                controller: 'circles',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
+                }
+            });
+
         $routeProvider
 
             .when('/albums', {
