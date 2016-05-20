@@ -1385,7 +1385,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.LeftCollageImage = {};
-                    $scope.addCollage.LeftCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.LeftCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1407,7 +1407,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.RightCollageImage = {};
-                    $scope.addCollage.RightCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.RightCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1429,7 +1429,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.BottomCollageImage = {};
-                    $scope.addCollage.BottomCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.BottomCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1451,7 +1451,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.ProfileCollageImage = {};
-                    $scope.addCollage.ProfileCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.ProfileCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1475,7 +1475,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage = {};
-                    $scope.addStores.slideImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1497,7 +1497,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage1 = {};
-                    $scope.addStores.slideImage1.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage1.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1519,7 +1519,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage2 = {};
-                    $scope.addStores.slideImage2.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage2.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1541,7 +1541,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage3 = {};
-                    $scope.addStores.slideImage3.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage3.croppedImage = data.value.imageName;
                 }
 
             });

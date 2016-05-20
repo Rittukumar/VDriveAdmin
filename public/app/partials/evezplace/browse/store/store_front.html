@@ -1,16 +1,16 @@
 <div class="row" id="promotion-section">
     <div class="col-md-12">
         <div class="col-md-8 large-cover-pic ">
-            <img ng-src="{{storefront.collageImages[0]}}"
+            <img ng-src="{{imageUrl}}{{storefront.collageImages[0]}}"
                  class="img-responsive" alt=""/>
         </div>
         <div class="col-md-4 small-cover-pic">
             <div class="small-cover-pic-top">
-                <img ng-src="{{storefront.collageImages[1]}}"
+                <img ng-src="{{imageUrl}}{{storefront.collageImages[1]}}"
                      class="img-responsive" alt=""/>
             </div>
             <div class="small-cover-pic-bottom">
-                <img ng-src="{{storefront.collageImages[2]}}"
+                <img ng-src="{{imageUrl}}{{storefront.collageImages[2]}}"
                      class="img-responsive" alt=""/>
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="row custom-store-header">
             <div class="col-md-12 store-front-profile">
                 <div class="col-md-3" style="padding-left: 0px">
-                    <img ng-src="{{storefront.profile_image}}"
+                    <img ng-src="{{imageUrl}}{{storefront.profile_image}}"
                          style="width: 100%" class="img-responsive"/>
                 </div>
                 <div class="col-md-9">

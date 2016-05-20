@@ -11,6 +11,7 @@ evezownApp
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.currentUserId = $routeParams.id;
         $scope.currentSubCategoryId = -1;
+        $scope.imageUrl = PATHS.api_url + 'image/show/';
 
         $scope.isAdvancedSearch = false;
 
