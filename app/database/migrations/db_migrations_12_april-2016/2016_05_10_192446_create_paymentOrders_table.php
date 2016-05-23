@@ -29,7 +29,7 @@ class CreatePaymentOrdersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('payuPaymentOrders');
+		Schema::drop('payment_orders');
 	}
 
 }
