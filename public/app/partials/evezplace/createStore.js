@@ -100,8 +100,8 @@ evezownApp
         $scope.SALT = "09BHBbap";
         $scope.PAYU_BASE_URL = "https://secure.payu.in/_payment";
 
-        $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
-        $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
+        $scope.surl = PATHS.api_url+"storeSubscription/subPayment";
+        $scope.furl = PATHS.api_url+"storeSubscription/subPayment";
         $scope.service_url = PATHS.api_url;
         $scope.usertoken = $cookieStore.get('userToken');
         $scope.encrypttext = "";
@@ -1870,9 +1870,9 @@ evezownApp
         {
 
             //Payment details
-            $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
-            $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
-            $scope.curl = "http://evezown-api-dev.elasticbeanstalk.com/public/storeSubscription/subPayment";
+            $scope.surl = PATHS.api_url+"storeSubscription/subPayment";
+            $scope.furl = PATHS.api_url+"storeSubscription/subPayment";
+            $scope.curl = PATHS.api_url+"storeSubscription/subPayment";
             $scope.udf1 = "";
             $scope.udf2 = "";
             $scope.udf3 = "";

@@ -882,9 +882,9 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
     $scope.getHash = function()
     {
-          $scope.surl = "http://localhost:8000/v1/paymentstatus/paymentstatus";
-          $scope.furl = "http://localhost:8000/v1/paymentstatus/paymentstatus";
-          $scope.curl = "http://localhost:8000/v1/paymentstatus/paymentstatus";
+          $scope.surl = PATHS.api_url+"paymentstatus/paymentstatus";
+          $scope.furl = PATHS.api_url+"paymentstatus/paymentstatus";
+          $scope.curl = PATHS.api_url+"paymentstatus/paymentstatus";
           $scope.udf1 = "";
           $scope.udf2 = "";
           $scope.udf3 = "";
