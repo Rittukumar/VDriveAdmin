@@ -949,7 +949,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/myevents/:id', {
                 templateUrl: 'partials/profile/myevent.html',
-                controller: 'groups',
+                controller: 'eventCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }

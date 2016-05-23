@@ -88,7 +88,7 @@
         </div>
 
         <!--For Member-->
-        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1">
+        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
             <div class="col-md-12 col-xs-12">
                 <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
@@ -104,17 +104,17 @@
         </div>
 
         <!--For Admin-->
-        <div ng-show="Role == 1">
-            <div class="col-md-7 user-menu user-pad" ng-controller="eventCtrl">
-            		<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
-    			        <div class="fragment">
-    			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
-    			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
-    			            <p>
-    			                You can create Events, online events as well as reflect real life events- parties, get together and seminars, host of features available to automate all your event planning and execution! Capture the fun element 
-    			            </p>
-    			        </div>
-    			    </div>
+        <div ng-show="Role == 1 && currentUserId == loggedInUserId">
+            <div class="col-md-7 user-menu user-pad">
+        		<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+			        <div class="fragment">
+			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
+			            <p>
+			                You can create Events, online events as well as reflect real life events- parties, get together and seminars, host of features available to automate all your event planning and execution! Capture the fun element 
+			            </p>
+			        </div>
+			    </div>
                 <div class="col-md-12 panel-heading">
                     <div class="col-md-2">
                         <h5>
@@ -124,9 +124,15 @@
                     <div class="col-md-3">
                         <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
                     </div>
-                    <div class="col-md-3 col-md-offset-4 pull-right" ng-if="loggedInUserId == currentUserId">
+                    <div class="col-md-3 col-md-offset-4 pull-right">
                         <a href="#createevent" class="btn btn-primary"><span class="fa fa-plus"></span> Create Event</a>
                     </div>
+                </div>
+                <!--No Events-->
+                <div class="empty-section text-center" ng-show="myEvents.length == 0">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
                 </div>
                 <div class="col-md-12 circle-section">
                     <ul class="row event-list">
@@ -154,7 +160,7 @@
             </div>
        
 
-            <div class="col-md-3" style="padding-right: 0px" ng-controller="eventCtrl" ng-if="loggedInUserId == currentUserId">
+            <div class="col-md-3" style="padding-right: 0px">
                 <!-- Friend requests -->
                 <div class="panel" style="background: #f7f7f7;">
                     <div class="panel-heading">
@@ -194,5 +200,61 @@
                 </div>
             </div>
         </div>
+
+        <!--For visiting friends profile-->
+        <div ng-show="currentUserId != loggedInUserId">
+            <div class="col-md-10 user-menu user-pad">
+                <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                    <div class="fragment">
+                        <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+                        <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
+                        <p>
+                            You can create Events, online events as well as reflect real life events- parties, get together and seminars, host of features available to automate all your event planning and execution! Capture the fun element 
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12 panel-heading">
+                    <div class="col-md-2">
+                        <h5>
+                            Events ({{myEvents.length}})
+                        </h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
+                    </div>
+                </div>
+                <!--No Events-->
+                <div class="empty-section text-center" ng-show="myEvents.length == 0">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
+                </div>
+                <div class="col-md-12 circle-section">
+                    <ul class="row event-list">
+                        <!-- Row 1 -->
+                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
+                            <article>
+                                <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
+                                    <div class="img" ng-if="event.event_image == null">
+                                        <img alt="{{event.title}}" src="img/event.png">
+                                    </div>
+                                    <div class="img" ng-if="event.event_image != null">
+                                        <img alt="{{event.title}}" src="{{service_url}}image/show/{{event.event_image.large_image_url}}">
+                                    </div>
+                                    <div class="detail">
+                                        <time class="event-info" datetime="{{event.start_date}}">{{event.start_date}} {{event.start_time}}</time>
+                                        <h1>{{event.title | strLimit: 18}}</h1>
+
+                                        <div class="tease"><p>{{event.description | strLimit: 100}}</p></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
 </div>
 </div>
