@@ -70,6 +70,8 @@ class DatabaseSeeder extends Seeder {
         $this->call('PaymentModeTableSeeder');
         
         $this->call('StoreStatusEnumTableSeederAdditions');
+
+        $this->call('AdminConfigurationTableSeeder');
        // -- Following Seeder are not required. This is for testing purpose. -- 
        // BlogTableSeeder
        // BrandTableSeeder

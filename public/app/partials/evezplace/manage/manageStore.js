@@ -15,7 +15,7 @@ evezownApp
         $rootScope.AllProductLines = [];
         $scope.totalProducts = 0;
         $scope.MaxProductsFree = 16;
-        $scope.MaxProductsPremium = 19;
+        $scope.MaxProductsPremium = 64;
         //$rootScope.currentProductLine = null;
         $scope.isImageUploadComplete = false;
         $scope.isAddProductHidden = false;

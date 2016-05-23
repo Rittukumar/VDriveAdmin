@@ -167,7 +167,7 @@
                                 </div>
                             </div>
                             <div class="store-image-frame" ng-if="item.profile_images.large_image_url != ''">
-                                <img ng-src="{{item.profile_images.large_image_url}}" alt="" style="width: 100%"/>
+                                <img ng-src="{{imageUrl}}{{item.profile_images.large_image_url}}" alt="" style="width: 100%"/>
                             </div>
                             <div class="store-image-frame" ng-if="item.profile_images.large_image_url == ''">
                                 <img ng-src="http://images.mid-day.com/images/2014/nov/Shyamal-and-Bhumika-Store-1.jpg" alt="" style="width: 100%"/>

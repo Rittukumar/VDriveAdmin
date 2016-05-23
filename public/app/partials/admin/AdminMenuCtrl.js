@@ -61,6 +61,10 @@ evezownApp
             link : 'admin/addbrand' 
 
         },{
+            name: 'Configure',
+            link : 'admin/manage/configurations' 
+
+        },{
             name: 'News, Articles, Interviews & Videos',
             link : 'admin/articles'
 

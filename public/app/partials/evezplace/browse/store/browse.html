@@ -59,7 +59,7 @@
 
                             </div>
                             <div class="store-image-frame" ng-if="item.profile_images.large_image_url.length > 0">
-                                <img ng-src="{{item.profile_images.large_image_url}}" alt=""
+                                <img ng-src="{{imageUrl}}{{item.profile_images.large_image_url}}" alt=""
                                      style="width: 100%"/>
                             </div>
                             <div class="store-image-frame" ng-if="item.profile_images.large_image_url == ''">

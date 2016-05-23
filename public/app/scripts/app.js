@@ -264,6 +264,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/admin/manage/configurations', {
+                templateUrl: 'partials/admin/Manage/configurations.html',
+                controller: 'adminConfigurationCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
+                }
+            });
+
+        $routeProvider
+
             .when('/admin/evezplace/recommendations', {
                 templateUrl: 'views/admin/evezplace/manage_recommendations.html',
                 data: {
@@ -683,6 +693,17 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
             });
+
+        $routeProvider
+
+            .when('/manage/database', {
+                templateUrl: 'partials/Community/managedatabase.html',
+                controller: 'circles',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
+                }
+            });
+
         $routeProvider
 
             .when('/albums', {

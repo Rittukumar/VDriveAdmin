@@ -320,53 +320,66 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         if(!$scope.orderData.billing_address.address_line1)
         {
             toastr.error("please enter address line 1",'Billing Address');
+            document.getElementById('0').checked = false;
         }
         else if(!$scope.orderData.billing_address.address_line2)
         {
             toastr.error("please enter address line 2",'Billing Address');
+            document.getElementById('0').checked = false;
         }
         else if(!$scope.orderData.billing_address.city)
         {
             toastr.error("please enter city",'Billing Address');
+            document.getElementById('0').checked = false;
         }
         else if(!$scope.orderData.billing_address.state)
         {
             toastr.error("please enter state",'Billing Address');
+            document.getElementById('0').checked = false;
         }
         else if(!$scope.orderData.billing_address.country)
         {
             toastr.error("please enter country",'Billing Address');
+            document.getElementById('0').checked = false;
         }
         else if(!$scope.orderData.billing_address.pincode)
         {
             toastr.error("please enter pincode",'Billing Address');
+            document.getElementById('0').checked = false;
         }
         else if($scope.orderData.isShippingEqualBilling == undefined || !$scope.orderData.isShippingEqualBilling)
         {
             if(!$scope.orderData.shipping_address.address_line1)
             {
                 toastr.error("please enter addresss line 1",'Shipping Address');
+                document.getElementById('0').checked = false;
             }
             else if(!$scope.orderData.shipping_address.address_line2)
             {
                 toastr.error("please enter addresss line 2",'Shipping Address');
+                document.getElementById('0').checked = false;
             }
             else if(!$scope.orderData.shipping_address.city)
             {
                 toastr.error("please enter city",'Shipping Address');
+                document.getElementById('0').checked = false;
             }
             else if(!$scope.orderData.shipping_address.state)
             {
                 toastr.error("please enter state",'Shipping Address');
+                document.getElementById('0').checked = false;
             }
             else if(!$scope.orderData.shipping_address.country)
             {
                 toastr.error("please enter country",'Shipping Address');
+                document.getElementById('0').checked = false;
             }
             else if(!$scope.orderData.shipping_address.pincode)
             {
                 toastr.error("please enter pincode",'Shipping Address');
+                document.getElementById('0').checked = false;
             }
+
         }
         else
         {

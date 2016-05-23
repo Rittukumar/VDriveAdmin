@@ -80,6 +80,10 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('admin/{admin_id}/{screen_id}/getscreenfields', 'ScreenController@getScreenField');
     Route::post('admin/{admin_id}/saveScreenFields', 'ScreenController@saveScreenFields');
 
+    //admin configurations
+    Route::get('admin/{admin_id}/allConfigurations', 'AdminController@getAdminConfigurations');
+    Route::post('admin/{admin_id}/ConfigureDatas', 'AdminController@updateConfigureData');
+
     //categories and subcategories
     Route::get('admin/{admin_id}/categories', 'MasterController@getAllCategories');
     Route::get('admin/{admin_id}/{category_id}/subcategorybyId', 'MasterController@getsubCategoryById');
