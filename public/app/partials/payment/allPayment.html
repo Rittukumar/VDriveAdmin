@@ -1,16 +1,16 @@
 
                     <div class="col-md-3 col-xs-12 user-menu-btns">
                         <div class="btn-group-vertical square" id="responsive">
-                            <!-- <a ng-click="GetIndex(0)" class="btn btn-block {{currentSection0}}">
+                            <a ng-click="GetIndex(0)" class="btn btn-block {{currentSection0}}">
                                 <p style="font-size: 16px;">Cash On Delivery</p>
                             </a>
-                            <a ng-click="GetIndex(1);" class="btn btn-block {{currentSection1}}">
+                            <!-- <a ng-click="GetIndex(1);" class="btn btn-block {{currentSection1}}">
                                 <p style="font-size: 16px;">Bank Payment</p>
-                            </a>
+                            </a> -->
                             <a ng-click="GetIndex(2);" class="btn btn-block {{currentSection2}}">
                                 <p style="font-size: 16px;">Cheque Payment</p>
                             </a>
-                            <a ng-click="GetIndex(3);" class="btn btn-block {{currentSection3}}">
+                            <!-- <a ng-click="GetIndex(3);" class="btn btn-block {{currentSection3}}">
                                 <p style="font-size: 16px;">Pay Online</p>
                             </a> -->
                             <a ng-click="GetIndex(4);" class="btn btn-block {{currentSection4}}">
@@ -19,7 +19,7 @@
                         </div>          
                     </div>
 
-                    <!-- <div class="col-md-6 col-xs-12" ng-show="CashOnDelivery">
+                    <div class="col-md-6 col-xs-12" ng-show="CashOnDelivery">
                         <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
                             <div class="fragment">
                                 <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-xs-12" ng-show="BankPayment">
+                    <!-- <div class="col-md-6 col-xs-12" ng-show="BankPayment">
                         <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
                             <div class="fragment">
                                 <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
@@ -43,7 +43,7 @@
                         <div class="col-md-12">
                         <a href="" class="btn btn-primary btn-block" style="margin-top:10px;margin-bottom:10px;" ng-click="SubmitPayment(2)">SUBMIT ORDER</a>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-md-6 col-xs-12" ng-show="ChequePayment">
                         <div class="col-md-12 col-xs-12">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-xs-12" ng-show="PayOnline" ng-include='"partials/payment/stripe/stripe.html"'>
+                    <!-- <div class="col-md-6 col-xs-12" ng-show="PayOnline" ng-include='"partials/payment/stripe/stripe.html"'>
                                                     
                     </div> -->
 

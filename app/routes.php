@@ -245,6 +245,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('invite/{code}', 'InviteController@getInvite');
 
     Route::get('users/{id}/friends', 'FriendsController@index');
+    Route::get('users/{id}/chatfriends', 'FriendsController@getChatFriends');
     Route::get('users/{id}/{circle_id}/circlefriends', 'FriendsController@getFriendsForCircle');
     Route::get('users/{id}/{group_id}/groupfriends', 'FriendsController@getFriendsForGroup');
     Route::get('users/{id}/{event_id}/eventfriends', 'FriendsController@getFriendsForEvents');
@@ -360,9 +361,9 @@ Route::group(array('prefix' => 'v1'), function () {
 
     Route::get('users/stores/{store_id}/products/rfi', 'StoreController@getProductsRfi');
     Route::get('users/stores/{store_id}/rfq', 'StoreController@getStoreRfq');
-//    /getProductSKUByProductId
+    //    /getProductSKUByProductId
 
-//getProductLineByStoreId
+    //getProductLineByStoreId
     // Classifieds Routes
 
     Route::get('classifieds', 'ClassifiedsController@index');

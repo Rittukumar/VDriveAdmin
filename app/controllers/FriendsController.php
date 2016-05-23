@@ -57,6 +57,43 @@ class FriendsController extends AppController {
 		}
 	}
 
+
+	public function getChatFriends($id)
+	{
+
+		try{
+			$limit = Input::get('limit') ?: 12;
+
+			$friends = Friend::with('profile','profile.profile_image','user')->where('user_id', $id)
+			               ->whereExists(function($query)
+				            {
+				                $query->select(DB::raw(1))
+				                      ->from('users')
+				                      ->whereRaw('users.id = friends.friend_user_id')
+				                      ->whereRaw('blocked = 0')
+				                      ->whereRaw('deleted = 0');
+				            })
+		                   ->get();
+			
+			if(! $friends)
+			{
+				return $this->responseNotFound('Friends Not Found!');
+			}
+
+			$fractal = new Manager();
+
+			$usersResource = new Collection($friends, new FriendTransformer());
+
+			$data = $fractal->createData($usersResource);
+
+			return $data->toJson();
+		} catch (Exception $e) {
+
+			return $this->setStatusCode(500)->respondWithError($e);
+		}
+
+	}
+
     public function getFriendsForCircle($id,$circle_id)
     {
         try{

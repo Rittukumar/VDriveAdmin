@@ -8,6 +8,10 @@ return array(
 	'google_secret'   => 'f07r4MTEtDbme1hsgpiBNypj',
 	'linkedin_secret' => 'PJk2eO9hoaf2wcAR',
 
+
+	'evezown_url'  => 'http://localhost:9000/#',
+	//'evezown_url'  => 'http://evezown.com/#',
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Image upload path
