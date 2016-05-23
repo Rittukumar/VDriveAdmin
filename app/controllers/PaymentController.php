@@ -179,15 +179,14 @@ class PaymentController extends AppController {
             $inputArray['order_success'] = '';
 
             $status = $inputArray['status'];
-
+            
+            $delete = PaymentOrders::where('email', $inputArray['email'])->delete();
 
             if($status == 'success')
             {
 
               if($this->storeOrder($inputArray['orders'], '') == 'success')
                 {
-
-                    $delete = PaymentOrders::where('email', $inputArray['email'])->delete();
 
                     $inputArray['order_success'] = 'success';
 

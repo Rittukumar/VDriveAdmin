@@ -51,7 +51,7 @@
 		<p style="text-align:center;color:#8E8E94;">Thank you for shopping with us.</p>
         
         <div style="background-color:#FFFFFF;width:100%;float:left;text-align:center;">
-			<br><p><a href="http://localhost:9000/#/payu/success/<?php echo $storeId; ?>/<?php echo $checkOutType; ?>" class="button">Return to Evezown</a></p><br>
+			<br><p><a href="<?php echo Config::get('app.evezown_url'); ?>/payu/success/<?php echo $storeId; ?>/<?php echo $checkOutType; ?>" class="button">Return to Evezown</a></p><br>
 		</div>
    
 </div>
@@ -64,7 +64,7 @@ else { ?>
 			<p style="padding:0px 20px 0px 20px;color:#8E8E94;text-align:center;">Your payment has been failed! please try again:</p>
 
 			<div style="background-color:#FFFFFF;width:100%;float:left;text-align:center;">
-				<br><p><a href="http://localhost:9000/#/payu/fail/<?php echo $storeId; ?>/<?php echo $checkOutType; ?>" class="button">Return to Evezown</a></p><br>
+				<br><p><a href="<?php echo Config::get('app.evezown_url'); ?>/payu/fail/<?php echo $storeId; ?>/<?php echo $checkOutType; ?>" class="button">Return to Evezown</a></p><br>
 			</div>
 
 		</div>

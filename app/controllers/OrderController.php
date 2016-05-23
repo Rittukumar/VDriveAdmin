@@ -139,7 +139,6 @@ class OrderController extends AppController
             $buyerCode  = Input::get('code');
 
             $buyer = Buyer::where('email', $buyerEmail)
-                            ->orWhere('phone', $buyerPhone)
                             ->orWhere('code', $buyerCode)->first();
 
             if (!$buyer) {

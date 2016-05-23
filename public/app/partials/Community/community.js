@@ -39,7 +39,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
     $scope.pageChanged = function () {
             console.log('Page changed to: ' + $scope.currentUserPage);
             $scope.fetchFriends();
-        };
+    };
 
         $scope.maxSize = 5;
         $scope.currentUserPage = 1;
@@ -61,6 +61,21 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
                 $scope.fetchMembers("");
             });
     }
+
+
+    $scope.fetchChatFriends = function()
+    {
+       $http.get(PATHS.api_url + 'users/' + $scope.loggedInUserId + '/chatfriends')
+            .success(function (data)
+            {
+                $rootScope.chatfriendList = data.data;
+            })
+            .error(function (err)
+            {
+                console.log('Error retrieving chat friends');
+
+            });
+    };
 
 
     $scope.getUserOnlineStatus = function()
@@ -119,6 +134,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
                 toastr.error(data.error.message, 'Community failure');
             });
     }
+
     $scope.GetMemberRequest = function()
     {
         $http.get($scope.service_url + 'users/'+$cookieStore.get('userId')+'/friend/requests').
@@ -156,6 +172,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
             success(function (data, status, headers, config)
             {
                 $scope.fetchFriends();
+                $scope.fetchChatFriends();
                 $scope.GetMemberRequest();
                 toastr.success(data.message, 'Community');
 
@@ -164,6 +181,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
                 toastr.error(data.error.message, 'Community');
             });
     }
+
     $scope.RejectRequest = function(request)
     {
         $http.post($scope.service_url + 'users/friend/request/reject'
@@ -245,6 +263,7 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
 
         $scope.fetchFriends();
         $scope.GetMemberRequest();
+        $scope.fetchChatFriends();
         $scope.getUserOnlineStatus();
 
 });
