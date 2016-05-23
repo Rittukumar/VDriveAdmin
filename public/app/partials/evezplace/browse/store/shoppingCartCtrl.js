@@ -273,6 +273,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         if(code == "" || code == undefined)
         {
             toastr.error('Please enter a buyer code');
+            document.getElementById("buyercode").focus();
         }
         else
         {
@@ -378,6 +379,12 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
             {
                 toastr.error("please enter pincode",'Shipping Address');
                 document.getElementById('0').checked = false;
+            }
+            else
+            {
+                $scope.ConstructNewAddress = {'billing_address': $scope.orderData.billing_address, 'shipping_address': $scope.orderData.shipping_address};
+
+                $scope.selectedAddress($scope.ConstructNewAddress);
             }
 
         }
@@ -769,7 +776,8 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         {
             if(!$scope.orderData.buyer.code && !$scope.Newbuyer)
             {
-                toastr.error('Please enter buyer code');
+                toastr.error('Please enter a buyer code');
+                document.getElementById("buyercode").focus();
                 return;
             }
         }
@@ -777,14 +785,26 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         if(!$scope.orderData.buyer.name)
         {
             toastr.error('Please enter  name');
+            document.getElementById("name").focus();
+            document.getElementById("BuyerName").focus();
         }
         else if(!$scope.orderData.buyer.email)
         {
             toastr.error('Please enter  email');
+            document.getElementById("email").focus();
+            document.getElementById("BuyerEmail").focus();
         }
         else if(!$scope.orderData.buyer.phone)
         {
             toastr.error('Please enter phone number');
+            document.getElementById("mobile").focus();
+            document.getElementById("BuyerPhone").focus();
+        }
+        else if(!(/^\d{10}$/.test($scope.orderData.buyer.phone)))
+        {
+            toastr.error('Please enter valid phone number');
+            document.getElementById("mobile").focus();
+            document.getElementById("BuyerPhone").focus();
         }
 
         else
