@@ -10,6 +10,7 @@ return array(
 
 
 	'evezown_url'  => 'http://localhost:9000/#',
+	//'evezown_url'  => 'http://evezown.in/#',
 	//'evezown_url'  => 'http://evezown.com/#',
 
 	/*
