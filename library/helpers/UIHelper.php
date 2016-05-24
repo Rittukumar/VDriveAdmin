@@ -391,4 +391,70 @@ EOF;
     }
 
 
+    public static function checkCart($user_id, $new_cart_contents)
+    {
+        
+        $all_contents = \CartContents::select('contents')->where('user_id', $user_id)->get();
+        
+        if(!$all_contents->isEmpty())
+        {
+          $contents = [];
+
+          foreach ($all_contents as $key => $value) 
+          {
+            $contents = json_decode($value->contents);
+          }
+
+            if(empty($contents))
+            {
+              $cart_contents = '';
+            }
+            else
+            {
+              $content       = json_encode($new_cart_contents);
+              $check_content = \CartContents::where('user_id', $user_id)->where('contents', $content)->get();
+              if($check_content->isEmpty())
+              {   
+                 $cart_contents = $contents;                  
+              }else{
+                 $cart_contents = '';
+              }
+            }
+
+        }
+        else
+        {
+            $cart_contents = '';
+        }
+
+        return $cart_contents;
+
+    }
+
+
+    public static function getCart($user_id)
+    {
+
+      $all_contents = \CartContents::select('contents')->where('user_id', $user_id)->get();
+      
+        if(!$all_contents->isEmpty())
+        {
+          $contents = [];
+
+          foreach ($all_contents as $key => $value) 
+          {
+            $contents = json_decode($value->contents);
+          }
+
+          if(!empty($contents))
+            {
+              return $contents;
+            }
+
+        }
+
+    }
+
+  
+
 }

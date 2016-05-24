@@ -288,7 +288,7 @@ class WoiceController extends AppController
             // Query to fetch all posts based on visibility settings. Post with images and
             // user data.
             $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand',
-                                'comments.user.profile_image', 'grades.user')
+                                'comments.user.profile_image', 'grades.user', 'users')
                 ->orWhere(function ($query) use ($type) {
                     $query->where('visibility_id', 1);
                     $query->where('post_type_id', $type);
@@ -302,6 +302,7 @@ class WoiceController extends AppController
                         ->whereExists(function ($query) {
                             $query->select(DB::raw(1))
                                 ->from('circles')
+                                ->whereRaw('circles.id = posts.circle_id')
                                 ->whereRaw('circles.id = circle_friends.circle_id')
                                 ->whereRaw('circles.user_id = posts.owner_id');
                         });
@@ -402,8 +403,9 @@ class WoiceController extends AppController
     }
 
 
+
     public function searchPost()
-    {
+    {       
         try {
             $limit = 15;
 
@@ -412,6 +414,7 @@ class WoiceController extends AppController
 
             $input = Input::all();
 
+            
             $inputs_array = $input['data'];
             $title = "";
             $postTypeId = "%";
@@ -420,10 +423,11 @@ class WoiceController extends AppController
             $search_category = null;
             $search_subcategory = null;
             $priceRange = null;
+            $search_location = null;
             
             $posts = array();
 
-//            $userId = $inputs_array['userId'];
+            $user_id = $inputs_array['userId'];
             if (isset($inputs_array['title'])) {
                 $title = $inputs_array['title'];
             }
@@ -468,25 +472,94 @@ class WoiceController extends AppController
                     $priceRange ="%";
                 }
             }
-         
-            $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')
+
+            if (isset($inputs_array['searchLocation'])) {
+                $search_location = $inputs_array['searchLocation'];
+                if($search_location == ""){
+                    $search_location ="%";
+                }
+            }
+
+          
+            
+            $allposts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user', 'users')
+                
                 ->Where('title', 'LIKE', "%$title%")    
                 ->Where('post_type_id', 'LIKE', "$postTypeId")
+                ->orwhereNull('post_type_id')
                 ->Where('classification_id', 'LIKE', "$classificationId")
+                ->orwhereNull('classification_id')
                 ->Where('brand_id', 'LIKE', "$postBrand")
+                ->orwhereNull('brand_id')
                 ->Where('cat_id', 'LIKE', "$search_category")
+                ->orwhereNull('cat_id')
                 ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
-                ->orderBySubmitDate()->paginate($limit);
-//            if(isset($inputs_array['communityId']))
-//            {
-//                $communityId = $inputs_array['communityId'];
-//            }
+                ->orwhereNull('sub_cat_id')
+                ->orWhereExists(function ($query) use ($search_location) {
+                    $query->select(DB::raw(1))
+                        ->from('locations')
+                        ->where('location', 'LIKE', "$search_location");
+                })
+                ->orderBySubmitDate()->get();
 
 
-//            $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')->where('post_type_id', $postTypeId)->Where('brand_id','=',$postBrand)->Where('price_range','<=',$priceRange)->Where('visibility_id','=',$communityId)->Where('title', 'LIKE', "%$title%")->Where('description', 'LIKE', "%$title%")->Where('testimonial', 'LIKE', "%$title%")
-//                ->orderBySubmitDate()->paginate($limit);
+                $all = [];
 
-            if (!$posts) {
+                foreach ($allposts as $key => $value) 
+                {
+                     if($value->visibility_id == 1)
+                     {
+                        $all[] = $value;
+                     }
+                     else if($value->visibility_id == 4 && $value->owner_id == $user_id)
+                     {
+                        $all[] = $value;
+                     }
+                     else if($value->visibility_id == 3)
+                     {
+                        $checkFriend = DB::table('friends')
+                                        ->where('friends.user_id', $value->owner_id)
+                                        ->where('friends.friend_user_id', $user_id)->get();
+
+                        if(!empty($checkFriend)  || $owner_id == $user_id)
+                        {
+                            $all[] = $value;
+                        }
+                     }
+                     else if($value->visibility_id == 2)
+                     {
+                         $owner_id    = $value->owner_id;
+                         $circle_id   = $value->circle_id;
+                         $checkCircle = DB::table('circle_friends')->where('circle_friends.friend_user_id', $user_id)
+                                        ->whereExists(function ($query) use ($owner_id, $circle_id) {
+                                            $query->select(DB::raw(1))
+                                                  ->from('circles')
+                                                  ->whereRaw('circles.id =' .$circle_id)
+                                                  ->whereRaw('circles.id = circle_friends.circle_id')
+                                                  ->whereRaw('circles.user_id =' .$owner_id);
+                                        })->get();  
+                        
+                        if(!empty($checkCircle) || $owner_id == $user_id)
+                        {
+                            $all[] = $value;
+                        }
+                        
+                      }
+                }
+
+                $posts = new \Illuminate\Database\Eloquent\Collection($all);
+
+
+            // if(isset($inputs_array['communityId']))
+            // {
+            //    $communityId = $inputs_array['communityId'];
+            // }
+
+
+            // $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')->where('post_type_id', $postTypeId)->Where('brand_id','=',$postBrand)->Where('price_range','<=',$priceRange)->Where('visibility_id','=',$communityId)->Where('title', 'LIKE', "%$title%")->Where('description', 'LIKE', "%$title%")->Where('testimonial', 'LIKE', "%$title%")
+            // ->orderBySubmitDate()->paginate($limit);
+
+            if ($posts->isEmpty()) {
                 $errorMessage = [
                     'status' => false,
                     'message' => "Posts not found!"
@@ -499,9 +572,10 @@ class WoiceController extends AppController
 
             $postsResource = new Collection($posts, new PostsTransformer);
 
-            $postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
+            //$postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
 
             $data = $fractal->createData($postsResource);
+
 
             return $data->toJson();
         } catch (Exception $e) {
@@ -514,6 +588,7 @@ class WoiceController extends AppController
         }
     }
 
+
     public function getRecco($user_id)
     {
         try {
@@ -522,8 +597,10 @@ class WoiceController extends AppController
             // Query to fetch all my posts and my friends post with images and
             // user data.
             $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand',
-                'comments.user.profile_image', 'grades.user')
-                ->where('visibility_id', 1)
+                'comments.user.profile_image', 'grades.user', 'users')
+                ->orWhere(function ($query) {
+                    $query->where('visibility_id', 1);
+                })
                 ->orWhereExists(function ($query) use ($user_id) {
                     $query->where('visibility_id', 2);
                     $query->select(DB::raw(1))
@@ -532,6 +609,7 @@ class WoiceController extends AppController
                         ->whereExists(function ($query) {
                             $query->select(DB::raw(1))
                                 ->from('circles')
+                                ->whereRaw('circles.id = posts.circle_id')
                                 ->whereRaw('circles.id = circle_friends.circle_id')
                                 ->whereRaw('circles.user_id = posts.owner_id');
                         });
@@ -547,10 +625,12 @@ class WoiceController extends AppController
                     $query->orWhere('owner_id', $user_id);
                 })
                 ->orWhere(function ($query) use ($user_id) {
+                   
                     $query->where('visibility_id', 4);
                     $query->where('owner_id', $user_id);
                 })
                 ->orderBySubmitDate()->paginate($limit);
+
 
             if (!$posts) {
                 $errorMessage = [
@@ -567,7 +647,10 @@ class WoiceController extends AppController
 
             $postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
 
+
+
             $data = $fractal->createData($postsResource);
+
 
             return $data->toJson();
         } catch (Exception $e) {
@@ -697,12 +780,18 @@ class WoiceController extends AppController
             $post->testimonial = $testimonial;
             $post->visibility_id = $visibility_id;
             $post->price_range = $price_range;
+            
+            if($visibility_id != 2)
+            {
+                $post->circle_id = 0;
+            }
 
             $post->save();
+            
             $successResponse = [
                 'status' => true,
                 'id' => $post->id,
-                'message' => 'post updated successfully!'
+                'message' => 'Post updated successfully!'
             ];
 
             return $this->setStatusCode(200)->respond($successResponse);
@@ -712,6 +801,42 @@ class WoiceController extends AppController
             return $this->setStatusCode(500)->respondWithError($e);
         }
     }
+
+
+    /**change post cicle's visibility
+     * @param $user_id
+     * @return mixed
+     */
+
+
+    public function updatePostCircle()
+    {
+        try {
+            $input = Input::all();
+
+            $inputs_array = $input['data'];
+            $postId = $inputs_array['post_id'];
+            $circleId = $inputs_array['circle_id'];
+            
+            $post = Post::find($postId);
+            $post->circle_id = $circleId;
+
+            $post->save();
+
+            $successResponse = [
+                'status' => true,
+                'id' => $post->id,
+                'message' => 'Circle visibility updated successfully!'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+    
 
     public function deletePost($postId)
     {
@@ -785,6 +910,9 @@ class WoiceController extends AppController
             }
             if (isset($inputs_array['classification_id'])) {
                 $postArray['classification_id'] = $inputs_array['classification_id'];
+            }
+            if (isset($inputs_array['circle_id'])) {
+                $postArray['circle_id'] = $inputs_array['circle_id'];
             }
 
 

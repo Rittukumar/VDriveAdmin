@@ -98,6 +98,9 @@
                                   class="fa fa-caret-up"></span>
                             <span ng-if="!recommendation.isEditActive" class="fa fa-edit"> edit</span>
                         </a>
+                        <a href ng-really-message="Are you sure to delete?" ng-really-click="DeleteRecomondation(recommendation)" class="btn btn-link">
+                            <i class="fa fa-trash" aria-hidden="true"> Delete</i>
+                        </a>
                     </div>
                     <div class="col-sm-12" ng-if="recommendations4.isEditRecommendation" style="border: 1px solid #a540a4;
                                     margin-bottom: 10px; padding: 10px">

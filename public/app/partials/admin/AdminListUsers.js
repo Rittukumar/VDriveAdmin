@@ -198,6 +198,10 @@ evezownApp
                 else if (!$scope.master.emailId) {
                     toastr.error("Please enter a valid email id", 'Register');
                 }
+                else if(!$scope.role)
+                {
+                    toastr.error("Please select a member type", 'Register');
+                }
                 else if (!$scope.master.password) {
                     toastr.error("Password cannot be empty", 'Register');
                 }
@@ -222,6 +226,7 @@ evezownApp
                                 lastname: $scope.master.lastname,
                                 email: $scope.master.emailId,
                                 password: $scope.master.password,
+                                role: $scope.role
                             },
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         }).success(function (data, status, headers, config) {

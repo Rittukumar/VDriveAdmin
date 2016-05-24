@@ -8,24 +8,7 @@ evezownApp
         $scope.profileMenuItems=[];
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.currentUserId = $routeParams.id;
-
-        $scope.profileMenuItems.push({
-            name: 'Recent Activity',
-            link : 'profile/' + $routeParams.id
-          });
-       
-        if($scope.loggedInUserId == $routeParams.id)
-        {
-            $scope.profileMenuItems.push({name: 'Manage Mysite',
-            link : 'profile/' + $scope.loggedInUserId + '/personalinfo'},
-            {
-            name: 'Build Community',
-            link : 'community'
-            },{
-            name: 'Stream It',
-            link : 'streamit'
-            });
-        }
+        $scope.Role = $cookieStore.get('userRole');
 
         $scope.profileMenuItems.push({
             name: 'Stores',
@@ -33,23 +16,29 @@ evezownApp
         },{
             name: 'Ads & Campaigns',
             link : 'mylisting/' + $routeParams.id
-        },{
-            name: 'Blogs',
+        });
+
+        if($scope.loggedInUserId == $routeParams.id)
+        {
+            $scope.profileMenuItems.push({
+            name: 'Stream It',
+            link : 'streamit'
+            },{
+            name: 'Build Community',
+            link : 'community'
+            },{
+            name: 'Buy History',
+            link : 'buyHistory/' + $routeParams.id
+
+        });
+        }
+
+        $scope.profileMenuItems.push({
+            name: 'Promotional Tools',
             link : 'myblogs/' + $routeParams.id
         },{
-            name: 'Events',
-            link : 'myevents/' + $routeParams.id
-        },{
-            name: 'Gallery',
-            link : 'myalbums/' + $routeParams.id
-        },{
-            name: 'Groups',
-            link : 'mygroups/' + $routeParams.id
-
-        },{
-            name: 'Discussion',
-            link : 'mydiscussion/' + $routeParams.id
-
+            name: 'Recent Activity',
+            link : 'profile/' + $routeParams.id
         });
 
         $scope.navClass = function (page) {

@@ -1,7 +1,7 @@
 <?php
 
 class PaymentMode extends \Eloquent {
-	protected $fillable = ['id','title'];
+	protected $fillable = ['id','title','description'];
 
 	public $timestamps = false;
 

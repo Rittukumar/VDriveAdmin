@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="">
-                <a href="#profile/{{userId}}" >Mysite</a>
+                <a href="#mystores/{{userId}}" >Mysite</a>
             </li>
             <li ><a href="#myevents/{{currentUserId}}" class="{{isActive[1]}}">Events</a>
             </li>
@@ -114,7 +114,7 @@
             <b>Event Details: </b> {{selectedEvent.description}}
         </h5>
         <h5 style="text-transform: none">
-            <b>Created By: </b> <a href="#profile/{{selectedEvent.owner_id}}">{{selectedEvent.owner.firstname}}
+            <b>Created By: </b> <a href="#mystores/{{selectedEvent.owner_id}}">{{selectedEvent.owner.firstname}}
             {{selectedEvent.owner.lastname}}</a>
         </h5>
     </div>
@@ -221,18 +221,37 @@
             </div>
         </div>
 
-        <div class="col-md-12" ng-if="activity.images.length > 0" style="padding-left: 0px;">
-            <ul class="row" style="padding-left: 0px">
-                <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6" style="padding-left: 10px; padding-right: 10px; padding-top:10px " ng-repeat="image in activity.images track by $index">
-                    <a href ng-click="openLightBox(activity.images,$index)">
-                        <center>
-                                <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
-                                     class="img-thumbnail"/>
-                        </center>
-                    </a>
-                </li>
-            </ul>
+        <!-- activity images-->
+        <div ng-if="activity.images.length > 0" class="col-md-12 col-xs-12 spec center-block reco-image-gallery">
+            <div class="col-lg-3 col-md-6 col-xs-3 no-padding" ng-repeat="image in activity.images | slice:0:1">
+                <a  href ng-click="openLightBox(activity.images,$index)" class="thumbnail">
+                    <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                         alt="125x125">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-3 no-padding" ng-repeat="image in activity.images | slice:1:2">
+                <a  href ng-click="openLightBox(activity.images,$index + 1)" class="thumbnail">
+                    <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                         alt="125x125">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-3 no-padding" ng-repeat="image in activity.images | slice:2:3">
+                <a href ng-click="openLightBox(activity.images,$index + 2)" class="thumbnail">
+                    <img ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                         alt="125x125">
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-3 no-padding" ng-repeat="image in activity.images | slice:3:4">
+                <a href ng-click="openLightBox(activity.images,$index + 3)" class="thumbnail">
+                    <img ng-if="activity.images.length > 4" ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                         alt="125x125" style="opacity:0.7">
+                    <i class="custom-text-over-image" ng-if="activity.images.length > 4">+{{activity.images.length - 4}}</i>
+                    <img  ng-if="activity.images.length <= 4"ng-src="{{service_url+'image/show/'+image.large_image_url}}"
+                         alt="125x125">
+                </a>
+            </div>
         </div>
+        <!-- activity images ends-->
 
     </div>
     <!-- Announcement list section ends -->
@@ -260,7 +279,7 @@
                 <li class="col-lg-3 col-md-3 col-sm-4 col-xs-6"
                     style="padding-left: 10px; padding-right: 10px; padding-top:10px "
                     ng-repeat="friend in selectedEvent.attendees | filter:friendsearch | orderBy:'firstname':true">
-                    <a href="#profile/{{friend.friend_user_id}}">
+                    <a href="#mystores/{{friend.friend_user_id}}">
                         <center>
                             <div>
                                 <img ng-src="{{service_url+'image/show/'+friend.profile.profile_image.large_image_url}}"
@@ -282,7 +301,7 @@
                     ng-repeat="member in friendList | limitTo:5 | filter:queryMembers | orderBy:'firstname':true">
                     <li class="list-group-item col-sm-12">
                         <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
-                            <a href="#profile/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                            <a href="#mystores/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
                                                                   class="img-thumbnail" style="width: 32px; height: 32px"
                                                                   alt=""/> {{member.profile.firstname}}, {{member.profile.lastname}}</a>
                         </div>

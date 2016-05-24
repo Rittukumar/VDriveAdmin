@@ -21,6 +21,8 @@ evezownApp
 
         $scope.isActive = ['', 'active', '', ''];
 
+        $scope.checkforPasswordField = '';
+
         if($routeParams.id)
         {
             $scope.favorites.userId = $routeParams.id;
@@ -72,6 +74,7 @@ evezownApp
                 $scope.profile.other_info1 = data.other_info1;
                 $scope.profile.userId = data.id;
             });
+            $location.hash('view');
         }
 
         function fetchEnhancedProfile(userID) {
@@ -388,6 +391,30 @@ evezownApp
                 toastr.error('New password too weak');   
             }
             
+        }
+
+
+        $scope.checkforPasswordField = function(){
+           var data = { user_id : $cookieStore.get('userId') };
+           $http.post(PATHS.api_url + 'users/checkforPasswordField', data)
+                .success(function(response){ 
+
+                    if(response){
+                      $scope.checkforPasswordField = false; 
+                    }else{
+                      $scope.checkforPasswordField = true; 
+                    }
+                    
+                }).error(function (response) {
+                    console.log(response);
+                });
+
+        };
+
+
+        if($cookieStore.get('userId'))
+        {   
+            $scope.checkforPasswordField();
         }
 
         fetchPersonalInfo($routeParams.id);

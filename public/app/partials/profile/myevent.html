@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#mystores/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -39,32 +39,6 @@
 </nav>
 <div class="col-md-12" ng-controller="profileCtrl">
     <div class="row user-menu-container square">
-    <div class="row cover-section custom-profile-covers">
-        <div class="col-md-4 small-cover-pic">
-            <div class="small-cover-pic-top">
-                <div>
-                    <img ng-src="{{leftCoverImage}}" src="http://placehold.it/393x220"
-                         class="img-responsive thumbnail"/>
-                    <!--<img ng-src="http://www.turquoiseandgold.com/images/store_bng1.jpg" class="img-responsive" alt=""/>-->
-                </div>
-            </div>
-            <div class="small-cover-pic-bottom">
-                <img ng-src="{{bottomCoverImage}}" src="http://placehold.it/393x220"
-                     class="img-responsive thumbnail"/>
-                <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
-                <!--class="img-responsive" alt=""/>-->
-            </div>
-        </div>
-        <div class="col-md-8 large-cover-pic custom-user-right-coverpic">
-            <img ng-src="{{rightCoverImage}}" src="http://placehold.it/803x452"
-                 class="img-responsive thumbnail"/>
-            <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
-            <!--class="img-responsive" alt=""/>-->
-            <!--<button class="btn btn-primary btn-sm btn-cover-pic-left"><span class="fa fa-camera"></span> Change Pic-->
-            <!--</button>-->
-
-        </div>
-    </div>
         <div class="col-md-12 user-details">
             <div class="row coralbg white custom-profile-userpic">
                 <div class="col-md-3 top-margin">
@@ -89,127 +63,198 @@
                             </h4>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href ng-controller="community">
-                                <div class="col-md-2  well text-center" id="user-profile">
-                                    <h3>{{friendList.length}}</h3>
-                                    <h4>Connects</h4>
-                                </div>
-                            </a>
+                    <div class="row" ng-include='"partials/profile/userProfileCount.html"'></div>
+                </div>
+            </div>
 
-                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="circles">
-                                <h3>{{myCircles.length}}</h3>
-                                <h4>Circles</h4>
+            <div class="col-md-12" id="view">
+                <h3>About Me</h3>
+                <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
+            </div>
+        </div>
+
+        <!--breadcrumb-->
+        <div class="col-md-12" style="margin-top: 10px;" id="view">
+            <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+                <li><a href="#home">Home</a> <span class="divider"></span></li>
+                <li><a href="#mystores/{{currentUserId}}">Promotional Tools</a></li>
+                <li class="active">Events</li>
+            </ul>
+        </div>
+        <!--breadcrumb ends-->
+
+        <div class="col-md-2 user-menu-btns"
+            ng-include src='"partials/profile/PromotionalToolMenu.html"'>
+        </div>
+
+        <!--For Member-->
+        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
+            <div class="col-md-12 col-xs-12">
+                <div class="col-md-12 col-xs-12 empty-section text-center">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">This feature is not available for you. This feature is available only in the premium edition. In order to enable this feature please send a subscription request to evezown editor</h3>
+
+                    <div class="col-md-2 col-xs-12 col-md-offset-5 text-center">
+                        <a href class="btn btn-primary"> Subscribe Now</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--For Admin-->
+        <div ng-show="Role == 1 && currentUserId == loggedInUserId">
+            <div class="col-md-7 user-menu user-pad">
+        		<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+			        <div class="fragment">
+			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
+			            <p>
+			                You can create Events, online events as well as reflect real life events- parties, get together and seminars, host of features available to automate all your event planning and execution! Capture the fun element 
+			            </p>
+			        </div>
+			    </div>
+                <div class="col-md-12 panel-heading">
+                    <div class="col-md-2">
+                        <h5>
+                            Events ({{myEvents.length}})
+                        </h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
+                    </div>
+                    <div class="col-md-3 col-md-offset-4 pull-right">
+                        <a href="#createevent" class="btn btn-primary"><span class="fa fa-plus"></span> Create Event</a>
+                    </div>
+                </div>
+                <!--No Events-->
+                <div class="empty-section text-center" ng-show="myEvents.length == 0">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
+                </div>
+                <div class="col-md-12 circle-section">
+                    <ul class="row event-list">
+                        <!-- Row 1 -->
+                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
+                            <article>
+                                <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
+                                    <div class="img" ng-if="event.event_image == null">
+                                        <img alt="{{event.title}}" src="img/event.png">
+                                    </div>
+                                    <div class="img" ng-if="event.event_image != null">
+                                        <img alt="{{event.title}}" src="{{service_url}}image/show/{{event.event_image.large_image_url}}">
+                                    </div>
+                                    <div class="detail">
+                                        <time class="event-info" datetime="{{event.start_date}}">{{event.start_date}} {{event.start_time}}</time>
+                                        <h1>{{event.title | strLimit: 18}}</h1>
+
+                                        <div class="tease"><p>{{event.description | strLimit: 100}}</p></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+       
+
+            <div class="col-md-3" style="padding-right: 0px">
+                <!-- Friend requests -->
+                <div class="panel" style="background: #f7f7f7;">
+                    <div class="panel-heading">
+                        <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Event Requests ({{allEventInvites.length}})</h5>
+                    </div>
+                    <ul class="list-group" ng-repeat="request in allEventInvites">
+                        <li class="list-group-item col-sm-12">
+                            <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
+                                <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
+                                <a href="#eventdetails/{{request.event.id}}"> {{request.event.title}}</a>
                             </div>
-                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="eventCtrl">
-                                <h3>{{myEvents.length}}</h3>
-                                <h4>Events</h4>
+                            <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+                                <a href ng-click="SetInviteStatus('yes',request.event.id)"><span class="fa fa-check"></span></a>
                             </div>
-                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="blogCntrl">
-                                <h3>{{myBlogs.length}}</h3>
-                                <h4>Blogs</h4>
+                            <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+                                <a href="" ng-click="SetInviteStatus('no',request.event.id)"><span class="fa fa-times"></span></a>
                             </div>
-                            <div class="col-md-2  well text-center" id="user-profile" ng-controller="albums">
-                                <h3>{{myAlbums.length}}</h3>
-                                <h4>Gallery</h4>
+                            <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
+                                <a href="" ng-click="SetInviteStatus('maybe',request.event.id)" class="pull-right"><span>maybe</span></a>
                             </div>
-                            <div class="col-md-2  well text-center" id="user-more">
-                                <h3><i class="fa fa-circle"></i>
-                                    <i class="fa fa-circle"></i>
-                                    <i class="fa fa-circle"></i>
-                                </h3>
+
+                        </li>
+                    </ul>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--<ul class="pagination pagination-sm pull-right">-->
+                                <!--<li class="disabled"><a href="javascript:void(0)">«</a></li>-->
+                                <!--<li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a>-->
+                                <!--</li>-->
+                                <!--<li><a href="">2</a></li>-->
+                                <!--<li><a href="javascript:void(0)">»</a></li>-->
+                                <!--</ul>-->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <h3>About Me</h3>
-
-                    <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
-            
-        </div>
-        <div class="col-md-7 user-menu user-pad" ng-controller="eventCtrl">
-            <div class="col-md-12 panel-heading">
-                <div class="col-md-2">
-                    <h5>
-                        Events ({{myEvents.length}})
-                    </h5>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
-                </div>
-                <div class="col-md-3 col-md-offset-4 pull-right" ng-if="loggedInUserId == currentUserId">
-                    <a href="#createevent" class="btn btn-primary"><span class="fa fa-plus"></span> Create Event</a>
-                </div>
-            </div>
-            <div class="col-md-12 circle-section">
-                <ul class="row event-list">
-                    <!-- Row 1 -->
-                    <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
-                        <article>
-                            <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
-                                <div class="img" ng-if="event.event_image == null">
-                                    <img alt="{{event.title}}" src="img/event.png">
-                                </div>
-                                <div class="img" ng-if="event.event_image != null">
-                                    <img alt="{{event.title}}" src="{{service_url}}image/show/{{event.event_image.large_image_url}}">
-                                </div>
-                                <div class="detail">
-                                    <time class="event-info" datetime="{{event.start_date}}">{{event.start_date}} {{event.start_time}}</time>
-                                    <h1>{{event.title | strLimit: 18}}</h1>
-
-                                    <div class="tease"><p>{{event.description | strLimit: 100}}</p></div>
-                                </div>
-                            </a>
-                        </article>
-                    </li>
-                </ul>
             </div>
         </div>
-        <div class="col-md-3" style="padding-right: 0px" ng-controller="eventCtrl" ng-if="loggedInUserId == currentUserId">
-            <!-- Friend requests -->
-            <div class="panel" style="background: #f7f7f7;">
-                <div class="panel-heading">
-                    <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Event Requests ({{allEventInvites.length}})</h5>
-                </div>
-                <ul class="list-group" ng-repeat="request in allEventInvites">
-                    <li class="list-group-item col-sm-12">
-                        <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
-                            <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
-                            <a href="#eventdetails/{{request.event.id}}"> {{request.event.title}}</a>
-                        </div>
-                        <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
-                            <a href ng-click="SetInviteStatus('yes',request.event.id)"><span class="fa fa-check"></span></a>
-                        </div>
-                        <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
-                            <a href="" ng-click="SetInviteStatus('no',request.event.id)"><span class="fa fa-times"></span></a>
-                        </div>
-                        <div class="col-sm-2" style="padding-left: 0px; padding-right: 0px">
-                            <a href="" ng-click="SetInviteStatus('maybe',request.event.id)" class="pull-right"><span>maybe</span></a>
-                        </div>
 
-                    </li>
-                </ul>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!--<ul class="pagination pagination-sm pull-right">-->
-                            <!--<li class="disabled"><a href="javascript:void(0)">«</a></li>-->
-                            <!--<li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a>-->
-                            <!--</li>-->
-                            <!--<li><a href="">2</a></li>-->
-                            <!--<li><a href="javascript:void(0)">»</a></li>-->
-                            <!--</ul>-->
-                        </div>
+        <!--For visiting friends profile-->
+        <div ng-show="currentUserId != loggedInUserId">
+            <div class="col-md-10 user-menu user-pad">
+                <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                    <div class="fragment">
+                        <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+                        <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
+                        <p>
+                            You can create Events, online events as well as reflect real life events- parties, get together and seminars, host of features available to automate all your event planning and execution! Capture the fun element 
+                        </p>
                     </div>
                 </div>
+                <div class="col-md-12 panel-heading">
+                    <div class="col-md-2">
+                        <h5>
+                            Events ({{myEvents.length}})
+                        </h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
+                    </div>
+                </div>
+                <!--No Events-->
+                <div class="empty-section text-center" ng-show="myEvents.length == 0">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
+                </div>
+                <div class="col-md-12 circle-section">
+                    <ul class="row event-list">
+                        <!-- Row 1 -->
+                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
+                            <article>
+                                <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
+                                    <div class="img" ng-if="event.event_image == null">
+                                        <img alt="{{event.title}}" src="img/event.png">
+                                    </div>
+                                    <div class="img" ng-if="event.event_image != null">
+                                        <img alt="{{event.title}}" src="{{service_url}}image/show/{{event.event_image.large_image_url}}">
+                                    </div>
+                                    <div class="detail">
+                                        <time class="event-info" datetime="{{event.start_date}}">{{event.start_date}} {{event.start_time}}</time>
+                                        <h1>{{event.title | strLimit: 18}}</h1>
+
+                                        <div class="tease"><p>{{event.description | strLimit: 100}}</p></div>
+                                    </div>
+                                </a>
+                            </article>
+                        </li>
+                    </ul>
+                </div>
             </div>
-    </div>
+        </div>
+
+
 </div>
 </div>

@@ -1,6 +1,5 @@
 
 <!--chat -->
-
 <audio id="chatAudio">
     <source src="custom/OneOnOneChat/sounds/notify.ogg" type="audio/ogg">
     <source src="custom/OneOnOneChat/sounds/notify.mp3" type="audio/mpeg">
@@ -9,14 +8,14 @@
 
 <link rel="stylesheet" href="custom/OneOnOneChat/css/chat.css"/>
 
-<!--
-| CHAT HEADER SECTION
--->
-<h2 class="chat-header" ng-controller="community">
+<span ng-controller="community">
+  
+<!--| CHAT HEADER SECTION -->
+
+<h2 class="chat-header">
     
     <span  class="label label-{{UserOnlinestatus == 'success' ? 'success' : 'danger' }}" id="current_status">{{UserOnlinestatus == 'success' ? 'Online' : 'Offline' }}</span>
    
-
     <span class="pull-right" style="margin-left: 8px;">
       <a href="javascript: void(0);" class="chat-container-close">
         <i class="fa fa-times fa-inverse" title="Close"></i>
@@ -35,21 +34,19 @@
     </ul>
     </span> 
 
-    <span style="margin-left: 10px;"><i class="fa fa-refresh" title="Refresh" ng-click="fetchFriends()" style="cursor:pointer;"></i></span> 
+    <span style="margin-left: 10px;"><i class="fa fa-refresh" title="Refresh" ng-click="fetchChatFriends()" style="cursor:pointer;"></i></span> 
 
-    
 </h2>
 
-<!--
-| CHAT CONTACTS LIST SECTION
--->
-<div class="chat-inner" id="chat-inner" style="position:relative;" ng-controller="community">
+<!--| CHAT CONTACTS LIST SECTION -->
+
+<div class="chat-inner" id="chat-inner" style="position:relative;">
 <div class="chat-group">
  <strong>Connections</strong>
 
   <input type="hidden" value="{{loggedInUserId}}" name="me_id" id="me_id"/>
   
- 	<a href="javascript: void(0)" data-toggle="popover" ng-if="friendList.length > 0" ng-repeat="friend in friendList" ng-if="friend.friend_user_id != loggedInUserId">
+ 	<a href="javascript: void(0)" data-toggle="popover" ng-if="chatfriendList.length > 0" ng-repeat="friend in chatfriendList" ng-if="friend.friend_user_id != loggedInUserId">
     <div class="contact-wrap">
       <input type="hidden" value="{{friend.friend_user_id}}" name="user_id" />
       <input type="hidden" value="{{friend.user_id}}" name="my_user_id" />
@@ -66,14 +63,13 @@
             <span class="user-status {{friend.user.online_status == 1 ? 'is-online' : 'is-offline' }}"></span>
         </span>
     </div>
-    </a>
+  </a>
 
 </div>
 </div>
 
-<!--
-| CHAT CONTACT HOVER SECTION
--->
+<!--| CHAT CONTACT HOVER SECTION -->
+
 <div class="popover" id="popover-content">
     <div id="contact-image"></div>
     <div class="contact-user-info">
@@ -82,9 +78,8 @@
     </div>
 </div>
 
-<!--
-| INDIVIDUAL CHAT SECTION
--->
+<!--| INDIVIDUAL CHAT SECTION -->
+
 <div id="chat-box" style="top: 400px">
   <div class="chat-box-header">
       <a href="javascript: void(0);" class="chat-box-close pull-right">
@@ -109,6 +104,8 @@
       </div>
   </div>
 </div>
+
+</span>
 
 <!--chat -->
 <script type="text/javascript" src="custom/OneOnOneChat/js/jquery.slimscroll.js"></script>

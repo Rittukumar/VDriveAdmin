@@ -64,10 +64,15 @@
     </script>
     <!--test comment-->
     <script>
-    var base;
-      window.fbAsyncInit = function() {
+
+      var base; 
+      var fbAppId       = '506370999551048';
+      var gmailAppId    = '81816055431-rqsavvo6lqmk0dhscejmq346ohmg6e09.apps.googleusercontent.com';
+      var linkedinAppId = '75i5a2ejgb4098';
+
+       window.fbAsyncInit = function() {
         FB.init({
-          appId      : '1732417230307091',
+          appId      : fbAppId,
           xfbml      : true,
           version    : 'v2.5'
         });
@@ -98,7 +103,7 @@
 
 </div>
 
-<div id="chat-container" class="fixed" ng-if="loggedIn" style="display:none;"  ng-include='"partials/chat/chat-form.html"' ng-controller="community"></div>
+<div id="chat-container" class="fixed" ng-if="loggedIn" style="display:none;"  ng-include='"partials/chat/chat-form.html"'></div>
 
 <!-- /container -->
 <footer id="footer" class="midnight-blue">
@@ -106,28 +111,28 @@
         <!-- <div class="col-sm-12 footer-links"> -->
         <div class="row" style="margin:0px;">
             <ul class="col-md-4">
-                <li><a href="#aboutus">About Us</a></li>
-                <li><a href="#careers">Careers</a></li>
-                <li><a href="#contactus">Contact Us</a></li>
+                <li><a href="#aboutus">{{FooterCaptions[0].description}}</a></li>
+                <li><a href="#careers">{{FooterCaptions[3].description}}</a></li>
+                <li><a href="#contactus">{{FooterCaptions[6].description}}</a></li>
             </ul>
             <ul class="col-md-4">
-                <li><a href="#streamit">Mysite</a></li>
-                <li><a href="#evezplace">MarketPlace</a></li>
-                <li><a href="#wopportunity">Jobs</a></li>
+                <li><a href="#streamit">{{FooterCaptions[1].description}}</a></li>
+                <li><a href="#evezplace">{{FooterCaptions[4].description}}</a></li>
+                <li><a href="#wopportunity">{{FooterCaptions[7].description}}</a></li>
             </ul>
             <ul class="col-md-4">
-                <li><a href="#contribute">Contribute</a></li>
-                <li><a href="#advertisement">Advertise</a></li>
-                <li><a href="#friends/invite" ng-if="loggedIn">Invite Friends</a>
+                <li><a href="#contribute">{{FooterCaptions[2].description}}</a></li>
+                <li><a href="#advertisement">{{FooterCaptions[5].description}}</a></li>
+                <li><a href="#friends/invite" ng-if="loggedIn">{{FooterCaptions[8].description}}</a>
                 </li>
-                <li><a href="#login" ng-if="!loggedIn">Invite Friends</a></li>
+                <li><a href="#login" ng-if="!loggedIn">{{FooterCaptions[8].description}}</a></li>
             </ul>
         </div>
         <!-- </div> -->
         <div class="row" style="margin:0px;">
             <div class="col-sm-12 text-center">
-                <p style="margin:0px;">Terms of Use. <a href="#privacy">Privacy Policy</a></p>
-                © 2015 <a target="_blank" href="#" title="">Evezown</a>. All Rights Reserved. Powered by<a target="_blank" href="http://webinsights.in" title=""> Webinsights Pvt Ltd</a>.
+                <p style="margin:0px;">Terms of Use. <a href="#privacy">{{FooterCaptions[9].description}}</a></p>
+                © 2015 <a target="_blank" href="#" title="">Evezown</a>. All Rights Reserved. Powered by<a target="_blank" href="http://webinsights.in" title=""> {{FooterCaptions[10].description}}</a>.
             </div>
         </div>
     </div>
@@ -212,6 +217,7 @@
 <script src="libs/ng-time-relative/dist/ng-time-relative.min.js"></script>
 <script src="//cdn.jsdelivr.net/satellizer/0.9.2/satellizer.min.js"></script>
 <script src="libs/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+
 <!--<script type="text/javascript" src="http://platform.linkedin.com/in.js">-->
     <!--//here goes the api key, and the callback function-->
     <!--api_key: 78-->
@@ -253,7 +259,8 @@
 <script src="partials/admin/profileDetailsService.js"></script>
 <script src="partials/admin/AdminInviteFrndsCtrl.js"></script>
 <script src="partials/admin/AlbumCtrl.js"></script>
-<script src="partials/admin/adminAlbums.js"></script>
+<script src="partials/admin/Manage/adminScreenCtrl.js"></script>
+<script src="partials/admin/Manage/adminConfigurationCtrl.js"></script>
 <script src="partials/admin/Manage/manageStoreLeftMenuController.js"></script>
 
 
@@ -310,11 +317,14 @@
 <script src="partials/evezplace/browse/classifieds/browseClassifieds.js"></script>
 <script src="partials/evezplace/createClassifieds.js"></script>
 <script src="partials/profile/ProfileMenuCtrl.js"></script>
+<script src="partials/profile/PromotionalMenuCtrl.js"></script>
 <script src="partials/admin/articles/articlesService.js"></script>
 <script src="partials/admin/articles/articlesCtrl.js"></script>
 <script src="partials/evezplace/classifiedsService.js"></script>
 <script src="partials/evezplace/classifiedsListService.js"></script>
 <script src="partials/evezplace/browse/store/storeService.js"></script>
+<script src="partials/evezplace/productSearch.js"></script>
+<script src="partials/evezplace/browse/store/orderCtrl.js"></script>
 <!--<script src="scripts/controllers/buyer/BuyerOrdersCtrl.js"></script>-->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -339,6 +349,13 @@
 <script src="scripts/services/evezplacesection.js"></script>
 <script src="scripts/filters/addlimitellipsis.js"></script>
 
+<script src="custom/satellizer.js"></script>
+<script src="custom/angular-local-storage.min.js"></script>
+
+<!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> -->
+
+
+ 
 
 <!-- endbuild -->
 

@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="">
-                <a href="#profile/{{userId}}">Mysite</a>
+                <a href="#mystores/{{userId}}">Mysite</a>
             </li>
             <li><a href="#myblogs/{{currentUserId}}" class="{{isActive[1]}}">Blogs</a>
             </li>
@@ -81,7 +81,7 @@
 
         <ul class="pmd clearfix" style="padding-left: 0px">
             <li class="a">By <a rel="author" class="poa"
-                                href=""
+                                href="#mystores/{{selectedBlog.author.user_id}}"
                                 title="Posts by {{selectedBlog.author.firstname}} {{selectedBlog.author.lastname}}">{{selectedBlog.author.firstname}}
                 {{selectedBlog.author.lastname}}</a>
             </li>
@@ -205,7 +205,7 @@
 
 <div class="col-md-4 text-center">
     <div class="bio  clearfix">
-        <a href="#profile/{{selectedBlog.author.user_id}}">
+        <a href="#mystores/{{selectedBlog.author.user_id}}">
             <div>
                 <div class="round-avatar-crop col-md-offset-3 col-sm-offset-5 col-xs-offset-2 text-center">
                     <img alt="" style="padding-left: 0px; padding-right: 0px" class="img-thumbnail"
@@ -215,7 +215,7 @@
 
             <div class="about col-md-12">
                 <div>
-                    <a href="#profile/{{selectedBlog.author.user_id}}" class="poa"
+                    <a href="#mystores/{{selectedBlog.author.user_id}}" class="poa"
                        title="Posts by {{selectedBlog.author.firstname}} {{selectedBlog.author.lastname}}">{{selectedBlog.author.firstname}}
                         {{selectedBlog.author.lastname}}</a>
 

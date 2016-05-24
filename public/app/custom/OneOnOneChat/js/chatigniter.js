@@ -78,7 +78,7 @@ function loadMessages(me_id)
     $.ajax(
         {            
             type: 'GET',
-            url : base + "chat/updates/",
+            url : base + "chat/updates",
             data: {me: me_id},
             async : true,
             cache : false,

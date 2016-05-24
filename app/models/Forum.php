@@ -21,4 +21,9 @@ class Forum extends \Eloquent {
 	public function subcategory(){
 		return $this->belongsTo('SubCategory', 'sub_cat_id');
 	}
+
+	public function trending() {
+		return $this->hasOne('EvezplaceTrendingForum', 'forum_id');
+	}
+
 }

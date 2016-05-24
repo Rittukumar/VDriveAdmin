@@ -17,6 +17,8 @@ evezownApp
         $scope.collage1 = "";
         $scope.collage2 = "";
         $scope.collage3 = "";
+        $scope.formData.storeContactEmail="";
+        $scope.formData.StoreName = "";
 
         $scope.filePath = PATHS.api_url + 'image/show/';
 
@@ -60,9 +62,14 @@ evezownApp
 
         $scope.storeSubscription = [];
         $scope.selectedSubscription = null;
+        $scope.Showcircles = false;
 
         $scope.classifiedImages = [];
-
+        $scope.ShowPayment = false;
+        $scope.PayOnline = false;
+        $scope.PayUmoney = false;
+        $scope.PaymentDetailsDiv = "";
+        $scope.StoreDetailsDiv = "";
         //   $scope.selectedStoreListing = null;
 
         $scope.selectedSubscription = null;
@@ -86,6 +93,18 @@ evezownApp
         else {
             $scope.currentStoreId = $cookieStore.get('storeId');
         }
+
+        //Payment details
+        $scope.MERCHANT_KEY = "MtAc0u";
+        $scope.Merchant_Id = "5212138";
+        $scope.SALT = "09BHBbap";
+        $scope.PAYU_BASE_URL = "https://secure.payu.in/_payment";
+
+        $scope.surl = PATHS.api_url+"storeSubscription/subPayment";
+        $scope.furl = PATHS.api_url+"storeSubscription/subPayment";
+        $scope.service_url = PATHS.api_url;
+        $scope.usertoken = $cookieStore.get('userToken');
+        $scope.encrypttext = "";
 
 
         $scope.addMoreOwner = function () {
@@ -139,6 +158,25 @@ evezownApp
 
         $scope.SetStoreSubscription = function (sub) {
             $scope.selectedSubscription = sub;
+        }
+
+        //get circles created by user
+        $scope.getCircles = function()
+        {
+            $http.get(PATHS.api_url + 'users/'+$scope.loggedInUserId+'/circles').
+            success(function (data, status, headers, config)
+            {
+                $scope.Showcircles = true;
+                $scope.Circles = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+
+        $scope.HideCircles = function()
+        {
+            $scope.Showcircles = false;
         }
 
         $scope.SaveStoreStep1 = function (formData, owners) {
@@ -218,7 +256,7 @@ evezownApp
                     $http.post(PATHS.api_url + 'users/store/' + $scope.loggedInUserId + '/add'
                         , {
                             data: {
-                                user_id: $scope.loggedInUserId,
+                                user_id: formData.OwnerID,
                                 title: formData.title,
                                 storeDescription: formData.storeDescription,
                                 owners: owners,
@@ -567,7 +605,10 @@ evezownApp
                $location.path('/store/create/step3');
             }
             else if (!formData.storeEmail) {
-                toastr.error('Please enter your email id', 'Store');
+                toastr.error('Please enter store contact email id', 'Store Contact');
+            }
+            else if (!formData.storePhone1) {
+                toastr.error('Please enter store contact Number', 'Store Contact');
             }
             else {
                 $http.post(PATHS.api_url + 'users/store/step4/' + $scope.loggedInUserId + '/add'
@@ -604,7 +645,10 @@ evezownApp
 
         $scope.EditStoreStep4 = function (formData) {
             if (!formData.storeEmail) {
-                toastr.error('Please enter your email id', 'Store');
+                toastr.error('Please enter store contact email id', 'Store Contact');
+            }
+            else if (!formData.storePhone1) {
+                toastr.error('Please enter store contact Number', 'Store Contact');
             }
             else {
                 $http.post(PATHS.api_url + 'users/store/step4/' + $scope.loggedInUserId + '/add'
@@ -803,6 +847,8 @@ evezownApp
 
         $scope.SaveStoreStep6 = function (formData) {
             
+            $scope.IsValidatedStep6 = false;
+
             if($cookieStore.get('IsStep2')== null){
                toastr.error('Please complete step2 and save', 'Store');
                $location.path('/store/create/step2');
@@ -821,7 +867,29 @@ evezownApp
             else if (!formData.free) {
                 toastr.error('Please Choose Stream -it subscription', 'Store');
             }
-            else {
+            else if (!formData.visibility)
+            {
+                toastr.error('Please select Stream In & Stream Out visibility', 'Store');
+            }
+            else if (formData.visibility == "2")
+            {
+                if(formData.SelectedCircle == undefined || formData.SelectedCircle == "")
+                {
+                    toastr.error("Please select a circle",'Stream In & Stream Out');
+                }
+                else
+                {
+                    $scope.IsValidatedStep6 = true;
+                }
+            }
+            else if(formData.visibility == "1" || formData.visibility == "3" || formData.visibility == "4")
+            {
+                $scope.IsValidatedStep6 = true;
+                formData.SelectedCircle = "";
+            }
+
+            if($scope.IsValidatedStep6)
+            {
                 $http.post(PATHS.api_url + 'users/store/step6/' + $scope.loggedInUserId + '/add'
                     , {
                         data: {
@@ -832,12 +900,13 @@ evezownApp
                             twitterLink: $scope.twitterLink,
                             linkedinLink: $scope.linkedinLink,
                             storePriceList: $scope.priceList,
-                            websiteUrl: $scope.websiteUrl
+                            websiteUrl: $scope.websiteUrl,
+                            visibility_id: formData.visibility,
+                            circle_id: formData.SelectedCircle
                         },
                         headers: {'Content-Type': 'application/json'}
                     }).
                 success(function (data, status, headers, config) {
-                    //
                     toastr.success(data.message, 'Store');
                     $location.path('/store/create/success');
                 }).error(function (data) {
@@ -949,7 +1018,7 @@ evezownApp
             name: 'imageFilter',
             fn: function (item /*{File|FileLikeObject}*/, options) {
                 var type = '|' + item.name.slice(item.name.lastIndexOf('.') + 1) + '|';
-                return '|doc|txt|pdf|docx|'.indexOf(type) !== -1;
+                return '|doc|pdf|docx|'.indexOf(type) !== -1;
             }
         });
 
@@ -980,7 +1049,9 @@ evezownApp
                     , {
                         data: {
                             file_name: $scope.contractFilename,
-                            storeID: $scope.currentStoreId
+                            storeID: $scope.currentStoreId,
+                            storeEmail: $scope.formData.storeContactEmail,
+                            storeName: $scope.formData.StoreName
                         },
                         headers: {'Content-Type': 'application/json'}
                     }).
@@ -1314,7 +1385,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.LeftCollageImage = {};
-                    $scope.addCollage.LeftCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.LeftCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1336,7 +1407,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.RightCollageImage = {};
-                    $scope.addCollage.RightCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.RightCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1358,7 +1429,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.BottomCollageImage = {};
-                    $scope.addCollage.BottomCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.BottomCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1380,7 +1451,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addCollage.ProfileCollageImage = {};
-                    $scope.addCollage.ProfileCollageImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addCollage.ProfileCollageImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1404,7 +1475,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage = {};
-                    $scope.addStores.slideImage.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1426,7 +1497,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage1 = {};
-                    $scope.addStores.slideImage1.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage1.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1448,7 +1519,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage2 = {};
-                    $scope.addStores.slideImage2.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage2.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1470,7 +1541,7 @@ evezownApp
 
                 if (data.value.status) {
                     $scope.addStores.slideImage3 = {};
-                    $scope.addStores.slideImage3.croppedImage = $scope.filePath + data.value.imageName;
+                    $scope.addStores.slideImage3.croppedImage = data.value.imageName;
                 }
 
             });
@@ -1597,6 +1668,22 @@ evezownApp
                 $http.get(PATHS.api_url + 'stores/' + $scope.currentStoreId + '/get').
                 success(function (data) {
                     $scope.currentStore = data;
+
+                    //Get store subscription offers if any
+                    if ($scope.currentStore[0].store_status) {
+                       $scope.storeStatus = $scope.currentStore[0].store_status.status_id;
+                    }
+                    $scope.Subscription_offer = $scope.currentStore[0].subscription_offer;
+                    $scope.Subscription_type = $scope.currentStore[0].store_subscription_id;
+
+                    //For UI Div Alignments
+                    if($scope.Subscription_type == 1 && $scope.Subscription_offer.length > 0)
+                    {
+                        $scope.StoreDetailsDiv = "col-md-offset-3";
+                    }
+                    //Div alignments ends
+                    
+
                     if ($scope.currentStore.length > 0) {
 
                         if (($location.path() == '/store/create/step1') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_info') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_info')) {
@@ -1609,6 +1696,7 @@ evezownApp
                             }
                             $scope.formData.address = $scope.currentStore[0]['street_address'];
                             $scope.formData.licenseInfo = $scope.currentStore[0]['license_info'];
+                            $scope.formData.OwnerID = $scope.currentStore[0]['owner_id'];
                             $scope.formData.storeAddress = $scope.currentStore[0]['web_address'];
                             $scope.formData.storeDescription = $scope.currentStore[0]['description'];
                             $scope.formData.cityStateCountry = $scope.currentStore[0]['city'] + ' ' + $scope.currentStore[0]['state'] + ' ' + $scope.currentStore[0]['country'];
@@ -1633,10 +1721,15 @@ evezownApp
                             $scope.formData.vatNumber = $scope.currentStore[0]['business_info']['vat_number'];
                             $scope.formData.tanNumber = $scope.currentStore[0]['business_info']['tan_number'];
                             $scope.formData.serviceTaxId = $scope.currentStore[0]['business_info']['service_tax_id'];
-                            $scope.formData.storeContractFile = $scope.currentStore[0]['business_info']['store_contract_file'];
+                            $scope.formData.storeContractAggreement = $scope.currentStore[0]['business_info']['contract_aggreement'];
                             $scope.formData.billingName = $scope.currentStore[0]['business_info']['billing_info_name'];
                             $scope.formData.billingAddress = $scope.currentStore[0]['business_info']['billing_info_address'];
                             $scope.formData.billingContactNumber = $scope.currentStore[0]['business_info']['billing_info_contact_number'];
+                            
+                            if ($scope.currentStore[0]['store_front_info']) {
+                               $scope.formData.storeContactEmail = $scope.currentStore[0]['store_front_info']['store_contact_email'];
+                            }
+                            $scope.formData.StoreName = $scope.currentStore[0]['title'];
                             $scope.GetSelectedStoreSubscription();
                         }
                         else if (($location.path() == '/store/create/step3') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front')) {
@@ -1686,9 +1779,9 @@ evezownApp
                         }
                         else if (($location.path() == '/store/create/step4') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_crm') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front_footer') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front_footer')) {
                             $scope.formData.storeEmail = $scope.currentStore[0]['store_front_info']['store_contact_email'];
-                            $scope.formData.storePhone1 = $scope.currentStore[0]['store_front_info']['store_contact_phone1'];
-                            $scope.formData.storePhone2 = $scope.currentStore[0]['store_front_info']['store_contact_phone2'];
-                            $scope.formData.storePhone3 = $scope.currentStore[0]['store_front_info']['store_contact_phone3'];
+                            $scope.formData.storePhone1 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone1']);
+                            $scope.formData.storePhone2 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone2']);
+                            $scope.formData.storePhone3 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone3']);
                             $scope.formData.termsconditions = $scope.currentStore[0]['store_front_info']['store_terms_conditions'];
                             $scope.formData.policies = $scope.currentStore[0]['store_front_info']['store_policies'];
                             $scope.formData.salesReturnPolicy = $scope.currentStore[0]['store_front_info']['store_sales_exchange_policy'];
@@ -1741,6 +1834,125 @@ evezownApp
                 });
             }
 
+        }
+
+        //Prepare payee details
+        $scope.PreparePayee = function()
+        {   
+            //Store Details
+            $scope.Selected_Store = $scope.currentStore[0];
+            //$scope.Store_id = $scope.currentStore[0].id;
+            $scope.name = $scope.Selected_Store.title;
+            $scope.email = $scope.Selected_Store.store_front_info.store_contact_email;
+            $scope.phone = $scope.Selected_Store.store_front_info.store_contact_phone1;
+            $scope.zipcode = $scope.currentStore[0].id;
+            $scope.productInfo = $scope.sub_type;
+            $scope.orderAmount    = $scope.totalPrice;
+            $scope.transactions   = $scope.makeUniqeId();
+            $scope.getHash();
+
+        };
+
+        //Make Unique ID
+        $scope.makeUniqeId = function()
+        {
+            var text = "";
+            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+            for( var i=0; i < 5; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            return text;
+        }
+        
+
+        $scope.getHash = function()
+        {
+
+            //Payment details
+            $scope.surl = PATHS.api_url+"storeSubscription/subPayment";
+            $scope.furl = PATHS.api_url+"storeSubscription/subPayment";
+            $scope.curl = PATHS.api_url+"storeSubscription/subPayment";
+            $scope.udf1 = "";
+            $scope.udf2 = "";
+            $scope.udf3 = "";
+            $scope.udf4 = "";
+            $scope.udf5 = "";
+            $scope.udf6 = "";
+            $scope.udf7 = "";
+            $scope.udf8 = "";
+            $scope.udf9 = "";
+            $scope.udf10 = "";
+            $http.post(PATHS.api_url + 'orders/payu/hash'
+              , {
+                    data:
+                    {
+                        key:$scope.MERCHANT_KEY,
+                        txnid:$scope.transactions,
+                        amount:$scope.orderAmount,
+                        firstname:$scope.name,
+                        email : $scope.email,
+                        phone : $scope.phone,
+                        productinfo : $scope.productInfo,
+                        surl : $scope.surl,
+                        furl :$scope.furl,
+                        service_provider : "payu_paisa",
+                        salt : $scope.SALT
+                    },
+                      headers: {'Content-Type': 'application/json'}
+                }).
+            success(function (data, status, headers, config)
+            {
+                $scope.encrypttext = data;
+
+            }).error(function (data)
+            {
+
+            }).then(function()
+            {
+
+            });
+        }
+
+
+        //Payment Type
+        $scope.GetIndex = function (index) {
+
+            if (index == 3) {
+
+                $scope.PayOnline = true;
+                $scope.PayUmoney = false;
+                $scope.currentSection3 = 'active';
+                $scope.currentSection4 = 'inactive';
+            }
+            if (index == 4) {
+
+                $scope.PayOnline = false;
+                $scope.PayUmoney = true;
+                $scope.currentSection3 = 'inactive';
+                $scope.currentSection4 = 'active';
+            }
+        }
+
+        //Payment for selected subscription
+        $scope.SubscriptionPay = function(subscriptiontype,amount)
+        {
+            $scope.sub_type = subscriptiontype;
+            $scope.totalPrice = amount;
+            $scope.ShowPayment = true;
+
+            //Div alignments
+            if($scope.Subscription_type == 1)
+            {
+                $scope.PaymentDetailsDiv = "col-md-offset-3";
+            }
+            else
+            {
+                $scope.StoreDetailsDiv = "col-md-offset-3";
+            }
+
+            $scope.GetIndex(4);
+            $scope.PreparePayee();
         }
 
 

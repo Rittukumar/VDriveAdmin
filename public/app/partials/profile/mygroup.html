@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#profile/myprofile/{{userId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             
             <li ng-if="loggedInUserId == currentUserId">
@@ -37,199 +37,190 @@
         </ul>
     </div>
 </nav>
+
 <div class="col-md-12" ng-controller="profileCtrl">
-<div class="row user-menu-container square">
-<div class="row cover-section custom-profile-covers">
-    <div class="col-md-4 small-cover-pic">
-        <div class="small-cover-pic-top">
-            <div>
-                <img ng-src="{{leftCoverImage}}" src="http://placehold.it/393x220"
-                     class="img-responsive thumbnail"/>
-                <!--<img ng-src="http://www.turquoiseandgold.com/images/store_bng1.jpg" class="img-responsive" alt=""/>-->
-            </div>
-        </div>
-        <div class="small-cover-pic-bottom">
-            <img ng-src="{{bottomCoverImage}}" src="http://placehold.it/393x220"
-                 class="img-responsive thumbnail"/>
-            <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
-            <!--class="img-responsive" alt=""/>-->
-        </div>
-    </div>
-    <div class="col-md-8 large-cover-pic custom-user-right-coverpic">
-        <img ng-src="{{rightCoverImage}}" src="http://placehold.it/803x452"
-             class="img-responsive thumbnail"/>
-        <!--<img ng-src="http://alphacityguides.com/sites/default/files/1281558593/10030175813_9260a60d14_k.jpg"-->
-        <!--class="img-responsive" alt=""/>-->
-        <!--<button class="btn btn-primary btn-sm btn-cover-pic-left"><span class="fa fa-camera"></span> Change Pic-->
-        <!--</button>-->
+    <div class="row user-menu-container square">
+        <div class="col-md-12 user-details">
+            <div class="row coralbg white custom-profile-userpic">
+                <div class="col-md-3 top-margin">
+                    <div class="user-image biothumb">
+                        <img ng-src="{{currentProfileImage}}" src="http://placehold.it/300x450"
+                             class="img-responsive thumbnail" />
+                    </div>
+                </div>
 
-    </div>
-</div>
-    <div class="col-md-12 user-details">
-        <div class="row coralbg white custom-profile-userpic">
-            <div class="col-md-3 top-margin">
-                <div class="user-image biothumb">
-                    <img ng-src="{{currentProfileImage}}" src="http://placehold.it/300x450"
-                         class="img-responsive thumbnail" />
+
+                <div class="col-md-9 no-pad">
+                    <div class="user-pad-profile">
+                        <!--name-->
+                        <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
+                        <!--Location-->
+                        <div ng-hide="city == '' || country =='' || city == null || country == null">
+                            <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{locationDetails}}</h4>
+                        </div>
+                        <!--job and company-->
+                        <div ng-hide="designation == '' || organization =='' || designation == null || organization == null">
+                            <h4 style="text-transform: capitalize;">
+                                <i class="fa fa-briefcase"></i> {{designation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{organization}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row" ng-include='"partials/profile/userProfileCount.html"'></div>
                 </div>
             </div>
 
-
-            <div class="col-md-9 no-pad">
-                <div class="user-pad-profile">
-                    <!--name-->
-                    <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
-                    <!--Location-->
-                    <div ng-hide="city == '' || country =='' || city == null || country == null">
-                        <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{locationDetails}}</h4>
-                    </div>
-                    <!--job and company-->
-                    <div ng-hide="designation == '' || organization =='' || designation == null || organization == null">
-                        <h4 style="text-transform: capitalize;">
-                            <i class="fa fa-briefcase"></i> {{designation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{organization}}
-                        </h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <a href ng-controller="community">
-                            <div class="col-md-2  well text-center" id="user-profile">
-                                <h3>{{friendList.length}}</h3>
-                                <h4>Connects</h4>
-                            </div>
-                        </a>
-
-                        <div class="col-md-2  well text-center" id="user-profile" ng-controller="circles">
-                            <h3>{{myCircles.length}}</h3>
-                            <h4>Circles</h4>
-                        </div>
-                        <div class="col-md-2  well text-center" id="user-profile" ng-controller="eventCtrl">
-                            <h3>{{myEvents.length}}</h3>
-                            <h4>Events</h4>
-                        </div>
-                        <div class="col-md-2  well text-center" id="user-profile" ng-controller="blogCntrl">
-                            <h3>{{myBlogs.length}}</h3>
-                            <h4>Blogs</h4>
-                        </div>
-                        <div class="col-md-2  well text-center" id="user-profile" ng-controller="albums">
-                            <h3>{{myAlbums.length}}</h3>
-                            <h4>Gallery</h4>
-                        </div>
-                        <div class="col-md-2  well text-center" id="user-more">
-                            <h3><i class="fa fa-circle"></i>
-                                <i class="fa fa-circle"></i>
-                                <i class="fa fa-circle"></i>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
+            <div class="col-md-12"  id="view">
                 <h3>About Me</h3>
-
                 <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
         </div>
 
-    </div>
-    <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
-        
-    </div>
-<div class="col-md-7 user-menu user-pad" ng-controller="groups">
-    <div class="col-md-12 panel-heading">
-        <div class="col-md-2">
-            <h5>
-                Groups ({{myGroups.length}})
-            </h5>
+        <!--breadcrumb-->
+        <div class="col-md-12" style="margin-top: 10px;" id="view">
+            <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+                <li><a href="#home">Home</a> <span class="divider"></span></li>
+                <li><a href="#profile/myprofile/{{currentUserId}}">Profile</a></li>
+                <li><a href="#mystores/{{currentUserId}}">Promotional Tools</a></li>
+                <li class="active">Groups</li>
+            </ul>
         </div>
-        <div class="col-md-3">
-            <input type="text" class="form-control" placeholder="search groups" ng-model="groupsearch"/>
+        <!--breadcrumb ends-->
+
+        <div class="col-md-2 user-menu-btns"
+            ng-include src='"partials/profile/PromotionalToolMenu.html"'>
         </div>
-        <div class="col-md-3 col-md-offset-4 pull-right" ng-if="loggedInUserId == currentUserId">
-            <a href ng-click="CreateGroup()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Group</a>
-        </div>
-    </div>
-    <div class="col-md-12 circle-section">
-        <div class="row group-section">
-            <div class="col-md-12 group-item" ng-repeat="group in myGroups | filter:groupsearch">
-                <div class="col-md-2" style="padding: 0px">
-                        <img ng-src="img/community-groups-header.jpg" class="img-thumbnail" ng-if="group.group_image == null"/>
-                        <img ng-src="{{service_url}}image/show/{{group.group_image.large_image_url}}" class="img-thumbnail" ng-if="group.group_image != null" alt="{{group.title}}"/>
+
+        <!--For Member-->
+        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
+            <div class="col-md-12 col-xs-12">
+                <div class="col-md-12 col-xs-12 empty-section text-center">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">This feature is not available for you. This feature is available only in the premium edition. In order to enable this feature please send a subscription request to evezown editor</h3>
+
+                    <div class="col-md-2 col-xs-12 col-md-offset-5 text-center">
+                        <a href class="btn btn-primary"> Subscribe Now</a>
+                    </div>
+
                 </div>
-                <div class="col-md-10" style="padding: 10px">
-                    <h5 class="group-item-title"><a
-                            href="#groups/{{group.id}}/{{currentUserId}}" class="topic-link">{{group.title}}</a></h5>
+            </div>
+        </div>
 
-                    <p class="group-item-description" style="text-align:justify;">{{group.description}}</p>
-
-                    <div class="group-item-info">
+        <!--For Admin-->
+        <div ng-show="Role == 1">
+            <div class="col-md-7 user-menu user-pad" ng-controller="groups">
+            	<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                    <div class="fragment">
+                        <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+                        <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Groups</h4>
                         <p>
-                            <span><strong>Open Group</strong> | </span>
-                            <span>Members <strong>{{group.members.length}}</strong> | </span>
-                            <span>Created by <strong>{{group.group_owner.firstname}} {{group.group_owner.lastname}}</strong> | </span>
-                            <span ng-if="loggedInUserId == group.group_owner.user_id"><a href ng-click="DeleteGroup(group)" class="topic-link">Delete</a>|</span>
-                            <span ng-if="loggedInUserId != group.group_owner.user_id"><a href ng-click="JoinGroup(group)" class="topic-link">Join</a></span>
+                            You have a special purpose, people who share your purpose, create a group, add activity and propagate.
                         </p>
                     </div>
+                </div>
+                <div class="col-md-12 panel-heading">
+                    <div class="col-md-2">
+                        <h5>
+                            Groups ({{myGroups.length}})
+                        </h5>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" placeholder="search groups" ng-model="groupsearch"/>
+                    </div>
+                    <div class="col-md-3 col-md-offset-4 pull-right" ng-if="loggedInUserId == currentUserId">
+                        <a href ng-click="CreateGroup()" class="btn btn-primary"><span class="fa fa-plus"></span> Create Group</a>
+                    </div>
+                </div>
+                <div class="col-md-12 circle-section">
+                    <div class="row group-section">
+                        <div class="col-md-12 group-item" ng-repeat="group in myGroups | filter:groupsearch">
+                            <div class="col-md-2" style="padding: 0px">
+                                    <img ng-src="img/community-groups-header.jpg" class="img-thumbnail" ng-if="group.group_image == null"/>
+                                    <img ng-src="{{service_url}}image/show/{{group.group_image.large_image_url}}" class="img-thumbnail" ng-if="group.group_image != null" alt="{{group.title}}"/>
+                            </div>
+                            <div class="col-md-10" style="padding: 10px">
+                                <h5 class="group-item-title"><a
+                                        href="#groups/{{group.id}}/{{currentUserId}}" class="topic-link">{{group.title}}</a></h5>
+
+                                <p class="group-item-description" style="text-align:justify;">{{group.description}}</p>
+
+                                <div class="group-item-info">
+                                    <p>
+                                        <span><strong>Open Group</strong> | </span>
+                                        <span>Members <strong>{{group.members.length}}</strong> | </span>
+                                        <span>Created by <strong>{{group.group_owner.firstname}} {{group.group_owner.lastname}}</strong> | </span>
+                                        <span ng-if="loggedInUserId == group.group_owner.user_id"><a href ng-click="DeleteGroup(group)" class="topic-link">Delete</a>|</span>
+            <!--                             <span ng-if="loggedInUserId != group.group_owner.user_id"><a href ng-click="JoinGroup(group)" class="topic-link">Join</a></span>
+             -->                        </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style="padding-right: 0px" ng-controller="groups" ng-if="loggedInUserId == currentUserId">
+                <!-- Friend requests -->
+                <div class="panel" style="background: #f7f7f7;">
+                    <div class="panel-heading">
+                        <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Group Requests ({{allGroupRequest.length}})</h5>
+                    </div>
+                    <ul class="list-group" ng-repeat="request in allGroupRequest">
+                        <li class="list-group-item col-sm-12">
+                            <div class="col-sm-8" style="padding-left: 0px; padding-right: 0px">
+                                <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
+                                <a href="#groups/{{request.group.id}}">{{request.group.title}}</a>
+                                <span><a href="#profile/{{request.group.owner.user_id}}">({{request.group.owner.firstname}} {{request.group.owner.lastname}})</a></span>
+                            </div>
+                            <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px;">
+                                <a href ng-click="SetRequest(request,true)"><span class="fa fa-check"></span></a>
+                            </div>
+                            <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px">
+                                <a href="" ng-click="SetRequest(request,false)"><span class="fa fa-times"></span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="col-md-3" style="padding-right: 0px" ng-controller="groups" ng-if="loggedInUserId == currentUserId">
+                <!-- Friend requests -->
+                <div class="panel" style="background: #f7f7f7;">
+                    <div class="panel-heading">
+                        <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Group Invites ({{allGroupInvites.length}})</h5>
+                    </div>
+                    <ul class="list-group" ng-repeat="request in allGroupInvites">
+                        <li class="list-group-item col-sm-12">
+                            <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
+                                <a href="#groups/{{request.group.id}}">{{request.group.title}}</a>
+                                <span><a href="#profile/{{request.user_id}}">({{request.group.owner.firstname}} {{request.group.owner.lastname}})</a></span>
+                            </div>
+                            <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px;">
+                                <a href ng-click="SetInviteStatus(request,true)"><span class="fa fa-check"></span></a>
+                            </div>
+                            <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px">
+                                <a href="" ng-click="SetInviteStatus(request,false)"><span class="fa fa-times"></span></a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="col-md-3" style="padding-right: 0px" ng-controller="groups" ng-if="loggedInUserId == currentUserId">
-    <!-- Friend requests -->
-    <div class="panel" style="background: #f7f7f7;">
-        <div class="panel-heading">
-            <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Group Requests ({{allGroupRequest.length}})</h5>
-        </div>
-        <ul class="list-group" ng-repeat="request in allGroupRequest">
-            <li class="list-group-item col-sm-12">
-                <div class="col-sm-8" style="padding-left: 0px; padding-right: 0px">
-                    <!--<img ng-src="{{service_url+'image/show/'+request.profileImage1}}" class="img-thumbnail" style="width: 32px; height: 32px" alt=""/>-->
-                    <a href="#groups/{{request.group.id}}">{{request.group.title}}</a>
-                    <span><a href="#profile/{{request.group.owner.user_id}}">({{request.group.owner.firstname}} {{request.group.owner.lastname}})</a></span>
-                </div>
-                <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px;">
-                    <a href ng-click="SetRequest(request,true)"><span class="fa fa-check"></span></a>
-                </div>
-                <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px">
-                    <a href="" ng-click="SetRequest(request,false)"><span class="fa fa-times"></span></a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="col-md-3" style="padding-right: 0px" ng-controller="groups" ng-if="loggedInUserId == currentUserId">
-    <!-- Friend requests -->
-    <div class="panel" style="background: #f7f7f7;">
-        <div class="panel-heading">
-            <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Group Invites ({{allGroupInvites.length}})</h5>
-        </div>
-        <ul class="list-group" ng-repeat="request in allGroupInvites">
-            <li class="list-group-item col-sm-12">
-                <div class="col-sm-6" style="padding-left: 0px; padding-right: 0px">
-                    <a href="#groups/{{request.group.id}}">{{request.group.title}}</a>
-                    <span><a href="#profile/{{request.user_id}}">({{request.group.owner.firstname}} {{request.group.owner.lastname}})</a></span>
-                </div>
-                <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px;">
-                    <a href ng-click="SetInviteStatus(request,true)"><span class="fa fa-check"></span></a>
-                </div>
-                <div class="col-sm-2 pull-right" style="padding-left: 0px; padding-right: 0px">
-                    <a href="" ng-click="SetInviteStatus(request,false)"><span class="fa fa-times"></span></a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-</div>
-</div>
+
 <script type="text/ng-template" id="templateId">
     <div class="ngdialog-buttons popuptemplate" ng-controller="groups">
         <h4>Add Group</h4>
         <input class="form-control" type="text" placeholder="Group Title"
-               id="group" ng-model="group" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+               id="group" ng-model="group" maxlength="25" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <span class="pull-right" ng-hide="group == dirty" style="color:#E50880;">{{25 - group.length}}</span>
         <textarea class="form-control" rows="4" placeholder="Group Description (optional)"
-                  ng-model="description"/>
+                  ng-model="description" maxlength="255"/>
+        <span class="pull-right" ng-hide="description == dirty" style="color:#E50880;">{{255 - description.length}}</span>
+        <br>
         <button class="btn primary pull-right form-control" type="button" ng-click="SaveGroup()">Add</button>
     </div>
 </script>

@@ -137,6 +137,36 @@
     margin-left: -9px; /* negative number!*/
 }
 
+/*MarketPlace search Products*/
+.search-products-header
+{
+    background-color: #57C5A0;
+    padding: 14px 4px 14px 4px;
+    margin-bottom: 0px;
+}
+.search-products-menu a
+{
+    border-bottom: dashed 1px;
+    border-color: #cdcdcc;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    background-color: #F7F7F7;
+    text-decoration: none;
+}
+.search-products-menu a:hover
+{
+    border-bottom: dashed 1px;
+    border-color: #cdcdcc;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    background-color: #EEEEEE;
+    text-decoration: none;
+}
+/*Ends*/
+
+
 /* Mega dropdown style start */
 
 .mega-dropdown {
@@ -257,7 +287,6 @@
     padding-left: 0px;
     padding-right: 2px;
     margin-top: 8px;
-    height: 440px;
     overflow: hidden;
 }
 
@@ -312,31 +341,42 @@
 
 .create-browse-section {
     text-transform: uppercase;
-    margin-bottom: 20px;
+}
+
+.create-browse-section button
+{
+    background-color: #692668;
+    color:#ffffff;
+}
+
+.create-browse-section button:hover
+{
+    background-color: #E50880;
+    color:#ffffff;
 }
 
 #store-button-section {
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
-#btn-create-store {
+/*#btn-create-store {
     background-color: #692668;
     color: #ffffff;
     text-align: left;
     font-weight: 500;
     font-size: 14px;
-    padding: 20px 20px;
-    margin-bottom: 10px;
-}
+    padding: 10px 20px;
+    margin-bottom: 2px;
+}*/
 
 #btn-browse-store {
-    background-color: #2d9db8;
+    background-color: #2D9DB8;
     color: #ffffff;
     text-align: left;
     font-weight: 500;
     font-size: 14px;
-    padding: 20px 20px;
-    margin-bottom: 10px;
+    padding: 10px 20px;
+    margin-bottom: 2px;
 }
 
 #btn-create-classifieds {
@@ -345,18 +385,18 @@
     text-align: left;
     font-weight: 500;
     font-size: 14px;
-    padding: 20px 20px;
-    margin-bottom: 10px;
+    padding: 10px 20px;
+    margin-bottom: 2px;
 }
 
 #btn-browse-classifieds {
-    background-color: #b573b5;
+    background-color: #2F9673;
     color: #ffffff;
     text-align: left;
     font-weight: 500;
     font-size: 14px;
-    padding: 20px 20px;
-    margin-bottom: 10px;
+    padding: 10px 20px;
+    margin-bottom: 2px;
 }
 
 .fa-2x {
@@ -907,4 +947,18 @@ input.ng-valid-required.ng-valid:not(.ng-invalid), textarea.ng-valid-required.ng
 .icon-addon .form-control:focus + .fa,
 .icon-addon:hover .fa {
     color: #692668;
+}
+
+/*Mobile optimization customized style*/
+@media (max-width: 768px) {
+
+    #left-promotion {
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    opacity: 0.8;
+    padding: 10px;
+    background: #ffffff;
+    }
+
 }

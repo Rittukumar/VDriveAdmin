@@ -29,7 +29,7 @@ evezownApp.controller('searchController', function ($scope, FileUploader, PATHS,
     {
        if($scope.search_title == undefined || $scope.search_title == "")
        {
-           toastr.error('Please enter a search key', 'Stream It');
+           toastr.error('Please enter a search keyword', 'Stream It');
        }
        else
        {
@@ -40,6 +40,7 @@ evezownApp.controller('searchController', function ($scope, FileUploader, PATHS,
            var Search_cat = "";
            var Search_subcat = "";
            var Search_price= "";
+           var Search_location = "";
            
            if($scope.Search_type)
            {
@@ -71,6 +72,11 @@ evezownApp.controller('searchController', function ($scope, FileUploader, PATHS,
                Search_price = $scope.Search_price;
            }
 
+           if($scope.Search_location)
+           {
+               Search_location = $scope.Search_location;
+           }
+
            $http.post(PATHS.api_url + 'posts/post/search'
                , {
                    data: {
@@ -81,6 +87,7 @@ evezownApp.controller('searchController', function ($scope, FileUploader, PATHS,
                        search_cat: Search_cat,
                        search_subcat: Search_subcat,
                        priceRange: Search_price,
+                       searchLocation: Search_location,
                        userId:$scope.currentUserId
                    },
                    headers: {'Content-Type': 'application/json'}
@@ -92,9 +99,17 @@ evezownApp.controller('searchController', function ($scope, FileUploader, PATHS,
                    {
                     $scope.NoResult = true;
                    }
-               }).error(function (data)
-               {
-                   toastr.error(data.error.message, 'Stream It');
+               }).error(function (data, status)
+               {  
+                  if(data.error.message.message = 'Posts not found!')
+                  {
+                    $scope.postSearchResult = '';
+                    $scope.NoResult = true;
+                    toastr.info(data.error.message.message, 'Stream It');
+                  }else{
+                    toastr.error(data.error.message.message, 'Stream It');
+                  }
+                   
                });
        }
     }

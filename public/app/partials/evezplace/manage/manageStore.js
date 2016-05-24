@@ -13,6 +13,9 @@ evezownApp
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.service_url = PATHS.api_url;
         $rootScope.AllProductLines = [];
+        $scope.totalProducts = 0;
+        $scope.MaxProductsFree = 16;
+        $scope.MaxProductsPremium = 64;
         //$rootScope.currentProductLine = null;
         $scope.isImageUploadComplete = false;
         $scope.isAddProductHidden = false;
@@ -25,7 +28,7 @@ evezownApp
         
         $scope.AllProducts = [];
         $scope.productImages = [];
-        $scope.AllProductSKU = [];
+        $rootScope.AllProductSKU = [];
         $scope.storeCommerce = {wantPaymentGateway : null,billingAddress:null,billingPincode:null,cityStateCountry:null,
             isOffline:null,isCod:null,isChequePayment:null,contactNumber:null,vendorName:null,additionalInfo:null};
 
@@ -56,8 +59,32 @@ evezownApp
 
         $scope.ShowAddProduct = function()
         {
-            $scope.isAddProductHidden = true;
-            $scope.isProductSKUHidden = false;
+            $scope.CheckSub = $scope.currentStore[0].store_subscription_id;
+            //free
+            if($scope.CheckSub == 1)
+            {
+                if($scope.totalProducts < $scope.MaxProductsFree)
+                {
+                    $scope.isAddProductHidden = true;
+                    $scope.isProductSKUHidden = false;
+                }
+                else
+                {
+                    toastr.error('Max limit reached',"Upgrade to add more products")
+                }
+            }
+            if($scope.CheckSub == 2)
+            {
+                if($scope.totalProducts < $scope.MaxProductsPremium)
+                {
+                    $scope.isAddProductHidden = true;
+                    $scope.isProductSKUHidden = false;
+                }
+                else
+                {
+                    toastr.error('Max limit reached',"Upgrade to add more products")
+                }
+            }
         }
         $scope.HideAddProduct = function()
         {
@@ -278,6 +305,15 @@ evezownApp
                 {
                     $rootScope.AllProductLines = data;
 
+                    //get the total count of products
+                    if($rootScope.AllProductLines.length > 0)
+                    {   
+                        angular.forEach($rootScope.AllProductLines, function (value, key)
+                        {
+                            $scope.totalProducts = $scope.totalProducts + value.products.length;
+                        });
+                    }
+
                 }).error(function (data)
                 {
                     console.log(data);
@@ -313,7 +349,7 @@ evezownApp
             $http.get(PATHS.api_url + 'stores/products/sku/'+product.id+'/get').
                 success(function (data, status, headers, config)
                 {
-                    $scope.AllProductSKU = data;
+                    $rootScope.AllProductSKU = data;
 
                 }).error(function (data)
                 {
@@ -776,11 +812,12 @@ evezownApp
         $scope.ShowVariants = function(productSKU)
         {
             $scope.showvariantlist = true;
-            $scope.AllProductSKU = productSKU;    // update goes here
+            $rootScope.AllProductSKU = productSKU;    // update goes here
         }
 
         $scope.UpdateProduct = function(product)
         {
+            $scope.showvariantlist = true;
             angular.forEach($rootScope.AllProductLines, function (value, key)
             {
                 if($rootScope.currentProductLine.id == value.id)
@@ -856,7 +893,7 @@ evezownApp
 
         $scope.$watch('AllProductSKU', function(newvalue,oldvalue)
         {
-            $scope.AllProductSKU = newvalue;
+            $rootScope.AllProductSKU = newvalue;
         });
 
         $scope.Cancel = function ()
@@ -867,7 +904,7 @@ evezownApp
         $scope.CancelShow = function ()
         {
             $scope.showvariantlist = false;
-            $scope.AllProductSKU = null;
+            $rootScope.AllProductSKU = null;
         }
 
         $scope.DeleteProductLine = function ($productLineId)
@@ -916,6 +953,72 @@ evezownApp
                 {
                     $scope.GetProductSKU($rootScope.currentSelectedProduct);
                 });
+        }
+
+        $scope.changeSubscription = function (type)
+        {
+            //Premium
+            if(type == 2)
+            {
+                ngDialog.openConfirm({            
+                template: '<div><h3 class="text-center">Select Subscription Type</h3>' +
+                '<h4 class="text-left"><input type="radio"  name="subscription" value="2" ng-model="subscription" ></input>Premium</h4>'+
+                '<p>* Can add upto 64 products</p>' +
+                '<p>* Publish to Marketplace</p>' +
+
+                '<h4 class="text-left"><input type="radio"  name="subscription" value="3" ng-model="subscription" ></input>Customized</h4>'+
+                '<p>* Can add infinite number of products</p>' +
+                '<p>* Publish to Marketplace</p>' +
+                
+                '<input type="button" value="Subscribe" class="text-center" ng-click="changeSubscriptionSubmit(subscription);"/>' +
+                '<input type="button" value="close" class="text-center" ng-click="closeThisDialog()"/></div>' ,
+                plain: true,
+                scope:$scope           
+                });
+            }
+
+            if(type == 3)
+            {
+                ngDialog.openConfirm({            
+                template: '<div><h3 class="text-center">Upgrade to Customized</h3>' +
+                '<h4 class="text-left">Features:</h4>'+
+                '<p>* Can add Infinite number of products</p>' +
+                '<p>* Publish to Marketplace</p>' +
+
+                
+                '<input type="button" value="Subscribe" class="center" ng-click="changeSubscriptionSubmit(3);"/>' +
+                '<input type="button" value="close" class="center" ng-click="closeThisDialog()"/></div>' ,
+                plain: true,
+                scope:$scope           
+                });
+            }
+        }
+
+        $scope.changeSubscriptionSubmit = function (subscription)
+        {
+            if(subscription == undefined)
+            {
+                toastr.error('Please Select Subscription Type');
+            }
+            else
+            {
+                alert($scope.currentStore[0].id);
+                alert(subscription);
+                $http.post(PATHS.api_url + 'users/store/upgrade'
+                , {
+                    data: {
+                        StoreId: $scope.currentStore[0].id,
+                        storeSubscription: subscription
+                    },
+                    headers: {'Content-Type': 'application/json'}
+                }).
+                success(function (data, status, headers, config) {
+                    toastr.success(data.message, 'Request send to admin');
+
+                }).error(function (data) {
+                    toastr.error(data.error.message, 'Store');
+                });
+            }
         }
 
 

@@ -1,0 +1,75 @@
+
+<link rel="stylesheet"  type="text/css" href="custom/stripe/foundation.css">
+
+<!-- CREDIT CARD FORM STARTS HERE -->
+	<div class="panel panel-default credit-card-box">
+
+
+	    <div class="panel-heading display-table" >
+	        <div class="row display-tr" >
+	            <h3 class="panel-title display-td" >Payment Details</h3>
+	            <div class="display-td" >  
+	               <img ng-src="img/accepted_c22e0.png" class="img-responsive pull-right"/>                          
+	            </div>
+	        </div>                    
+	    </div>
+
+	    <div class="panel-body">
+	        <form name="checkoutForm" stripe-form="stripeCallback" ng-submit="onSubmit()" data-abide>
+
+	            <div ng-if="processing" us-spinner></div>
+
+	                <div class="row">
+	                    <div class="col-xs-12">
+	                        <div class="form-group" ng-class="{error: checkoutForm.number.$invalid}">
+	                            <label for="cardNumber" style="font-weight:normal;">CARD NUMBER</label>
+	                            <div class="input-group">
+	                                <input class="form-control" ng-model="number" name="number" payments-format="card" payments-validate="card"
+	                                   placeholder="Card Number" type="tel"/>
+	                                <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+	                            </div>
+	                            <small class="error">Invalid card number</small>
+	                        </div>                            
+	                    </div>
+	                </div>
+
+	                <div class="row">
+	                    <div class="col-xs-7 col-md-7">
+	                        <div class="form-group" ng-class="{error: checkoutForm.expiry.$invalid}">
+	                            <label for="cardExpiry" style="font-weight:normal;"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+	                            <input ng-model="expiry" name="expiry" payments-format="expiry" payments-validate="expiry"
+	                                   placeholder="MM / YY"  type="tel"/>
+	                            <small class="error">Invalid date.</small>
+	                        </div>
+	                    </div>
+
+	                    <div class="col-xs-5 col-md-5 pull-right">
+	                        <div class="form-group" ng-class="{error: checkoutForm.cvc.$invalid}">
+	                            <label for="cardCVC" style="font-weight:normal;">CV CODE</label>
+	                            
+	                             <input ng-model="cvc" name="cvc" payments-format="cvc" payments-validate="cvc"
+	                                   placeholder="CVC" type="tel"/>
+	                                   <small class="error">Invalid CVC.</small>
+	                        </div>
+	                    </div>
+	                </div>
+	               
+	                
+
+	            <alert ng-if="stripeError" type="'alert'" style="background-color: #f04124; border-color: #de2d0f; color: white;" close="hideAlerts()">
+	                {{stripeError}}
+	            </alert>
+
+	            <alert ng-if="stripeSuccess" close="hideAlerts()">
+	                 {{stripeSuccess}}
+	            </alert>
+
+	            <div class="row">
+	                <div class="col-xs-12">
+	                    <button class="btn btn-success btn-sm btn-block" type="submit" ng-disabled="checkoutForm.$invalid">Payment</button>
+	                </div>
+	            </div>
+
+	        </form>
+	        </div>
+	    </div>

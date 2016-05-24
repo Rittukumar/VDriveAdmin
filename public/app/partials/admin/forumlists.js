@@ -260,9 +260,9 @@ evezownApp.controller('showForumEvezplaceCtrl', function ($scope, ForumService, 
     };
 
     if(forum.trending != null) {
-        $scope.options.priority = forum.trending.priority;
+        $scope.options.priority = parseInt(forum.trending.priority);
         $scope.options.selectedSectionId = forum.trending.evezown_section_id;
-        $scope.options.is_show_evezplace = forum.trending.is_show_evezplace;
+        $scope.options.is_show_evezplace = parseInt(forum.trending.is_show_evezplace);
     }
 
     getEvezplaceSection($scope.userId);

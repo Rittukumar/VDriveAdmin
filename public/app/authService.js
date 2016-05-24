@@ -14,7 +14,16 @@ evezownApp
                     return data;
                 })
                 .then(function (res) {
-                    $cookieStore.put('userToken', res.data.data.token);
+
+                  return  AuthService.setUserDetails(res);
+                    
+                });
+        };
+
+
+        AuthService.setUserDetails = function(res){
+
+            $cookieStore.put('userToken', res.data.data.token);
                     Session.create(
                         res.data.data.api_key,
                         res.data.data.id,
@@ -24,7 +33,7 @@ evezownApp
                         res.data.data.role_id,
                         res.data.data.token);
                     return res.data.data;
-                });
+
         };
 
 
@@ -41,7 +50,9 @@ evezownApp
                 method: 'GET'
             }).success(function (data) {
                 if (data) {
+
                     imageName = PATHS.api_url + 'image/show/' + data + '/200/200';
+                                        
                 }
                 else {
                     imageName = null;
@@ -123,7 +134,7 @@ evezownApp
     .service('Session', function ($cookieStore) {
 
         Session = {};
-        Session.create = function (apiKey, userId, firstname, lastname, email, userRole,userRoleId, token) {
+        Session.create = function (apiKey, userId, firstname, lastname, userRole, userRoleId, token) {
             this.api_key = apiKey;
             this.userId = userId;
             this.firstname = firstname;
@@ -132,6 +143,7 @@ evezownApp
             this.userRoleId = userRoleId;
             this.token = token;
             $cookieStore.put('userId', userId);
+            $cookieStore.put('userRole', userRoleId);
         };
         Session.destroy = function () {
             this.api_key = null;

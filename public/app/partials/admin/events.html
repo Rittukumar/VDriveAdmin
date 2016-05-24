@@ -20,7 +20,7 @@
                        <div class="table-responsive" ng-controller="eventlists" ng-cloak="">
                 <table ng-table="eventAdminTableParams" template-pagination="custom/pager" class="table table-bordred table-striped">
 
-                            <tr ng-repeat="event in $data">
+                            <tr ng-repeat="event in events">
                                 <td data-title="''">
                                     <img src="{{imageUrl}}{{event.event_image.large_image_url}}" alt=""
                                          class="img-responsive img-thumbnail">
@@ -44,7 +44,7 @@
                                     <div class="checkbox checkbox-primary">
                                         <input type="checkbox"
                                                id="{{event.id}}"
-                                               ng-checked="event.trending.is_show_evezplace"
+                                               ng-checked="event.trending.is_show_evezplace == 1"
                                                ng-click="showInEvezplaceDialog(event)"/>
                                         <label for="{{event.id}}"></label>
                                     </div>

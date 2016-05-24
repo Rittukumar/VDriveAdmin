@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="" id="step1"  data-toggle="tab" data-slide-to="0">
-                <a href="#profile/{{userId}}" class="{{isActive[1]}}">Mysite</a>
+                <a href="#mystores/{{userId}}" class="{{isActive[1]}}">Mysite</a>
             </li>
             <li ng-class="{ active: isActive('/streamit')}" id="step3"  data-toggle="tab" data-slide-to="2">
                 <a href="#streamit" class="{{isActive[2]}}">Stream It</a></li>
@@ -53,7 +53,7 @@
 <div class="col-md-12" style="margin-top: 10px;">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
         <li><a href="#home">Home</a> <span class="divider"></span></li>
-        <li><a href="#profile/{{userId}}">Mysite</a></li>
+        <li><a href="#mystores/{{userId}}">Mysite</a></li>
         <li class="active">Stream It</li>
     </ul>
 </div>
@@ -128,7 +128,7 @@
                 <!--title-->
                 <div class="col-md-12 zero-padding-left-right trending-title">
                     <input type="text" class="form-control" placeholder="Post title" data-ng-model="woice" maxlength="255" novalidate/>
-                    <!-- <span class="pull-right">{{255 - woice.length}}</span> -->
+                    <span class="pull-right" ng-hide="woice == dirty" style="color:#E50880;">{{255 - woice.length}}</span>
                 </div>
 
                 
@@ -136,7 +136,7 @@
                 <!--Description-->
                 <div class="col-md-6 zero-padding-left-right trending-whats-recommendation" style="margin-bottom:2px;padding-bottom:5px;">
                     <textarea class="form-control" rows="7" placeholder="Enter your description" maxlength="800" data-ng-model="description" novalidate/>
-                    <!-- <span class="pull-right">{{800 - description.length}}</span> -->
+                    <span class="pull-right" ng-hide="description == dirty" style="color:#E50880;">{{800 - description.length}}</span>
                 </div>
                 <!--Category-->
                 <div class="col-md-6" style="padding-right:0px">
@@ -199,17 +199,29 @@
                     <div class="col-md-4 no-padding category-details">
                        <select class="form-control" id="sub-visibility-type"
                         ng-options="visibility as visibility.type for visibility in visibilties" ng-model="selectedVisibility" ng-init="selectedVisibility = GetVisibilityOfWoice(post.visibility_id,visibilties)"
-                        ng-change="UpdateWoiceVisibility(post,selectedVisibility)" default-option="choose visibility" style="font-size:14px;">
+                        ng-change="ShowCircles(selectedVisibility)" default-option="choose visibility" style="font-size:14px;">
                         </select>
                     </div>   
                 </div>
+
+                <div class="col-md-12 no-padding" ng-show="Showcircles">
+                    <div class="col-md-2" style="padding:0px;">
+                            <label for="Circle" style="font-weight:normal;">Select Circle</label>
+                    </div>
+                    <div class="col-md-10 no-padding category-details">
+                        <select class="form-control" ng-model="SelectedCircle" ng-options="circle as circle.title for circle in UserCircles">
+                        </select>
+                    </div>   
+                </div>
+
+
                 <div class="Recco_fields">
 
                     <div class="col-sm-12 no-padding">
                         <!--Recommendation-->
                         <div class="col-sm-12 zero-padding-left-right trending-description" style="margin-top:10px;margin-bottom:5px;" ng-show="mustHideOnWarning">
                             <textarea class="form-control" rows="4" placeholder="Add more text (optional)" maxlength="800" ng-model="recommendation"/>
-                            <!-- <span class="pull-right">{{800 - recommendation.length}}</span> -->
+                            <span class="pull-right" ng-hide="recommendation == dirty" style="color:#E50880;">{{800 - recommendation.length}}</span>
                         </div>
                     </div>
                 </div>
@@ -263,7 +275,7 @@
             <!-- Content area starts -->
             <!-- show Posts -->
             <div class="col-md-6 grid-view" style="padding:5px;" ng-repeat="post in posts">
-            <div class="col-md-12 trending-section" style="border:solid 1px #ccc;border-radius:4px;">
+            <div class="col-md-12 trending-section" style="border:solid 1px #ccc;border-radius:4px;" ng-if="post.deleted == 0">
                 <div class="col-md-12 zero-padding-left-right" >
                     <!-- username-->
                     <div class="col-md-2 col-xs-2">
@@ -323,11 +335,18 @@
                             value="{{post.priority}}" ng-checked="post.priority == 1" ng-click="PriorityReupdate(post.priority,post.id)" >
                         </div>
                     </div>
+
+                    <div class="col-md-4 pull-right text-right">
+                        <div ng-show="selectedVisibility.id == 2 && loggedInUserId == post.user.id">
+                            <select class="form-control" ng-model="PostCircle" ng-options="circle as circle.title for circle in UserCircles" ng-init="PostCircle = GetSelectedCircle(post.circle_id,UserCircles)" ng-change="ChangeCircle(post,PostCircle)">
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <!--priority ends-->
 
                 <!-- Post title -->
-                <div class="col-md-12" ng-if="post.title != ''">
+                <div class="col-md-12" ng-if="post.title != null">
                     <h4 ng-show="!editing"
                         style="color: #4cb1ca; font-weight: 100; font-size: 1.2em">{{post.title}} <span
                             ng-hide="currentUserId != post.user.id" ng-click="editing=true" class="fa fa-edit pull-right" style="cursor:pointer;"></span></h4>
@@ -407,7 +426,7 @@
                 <!--Brand and location div Ends-->
 
                 <!-- Post description -->
-                <div class="col-md-12 zero-padding-left-right" ng-if="post.description != ''" style="text-align:justify;">
+                <div class="col-md-12 zero-padding-left-right" ng-if="post.description != null" style="text-align:justify;">
                     <div  class="col-md-12">
                         <!--read more is a custom directive, refer readmore.js in index.html and readmore in app.js-->
                         <span ng-hide="currentUserId != post.user.id || editing" ng-click="editing=true" class="fa fa-edit pull-right" style="cursor:pointer;"></span>
@@ -496,10 +515,10 @@
 
                     <!-- Post tags -->
                     <div ng-if="post.post_type_id == 1" class="col-md-3 reco-tag">
-                        <bold style="font-size: 12px">Share / Ask</bold>
+                        <bold style="font-size: 12px">I Recommend</bold>
                     </div>
                     <div ng-if="post.post_type_id == 2" class="col-md-3 generic-tag">
-                        <bold style="font-size: 12px">I Recommend</bold>
+                        <bold style="font-size: 12px">Share / Ask</bold>
                     </div>
                     <div ng-if="post.post_type_id == 3" class="col-md-3 finds-tag">
                         <bold style="font-size: 12px">My Find</bold>

@@ -13,6 +13,8 @@ evezownApp.controller('woiceCommentsCtrl', function($scope,$cookieStore,PATHS,$h
     $rootScope.commentsCount = 0;
     $rootScope.myGrade = 0;
     $scope.post = [];
+    $scope.loggedInUser = $cookieStore.get('userId');
+    
     $scope.GetPost = function (postId)
     {
         $scope.url = PATHS.api_url + 'posts/post/'+ postId;
@@ -49,7 +51,13 @@ evezownApp.controller('woiceCommentsCtrl', function($scope,$cookieStore,PATHS,$h
 
     $scope.CreateComment = function ()
     {
-        $http.post(PATHS.api_url + 'posts/'+ $scope.post.id+'/comments/create'
+        if(!$scope.addedcomment)
+        {
+            toastr.error("Please enter comment",'Stream It');
+        }
+        else
+        {
+            $http.post(PATHS.api_url + 'posts/'+ $scope.post.id+'/comments/create'
             , {
                 data: {
                     owner_id: $cookieStore.get('userId'),
@@ -68,6 +76,7 @@ evezownApp.controller('woiceCommentsCtrl', function($scope,$cookieStore,PATHS,$h
             {
                 toastr.error(data.error.message, 'Woice');
             });
+        }
     }
 
     $scope.DeleteClick = function (comment)

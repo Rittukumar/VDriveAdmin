@@ -24,11 +24,19 @@ class FriendsController extends AppController {
 	public function index($id)
 	{
 		try{
-			$limit = Input::get('limit') ?: 15;
+			$limit = Input::get('limit') ?: 12;
 
-			$friends = Friend::with('profile','profile.profile_image','user')->where('user_id', $id)->paginate($limit);
-            
-
+			$friends = Friend::with('profile','profile.profile_image','user')->where('user_id', $id)
+			               ->whereExists(function($query)
+				            {
+				                $query->select(DB::raw(1))
+				                      ->from('users')
+				                      ->whereRaw('users.id = friends.friend_user_id')
+				                      ->whereRaw('blocked = 0')
+				                      ->whereRaw('deleted = 0');
+				            })
+		                   ->paginate($limit);
+			
 			if(! $friends)
 			{
 				return $this->responseNotFound('Friends Not Found!');
@@ -36,17 +44,54 @@ class FriendsController extends AppController {
 
 			$fractal = new Manager();
 
-//			$usersResource = new Collection($friends, new FriendTransformer());
-//
-//			$usersResource->setPaginator(new IlluminatePaginatorAdapter($friends));
-//
-//			$data = $fractal->createData($usersResource);
+			$usersResource = new Collection($friends, new FriendTransformer());
 
-			return $friends->toJson();
+			$usersResource->setPaginator(new IlluminatePaginatorAdapter($friends));
+
+			$data = $fractal->createData($usersResource);
+
+			return $data->toJson();
 		} catch (Exception $e) {
 
 			return $this->setStatusCode(500)->respondWithError($e);
 		}
+	}
+
+
+	public function getChatFriends($id)
+	{
+
+		try{
+			$limit = Input::get('limit') ?: 12;
+
+			$friends = Friend::with('profile','profile.profile_image','user')->where('user_id', $id)
+			               ->whereExists(function($query)
+				            {
+				                $query->select(DB::raw(1))
+				                      ->from('users')
+				                      ->whereRaw('users.id = friends.friend_user_id')
+				                      ->whereRaw('blocked = 0')
+				                      ->whereRaw('deleted = 0');
+				            })
+		                   ->get();
+			
+			if(! $friends)
+			{
+				return $this->responseNotFound('Friends Not Found!');
+			}
+
+			$fractal = new Manager();
+
+			$usersResource = new Collection($friends, new FriendTransformer());
+
+			$data = $fractal->createData($usersResource);
+
+			return $data->toJson();
+		} catch (Exception $e) {
+
+			return $this->setStatusCode(500)->respondWithError($e);
+		}
+
 	}
 
     public function getFriendsForCircle($id,$circle_id)
@@ -55,11 +100,20 @@ class FriendsController extends AppController {
             $limit = Input::get('limit') ?: 15;
             //$friends = Friend::with('profile','profile.profile_image')->where('user_id', $id)->paginate($limit);
             $friends = Friend::with('profile', 'profile.profile_image')->where('user_id', $id)
+                ->whereExists(function($query)
+	            {
+	                $query->select(DB::raw(1))
+	                      ->from('users')
+	                      ->whereRaw('users.id = friends.friend_user_id')
+	                      ->whereRaw('blocked = 0')
+	                      ->whereRaw('deleted = 0');
+	            })
                 ->whereNotExists(function ($query) use ($id,$circle_id) {
                     $query->select(DB::raw(1))
                         ->from('circle_friends')
                         ->whereRaw('circle_friends.friend_user_id = friends.friend_user_id and circle_id = '.$circle_id);
                 })
+
                 ->paginate($limit);
             if(! $friends)
             {
@@ -87,6 +141,14 @@ class FriendsController extends AppController {
             $limit = Input::get('limit') ?: 15;
             //$friends = Friend::with('profile','profile.profile_image')->where('user_id', $id)->paginate($limit);
             $friends = Friend::with('profile', 'profile.profile_image')->where('user_id', $id)
+                ->whereExists(function($query)
+	            {
+	                $query->select(DB::raw(1))
+	                      ->from('users')
+	                      ->whereRaw('users.id = friends.friend_user_id')
+	                      ->whereRaw('blocked = 0')
+	                      ->whereRaw('deleted = 0');
+	            })
                 ->whereNotExists(function ($query) use ($id,$group_id) {
                     $query->select(DB::raw(1))
                         ->from('group_user_profile')
@@ -121,6 +183,14 @@ class FriendsController extends AppController {
             $limit = Input::get('limit') ?: 15;
             //$friends = Friend::with('profile','profile.profile_image')->where('user_id', $id)->paginate($limit);
             $friends = Friend::with('profile', 'profile.profile_image')->where('user_id', $id)
+                ->whereExists(function($query)
+	            {
+	                $query->select(DB::raw(1))
+	                      ->from('users')
+	                      ->whereRaw('users.id = friends.friend_user_id')
+	                      ->whereRaw('blocked = 0')
+	                      ->whereRaw('deleted = 0');
+	            })
                 ->whereNotExists(function ($query) use ($id,$event_id) {
                     $query->select(DB::raw(1))
                         ->from('event_invites')

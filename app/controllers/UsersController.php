@@ -392,7 +392,7 @@ class UsersController extends AppController
             $NewPass = $inputArray['new_password'];
             $ConfirmPass = $inputArray['confirm_password'];
             
-            $OldPass = DB::select('select password from users where id =?', [$Userid]);
+            $OldPass = DB::select('select password, email from users where id =?', [$Userid]);
             $OldPassword = $OldPass[0]->password;
            
             if (Hash::check($CurrentPass, $OldPassword)) {
@@ -402,6 +402,17 @@ class UsersController extends AppController
                 DB::table('users')
                     ->where('id', $Userid)
                     ->update(array('password' => $Encpt));
+
+                //Send email to user.
+                $emailUser = array(
+                    'email' => $OldPass[0]->email
+                );
+
+                Mail::send('emails.passwordChanged', [], function ($message) use ($emailUser) {
+                    $message->from('Editor@evezown.com', 'Evezown Team');
+                    $message->to($emailUser['email'])->subject('Evezown password changed');
+                });
+
                 return $this->setStatusCode(200)->respond("Password Changed Successfully");
             
             }else{
@@ -477,7 +488,7 @@ class UsersController extends AppController
             $inputArray = $input['data'];
             $NewPass = $inputArray['Newpassword'];
             $Code = $inputArray['Code'];
-            $CheckUser = DB::select('select id from users where md5(90*13+id) = ?', [$Code]);
+            $CheckUser = DB::select('select id, email from users where md5(90*13+id) = ?', [$Code]);
             $CheckUserID = $CheckUser[0]->id;
             
             if($CheckUser == null)
@@ -491,6 +502,18 @@ class UsersController extends AppController
                 DB::table('users')
                     ->where('id', $CheckUserID)
                     ->update(array('password' => $Encpt));
+                
+
+                //Send email to user.
+                $emailUser = array(
+                    'email' => $CheckUser[0]->email
+                );
+
+                Mail::send('emails.passwordChanged', [], function ($message) use ($emailUser) {
+                    $message->from('Editor@evezown.com', 'Evezown Team');
+                    $message->to($emailUser['email'])->subject('Evezown password changed');
+                });
+
                 return $this->setStatusCode(200)->respond("Reset Password Successful");
             }
             
@@ -595,6 +618,17 @@ class UsersController extends AppController
                             ->whereRaw('friends.friend_user_id = user_profile.user_id')
                             ->whereRaw('friends.user_id = ' . $user_id);
                     })
+                    ->whereExists(function ($query){
+                        $query->select(DB::raw(1))
+                            ->from('stores')
+                            ->whereRaw('stores.owner_id = user_profile.user_id')
+                            ->whereExists(function ($query) {
+                              $query->select(DB::raw(1))
+                                ->from('store_status')
+                                ->whereRaw('store_status.store_id = stores.id')
+                                ->whereRaw('store_status.status_id = 3');
+                        });
+                   })
                     ->paginate($limit);
             }
             catch (Exception $ex) {
@@ -917,5 +951,134 @@ class UsersController extends AppController
             return $this->setStatusCode(500)->respondWithError('Error occured!');
         }
     }
+
+
+    public function checkforPasswordField(){
+
+        try{
+
+            $data     = Input::all();
+            $user_id  = $data['user_id'];
+
+            $checkforPassword = User::where('id', $user_id)->where('password', '')->pluck('id');
+
+            return $checkforPassword;
+
+        }catch (Exception $e){
+             return $this->setStatusCode(500)->respondWithError('Error occured!');  
+        }
+        
+    }
+
+
+    public function getUserProfileCount($userId){
+
+        try{
+
+            $friendsList = Friend::where('user_id', $userId)->count();
+
+            $circlesList = Circle::where('user_id', $userId)->count();
+
+            $eventssList = WoiceEvent::where('owner_id', $userId)->count();
+
+            $blogsList   = Blog::where('author_id', $userId)->count();
+
+            $albumsList  = Album::where('owner_id', $userId)->count();
+
+            $successResponse = [
+                'status' => true,
+                'friendsList' => $friendsList,
+                'circlesList' => $circlesList,
+                'eventssList' => $eventssList,
+                'blogsList'   => $blogsList,
+                'albumsList'  => $albumsList
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+
+        }catch (Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+
+
+    }
+
+
+
+    public function getUserDetails($userId){
+
+        try{
+
+             $user    = User::with('profile','billing_address','shipping_address')->find($userId);
+
+             if (!$user) {
+                return $this->responseNotFound('User Not Found!');
+            }
+
+             $address = $this->getAddress($user->billing_address, $user->shipping_address); 
+
+             $successResponse = [
+                 'status' => true,
+                 'userDetails' => $user,
+                 'address'     => $address
+             ];
+
+             return $this->setStatusCode(200)->respond($successResponse);
+
+        }catch(Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+
+    }
+
+
+    public function getBuyerDetails($code){
+
+        try{
+
+             $buyer   = Buyer::with('billing_address','shipping_address')->where('code',$code)->first();
+
+             if (!$buyer) {
+                return $this->responseNotFound('Buyer Not Found!');
+            }
+
+             $address = $this->getAddress($buyer->billing_address, $buyer->shipping_address); 
+
+             $successResponse = [
+                 'status' => true,
+                 'buyerDetails' => $buyer,
+                 'address'      => $address
+             ];
+
+             return $this->setStatusCode(200)->respond($successResponse);
+
+        }catch(Exception $e){
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+
+    }
+
+
+    public function getAddress($billing_address, $shipping_address)
+    {
+       $address = [];
+
+       if(!$billing_address->isEmpty() && !$shipping_address->isEmpty()){
+           foreach ($billing_address as $key => $value) {
+
+             $address[$key]['billing_address']  = $value;
+             $address[$key]['shipping_address'] = $shipping_address[$key];
+              
+           }
+       }
+
+       return $address;
+
+    }
+
 
 }

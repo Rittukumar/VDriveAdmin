@@ -17,6 +17,7 @@
 	                        </div>
 						    <input class="form-control" type="text" placeholder="Title"
 						           id="title" ng-model="selectedBlog.title" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="255"/>
+						    <span class="pull-right" ng-hide="selectedBlog.title == dirty" style="color:#E50880;">{{255 - selectedBlog.title.length}}</span>
 						    <text-angular ng-model="htmlVariable"></text-angular>
 						    <div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
 						        <button class="btn btn-primary btn-block" id="btn-publish"

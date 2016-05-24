@@ -2,7 +2,7 @@
 
 class Post extends \Eloquent {
 	protected $fillable = ['title', 'description', 'testimonial', 'visibility_id', 'price_range',
-			'owner_id', 'post_type_id', 'brand_id', 'priority','classification_id','cat_id','sub_cat_id'];
+			'owner_id', 'post_type_id', 'brand_id', 'priority','classification_id','cat_id','sub_cat_id','circle_id'];
 
 	public function images(){
 
@@ -15,6 +15,10 @@ class Post extends \Eloquent {
 
 	public function user(){
 		return $this->belongsTo('UserProfile', 'owner_id');
+	}
+
+	public function users(){
+		return $this->belongsTo('User', 'owner_id');
 	}
 
 	public function brand() {
@@ -46,5 +50,10 @@ class Post extends \Eloquent {
 	public function rewoices(){
 
 		return $this->hasMany('PostRewoice');
+	}
+
+	public function getOriginal($key = null, $default = null)
+	{
+		return array_get($this->original, $key, $default);
 	}
 }

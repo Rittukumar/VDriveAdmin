@@ -87,12 +87,25 @@ input[type=number]::-webkit-outer-spin-button {
     -moz-osx-font-smoothing: grayscale;
 }
 /* Products slider in store front prev next button style end*/
-/*table height in admin newsletter user list*/
+/*Take a tour*/
+.tour-step
+{
+    width:400px;
+    text-align: center;
+}
+/*Admin*/
+/*Admin news letter table scroll*/
 .table-scroll {
     max-height: 500px;
     overflow: auto;
 }
-/*table height in admin newsletter user list ends*/
+
+/*admin user list*/
+.userlist.ng-table th
+{
+    text-align: left;
+}
+/*Admin ends*/
 
 /* Angular style override start */
 
@@ -116,6 +129,11 @@ input[type=number]::-webkit-outer-spin-button {
     .navbar-default .navbar-toggle {
         margin-top: 40px;
         margin-bottom: 40px;
+    }
+
+    .tour-step
+    {
+        width:200px;
     }
 }
 
@@ -141,7 +159,7 @@ input[type=number]::-webkit-outer-spin-button {
     font-family: 'Raleway', sans-serif;
     padding: 20px;
     margin-bottom: 0px;
-    min-height: 300px;
+    /*min-height: 240px;*/
 }
 
 .inner-jumbotron {
@@ -441,7 +459,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #bottom-nav {
-    margin-top: 20px;
+    margin-top: 16px;
+    margin-bottom: 10px;
 }
 
 #top-nav {
@@ -472,6 +491,14 @@ input[type=number]::-webkit-outer-spin-button {
     float: left;
     margin: 0px 15px 0px 0px;
 }
+/*Popover content style*/
+.popover-content
+{
+    /*opacity:0.7;
+    color:#000000;
+    background-color: #FFF5BD;
+    border-radius: 4px;*/
+}
 
 /*product catalogue color picker*/
 .colorpicker.dropdown
@@ -484,7 +511,7 @@ input[type=number]::-webkit-outer-spin-button {
 .spinner-style .spinner
 {
 margin-left: -40px;
-margin-top: -5px;
+margin-top: 10px;
 }
 /*stream it*/
 .streamit-spinner-style .spinner
@@ -558,9 +585,22 @@ margin-top: -5px;
     background: #692668;
 }
 
+.btn-create-store {
+    background: #B573B5;
+    border-color: transparent;
+    border-radius: 0px;
+    font-weight: 100;
+    color:#FFFFFF;
+}
+
+.btn-create-store:hover {
+    background: #B573B5;
+    color:#FFFFFF;
+}
+
 #btn-login {
     color : #ffffff;
-    padding: 10px 20px 10px 20px;
+    padding: 6px 16px 6px 16px;
 }
 
 #btn-login:hover
@@ -629,7 +669,7 @@ margin-top: -5px;
 .nounderline {text-decoration: none}
 
 .request-invite {
-    margin-bottom: 80px;
+    margin-bottom: 10px;
 }
 
 .request-invite a {
@@ -648,7 +688,6 @@ margin-top: -5px;
 
 .living_box {
     background: #ffffff;
-    height: 200px;
     overflow: hidden;
 }
 
@@ -1247,7 +1286,6 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 .commentdetailsSection
 {
     right: 20px;
-    bottom:20px;
 }
 
 .times-ago1
@@ -1527,7 +1565,7 @@ canvas {
 .introjs-tooltip {
     /*bottom: -450px;*/
     left: -5px;
-    text-align:justify;
+    /*text-align:justify;*/
     max-width: 450px;
     min-width: 190px;
 }
@@ -1582,7 +1620,7 @@ canvas {
     .spinner-style .spinner
     {
     margin-left: -48px;
-    margin-top: 34px;
+    margin-top: -15px;
     }
     /*Spinner Style ends*/
 

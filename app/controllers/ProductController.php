@@ -725,6 +725,75 @@ class ProductController extends AppController
         }
     }
 
+
+    /**
+     * search products
+     * POST /get
+     *
+     * @return Response
+     */
+
+    public function searchProduct($searchkey)
+    {
+        try {
+
+            $limit   = Input::get('limit') ?: 12;
+            $filter  = json_decode(Input::get('filter'));
+             
+
+            if(!empty($filter))
+            {
+                $min_max = $this->getMinMaxFromFilter($filter);
+                $min     = $min_max[0];
+                $max     = $min_max[1];
+
+                $products = Product::with('ProductSKU', 'ProductSKU.ProductImages.image', 'ProductSKU.ProductStock')
+                                ->where('title', 'LIKE', "%$searchkey%")
+                                ->whereHas('ProductSKU', function($query) use($min, $max){
+                                    $query->whereBetween('price', [$min, $max]);
+                                })  
+                                ->paginate($limit);
+            }else{
+
+                $products = Product::with('ProductSKU', 'ProductSKU.ProductImages.image', 'ProductSKU.ProductStock')
+                                ->where('title', 'LIKE', "%$searchkey%")
+                                ->paginate($limit);
+
+            }
+            
+            
+            if (!$products) {
+                return $this->responseNotFound('Products Not Found!');
+            }
+
+            return $products->toJson();
+
+        } catch (Exception $e) {
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+
+
+    public function getMinMaxFromFilter($filters)
+    {
+
+        $all_filters = [];
+
+        foreach ($filters as $range){
+            $ranges = explode("-", $range);
+            $all_filters[] = trim($ranges[0]);
+            $all_filters[] = trim($ranges[1]);
+                           
+        }
+
+        $min = min($all_filters);
+        $max = max($all_filters);
+
+        return array($min, $max);
+
+    }
+
     /**
      * Get product by id
      * POST /get

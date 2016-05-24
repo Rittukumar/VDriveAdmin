@@ -51,7 +51,7 @@
                                         <h5 style="padding: 10px">{{item.title}}</h5>
                                     </div>
                                     <div class="col-xs-6">
-                                        <a href="#store/{{item.id}}" class="pull-right"
+                                        <a href="#store/{{item.id}}/marketplace" class="pull-right"
                                            style="color: #ffffff; margin-top: 16px; margin-right: 5px">Explore Store
                                             <span class="fa fa-chevron-right"></span></a>
                                     </div>
@@ -59,7 +59,7 @@
 
                             </div>
                             <div class="store-image-frame" ng-if="item.profile_images.large_image_url.length > 0">
-                                <img ng-src="{{item.profile_images.large_image_url}}" alt=""
+                                <img ng-src="{{imageUrl}}{{item.profile_images.large_image_url}}" alt=""
                                      style="width: 100%"/>
                             </div>
                             <div class="store-image-frame" ng-if="item.profile_images.large_image_url == ''">
@@ -86,7 +86,7 @@
                                 ng-change="pageChanged()">
                 </uib-pagination>
             </div>
-            <div class="empty-section text-center" ng-if="browseItems.length == 0">
+            <div class="empty-section text-center" ng-show="browseItems.length == 0">
                 <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
 
                 <h3 style="font-weight: 200">No stores exist under this category!</h3>

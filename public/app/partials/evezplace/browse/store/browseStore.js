@@ -4,13 +4,14 @@
 evezownApp
     .controller('BrowseStoreCtrl', function ($scope, $rootScope, $http, PATHS, $cookieStore,
                                              $routeParams, EvezplaceHomeService, StoreService) {
-        $scope.browseItems = [];
+        //$scope.browseItems = [];
         $scope.browseMyItems = [];
         $scope.storePagination = {};
         $scope.service_url = PATHS.api_url;
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.currentUserId = $routeParams.id;
         $scope.currentSubCategoryId = -1;
+        $scope.imageUrl = PATHS.api_url + 'image/show/';
 
         $scope.isAdvancedSearch = false;
 
@@ -63,6 +64,12 @@ evezownApp
 
         // Set the subcategory id as -1 on initial load (no selection)
         $scope.GetProductsBySubCatId($scope.currentSubCategoryId);
+
+        //get the stores based on subcategory(Navigating From product menu)
+        if($routeParams.subcatId != undefined)
+        {
+            $scope.GetProductsBySubCatId($routeParams.subcatId);
+        }
 
         $scope.GetProductsByOwnerId = function () {
             $http.get(PATHS.api_url + 'stores/owner/' + $scope.currentUserId + '/get').

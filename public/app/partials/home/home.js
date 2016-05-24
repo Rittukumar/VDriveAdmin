@@ -4,7 +4,10 @@
 'use strict';
 
 evezownApp
-    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, $http, PATHS, AUTH_EVENTS,AuthService, ngDialog, usSpinnerService) {
+    .controller('LoginController', function ($scope, $rootScope, $cookieStore, $location, $http, PATHS,
+                                             AUTH_EVENTS, AuthService, ngDialog, usSpinnerService, $auth, 
+                                             localStorageService, $routeParams, $filter, $controller, StoreService) {
+                                                     
       
         $scope.title = "Login to Evezown";
 
@@ -51,6 +54,39 @@ evezownApp
             }
         }
 
+        $scope.authenticate = function(provider) {
+            
+          $auth.authenticate(provider)
+            .then(function(data) {
+                console.log(data);
+                AuthService.setUserDetails(data);
+
+                if($cookieStore.get('userId') && localStorageService.length() > 0)
+                { 
+                    $scope.checkCartProducts();
+
+                }else if($cookieStore.get('userId')){
+                    
+                    $scope.getCartProducts();   
+                    
+                } 
+
+            })
+            .catch(function(error) {
+                console.log(error);
+              if (error.error) {
+                // Popup error - invalid redirect_uri, pressed cancel button, etc.
+                toastr.error(error.error);
+              } else if (error.data) {
+                // HTTP response error from server
+                toastr.error(error.data.message, error.status);
+              } else {
+                toastr.error(error);
+              }
+            });
+        };
+
+
         $scope.login = function (credentials) {
             usSpinnerService.spin('spinner-1');
             if (credentials.remember) {
@@ -78,11 +114,18 @@ evezownApp
                     Session.destroy();
                 }
                 else
-                {
-                    $cookieStore.put('api_key', Session.api_key);
-                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                    toastr.success('Login', 'You have logged in successfully');
-                    $location.path('/profile/'+ $cookieStore.get('userId'));
+                {   
+                   
+                    if($cookieStore.get('userId') && localStorageService.length() > 0)
+                    { 
+                        $scope.checkCartProducts();
+
+                    }else if($cookieStore.get('userId')){
+                        
+                        $scope.getCartProducts();   
+                        
+                    }   
+                    
                 }
             }, function (res)
             {
@@ -92,6 +135,137 @@ evezownApp
                 $location.path('/login');
             });
         };
+
+        $scope.checkCartProducts = function(){
+
+          var shoppingCartItems = localStorageService.get('shoppingCartItems');
+            var cart_data = {
+                                cart_contents : shoppingCartItems,
+                                user_id       : $cookieStore.get('userId')
+                            };
+                   
+                $http.post(PATHS.api_url + 'cart/checkcart', cart_data)
+                .success(function(response){
+                    
+                    if(response){
+
+                        angular.forEach(response, function (value, key) {
+                            
+                            var selectedStore = $filter('filter')(shoppingCartItems, {storeId: value.storeId}, true);
+                            
+                            if (selectedStore.length > 0) {
+                                var totalPrice    = 0; 
+                                var product_price = 0; 
+                                
+                                angular.forEach(value.products, function (v, k) {
+                                  
+                                     var selectedProduct = $filter('filter')(shoppingCartItems, {product_id: v.product_id}, true);
+                                     
+                                     if (selectedProduct.length == 0) {
+                                       
+                                        selectedStore[0].products.push(v);
+                                        product_price += parseFloat(v.price);
+                                        
+                                     }
+                                });
+                                
+                                totalPrice =  +selectedStore[0].total_price + (+product_price);
+                                selectedStore[0].total_price = totalPrice;
+                                
+                            }else{
+                                 
+                                shoppingCartItems.push(value);
+                            }
+
+                        });
+                  
+                    }
+
+                }).then(function (response) {
+                    var cart_data = {
+                                        cart_contents : shoppingCartItems,
+                                        user_id       : $cookieStore.get('userId')
+                                    };
+                        
+                        $http.post(PATHS.api_url + 'cart/addcart', cart_data)
+                        .then(function (response) {
+                            localStorageService.remove('shoppingCartItems');
+                            localStorageService.set('shoppingCartItems', shoppingCartItems);
+                            $rootScope.$broadcast('shoppingCartItems', {message: shoppingCartItems});
+                            $cookieStore.put('api_key', Session.api_key);
+                            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                            toastr.success('Login', 'You have logged in successfully');
+
+                            //Geting profile image of user
+                            AuthService.getProfileImage(PATHS.api_url + 'users/' + $cookieStore.get('userId') + '/profile_image/current')
+                            .success(function(data) {
+                                $rootScope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
+                                $rootScope.userId = $cookieStore.get('userId');
+
+                                //If user came from create store
+                                if($cookieStore.get('FromSource') == "FromCreateStore")
+                                {
+                                    $location.path("/store/create/step1");
+                                    $cookieStore.remove('FromSource');   
+                                }
+                                //If user come from create campaign
+                                else if($cookieStore.get('FromSource') == "FromCreateCampaign")
+                                {
+                                    $location.path("/classifieds/create/step1");
+                                    $cookieStore.remove('FromSource');
+                                }
+                                //If user come through login
+                                else
+                                {
+                                    $location.path('/mystores/'+ $cookieStore.get('userId'));
+                                }      
+                            });  
+                        });
+                
+                });
+             
+        } 
+
+        $scope.getCartProducts = function(){
+           var cart_data = { user_id : $cookieStore.get('userId') };
+           $http.post(PATHS.api_url + 'cart/getcart', cart_data)
+            .success(function(response){
+                console.log(response);
+                    localStorageService.remove('shoppingCartItems');
+                    localStorageService.set('shoppingCartItems', response);
+                    $rootScope.$broadcast('shoppingCartItems', {message: response});
+            }).then(function (response) {
+                $cookieStore.put('api_key', Session.api_key);
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                toastr.success('Login', 'You have logged in successfully');
+
+                //Geting profile image of user
+                AuthService.getProfileImage(PATHS.api_url + 'users/' + $cookieStore.get('userId') + '/profile_image/current')
+                .success(function(data) {
+                    $rootScope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
+                    $rootScope.userId = $cookieStore.get('userId');
+
+                    //If user came from create store
+                    if($cookieStore.get('FromSource') == "FromCreateStore")
+                    {
+                        $location.path("/store/create/step1");
+                        $cookieStore.remove('FromSource');   
+                    }
+                    //If user come from create campaign
+                    else if($cookieStore.get('FromSource') == "FromCreateCampaign")
+                    {
+                        $location.path("/classifieds/create/step1");
+                        $cookieStore.remove('FromSource');
+                    }
+                    //If user come through login
+                    else
+                    {
+                        $location.path('/mystores/'+ $cookieStore.get('userId'));
+                    }      
+                });  
+            });
+        }
+
     });
 
 evezownApp
@@ -127,10 +301,10 @@ evezownApp
     });
 
 evezownApp
-    .controller('HomeController', function ($rootScope, $scope, AuthService, $cookieStore, ArticleService) {
+    .controller('HomeController', function ($rootScope, $scope, AuthService, $cookieStore, ArticleService, $http, PATHS, $location) {
         $scope.caption = true;
         $scope.carouselTitle = "Evezown";
-
+        $scope.Role = $cookieStore.get('userRole');
         //  $rootScope.isLoggedIn = AuthService.isLoggedIn();
         $scope.CompletedEvent = function (scope) {
             console.log("Completed Event called");
@@ -176,7 +350,19 @@ evezownApp
                 },
                 {
                     element: '#step4',
-                    intro: 'So get started with your Evezown experience.'
+                    intro: "Create store under available subscription types: Free, Premium and Customized",
+                    position: 'bottom'
+                },
+                {
+                    element: '#step5',
+                    intro: "Create your own advert to promote your bisuness and services through ads & campaigns",
+                    position: 'bottom'
+                },
+                {
+                    element: '#step6',
+                    intro: "<div class='tour-step'><b><h3>Thankyou</h3></b>" +
+                    "</div>"
+                    
                 }
             ],
             showStepNumbers: false,
@@ -185,10 +371,47 @@ evezownApp
             nextLabel: '<strong>NEXT!</strong>',
             prevLabel: '<span style="color:green">Previous</span>',
             skipLabel: 'Exit',
-            doneLabel: 'Thanks'
+            doneLabel: 'Exit'
         };
 
         $scope.ShouldAutoStart = false;
+
+
+        $scope.GetCaptions = function(id)
+        {
+           
+            $http.get(PATHS.api_url + 'admin/'+ $cookieStore.get('userId')  +'/'+ id +'/getscreenfields').
+            success(function (data, status, headers, config)
+            {
+                console.log(data);
+                $scope.LandingCaptions = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+        $scope.GetCaptions(3);
+
+        $scope.accessCtrl =  function()
+        {
+            toastr.info("You should have Business subscription to access this feature");
+        }
+
+        $scope.Create_Campaign = function()
+        {
+            
+            $scope.loggedInUserId = $cookieStore.get('userId');
+
+            if($scope.loggedInUserId)
+            {
+                $location.path("/classifieds/create/step1");
+            }
+            else
+            {
+                $cookieStore.put('FromSource', "FromCreateCampaign");
+                $location.path("/login");
+            }
+        }
 
     });
 
@@ -241,7 +464,7 @@ evezownApp.controller('HomeProductMenuController', function ($rootScope, $scope,
 
 
 evezownApp
-    .controller('ArticlesNewsInterviewsCtrl', function ($scope, ArticleService, BlogService, EventService, ForumService, PATHS) {
+    .controller('ArticlesNewsInterviewsCtrl', function ($scope, ArticleService, BlogService, EventService, ForumService, $http, $cookieStore, PATHS) {
 
         $scope.isShowMoreVideos = false;
 
@@ -309,6 +532,21 @@ evezownApp
                 });
             }
         }
+
+        $scope.GetCaptions = function(id)
+        {
+           
+            $http.get(PATHS.api_url + 'admin/'+ $cookieStore.get('userId')  +'/'+ id +'/getscreenfields').
+            success(function (data, status, headers, config)
+            {
+                console.log(data);
+                $scope.VideoPartialCaptions = data.data;
+            }).error(function (data)
+            {
+                console.log(data);
+            });
+        }
+        $scope.GetCaptions(3);
 
         // Show more video click toggle
         $scope.showMoreVideos = function () {

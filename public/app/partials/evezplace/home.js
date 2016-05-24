@@ -1,6 +1,13 @@
 evezownApp
-    .controller('EvezplaceController', function ($scope) {
+    .controller('EvezplaceController', function ($scope, $cookieStore) {
         $scope.title = "EvezPlace";
+
+        $scope.Role = $cookieStore.get('userRole');
+        
+        $scope.accessCtrl =  function()
+        {
+            toastr.info("You should have Business subscription to access this feature");
+        }
     });
 
 evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $location,
@@ -17,7 +24,7 @@ evezownApp.controller('ProductMenuController', function ($rootScope, $scope, $lo
     }, {
         Index: 2,
         Title: 'productServices',
-        LinkText: 'Store/Business'
+        LinkText: 'Business (Product + Service)'
     }, {
         Index: 3,
         Title: 'Ads & Campaigns',
@@ -89,12 +96,31 @@ evezownApp.controller('BrowseStoreController', function ($scope) {
 });
 
 evezownApp.controller('BrowseStoreMenuController', function ($scope, $location,
-                                                             EvezplaceHomeService,$http,PATHS,$rootScope) {
+                                                             EvezplaceHomeService,$http,PATHS,$rootScope,$routeParams) {
+
+    //search
+    if($routeParams.searchKey != undefined)
+    {
+        $scope.SearchKey = $routeParams.searchKey;
+    }
+    else
+    {
+        $scope.SearchKey = "";
+    }
+
+    //Navigating from top product menu
+    if($routeParams.subcatId != undefined)
+    {
+        $scope.SubCatID = $routeParams.subcatId;
+    }
 
     $scope.getCategories = function () {
         var currentRoute = $location.path().substring(1);
 
         if (currentRoute == 'store/browse') {
+            $scope.currentSection = 3;
+        }
+        else if (currentRoute == 'store/browse/' +  $scope.SubCatID) {
             $scope.currentSection = 3;
         }
         else if (currentRoute == 'store/services') {
@@ -105,6 +131,9 @@ evezownApp.controller('BrowseStoreMenuController', function ($scope, $location,
         }
         else if (currentRoute == 'productServices/browse') {
             $scope.currentSection = 6;
+        }
+        else if (currentRoute == 'search/products/' + $routeParams.searchKey) {
+            $scope.currentSection = 3;
         }
 
         EvezplaceHomeService.getCategories($scope.currentSection)
@@ -125,7 +154,7 @@ evezownApp.controller('BrowseStoreMenuController', function ($scope, $location,
     };
 });
 
-evezownApp.controller('StoreInfoController', function ($scope, $location) {
+evezownApp.controller('StoreInfoController', function ($scope, $location, $cookieStore) {
 
     $scope.storeInfoNavLinks = [{
         Title: 'whatdoiget',
@@ -144,6 +173,21 @@ evezownApp.controller('StoreInfoController', function ($scope, $location) {
 
         return page === currentRoute ? 'active' : '';
     };
+
+    $scope.Create_Store = function() {
+
+        $scope.loggedInUserId = $cookieStore.get('userId');
+        
+        if($scope.loggedInUserId)
+        {
+            $location.path("/store/create/step1");
+        }
+        else
+        {
+            $cookieStore.put('FromSource', "FromCreateStore");
+            $location.path("/login");
+        }
+    }
 });
 
 //evezplace home page images

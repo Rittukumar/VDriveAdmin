@@ -3,11 +3,11 @@
     <a href="#store/browse" style="margin-bottom: 20px" class="btn btn-primary btn-lg">Browse Stores Now</a>
 </div>
 <div class="shoppingcart" ng-if="!isShoppingCartEmpty">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-xs-12">
             <p style="color: #2d9db8; font-weight: 400">CART ({{shoppingCartCount}})</p>
         </div>
-    </div>
+    </div> -->
     <hr style="margin-top: 5px; margin-bottom: 5px">
     <div class="row" ng-repeat="shoppingCartStore in shoppingCartItems" style="margin-bottom: 5px">
         <div class="col-sm-12">
@@ -35,9 +35,38 @@
                     <hr ng-if="$index != shoppingCartStore.products.length - 1" style="margin-top: 5px; margin-bottom: 5px">
                 </div>
             </div>
+            <!-- Adding Total price and shipping per store. -->
+            <hr style="margin-top: 5px; margin-bottom: 5px">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <h4 style="font-weight: 400" class="pull-right">Total:</h4>
+                        </div>
+                        <div class="col-xs-4">
+                            <h4 style="font-weight: 400" class="pull-right"> &#8377; {{shoppingCartStore.total_price}}</h4>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+             <!-- Adding view cart and checkout cart per store.-->
+             <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-6">
+                           <!-- <a href="#checkout/cart" class="btn btn-primary pull-right" style="border-radius: 3px">checkout</a> -->
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#store/shopping/{{shoppingCartStore.storeId}}/cart" class="btn btn-default  pull-right" style="border-radius: 3px">view cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <hr style="margin-top: 5px; margin-bottom: 5px">
+    <!-- <hr style="margin-top: 5px; margin-bottom: 5px">
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
@@ -58,8 +87,8 @@
             </div>
             <hr>
         </div>
-    </div>
-    <div class="row">
+    </div> -->
+   <!--  <div class="row">
         <div class="col-xs-12">
             <div class="row">
                 <div class="col-xs-6">
@@ -70,6 +99,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 

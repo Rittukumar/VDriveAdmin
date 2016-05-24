@@ -5,27 +5,29 @@
 
 evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDialog, $filter,
                                                       $controller, StoreService, $location,
-                                                      $routeParams, PATHS, $cookieStore) {
+                                                      $routeParams, PATHS, $cookieStore, $http, localStorageService) {
 
     $scope.imageUrl = PATHS.api_url + 'image/show/';
 
-    var shoppingCartItems = $cookieStore.get('shoppingCartItems') || [];
+    var shoppingCartItems = localStorageService.get('shoppingCartItems') || [];
+    var expressBuyItems   = $cookieStore.get('expressBuyItems') || [];
 
     $scope.productDetails = {};
 
     $scope.productSkuVariants = null;
 
+    $scope.PageSource = $routeParams.pagesrc;
 
     $scope.productDetails.hasRelatedProducts = false;
 
     $scope.selectedProduct = {};
     $scope.selectedProduct.color = "";
-    $scope.selectedProduct.size = "";
+    $scope.selectedProduct.size  = "";
     $scope.selectedProduct.volume = "";
     $scope.selectedProduct.weight = "";
 
-    $scope.productDetails.size_options = [];
-    $scope.productDetails.color_options = [];
+    $scope.productDetails.size_options   = [];
+    $scope.productDetails.color_options  = [];
     $scope.productDetails.volume_options = [];
     $scope.productDetails.weight_options = [];
 
@@ -44,6 +46,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                 'id': productDetails.product_line.store.id,
                 'name': productDetails.product_line.store.title
             };
+            var shoppingCartItems = localStorageService.get('shoppingCartItems') || [];
 
             var currentStore = $filter('filter')(shoppingCartItems, {storeId: $scope.productDetails.store.id}, true);
 
@@ -237,7 +240,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
     };
 
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[0];
+    $scope.format  = $scope.formats[0];
 
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -274,7 +277,9 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
 
     $scope.addProductToCart = function ($productSkuCollection) {
 
-        var $product = $productSkuCollection[0];
+         var $product   = $productSkuCollection[0];
+         var totalPrice = 0;
+         var shoppingCartItems = localStorageService.get('shoppingCartItems') || [];
 
         var selectedStore = $filter('filter')(shoppingCartItems, {storeId: $product.product.product_line.store.id}, true);
 
@@ -286,6 +291,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                 image: $product.product_images[0],
                 price: $product.price,
                 quantity: 1,
+                stock_quantity: $product.product_stock.quantity,
                 variants: {
                     color: $product.color,
                     size: $product.size,
@@ -293,12 +299,15 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                     weight: $product.weight
                 }
             };
+            totalPrice =  +selectedStore[0].total_price + (+$product.price);
+            selectedStore[0].total_price = totalPrice;
             selectedStore[0].products.push(product);
         }
         else {
             var store = {
-                storeTitle: $product.product.product_line.store.name,
-                storeId: $product.product.product_line.store.id
+                storeTitle: $product.product.product_line.store.title,
+                storeId: $product.product.product_line.store.id,
+                total_price: $product.price,
             };
 
             var product = {
@@ -308,9 +317,10 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
                 image: $product.product_images[0],
                 price: $product.price,
                 quantity: 1,
+                stock_quantity: $product.product_stock.quantity,
                 variants: {
                     color: $product.color,
-                    size: $product.size,
+                    size:  $product.size,
                     volume: $product.volume,
                     weight: $product.weight
                 }
@@ -337,33 +347,69 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
             });
         }
 
-        $cookieStore.put('shoppingCartItems', shoppingCartItems);
+        localStorageService.set('shoppingCartItems', shoppingCartItems);
+
+        if($cookieStore.get('userId'))
+        {
+           var cart_data = {
+                            cart_contents : localStorageService.get('shoppingCartItems'),
+                            user_id       : $cookieStore.get('userId')
+                        };
+               
+            $http.post(PATHS.api_url + 'cart/addcart', cart_data);
+        }
+        
 
         toastr.success('Add to Cart', 'Product added to cart successfully.');
 
         $rootScope.$broadcast('shoppingCartItems', {message: shoppingCartItems});
     }
 
+
     $scope.buyProduct = function ($product) {
 
-        var currentStore = $filter('filter')(shoppingCartItems, {storeId: $product[0].product.product_line.store.id}, true);
+        $product = $product[0];
 
-        var isAlreadyAddedToCart = false;
+           // New store.
 
-        if(currentStore.length > 0)
-        {
-            angular.forEach(currentStore[0].products, function (value, key) {
-                if (value.product_id == $product[0].product.id) {
-                    isAlreadyAddedToCart = true;
+           if(expressBuyItems.length > 0) {
+                $cookieStore.remove("expressBuyItems");
+                expressBuyItems = [];
+           }
+           
+           var store = {
+                storeTitle: $product.product.product_line.store.title,
+                storeId: $product.product.product_line.store.id
+            };
+         
+           var product = {
+                id: $product.id,
+                product_id: $product.product.id,
+                title: $product.product.title,
+                image: $product.product_images[0],
+                price: $product.price,
+                quantity: 1,
+                stock_quantity: $product.product_stock.quantity,
+                variants: {
+                    color: $product.color,
+                    size: $product.size,
+                    volume: $product.volume,
+                    weight: $product.weight
                 }
-            });
-        }
+            };
 
-        if(!isAlreadyAddedToCart) {
-            $scope.addProductToCart($product);
-        }
+            store.products = [];
+            store.products.push(product);
+            expressBuyItems.push(store);
 
-        $location.path("/store/cart");
+
+        $cookieStore.put('expressBuyItems', expressBuyItems);
+         
+        $location.path("/checkout/"+store.storeId+"/buy");
     };
+
+
+    
+    
 });
 

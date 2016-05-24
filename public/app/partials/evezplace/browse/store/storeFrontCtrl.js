@@ -19,6 +19,9 @@ evezownApp.controller('StoreFrontController', function ($scope, ngDialog, $filte
 
     var storeId = $routeParams.id;
 
+    $scope.PageSource = $routeParams.pagesrc;
+
+
     function getStoreFrontDetails(storeId) {
         StoreService.getStoreFrontDetails(storeId).
         then(function (data) {
@@ -118,9 +121,11 @@ evezownApp.controller('StoreFrontController', function ($scope, ngDialog, $filte
                 Link3: storeFrontDetails.store_front_info.store_mandatory_disclosure_link3
             };
 
-            $scope.storefront.privacy = storeFrontDetails.store_terms_conditions;
+            $scope.storefront.privacy = storeFrontDetails.store_front_info.store_policies;
 
-            $scope.storefront.shippingReturn = storeFrontDetails.store_sales_exchange_policy;
+            $scope.storefront.terms = storeFrontDetails.store_front_info.store_terms_conditions;
+
+            $scope.storefront.shippingReturn = storeFrontDetails.store_front_info.store_sales_exchange_policy;
 
 
         });
@@ -161,7 +166,7 @@ evezownApp.controller('StoreFrontController', function ($scope, ngDialog, $filte
             , {
                 data: {
                     StoreId: $routeParams.id,
-                    storeStatus: 3
+                    storeStatus: 8
                 },
                 headers: {'Content-Type': 'application/json'}
             }).

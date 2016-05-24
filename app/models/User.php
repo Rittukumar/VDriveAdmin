@@ -5,6 +5,7 @@ use Zizaco\Confide\ConfideUserInterface;
 use Zizaco\Entrust\HasRole;
 use Illuminate\Auth\UserInterface;
 
+
 class User extends Eloquent implements ConfideUserInterface {
 	use ConfideUser;
 	use HasRole;
@@ -72,5 +73,15 @@ class User extends Eloquent implements ConfideUserInterface {
 	public function roles()
 	{
 		return $this->belongsToMany('Role','assigned_roles');
+	}
+
+	public function billing_address()
+	{
+		return $this->hasMany('OrderBillingAddress', 'user_id', 'id');
+	}
+
+	public function shipping_address()
+	{
+		return $this->hasMany('OrderShippingAddress', 'user_id', 'id');
 	}
 }

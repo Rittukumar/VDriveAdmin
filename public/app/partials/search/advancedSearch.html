@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="">
-                <a href="#profile/{{userId}}" >Mysite</a>
+                <a href="#mystores/{{userId}}" >Mysite</a>
             </li>
             <li ng-class="{ active: isActive('/streamit')}"><a href="#streamit">Stream It</a></li>
             <li ng-class="{ active: isActive('/explore')}">
@@ -40,7 +40,7 @@
     </button>
     <h1>Advanced Search</h1>
 
-    <p>Find a post based on your search key or multiple filter criteria.</p>
+    <p>Find a post based on your search keyword or multiple filter criteria.</p>
 
 
 </div>
@@ -148,7 +148,7 @@
                 <div class="col-md-12" id="searchResults" style="margin-bottom: 40px; margin-top: 15px">
                     <div class="row search-result-section text-center" ng-if ="NoResult"><h4>No posts related to your search</h4></div>
                     <div class="row search-result-section">
-                        <div class="col-md-12 trending-section" ng-repeat="post in postSearchResult">
+                        <div class="col-md-12 trending-section" ng-repeat="post in postSearchResult" ng-if="post.deleted == 0">
                             <!--pro pic name and date-->
                             <div class="col-md-12 zero-padding-left-right" >
                                 <div class="col-md-1">
@@ -329,10 +329,10 @@
 
                                 <!--Tags-->
                                 <div ng-if="post.post_type_id == 1" class="col-md-2 reco-tag">
-                                    <bold style="font-size: 12px">Share / Ask</bold>
+                                    <bold style="font-size: 12px">I Recommend</bold>
                                 </div>
                                 <div ng-if="post.post_type_id == 2" class="col-md-2 generic-tag">
-                                    <bold style="font-size: 12px">I Recommend</bold>
+                                    <bold style="font-size: 12px">Share / Ask</bold>
                                 </div>
                                 <div ng-if="post.post_type_id == 3" class="col-md-2 finds-tag">
                                     <bold style="font-size: 12px">My Find</bold>

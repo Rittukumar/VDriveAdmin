@@ -484,7 +484,8 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
                 toastr.error(data.error.message, 'Groups');
             }).then(function()
             {
-
+               $scope.fetchFriends();
+               $scope.GetGroupById(groupId);
             });
     }
 

@@ -10,7 +10,7 @@ evezownApp.filter('offset', function () {
 });
 
 evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn,
-                                                     $cookieStore, $http, PATHS, $auth, AuthService,$location, GmailCredentials) {
+                                                     $cookieStore, $http, PATHS, $auth, AuthService, $location, GmailCredentials) {
 
     $scope.sectionTitle = "Invite People";
     $scope.loggedInUserId = $cookieStore.get('userId');
@@ -68,7 +68,8 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
         return ret;
     };
 
-    $scope.getRole = function ($userId) {
+    /*bulk upload only for admin*/
+    /*$scope.getRole = function ($userId) {
         $http.get(PATHS.api_url +  'users/' + $userId)
             .success(function(data){
                 $scope.CheckRole = data.data.role;
@@ -80,7 +81,7 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
             .error(function(err){
                 console.log('Error retrieving user');
             });
-    }
+    }*/
 
     $scope.getEmail = function ($userId) {
         $http.get(PATHS.api_url + 'users/' + $userId)
@@ -280,11 +281,11 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
                 description: message,
                 picture: 'http://evezown.com/img/logo.png'
             },
-            function (response) {
-                if (response && !response.error_message) {
+            function (response) { 
+                if (response && !response.error_msg) {
                   toastr.success('Invite Friends Successful');
                 } else {
-                  toastr.error('Error Please Try Again Later');
+                  //toastr.error('Error Please Try Again Later');
                 }
                 // if (response && response.post_id) {
                 //     toastr.success('Post was published.', 'Invite Friends');
@@ -569,6 +570,9 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
                         //});
 
                         $scope.friendslist = log;
+                        if($scope.friendslist.length == 0){
+                            toastr.info('No Contacts Found In Your Account');
+                        }
 
                         console.log($scope.friendslist);
 
@@ -731,22 +735,30 @@ evezownApp.controller('inviteFriendsCtrl', function ($scope, Facebook, $linkedIn
     }
 
     function ExcelMailInvite(emails) {
-    var ExcelMails = document.getElementById('out2').value;
-    if(ExcelMails == "")
-    {
-        toastr.error('No contact info');
-    }
-    else
-    {
-        $scope.sendInviteExcel(ExcelMails);
-    }
+
+        var fileType = document.getElementById('uploadFileType').value;
+
+        var ExcelMails = document.getElementById('out2').value;
+
+        if(fileType != "xls" && fileType != "xlsx" )
+        {
+            toastr.error('Please upload only excel file.');
+        }
+        else if(ExcelMails == "")
+        {
+            toastr.error('No contact info to invite');
+        }
+        else
+        {
+            $scope.sendInviteExcel(ExcelMails);
+        }
     }
     /*Invite using Xls Upload ends*/
     
     $scope.authenticate = function (provider) {
         $auth.authenticate(provider);
     }
-    $scope.getRole($scope.loggedInUserId);
+    /*$scope.getRole($scope.loggedInUserId);*/
     $scope.getEmail($scope.loggedInUserId);
     // Call start function on load.
     //  $scope.start();

@@ -7,6 +7,7 @@ class Store extends \Eloquent {
     {
         return $this->belongsTo('UserProfile', 'owner_id','user_id');
     }
+
     public function profile_images()
     {
         return $this->hasOne('StoreFrontImages', 'store_id')->join('images', 'store_front_images.profile_image_id', '=', 'images.id');
@@ -30,6 +31,10 @@ class Store extends \Eloquent {
 
     public function BusinessInfo() {
         return $this->belongsTo('StoreBusinessInfo', 'id','store_id');
+    }
+
+    public function Subscription_offer() {
+        return $this->hasMany('StoreSubscriptionOffer', 'store_id');
     }
 
     public function Tags() {

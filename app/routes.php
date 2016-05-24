@@ -16,11 +16,11 @@ use Intervention\Image\Facades\Image;
 Route::get('/', function () {
     return View::make('hello');
 });
- 
-Route::post('paymentstatus/paymentstatus', function () {
- 	$inputArray = Input::all();
-	return View::make('paymentstatus')->with('data',$inputArray);
-}); 
+
+// Route::post('paymentstatus/paymentstatus', function () {
+//  	$inputArray = Input::all();
+// 	return View::make('paymentstatus')->with('data',$inputArray);
+// }); 
 
 Route::get('payupaymentsuccess/payupaymentsuccess', function () {
 	return View::make('payupaymentsuccess');
@@ -28,7 +28,11 @@ Route::get('payupaymentsuccess/payupaymentsuccess', function () {
 
 Route::group(array('prefix' => 'v1'), function () {
 
-	
+    // OAuth, Social Login Routes.
+    Route::post('auth/facebook', 'AuthController@facebook');
+    Route::post('auth/google', 'AuthController@google');
+    Route::post('auth/linkedin', 'AuthController@linkedin');
+
     Route::get('mail/send', 'AdminController@sendMail');
     Route::get('admin/{admin_id}/users', 'AdminController@getUsers');
     Route::get('admin/{admin_id}/evezplace/sections', 'AdminController@getEvezplaceSections');
@@ -72,8 +76,21 @@ Route::group(array('prefix' => 'v1'), function () {
 
     Route::post('admin/{admin_id}/users/userAction', 'AdminController@userAction');
     
-    //Creating a post URL for order success.
-   Route::post('order/success/posturl', 'OrderController@orderSuccess');
+    Route::get('admin/{admin_id}/allscreens', 'ScreenController@getScreens');
+    Route::get('admin/{admin_id}/{screen_id}/getscreenfields', 'ScreenController@getScreenField');
+    Route::post('admin/{admin_id}/saveScreenFields', 'ScreenController@saveScreenFields');
+
+    //admin configurations
+    Route::get('admin/{admin_id}/allConfigurations', 'AdminController@getAdminConfigurations');
+    Route::post('admin/{admin_id}/ConfigureDatas', 'AdminController@updateConfigureData');
+
+    //categories and subcategories
+    Route::get('admin/{admin_id}/categories', 'MasterController@getAllCategories');
+    Route::get('admin/{admin_id}/{category_id}/subcategorybyId', 'MasterController@getsubCategoryById');
+    Route::get('admin/{admin_id}/{category_id}/deletecategory', 'MasterController@deleteCategory');
+    Route::get('admin/{admin_id}/{subcategory_id}/deletesubcategory', 'MasterController@deleteSubCategory');
+    Route::post('admin/{admin_id}/saveCategory', 'MasterController@saveCategory');
+    Route::post('admin/{admin_id}/saveSubCategory', 'MasterController@saveSubCategory');
 
     // Eveplace promotion section
     Route::get('evezplace/{section_id}/promotion', 'AdminEvezplacePromotionController@index');
@@ -83,12 +100,14 @@ Route::group(array('prefix' => 'v1'), function () {
     // Evezplace recommendations section
     Route::get('evezplace/{section_id}/recommendations', 'EvezplaceRecommendationController@index');
     Route::post('admins/{user_id}/evezplace/{section_id}/recommendation', 'EvezplaceRecommendationController@store');
+    Route::post('admins/{user_id}/evezplace/deleteRecommendation', 'EvezplaceRecommendationController@RecomondationDelete');
     Route::get('admin/evezplace/recommendations/{id}', 'EvezplaceRecommendationController@show');
     Route::post('admins/{user_id}/evezplace/{section_id}/recommendation/image/upload', 'EvezplaceRecommendationController@updateRecommendationImage');
 
     // Evezplace trending items section
     Route::get('evezplace/{section_id}/trending/items', 'EvezplaceTrendingController@index');
     Route::post('admins/{user_id}/evezplace/{section_id}/trending/item', 'EvezplaceTrendingController@store');
+    Route::post('admins/{user_id}/evezplace/deleteTrendingItem', 'EvezplaceTrendingController@TrendingDelete');
     Route::get('admin/evezplace/trending/items/{id}', 'EvezplaceTrendingController@show');
     Route::post('admins/{user_id}/evezplace/{section_id}/trending/item/image/upload', 'EvezplaceTrendingController@updateTrendingItemImage');
 
@@ -128,7 +147,11 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('users/right_cover_image/update', 'UsersController@updateRightCoverPic');
     Route::post('users/bottom_cover_image/update', 'UsersController@updateBottomCoverPic');
     Route::get('users/{user_id}/invites', 'UsersController@inviteHistory');
-
+    Route::post('users/checkforPasswordField', 'UsersController@checkforPasswordField');
+    Route::get('users/{user_id}/getUserProfileCount', 'UsersController@getUserProfileCount');
+    Route::get('users/{user_id}/getUserDetails', 'UsersController@getUserDetails');
+    Route::get('buyers/{code}/getBuyerDetails', 'UsersController@getBuyerDetails');
+    
     // User details routes
     Route::get('users/{user_id}/personal_info', 'UserDetailsController@getPersonalInfo');
     Route::post('users/personal_info/save', 'UserDetailsController@savePersonalInfo');
@@ -184,9 +207,21 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::any('chat/unread-count', 'OneOnOneChatController@getUnreadCount');
     Route::any('chat/{user_id}/status','OneOnOneChatController@getUserOnlineStatus');
 
+    //cart
+    Route::post('cart/addcart', 'CartController@addProductToCart');
+    Route::post('cart/checkcart', 'CartController@checkCartProducts');
+    Route::post('cart/getcart', 'CartController@getCartProducts');
+    Route::post('cart/deletecart', 'CartController@deleteCart');
+
+    //payment
+    Route::post('payment/stripePayment', 'PaymentController@stripePayment');
+    Route::post('paymentstatus/paymentstatus', 'PaymentController@payuPayment');
+    Route::post('storeSubscription/subPayment', 'PaymentController@SubscriptionPayment');
+
     //searchPost()
     Route::get('deletePost/{woice_id}', 'WoiceController@deletePost');
     Route::post('updatePost', 'WoiceController@updatePost');
+    Route::post('updatePost/circle', 'WoiceController@updatePostCircle');
     Route::post('users/{user_id}/post/create', 'WoiceController@createPost');
     Route::post('users/{user_id}/posts/{post_id}/rewoice', 'WoiceController@createRewoicePost');
 
@@ -210,11 +245,12 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('invite/{code}', 'InviteController@getInvite');
 
     Route::get('users/{id}/friends', 'FriendsController@index');
+    Route::get('users/{id}/chatfriends', 'FriendsController@getChatFriends');
     Route::get('users/{id}/{circle_id}/circlefriends', 'FriendsController@getFriendsForCircle');
     Route::get('users/{id}/{group_id}/groupfriends', 'FriendsController@getFriendsForGroup');
     Route::get('users/{id}/{event_id}/eventfriends', 'FriendsController@getFriendsForEvents');
     //getFriendsForCircle
-//getFriendsForEvents
+    //getFriendsForEvents
     Route::post('users/autofriend', 'FriendsController@autoFriend');
     Route::post('users/friend/request', 'FriendsController@sendFriendRequest');
     Route::post('users/friend/request/accept', 'FriendsController@acceptFriendInviteRequest');
@@ -256,8 +292,11 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('users/store/step4/{user_id}/add', 'StoreController@storeStep4');
     Route::post('users/store/updatestorefooter/{user_id}/update', 'StoreController@UpdateStoreFooterInfo');
     Route::post('users/store/updatestorestatus/update', 'StoreController@updateStoreStatus');
+    Route::post('users/store/upgrade', 'StoreController@upgradeSubscription');
     Route::get('users/store/getstorestatus/{store_id}/get', 'StoreController@getStoreStatus');
     Route::get('users/store/getstorestatus/enums', 'StoreController@getStoreStatusEnum');
+    Route::post('users/store/setstorestatus/Accept', 'StoreController@StoreAcceptByAdmin');
+    Route::post('users/store/setstorestatus/Reject', 'StoreController@StoreRejectByAdmin');
 
 
     //UpdateStoreFooterInfo
@@ -273,6 +312,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('stores/{store_id}/get', 'StoreController@getStoreById');
     Route::get('stores/subcategory/{store_subcategory_id}/get', 'StoreController@getStoreBySubCategoryId');
     Route::get('stores/owner/{user_id}/get', 'StoreController@getStoreByOwner');
+    Route::get('stores/owner/guestuser/{user_id}/{my_id}/get', 'StoreController@getStoreGuestUser');
     Route::get('stores/owner/{user_id}/type/{typeId}/get', 'StoreController@getStoreByOwnerAndType');
     Route::get('stores/type/{typeId}/get', 'StoreController@getStoreByType');
     Route::post('stores/search/advanced', 'StoreController@searchStore');
@@ -288,7 +328,8 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('stores/{store_id}/restreams', 'StoreFrontController@getStoreRestreams');
     Route::post('contract/upload', 'StoreController@storeContract');
     Route::get('stores/admin/contract', 'StoreController@getStoreContractsAdmin');
-
+    Route::post('stores/admin/contract/update', 'StoreController@updateStoreContractStatus');
+    
     //Products Route
     Route::post('stores/productline/store', 'ProductController@store');
     Route::post('stores/productline/{storeId}/update', 'ProductController@update');
@@ -296,6 +337,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('store/productlines/{productline_id}', 'ProductController@getProductLine');
     Route::get('stores/productline/{id}/delete', 'ProductController@destroy');
     Route::get('stores/product/{id}/delete', 'ProductController@deleteProduct');
+    Route::get('products/search/{searchkey}', 'ProductController@searchProduct');
 
     //DeleteProduct
 
@@ -319,15 +361,15 @@ Route::group(array('prefix' => 'v1'), function () {
 
     Route::get('users/stores/{store_id}/products/rfi', 'StoreController@getProductsRfi');
     Route::get('users/stores/{store_id}/rfq', 'StoreController@getStoreRfq');
-//    /getProductSKUByProductId
+    //    /getProductSKUByProductId
 
-//getProductLineByStoreId
+    //getProductLineByStoreId
     // Classifieds Routes
 
     Route::get('classifieds', 'ClassifiedsController@index');
     Route::get('classifieds/{sub_cat_id}', 'ClassifiedsController@getClassifieds');
     Route::post('classifieds/search/advanced', 'ClassifiedsController@searchClassifieds');
-    Route::get('users/{user_id}/classifieds', 'ClassifiedsController@getMyClassifieds');
+    Route::get('users/{user_id}/{my_id}/classifieds', 'ClassifiedsController@getMyClassifieds');
     Route::get('users/classifieds/{classified_id}', 'ClassifiedsController@getClassified');
     Route::get('users/classifieds/tags/{tag_id}/remove', 'ClassifiedsController@removeClassifiedTag');
     Route::post('users/classifieds/{classified_id}/status/update', 'ClassifiedsController@updateClassifiedStatus');
@@ -455,10 +497,14 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('image/show/{imagename}/{w?}/{h?}', 'ImageController@showScaledImage');
 
     Route::post('buyer', 'OrderController@getBuyerDetails');
+    Route::post('buyer/createbuyer', 'OrderController@createBuyer');
     Route::post('orders', 'OrderController@store');
     Route::get('orders/{buyer_id}/buyer', 'OrderController@getBuyersOrder');
-    Route::post('orders/payu/hash', 'OrderController@getHash');
     //getHash()
+    Route::post('orders/payu/hash', 'OrderController@getHash');
+    Route::post('orders/paymentOrders', 'OrderController@savePaymentOrders');
+    Route::get('orders/{user_id}/buyHistory', 'OrderController@buyHistory');
+    
 });
 
 Route::group(array('prefix' => 'v1', 'before' => 'jwt-auth'), function () {

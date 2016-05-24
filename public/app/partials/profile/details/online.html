@@ -3,10 +3,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
-                <a href="#profile/{{userId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#mystores/{{userId}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li>
-                <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Manage Mysite</a>
+                <a href="#profile/{{userId}}/personalinfo" class="{{isActive[1]}}">Create / Edit Profile</a>
             </li>
             <li ng-class="{ active: isActive('/explore')}">
                 <!-- Template which needs to be shown on click -->
@@ -73,39 +73,7 @@
                     </h4>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <a href="#" ng-controller="community">
-                        <div class="col-md-2 col-xs-2 well text-center" id="user-profile">
-                            <h3>{{friendList.length}}</h3>
-                            <h4>Connects</h4>
-                        </div>
-                    </a>
-
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="circles">
-                        <h3>{{myCircles.length}}</h3>
-                        <h4>Circles</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="eventCtrl">
-                        <h3>{{myEvents.length}}</h3>
-                        <h4>Events</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="blogCntrl">
-                        <h3>{{myBlogs.length}}</h3>
-                        <h4>Blogs</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-profile" ng-controller="albums">
-                        <h3>{{myAlbums.length}}</h3>
-                        <h4>Albums</h4>
-                    </div>
-                    <div class="col-md-2 col-xs-2 well text-center" id="user-more">
-                        <h3><i class="fa fa-circle"></i>
-                            <i class="fa fa-circle"></i>
-                            <i class="fa fa-circle"></i>
-                        </h3>
-                    </div>
-                </div>
-            </div>
+            <div class="row" ng-include='"partials/profile/userProfileCount.html"' ng-controller = "profileCtrl"></div>
         </div>
         <div class="col-md-12">
             <h3>About Me</h3>
@@ -115,10 +83,10 @@
     </div>
 
 </div>
-    <div class="col-md-12" style="margin-top: 10px;">
+    <div class="col-md-12" id="view" style="margin-top: 10px;">
         <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
             <li><a href="#home">Home</a> <span class="divider"></span></li>
-            <li><a href="#profile/{{userId}}">Profile</a></li>
+            <li><a href="#profile/myprofile/{{userId}}">Profile</a></li>
             <li class="active">Details</li>
         </ul>
     </div>
@@ -130,7 +98,7 @@
         <a href="#profile/{{userId}}/enhance" class="btn btn-block btn-default">
             <p>Enhance Profile Page</p>
         </a>
-        <a href="#profile/{{userId}}/change_password" class="btn btn-default">
+        <a href="#profile/{{userId}}/change_password" class="btn btn-default" ng-show="checkforPasswordField">
             <p>Change Password</p>
         </a>
         <a href="#profile/{{userId}}/myonline" class="btn btn-default active">
@@ -158,6 +126,9 @@
 </div>
 
 <div class="col-md-10 user-menu user-pad" ng-controller="profileDetailsCtrl">
+		<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+	        
+	    </div>
     <div class="signup-section">
         <form>
             <div class="form-group">

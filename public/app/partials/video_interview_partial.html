@@ -1,6 +1,6 @@
 <div class="col-md-12 content-wrapper" ng-controller="ArticlesNewsInterviewsCtrl" style="background-color:#FFF5FF;">
     <div class="row">
-        <h4 class="transparent-ribbon text-center" style="color: #e51385;">Videos<br>
+        <h4 class="transparent-ribbon text-center" style="color: #e51385;">{{VideoPartialCaptions[12].description}}<br>
             _______________
             <span class="fa-stack fa-lg">
                 <i class="fa fa-circle fa-stack-2x"></i>
@@ -29,7 +29,7 @@
     <!--view more ends-->
 
     <div class="col-md-4">
-        <h4 class="transparent-ribbon text-center" style="color: #e51385;">News</h4>
+        <h4 class="transparent-ribbon text-center" style="color: #e51385;">{{VideoPartialCaptions[13].description}}</h4>
         <div class="news-section" ng-repeat="newsItem in news">
         <p style="text-align:justify;font-size:12px;">
             <a href="{{newsItem.link}}" target="blank" style="text-decoration:none;font-size:13px;"><b>{{newsItem.title | strLimit:35}}</b></a> - {{newsItem.description | strLimit:120 }}<br>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="col-md-4">
-        <h4 class="transparent-ribbon text-center" style="color: #e51385;">Interviews</h4>
+        <h4 class="transparent-ribbon text-center" style="color: #e51385;">{{VideoPartialCaptions[14].description}}</h4>
         <div class="interviews-section" ng-repeat="interview in interviews">
         
         <div class="col-md-12 no-padding">

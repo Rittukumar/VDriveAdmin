@@ -27,7 +27,17 @@ class ClassifiedsController extends AppController
         try {
             $limit = Input::get('limit') ?: 15;
 
-            $classifieds = Classified::with('contact', 'location', 'images', 'tags')->paginate($limit);
+            $classifieds = Classified::with('contact', 'location', 'images', 'tags')
+                                        ->whereExists(function($query)
+                                        {
+                                            $query->select(DB::raw(1))
+                                                  ->from('users')
+                                                  ->whereRaw('users.id = classifieds.user_id')
+                                                  ->whereRaw('blocked = 0')
+                                                  ->whereRaw('deleted = 0');
+                                        })
+                                        ->paginate($limit);
+
 
             if (!$classifieds) {
                 return $this->responseNotFound('No classifieds exist!');
@@ -59,7 +69,16 @@ class ClassifiedsController extends AppController
             $limit = Input::get('limit') ?: 15;
 
             $query = Classified::with('contact', 'location', 'images', 'tags')
-                ->where('status', 1)->orderBy('updated_at', 'desc');
+                ->where('status', 1)
+                ->whereExists(function($query)
+                    {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = classifieds.user_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                ->orderBy('updated_at', 'desc');
 
             if ($subCatId > 0) {
                 $query->where('classified_subcategory_id', $subCatId);
@@ -96,7 +115,15 @@ class ClassifiedsController extends AppController
             $input = Input::all();
 
             $query = Classified::with('contact', 'location', 'images', 'tags')
-                ->where('status', 1);
+                                ->where('status', 1)
+                                ->whereExists(function($query)
+                                    {
+                                        $query->select(DB::raw(1))
+                                              ->from('users')
+                                              ->whereRaw('users.id = classifieds.user_id')
+                                              ->whereRaw('blocked = 0')
+                                              ->whereRaw('deleted = 0');
+                                    });
 
             if (isset($input['searchKey'])) {
                 $query->where('title', 'LIKE', '%' . $input['searchKey'] . '%');
@@ -166,15 +193,79 @@ class ClassifiedsController extends AppController
      * @param $userId
      * @return Exception|string
      */
-    public function getMyClassifieds($userId)
+    public function getMyClassifieds($userId, $myId)
     {
         try {
             $limit = Input::get('limit') ?: 15;
 
-            $classifieds = Classified::with('contact', 'location', 'images', 'tags')
-                ->where('user_id', $userId)
-                ->orderBy('updated_at', 'desc')
-                ->paginate($limit);
+            $Id = ($userId == $myId)? $myId : '';
+
+            if(!empty($Id))
+            {
+
+                $classifieds = Classified::with('contact', 'location', 'images', 'tags')
+                                           ->where('user_id', $Id)
+                                           ->whereExists(function($query)
+                                            {
+                                                $query->select(DB::raw(1))
+                                                      ->from('users')
+                                                      ->whereRaw('users.id = classifieds.user_id')
+                                                      ->whereRaw('blocked = 0')
+                                                      ->whereRaw('deleted = 0');
+                                            })
+                                           ->orderBy('updated_at', 'desc')
+                                           ->paginate($limit);
+
+            }else{
+
+                $classifieds = Classified::with('contact', 'location', 'images', 'tags')
+                                        ->orWhere(function ($query)  use ($userId){
+                                            $query->where('visibility_id', 1);
+                                            $query->where('user_id', $userId);
+                                        })
+                                        ->orWhereExists(function ($query) use ($myId) {
+                                            $query->where('visibility_id', 2);
+                                            $query->select(DB::raw(1))
+                                                ->from('circle_friends')
+                                                ->whereRaw('circle_friends.friend_user_id = ' . $myId)
+                                                ->whereExists(function ($query) {
+                                                    $query->select(DB::raw(1))
+                                                        ->from('circles')
+                                                        ->whereRaw('circles.id = classifieds.circle_id')
+                                                        ->whereRaw('circles.id = circle_friends.circle_id')
+                                                        ->whereRaw('circles.user_id = classifieds.user_id');
+                                                });
+                                        })
+                                        ->orWhereExists(function ($query) use ($myId) {
+                                            $query->where('visibility_id', 3);
+                                            $query->select(DB::raw(1))
+                                                ->from('friends')
+                                                ->whereRaw('friends.user_id = classifieds.user_id')
+                                                ->whereRaw('friends.friend_user_id = ' . $myId);
+                                        })
+                                        ->orWhere(function ($query) use ($myId, $userId) {
+                                           
+                                            $query->where('visibility_id', 4);
+                                            $query->where('user_id', '!=', $myId);
+                                            $query->where('user_id', '!=', $userId);
+                                        })
+                                        ->orWhere(function ($query) use ($userId) {
+                                           
+                                            $query->orwhereNull('visibility_id');
+                                            $query->where('user_id', $userId);
+                                        })
+                                        ->whereExists(function($query)
+                                            {
+                                                $query->select(DB::raw(1))
+                                                      ->from('users')
+                                                      ->whereRaw('users.id = classifieds.user_id')
+                                                      ->whereRaw('blocked = 0')
+                                                      ->whereRaw('deleted = 0');
+                                            })
+                                        ->orderBy('updated_at', 'desc')
+                                        ->paginate($limit);
+
+            }
 
             if (!$classifieds) {
                 return $this->responseNotFound('No classifieds exist!');
@@ -191,7 +282,7 @@ class ClassifiedsController extends AppController
             return $data->toJson();
         } catch (Exception $e) {
 
-            return $e;
+            return $this->setStatusCode(500)->respondWithError($e);
         }
     }
 
@@ -204,7 +295,16 @@ class ClassifiedsController extends AppController
     public function getClassified($classifiedId)
     {
         try {
-            $classified = Classified::with('contact', 'location', 'images', 'tags.tag')->find($classifiedId);
+            $classified = Classified::with('contact', 'location', 'images', 'tags.tag')
+                                     ->whereExists(function($query)
+                                        {
+                                            $query->select(DB::raw(1))
+                                                  ->from('users')
+                                                  ->whereRaw('users.id = classifieds.user_id')
+                                                  ->whereRaw('blocked = 0')
+                                                  ->whereRaw('deleted = 0');
+                                        })
+                                     ->find($classifiedId);
 
             if (!$classified) {
                 return $this->responseNotFound('No classified exist!');
@@ -487,7 +587,13 @@ class ClassifiedsController extends AppController
     {
         try {
             $input_array = Input::all();
-
+            $Visibility_id = $input_array['visibility'];
+            if($Visibility_id == 2 && isset($input_array['SelectedCircle']['id']))
+            {
+               $Circle_id = $input_array['SelectedCircle']['id'];
+            }else{
+               $Circle_id = null;
+            }
             $classifiedId = $input_array['classifiedId'];
             $isMyEves = $input_array['is_my_eves'];
             $isMyCircles = $input_array['is_my_circles'];
@@ -534,6 +640,8 @@ class ClassifiedsController extends AppController
             $classified->is_sends_analytics = $isSendsAnalytics;
             $classified->is_gradeit_analytics = $isGradeitAnalytics;
             $classified->is_visibility_summary_analytics = $isVisibilitySummaryAnalytics;
+            $classified->visibility_id = $Visibility_id;
+            $classified->circle_id = $Circle_id;
 
             $classified->save();
 

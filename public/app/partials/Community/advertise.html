@@ -3,7 +3,7 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-class="">
-                <a href="#profile/{{userId}}">Mysite</a>
+                <a href="#mystores/{{userId}}">Mysite</a>
             </li>
             <li><a class="active" href="#advertise">Advertise</a></li>
             <li ng-class="{ active: isActive('/explore')}">
@@ -46,7 +46,7 @@
 <div class="col-md-12" style="margin-top: 10px;">
     <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
         <li><a href="#home">Home</a> <span class="divider"></span></li>
-        <li><a href="#profile/{{userId}}">Mysite</a></li>
+        <li><a href="#mystores/{{userId}}">Mysite</a></li>
         <li class="active">Build Community</li>
     </ul>
 </div>
@@ -54,24 +54,36 @@
 <div class="col-md-2 user-menu-btns">
     <div class="btn-group-vertical square" id="responsive">
         <a href="#community" class="btn btn-default">
-            <p>Connect</p>
-        </a>
-        <a href="" class="btn btn-default btn-block active">
-            <p>Advertise</p>
-        </a>
-        <a href="#circles" class="btn btn-default btn-block">
-            <p>Circles</p>
-        </a>
-        <a href="#friends/invite" class="btn btn-default">
             <p>Invite People</p>
         </a>
         <a href="#invitehistory" class="btn btn-default">
             <p>Invite History</p>
         </a>
+        <a href="#circles" class="btn btn-default btn-block">
+            <p>Circles</p>
+        </a>
+        <a  href="#manage/database" class="btn btn-default">
+            <p>Manage Database</p>
+        </a>
+        <a href="#advertise" class="btn btn-default btn-block active">
+            <p>Advertise</p>
+        </a>
+       <!--<a href="#friends/invite" class="btn btn-default">
+            <p>Invite People</p>
+        </a> -->
     </div>
 </div>
 <div class="col-md-10 user-menu user-pad">
     <div class="row" ng-controller="inviteFriendsCtrl">
+    <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+        <div class="fragment">
+            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Advertise</h4>
+            <p>
+                Spread the word about your site, store/s, campaigns by advertising on available social networks. You can inform your social circles or customers, partners, friends, connects about Evezown and your site on Evezown through this tool. 
+            </p>
+        </div>
+    </div>
     <div class="col-md-12 invite-section">
         <div class="panel panel-default" style="margin-top:30px;">
             <div class="panel-body text-left">

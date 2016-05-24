@@ -35,8 +35,8 @@ class EventTransformer extends Fractal\TransformerAbstract
             'attendees' => $event->attendees,
             'event_image' => $event->event_image,
             'location' => $event->location,
-            'scale' => $event->scale
-
+            'scale' => $event->scale,
+            'trending' => $event->trending
         ];
     }
 }

@@ -3,10 +3,10 @@
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li ng-if="loggedInUserId == currentUserId">
-                <a href="#profile/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
+                <a href="#mystores/{{loggedInUserId}}" class="{{isActive[0]}}" ng-class="{ active: isActive('/profile')}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId != currentUserId">
-                <a href="#profile/{{loggedInUserId}}">Mysite</a>
+                <a href="#mystores/{{loggedInUserId}}">Mysite</a>
             </li>
             <li ng-if="loggedInUserId == currentUserId">
                 <a href="#community" class="{{isActive[2]}}" ng-class="{ active: isActive('/community')}">Build Community</a>
@@ -41,7 +41,7 @@
 </nav>
 
 <div class="jumbotron alert alert-dismissible inner-jumbotron shadow " id="no-border-round"
-     role="alert" ng-controller="ApplicationCtrl">
+     role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <h1>Build Mysite</h1>
@@ -52,16 +52,15 @@
         business digitally within your circles privately or publicly using features such as events, blogs, stream it, discussion
         and groups.
     </p>
-
-    <!-- <p style="text-align:justify">For more visit <a href style="text-decoration:none;">Mysite FAQs</a>.</p> -->
 </div>
+
 <div class="col-md-12">
-    <div class="container col-md-12" ng-controller="profileCtrl">
+    <div class="container col-md-12">
         <div class="row user-menu-container square">
-            <div class="row cover-section custom-profile-covers">
+            <div class="row cover-section custom-profile-covers" ng-controller="ProfileImageCrop">
                 <div class="col-md-4 small-cover-pic">
                     <!--left cover-->
-                    <div class="small-cover-pic-top" ng-controller="ProfileImageCrop">
+                    <div class="small-cover-pic-top">
                         <div class="overlay text-center" ng-if="userId == loggedInUserId">
                             <a href class="btn btn-primary" ng-click="CropProfileLeft()" id="ProfileLeft">Change Left Cover</a>
                         </div>
@@ -71,7 +70,7 @@
                         </div>
                     </div>
                     <!--Bottom cover-->
-                    <div class="small-cover-pic-bottom" ng-controller="ProfileImageCrop">
+                    <div class="small-cover-pic-bottom">
                         <div class="overlay text-center" ng-if="userId == loggedInUserId">
                             <a href class="btn btn-primary" ng-click="CropProfileBottom()" id="ProfileBottom">Change Bottom Cover</a>
                         </div>
@@ -82,7 +81,7 @@
                     </div>
                 </div>
                 <!--Right Cover-->
-                <div class="col-md-8 large-cover-pic custom-user-right-coverpic" ng-controller="ProfileImageCrop">
+                <div class="col-md-8 large-cover-pic custom-user-right-coverpic">
                     <div class="overlay text-center" ng-if="userId == loggedInUserId">
                         <a href class="btn btn-primary" ng-click="CropProfileRight()" id="ProfileRight">Change Right Cover</a>
                     </div>
@@ -99,7 +98,7 @@
 
                             <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
                                 <ul class="list-unstyled text-center">
-                                    <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Myzsite
+                                    <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Mysite
                                         Image</a>
                                     </li>
                                 </ul>
@@ -123,41 +122,10 @@
                             </h4>
                         </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="community">
-                                    <h3>{{friendList.length}}</h3>
-                                    <h4>Connects</h4>
-                                </div>
-
-                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="circles">
-                                    <h3>{{myCircles.length}}</h3>
-                                    <h4>Circles</h4>
-                                </div>
-                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="eventCtrl">
-                                    <h3>{{myEvents.length}}</h3>
-                                    <h4>Events</h4>
-                                </div>
-                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="blogCntrl">
-                                    <h3>{{myBlogs.length}}</h3>
-                                    <h4>Blogs</h4>
-                                </div>
-                                <div class="col-md-2 well text-center" id="user-profile" ng-controller="albums">
-                                    <h3>{{myAlbums.length}}</h3>
-                                    <h4>Gallery</h4>
-                                </div>
-                                <div class="col-md-2 well text-center" id="user-more">
-                                    <h3><i class="fa fa-circle"></i>
-                                        <i class="fa fa-circle"></i>
-                                        <i class="fa fa-circle"></i>
-                                    </h3>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="row" ng-include='"partials/profile/userProfileCount.html"'></div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12"  id="view">
                     <h3>About Me</h3>
 
                     <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
@@ -169,10 +137,18 @@
             </div>
 
             <div class="col-md-10 user-menu user-pad" ng-controller="trending">
-                <h3 style="font-size: 1.5em">
+                <!-- <h3 style="font-size: 1.5em">
                     Recent activity
-                </h3>
-
+                </h3> -->
+				<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+			        <div class="fragment">
+			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Recent activity</h4>
+			            <p>
+			                Activity on your site, all your streams in recent times will appear her, you control the visibility, who sees what!
+			            </p>
+			        </div>
+			    </div>
 
                 <div class="col-md-12 trending-section" ng-repeat="post in myposts ">
                     <div class="col-md-12 zero-padding-left-right">
@@ -352,7 +328,13 @@
                 </div>
 
                 <div class="col-md-12">
-                    <div ng-hide="myposts.length > 0" class="text-center" style="margin-top: 120px; color: #e50880;">
+                    <!--spinner-->
+                    <div class="col-md-12" style="height:150px;">
+                        <span us-spinner="{radius:20, width:10, length: 10,color: '#e50880'}" spinner-key="spinner-1" spinner-start-active="false">
+                        </span>
+                    </div>
+                    <!--spinner ends-->
+                    <div ng-show="myposts.length == 0" class="text-center" style="margin-top: 120px; color: #e50880;">
                         <p>No recent activity</p>
                     </div>
                     <button class="btn btn-primary btn-block" href ng-class="nextPageDisabledClass()"
@@ -363,18 +345,7 @@
         </div>
     </div>
 </div>
-<script type="text/ng-template" id="leftProfilePicUploadTemplateId">
-    <div class="ngdialog-buttons popuptemplate" ng-controller="profileCtrl">
-        <a type="file" name="image" class="btn btn-default" ngf-select ngf-change="onFileSelect($files)">Choose
-            Image</a>
-        <image-cropper image="{{image}}"
-                       dest-width="640"
-                       dest-height="480"
-                       show-controls="showControls"
-                       cropped-image="imageResult"
-        ></image-cropper>
-    </div>
-</script>
+
 
 <!--Left Cover Image-->
 <script type="text/ng-template" id="CropLeftImage">

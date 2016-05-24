@@ -37,6 +37,10 @@ evezownApp
             link : 'admin/store' 
 
         },{
+            name: 'Site Content Control',
+            link : 'admin/manage/screens' 
+
+        },{
             name: 'Store Contract',
             link : 'admin/store_contract' 
 
@@ -53,8 +57,12 @@ evezownApp
             link : 'admin/woiceflag' 
 
         },{
-            name: 'Brand',
+            name: 'Brands & Logos',
             link : 'admin/addbrand' 
+
+        },{
+            name: 'Configure',
+            link : 'admin/manage/configurations' 
 
         },{
             name: 'News, Articles, Interviews & Videos',

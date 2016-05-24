@@ -39,4 +39,6 @@ class Blog extends Eloquent {
 	public function trending() {
 		return $this->hasOne('EvezplaceTrendingBlog', 'blog_id');
 	}
+
+
 }
