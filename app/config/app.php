@@ -166,8 +166,7 @@ return array(
 		'Zizaco\Confide\ServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-		'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
-		'Laravel\Cashier\CashierServiceProvider'
+		'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
 	),
 
 	/*
@@ -236,9 +235,9 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Confide'    		=> 'Zizaco\Confide\Facade',
 		'Entrust'    		=> 'Zizaco\Entrust\EntrustFacade',
-		'Image' => 'Intervention\Image\Facades\Image',
-		'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
-		'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory'
+		'Image'             => 'Intervention\Image\Facades\Image',
+		'JWTAuth'           => 'Tymon\JWTAuth\Facades\JWTAuth',
+		'JWTFactory'        => 'Tymon\JWTAuth\Facades\JWTFactory'
 	),
 
 );
