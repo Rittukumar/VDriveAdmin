@@ -100,8 +100,7 @@ class ImageController extends AppController
 //			}
 
         } catch (Exception $e) {
-            //return $this->setStatusCode(500)->respondWithError($e);
-			 return $e;
+            return $this->setStatusCode(500)->respondWithError($e);
         }
     }
 
