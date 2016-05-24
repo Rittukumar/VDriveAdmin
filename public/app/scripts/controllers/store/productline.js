@@ -24,6 +24,8 @@ evezownApp
 
         var productlineId = $routeParams.id;
 
+        $scope.PageSource = $routeParams.pagesrc;
+
         function getProductLineDetails(productlineId) {
             StoreService.getProductLine(productlineId).
             then(function (data) {
@@ -44,7 +46,7 @@ evezownApp
                 $scope.storefront.aboutus = storeFrontDetails.store_about_us || '';
                 if (storeFrontDetails.profile_images != null &&
                     storeFrontDetails.profile_images.large_image_url != '') {
-                    $scope.storefront.profile_image = storeFrontDetails.profile_images.large_image_url + '/288/288';
+                    $scope.storefront.profile_image = $scope.imageUrl+storeFrontDetails.profile_images.large_image_url + '/288/288';
                 }
                 else {
                     $scope.storefront.profile_image = 'http://placehold.it/288x288/e50880/ffffff';

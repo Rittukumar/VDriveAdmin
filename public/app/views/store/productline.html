@@ -1,13 +1,12 @@
-<div class="col-md-12" ng-include src='"partials/evezplace/product_menu.html"'
-     ng-controller="ProductMenuController"></div>
-
 <div ng-controller="storeProductlineCtrl">
     <div class="col-sm-12" style="margin: 10px 0px">
         <ul class="breadcrumb" style="background: transparent; padding-left: 0px">
             <li><a href="#home">Home</a> <span class="divider"></span></li>
-            <li><a href="#evezplace">MarketPlace</a> <span class="divider"></span></li>
-            <li><a href="#store/browse">Browse Stores</a></li>
-            <li class="active"><a href="#store/{{storefront.id}}">{{storefront.title}}</a></li>
+            <li ng-if="PageSource == 'profile'"><a href="#profile/myprofile/{{loggedInUserId}}"> Mysite</a> <span class="divider"></span></li>
+            <li ng-if="PageSource == 'profile'"><a href="#mystores/{{loggedInUserId}}">Stores</a> <span class="divider"></span></li>
+            <li ng-if="PageSource == 'marketplace'"><a href="#evezplace">Marketplace</a> <span class="divider"></span></li>
+            <li ng-if="PageSource == 'marketplace'"><a href="#store/browse">Browse Stores</a></li>
+            <li class="active"><a href="#store/{{storefront.id}}/{{PageSource}}">{{storefront.title}}</a></li>
         </ul>
     </div>
 
@@ -19,16 +18,12 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-12" style="padding:0px;">
-                    <div class="col-md-8" style="padding:0px;">
+                    <div class="col-md-10" style="padding:0px;">
                         <h1>{{storefront.title}}</h1>
                     </div>
                     <div class="col-md-2" style="padding:0px;">
                         <a ng-if="isStoreOwner" href="#store/{{storefront.id}}/manage/store_info"
                            class="btn btn-primary btn-sm pull-right">Manage store</a>
-                    </div>
-                    <div class="col-md-2" style="padding:0px;">
-                        <a ng-if="isStoreOwner" ng-click="PublishStore(storefront.id)"
-                           class="btn btn-primary btn-sm pull-right">Publish store</a>
                     </div>
                 </div>
             </div>
@@ -51,7 +46,7 @@
                         <slick infinite="true" slides-to-show="4" slides-to-scroll="1" autoplay="true">
                             <div class="col-md-3" ng-repeat="product in productline.products">
                                 <div class="living_box" style="max-height: 100px;">
-                                    <a href="#store/products/{{product.id}}">
+                                    <a href="#store/products/{{product.id}}/{{PageSource}}">
                                         <img ng-src="{{imageUrl + product.product_sk_u[0].product_images[0].image.large_image_url +
                                                     '/600/600'}}" style="width: 100%;"
                                              class="img-responsive center-block"
@@ -111,12 +106,7 @@
     </div>
 </div>
 
-<div ng-include src='"partials/video_interview_partial.html"'></div>
+<div class="col-md-12" ng-include src='"partials/evezplace/product_menu.html"'
+     ng-controller="ProductMenuController"></div>
 
-<script type="text/ng-template" id="statustemplateId">
-    <div class="ngdialog-buttons popuptemplate" ng-controller="StoreFrontController">
-        <h4>Are you sure you want to publish this store ?</h4>
-        <button class="btn primary pull-right form-control" type="button" ng-click="Publish()">Publish</button>
-        <button class="btn primary pull-right form-control" type="button" ng-click="CancelPublish()">Cancel</button>
-    </div>
-</script>
+<div ng-include src='"partials/video_interview_partial.html"'></div>

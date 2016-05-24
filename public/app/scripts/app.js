@@ -1660,7 +1660,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             }
         });
 
-        $routeProvider.when('/store/productline/:id', {
+        $routeProvider.when('/productline/:id/:pagesrc', {
             templateUrl: 'views/store/productline.html',
             data: {
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
