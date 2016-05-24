@@ -2120,7 +2120,8 @@ class StoreController extends AppController
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2');
+                            ->whereRaw('store_status.status_id = 2')
+                            ->orWhereRaw('store_status.status_id = 3');
                     })
                     ->orWhereExists(function ($query) use ($myId) {
                         $query->where('visibility_id', 2);
@@ -2139,7 +2140,8 @@ class StoreController extends AppController
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2');
+                            ->whereRaw('store_status.status_id = 2')
+                            ->orWhereRaw('store_status.status_id = 3');
                     })
                     ->orWhereExists(function ($query) use ($myId) {
                         $query->where('visibility_id', 3);
@@ -2152,7 +2154,8 @@ class StoreController extends AppController
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2');
+                            ->whereRaw('store_status.status_id = 2')
+                            ->orWhereRaw('store_status.status_id = 3');
                     })
                     ->orWhere(function ($query) use ($myId, $userId) {
                        
@@ -2170,7 +2173,8 @@ class StoreController extends AppController
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2');
+                            ->whereRaw('store_status.status_id = 2')
+                            ->orWhereRaw('store_status.status_id = 3');
                     })
                     
                     ->get();
