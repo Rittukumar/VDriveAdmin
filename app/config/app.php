@@ -9,8 +9,8 @@ return array(
 	'linkedin_secret' => 'PJk2eO9hoaf2wcAR',
 
 
-	'evezown_url'  => 'http://localhost:9000/#',
-	//'evezown_url'  => 'http://evezown.in/#',
+	//'evezown_url'  => 'http://localhost:9000/#',
+	'evezown_url'  => 'http://evezown.in/#',
 	//'evezown_url'  => 'http://evezown.com/#',
 
 	/*
