@@ -201,6 +201,7 @@ evezownApp
                             .success(function(data) {
                                 $rootScope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
                                 $rootScope.userId = $cookieStore.get('userId');
+                                $rootScope.roleId = $cookieStore.get('userRole');
 
                                 //If user came from create store
                                 if($cookieStore.get('FromSource') == "FromCreateStore")
@@ -244,6 +245,7 @@ evezownApp
                 .success(function(data) {
                     $rootScope.profileImage = PATHS.api_url + 'image/show/' + data +'/250/250';
                     $rootScope.userId = $cookieStore.get('userId');
+                    $rootScope.roleId = $cookieStore.get('userRole');
 
                     //If user came from create store
                     if($cookieStore.get('FromSource') == "FromCreateStore")
