@@ -54,11 +54,12 @@
         <div class="col-md-12" style="padding: 0px">
         <input class="form-control" type="text" placeholder="Title"
                id="title" ng-model="title" style="margin-top: 10px;margin-bottom: 10px;" maxlength="45";/>
-        <span class="pull-right">{{45 - title.length}}</span>
+        <span class="pull-right" ng-hide="title == dirty" style="color:#E50880;">{{45 - title.length}}</span>
         </div>
     </div>
     <textarea class="form-control" rows="4" placeholder="Description"
               ng-model="description" style="margin-bottom: 10px;" maxlength="255"/>
+        <span class="pull-right" ng-hide="description == dirty" style="color:#E50880;">{{255 - description.length}}</span>
         <select class="form-control" id="sub-visibility-type"
                 ng-options="visibility as visibility.type for visibility in visibilties"
                 data-ng-model="selectedVisibility" style="margin-top: 10px;margin-bottom: 10px;">

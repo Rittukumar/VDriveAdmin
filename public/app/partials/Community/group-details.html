@@ -349,9 +349,11 @@
     <div class="ngdialog-buttons popuptemplate" ng-controller="groups">
         <h4>Update Group</h4>
         <input class="form-control" type="text" placeholder="Group Title"
-               id="group" ng-model="selectedGroup.title" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="18"/>
+               id="group" ng-model="selectedGroup.title" style="margin-bottom: 10px; height: 50px; font-size: 18px" maxlength="25"/>
+        <span class="pull-right" ng-hide="selectedGroup.title == dirty" style="color:#E50880;">{{25 - selectedGroup.title.length}}</span>
         <textarea class="form-control" rows="4" placeholder="Group Description (optional)"
                   ng-model="selectedGroup.description" maxlength="255"/>
+        <span class="pull-right" ng-hide="selectedGroup.description == dirty" style="color:#E50880;">{{255 - selectedGroup.description.length}}</span>
         <div class="col-sm-12" >
             <h5>Visibility Settings</h5>
             <select class="form-control" id="sub-visibility-type"

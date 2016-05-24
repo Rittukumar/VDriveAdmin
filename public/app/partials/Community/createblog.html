@@ -101,7 +101,7 @@
         <div class="col-md-12">
             <input class="form-control" type="text" placeholder="Title"
                id="title" maxlength="255" ng-model="title" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
-            <span class="pull-right">{{255 - title.length}}</span>
+            <span class="pull-right" ng-hide="title == dirty" style="color:#E50880;">{{255 - title.length}}</span>
         </div>
     </div>
 
