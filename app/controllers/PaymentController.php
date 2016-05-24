@@ -4,12 +4,12 @@
 class PaymentController extends AppController {
   
     public function __construct() {
-        Stripe::setApiKey(Config::get('thirdparty_integration')['stripe']['secret']);
+        // Stripe::setApiKey(Config::get('thirdparty_integration')['stripe']['secret']);
     }
   
     
 
-    public function stripePayment()
+    /*public function stripePayment()
     {
         
         try{
@@ -162,7 +162,7 @@ class PaymentController extends AppController {
         }
 
     }
-
+*/
 
     public function payuPayment(){
 
