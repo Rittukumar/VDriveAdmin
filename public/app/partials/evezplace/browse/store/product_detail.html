@@ -100,7 +100,8 @@
             </div>
 
             <div class="row" style="margin-top: 30px">
-                <div class="col-sm-12" ng-if="productDetails.isInStock">
+
+                <div class="col-sm-12" ng-show="productDetails.isInStock != 0">
                     <a ng-if="!isAlreadyAddedToCart" ng-click="addProductToCart(productSkuVariants)"
                        class="btn btn-primary btn-block btn-lg">
                         <span class="fa fa-shopping-cart"></span> Add To Cart</a>
@@ -111,7 +112,7 @@
                        ng-click="openRequestInfoForm(productDetails.id)">Enquiry/Request for
                         Information (RFI)</a>
                 </div>
-                <div class="col-sm-12" ng-if="!productDetails.isInStock">
+                <div class="col-sm-12" ng-show="productDetails.isInStock == 0">
                     <a class="btn btn-default btn-block btn-lg">Out of Stock</a>
                     <a class="btn btn-primary btn-block btn-lg"
                        ng-click="openRequestInfoForm(productDetails.id)">Enquiry/Request for

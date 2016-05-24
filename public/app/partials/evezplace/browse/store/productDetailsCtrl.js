@@ -139,7 +139,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
 
                 $scope.productDetails.price = currentProductSku.price;
 
-                $scope.productDetails.isInStock = currentProductSku.product_stock.quantity > 0;
+                $scope.productDetails.isInStock = currentProductSku.product_stock.quantity;
 
                 $scope.productDetails.images = [];
 
