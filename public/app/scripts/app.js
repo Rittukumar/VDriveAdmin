@@ -1673,7 +1673,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         localStorageServiceProvider.setPrefix('evezowncart');
 
-        Stripe.setPublishableKey('pk_test_PkqvWTApkszG3EmDfxFcMHSj');
+        /*Stripe.setPublishableKey('pk_test_PkqvWTApkszG3EmDfxFcMHSj');*/
 
         LightboxProvider.getImageUrl = function (imageUrl) {
             return imageUrl;
