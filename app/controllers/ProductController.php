@@ -782,8 +782,8 @@ class ProductController extends AppController
 
         foreach ($filters as $range){
             $ranges = explode("-", $range);
-            $all_filters[] = trim($ranges[0]);
-            $all_filters[] = trim($ranges[1]);
+            $all_filters[] = (int)str_replace(',', '', trim($ranges[0]));
+            $all_filters[] = (int)str_replace(',', '', trim($ranges[1]));
                            
         }
 
