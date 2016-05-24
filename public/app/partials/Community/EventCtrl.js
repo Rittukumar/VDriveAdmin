@@ -7,7 +7,7 @@ evezownApp.controller('eventCtrl' ,function($scope, PATHS,$cookieStore,$http,$ro
     $scope.service_url = PATHS.api_url;
     $scope.loggedInUserId = $cookieStore.get('userId');
     $scope.allEvents = [];
-    $scope.myEvents = [];
+    //$scope.myEvents = [];
     $scope.allEventInvites = [];
     $scope.selectedEvent = "";
     $scope.visibilties = [];

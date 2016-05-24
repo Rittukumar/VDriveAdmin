@@ -251,13 +251,32 @@ evezownApp
 
         /* Save create classified step 2 */
         $scope.saveClassifiedsStep3 = function () {
-            usSpinnerService.spin('spinner-1');
-            ClassifiedsService.saveClassifiedsStep3($scope.addClassified.step3, $scope.loggedInUserId).then(function (data) {
-                usSpinnerService.stop('spinner-1');
-                toastr.success('Ads & Campaigns updated successfully', 'Manage Ads & Campaigns');
-                // $location.path('classifieds/create/success');
+            $scope.IsManageClassified = false;
+            if($scope.addClassified.step3.visibility == "2")
+            {
+                if($scope.addClassified.step3.SelectedCircle == undefined)
+                {
+                    toastr.error("Please select a circle",'Target Audiance');
+                }
+                else
+                {
+                    $scope.IsManageClassified = true;
+                }
+            }
+            else if($scope.addClassified.step3.visibility == "1" || $scope.addClassified.step3.visibility == "3" || $scope.addClassified.step3.visibility == "4")
+            {
+                $scope.IsManageClassified = true;
+            }
+            if($scope.IsManageClassified)
+            {
+                usSpinnerService.spin('spinner-1');
+                ClassifiedsService.saveClassifiedsStep3($scope.addClassified.step3, $scope.loggedInUserId).then(function (data) {
+                    usSpinnerService.stop('spinner-1');
+                    toastr.success('Ads & Campaigns updated successfully', 'Manage Ads & Campaigns');
+                    // $location.path('classifieds/create/success');
 
-            });
+                });
+            }
         }
 
         // Delete the cookie and related data of the classified.

@@ -7,7 +7,7 @@ evezownApp.controller('blogCntrl' ,function($scope, PATHS,$cookieStore,$http,$ro
     $scope.service_url = PATHS.api_url;
     $scope.loggedInUserId = $cookieStore.get('userId');
     $rootScope.allBlogs = [];
-    $rootScope.myBlogs  = [];
+    //$rootScope.myBlogs  = [];
     $rootScope.selectedBlog = "";
     $scope.visibilties = [];
     $scope.blogGrade;

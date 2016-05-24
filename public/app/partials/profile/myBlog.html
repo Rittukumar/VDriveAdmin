@@ -87,7 +87,7 @@
         </div>
 
         <!--For Member-->
-        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1">
+        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
             <div class="col-md-12 col-xs-12">
                 <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
@@ -103,7 +103,7 @@
         </div>
 
         <!--For Admin-->
-        <div class="col-md-10 user-menu user-pad"  ng-show="Role == 1">
+        <div class="col-md-10 user-menu user-pad"  ng-show="Role == 1 && currentUserId == loggedInUserId">
         <div  ng-controller="blogCntrl">
         	<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
                 <div class="fragment">
@@ -131,7 +131,13 @@
 
             <!--for loggedin users-->
             <div class="col-md-12 blog-post-items" ng-if="currentUserId == loggedInUserId">
-                <!-- Row 1-->
+                <!-- No blogs-->
+                <div class="empty-section text-center" ng-show="myBlogs.length == 0">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
+                </div>
+                <!--Blogs exist-->
                 <div class="col-md-6 post-item container-closed" ng-repeat="blog in myBlogs | filter:blogsearch">
                     <figure class="post-thumbnail" style="max-height:200px;">
                         <a href="#blogs/{{blog.id}}/{{currentUserId}}"
@@ -170,10 +176,40 @@
                 </div>
                 <button class="btn btn-block btn-blue" ng-if="myBlogs.length > 6">Load More</button>
             </div>
+        </div>
+        </div>
 
+        <!--For visitiing friends profile-->
+        <div class="col-md-10 user-menu user-pad"  ng-show="currentUserId != loggedInUserId">
+        <div  ng-controller="blogCntrl">
+            <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+                <div class="fragment">
+                    <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
+                    <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Blogs</h4>
+                    <p>
+                        Express your thoughts through articles and blogs, you can write free flow, all features for smart editing are available to make writing simple. Share and control visibility.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-12 panel-heading">
+                <div class="col-md-2">
+                    <h4>
+                        Blogs ({{myBlogs.length}})
+                    </h4>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="search blogs" ng-model="blogsearch"/>
+                </div>
+            </div>
             <!--for viewing friends blogs-->
-            <div class="col-md-12 blog-post-items" ng-if="loggedInUserId != currentUserId">
-                <!-- Row 1-->
+            <div class="col-md-12 blog-post-items">
+                <!-- No blogs-->
+                <div class="empty-section text-center" ng-show="myBlogs.length == 0">
+                    <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
+
+                    <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
+                </div>
+                <!--Blogs exist-->
                 <div class="col-md-6 post-item container-closed" ng-repeat="blog in myBlogs | filter:blogsearch" ng-if="blog.status == 'published'">
                     <figure class="post-thumbnail" style="max-height:200px;">
                         <a href="#blogs/{{blog.id}}/{{currentUserId}}"
@@ -210,8 +246,9 @@
                 </div>
                 <button class="btn btn-block btn-blue" ng-if="myBlogs.length > 6">Load More</button>
             </div>
+        </div>
+        </div>
 
-        </div>
-        </div>
+
     </div>
 </div>

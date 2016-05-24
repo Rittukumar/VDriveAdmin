@@ -9,7 +9,7 @@ var evezownApp = angular.module('evezownapp', ['ngRoute', 'ui.bootstrap', 'ngAni
     'textAngular', 'nsPopover', 'videosharing-embed', 'ui.bootstrap.datetimepicker',
     'google.places', 'ngTagsInput', 'angular-flexslider', 'daterangepicker', 'ngTable',
     'socialLinks', 'colorpicker.module', 'angular-intro', 'ngFabForm', 'ngMessages', 'ngSanitize',
-    'ngFileUpload', '720kb.socialshare', 'Firestitch.angular-counter','angular-hmac-sha512','slick', 'readMore', 'LocalStorageModule', 'angularPayments']);
+    'ngFileUpload', '720kb.socialshare', 'Firestitch.angular-counter','angular-hmac-sha512','slick', 'readMore', 'LocalStorageModule']);
 evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider,
                             USER_ROLES, LightboxProvider, $httpProvider, FacebookProvider,
                             $linkedInProvider, $authProvider, PATHS, ngDialogProvider, $crypthmacProvider, localStorageServiceProvider) {
@@ -949,7 +949,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/myevents/:id', {
                 templateUrl: 'partials/profile/myevent.html',
-                controller: 'groups',
+                controller: 'eventCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }

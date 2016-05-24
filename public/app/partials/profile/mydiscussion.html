@@ -88,7 +88,7 @@
         </div>
 
         <!--For Member-->
-        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1">
+        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
              <div class="col-md-12 col-xs-12">
                 <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
