@@ -215,10 +215,12 @@
     <div class="ngdialog-buttons popuptemplate" ng-controller="groups">
         <h4>Add Group</h4>
         <input class="form-control" type="text" placeholder="Group Title"
-               id="group" ng-model="group" maxlength="100" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
-               <span class="pull-right" ng-hide="group == dirty">{{100 - group.length}}</span>
+               id="group" ng-model="group" maxlength="25" style="margin-bottom: 10px; height: 50px; font-size: 18px"/>
+        <span class="pull-right" ng-hide="group == dirty" style="color:#E50880;">{{25 - group.length}}</span>
         <textarea class="form-control" rows="4" placeholder="Group Description (optional)"
-                  ng-model="description"/><br>
+                  ng-model="description" maxlength="255"/>
+        <span class="pull-right" ng-hide="description == dirty" style="color:#E50880;">{{255 - description.length}}</span>
+        <br>
         <button class="btn primary pull-right form-control" type="button" ng-click="SaveGroup()">Add</button>
     </div>
 </script>

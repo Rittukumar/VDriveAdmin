@@ -1171,6 +1171,11 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
                 {
                     element: '#step5',
                     intro: '<b>&#10004;</b> Use search feature to find what you are looking for <br><b>&#10004;</b> Search by key word,type of post, category, subcategory, brand, price or location'
+                },
+                {
+                    element: '#step6',
+                    intro: "<div class='tour-step'><b><h3>Thankyou</h3></b>" +
+                    "</div>"
                 }
                 
             ],
@@ -1180,7 +1185,7 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
             nextLabel: '<strong>NEXT!</strong>',
             prevLabel: '<span style="color:green">Previous</span>',
             skipLabel: 'Exit',
-            doneLabel: 'Thanks'
+            doneLabel: 'Exit'
         };
 
     $scope.ShouldAutoStart = false;
