@@ -84,6 +84,10 @@ evezownApp
             name: 'Marketplace Trending Items',
             link : 'admin/evezplace/trending'
 
+        },{
+            name: 'Logs',
+            link : 'admin/logs'
+
         });
 
         $scope.navClass = function (page) {

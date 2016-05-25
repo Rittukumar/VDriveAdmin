@@ -215,6 +215,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/admin/logs', {
+                templateUrl: 'partials/admin/logs.html',
+                controller: 'logsinf',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
+                }
+            });
+
+        $routeProvider
+
             .when('/admin/woiceflag', {
                 templateUrl: 'partials/admin/woiceflag.html',
                 controller: 'woiceFlagCntr',

@@ -33,7 +33,7 @@
                                 <p>Use this invite code to sign up {{ $inviteCode }}</p>
 
                                 <p>
-                                    <a href="http://evezown.com/#/signup/{{ $inviteCode }}" target="_blank">Sign Up Now</a>
+                                    <a href="<?php echo Config::get('app.evezown_url'); ?>/signup/{{ $inviteCode }}" target="_blank">Sign Up Now</a>
                                 </p>
                             </div>
 

@@ -40,7 +40,7 @@
     </div>
 </nav>
 
-<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " id="no-border-round"
+<!-- <div class="jumbotron alert alert-dismissible inner-jumbotron shadow " id="no-border-round"
      role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
@@ -53,13 +53,13 @@
         and groups.
     </p>
 </div>
-
+ -->
 <div class="col-md-12">
     <div class="container col-md-12">
         <div class="row user-menu-container square">
-            <div class="row cover-section custom-profile-covers" ng-controller="ProfileImageCrop">
+            <!-- <div class="row cover-section custom-profile-covers" ng-controller="ProfileImageCrop">
                 <div class="col-md-4 small-cover-pic">
-                    <!--left cover-->
+                    
                     <div class="small-cover-pic-top">
                         <div class="overlay text-center" ng-if="userId == loggedInUserId">
                             <a href class="btn btn-primary" ng-click="CropProfileLeft()" id="ProfileLeft">Change Left Cover</a>
@@ -69,7 +69,7 @@
                                  class="img-responsive thumbnail"/>
                         </div>
                     </div>
-                    <!--Bottom cover-->
+                    
                     <div class="small-cover-pic-bottom">
                         <div class="overlay text-center" ng-if="userId == loggedInUserId">
                             <a href class="btn btn-primary" ng-click="CropProfileBottom()" id="ProfileBottom">Change Bottom Cover</a>
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <!--Right Cover-->
+                
                 <div class="col-md-8 large-cover-pic custom-user-right-coverpic">
                     <div class="overlay text-center" ng-if="userId == loggedInUserId">
                         <a href class="btn btn-primary" ng-click="CropProfileRight()" id="ProfileRight">Change Right Cover</a>
@@ -88,21 +88,13 @@
                     <img ng-src="{{rightCoverImage}}" src="http://placehold.it/803x452"
                          class="img-responsive thumbnail"/>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-12 user-details">
                 <div class="row coralbg white custom-profile-userpic">
                     <div class="col-md-3 top-margin">
-                        <div class="user-image biothumb" ng-controller="ProfileImageCrop">
+                        <div class="user-image biothumb">
                             <img ng-src="{{profileImage}}" src="http://placehold.it/300x200"
                                  class="img-responsive thumbnail" style="min-height: 200px;"/>
-
-                            <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
-                                <ul class="list-unstyled text-center">
-                                    <li><a href ng-click="CropEvezsiteImage()" id="CropEvezsiteImage">Update Mysite
-                                        Image</a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
 
@@ -145,7 +137,7 @@
 			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
 			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Recent activity</h4>
 			            <p>
-			                Activity on your site, all your streams in recent times will appear her, you control the visibility, who sees what!
+			                Activity on your site, all your streams in recent times will appear here, you control the visibility, who sees what!
 			            </p>
 			        </div>
 			    </div>

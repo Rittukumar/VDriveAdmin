@@ -39,7 +39,7 @@
                                 <p>Once you register, you can use the Mysite section to create your profile and build community to connect with friends, colleagues, customers, partners and employees. You can use features like blogs, events, groups, forums and gallery for interacting with your group. You can open a store for your product or service in marketplace or simply search and find the career of your choice in Jobs, if you are a working professional.</p>
 
                                 <p>Click <a
-                                            href="http://evezown.com/#/signup/{{ $inviteCode }}"
+                                            href="<?php echo Config::get('app.evezown_url'); ?>/signup/{{ $inviteCode }}"
                                             target="_blank">here</a> to register with www.evezown.com </p>
                                 <p>Make EvezOwn.com your own place.</p>
 
