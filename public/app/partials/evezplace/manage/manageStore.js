@@ -1002,8 +1002,6 @@ evezownApp
             }
             else
             {
-                alert($scope.currentStore[0].id);
-                alert(subscription);
                 $http.post(PATHS.api_url + 'users/store/upgrade'
                 , {
                     data: {
@@ -1014,9 +1012,11 @@ evezownApp
                 }).
                 success(function (data, status, headers, config) {
                     toastr.success(data.message, 'Request send to admin');
+                    ngDialog.closeAll();
 
                 }).error(function (data) {
                     toastr.error(data.error.message, 'Store');
+                    ngDialog.closeAll();
                 });
             }
         }

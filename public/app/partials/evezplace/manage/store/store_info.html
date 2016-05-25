@@ -19,9 +19,9 @@
 <!--Description Ends-->
 
 <!--psyment offer-->
-<div ng-controller="CreateStoreController">
+<div class="col-sm-9 no-padding" ng-controller="CreateStoreController">
 
-    <div class="col-sm-9"  ng-show="Subscription_offer.length > 0 && storeStatus == 6 && Subscription_type == 1">
+    <div class="col-sm-12"  ng-show="Subscription_offer.length > 0 && storeStatus == 6 && Subscription_type == 1">
         <div class="row">
             <div class="create-store-section">
 
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <div class="col-sm-9"  ng-show="Subscription_offer.length > 0 && storeStatus == 6 && Subscription_type != 1">
+    <div class="col-sm-12"  ng-show="Subscription_offer.length > 0 && storeStatus == 6 && Subscription_type != 1">
         <div class="row">
             <div class="create-store-section">
 
@@ -96,7 +96,7 @@
     </div>
 
     <!--Payment Division-->
-    <div class="col-sm-9 {{PaymentDetailsDiv}}" ng-show="ShowPayment">
+    <div class="col-sm-12" ng-show="ShowPayment">
         <div class="row">
             <!-- <div style="background-color:red"> -->
                 <!-- <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;"> -->
@@ -110,7 +110,7 @@
     </div>
 
 
-    <div class="col-sm-9 {{StoreDetailsDiv}}">
+    <div class="col-sm-12">
         <div class="row">
             <div class="create-store-section">
                 <div class="row">
