@@ -49,6 +49,8 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('admin/{admin_id}/users/{user_id}/personal_info', 'AdminController@getPersonalInfo');
     Route::post('admin/{admin_id}/users/personal_info/save', 'AdminController@savePersonalInfo');
     Route::post('admin/{admin_id}/users/add_new_user', 'UsersController@createNewUser');
+    Route::get('admin/{admin_id}/logs', 'AdminLogsController@index');
+
 
 
     // News, articles, interviews
@@ -499,7 +501,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('buyer', 'OrderController@getBuyerDetails');
     Route::post('buyer/createbuyer', 'OrderController@createBuyer');
     Route::post('orders', 'OrderController@store');
-    Route::get('orders/{buyer_id}/buyer', 'OrderController@getBuyersOrder');
+    Route::get('orders/{input}/{user}/buyer', 'OrderController@getBuyersOrder');
     //getHash()
     Route::post('orders/payu/hash', 'OrderController@getHash');
     Route::post('orders/paymentOrders', 'OrderController@savePaymentOrders');

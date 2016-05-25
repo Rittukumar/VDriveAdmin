@@ -96,36 +96,66 @@ class OrderController extends AppController
      * @param string $status
      * @return Response
      */
-    public function getBuyersOrder($input)
+    public function getBuyersOrder($input, $user)
     {
-        $orders = null;
-        $buyer = Buyer::where('email', $input)
-            ->orWhere('phone', $input)
-            ->orWhere('code', $input)
-            ->first();
 
-        if ($buyer) {
-            $orders = Order::with('orderItems.productSku.ProductImages.image',
-                'orderItems.productSku.product', 'orderItems.orderItemStatus',
-                'currentOrderStatus', 'orderStatusHistories')
-                ->where('buyer_id', $buyer->id)
-                ->orderBy('created_at', 'DESC')->get();
-        } else {
+        try{
+
+            $orders = null;
+
+            if(!empty($user))
+            {
+                //ForLoggedInUser       
+                $chekForEmail = User::where('email', $input)->where('id', $user)->first();
+                                              
+                $chekForPhone = UserProfile::where('phone', $input)->where('user_id', $user)->first();
+
+                if(!empty($chekForEmail) || !empty($chekForPhone))
+                {
+                    $searchOrderKey   = 'user_id';
+                    $searchOrderValue =  $user;
+                }else{
+                    $searchOrderKey   = 'transaction_id';
+                    $searchOrderValue =  $input;
+                }
+
+            }else{
+                //ForNotLoggedInUser
+                $chekForCode = Buyer::where('code', $input)->first();
+
+                if(!empty($chekForCode))
+                {
+                    $searchOrderKey   = 'buyer_id';
+                    $searchOrderValue =  $chekForCode->id;
+                }else{
+                    $searchOrderKey   = 'transaction_id';
+                    $searchOrderValue =  $input;
+                }
+
+            }
 
             $orders = Order::with('orderItems.productSku.ProductImages.image',
-                'orderItems.productSku.product', 'orderItems.orderItemStatus',
-                'currentOrderStatus', 'orderStatusHistories')
-                ->where('transaction_id', $input)
-                ->orderBy('created_at', 'DESC')->get();
+                                  'orderItems.productSku.product', 'orderItems.orderItemStatus',
+                                  'currentOrderStatus', 'orderStatusHistories')
+                                  ->where($searchOrderKey,  $searchOrderValue)
+                                  ->orderBy('created_at', 'DESC')
+                                  ->get();
+            
+            $fractal = new Manager();
+
+            $ordersResource = new Collection($orders, new OrderTransformer());
+
+            $data = $fractal->createData($ordersResource);
+
+            return $data->toJson();
+
+
+        }catch(Exception $e){
+          
+          return $this->setStatusCode(500)->respondWithError($e);
+
         }
 
-        $fractal = new Manager();
-
-        $ordersResource = new Collection($orders, new OrderTransformer());
-
-        $data = $fractal->createData($ordersResource);
-
-        return $data->toJson();
     }
 
 

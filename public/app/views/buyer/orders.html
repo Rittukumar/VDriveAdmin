@@ -7,13 +7,13 @@
             <div class="col-sm-12">
                 <div class="col-sm-12 well well-lg">
                     <div class="row">
-                        <p style="color: #e50880;">Enter order transaction id or email or phone or buyer code</p>
+                        <p style="color: #e50880;">{{Tracktitle}}</p>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-5">
-                                    <h5>Email / Transaction Id / Phone / Buyer code</h5>
+                                    <h5>{{Trackheading}}</h5>
                                 </div>
                                 <div class="col-sm-5">
                                     <input type="text" ng-model="orderData.buyer.email" class="form-control" required/>
@@ -85,38 +85,7 @@
                                             <div class="col-sm-5" ng-if="orderItem.order_item_status[orderItem.order_item_status.length-1].status_id == 4 || orderItem.order_item_status[orderItem.order_item_status.length-1].status_id == 5 || orderItem.order_item_status[orderItem.order_item_status.length-1].status_id == 6">
                                                 <a href class="btn btn-primary btn-block" ng-click="CancelOrderItem(orderItem,orderItem.order_item_status[orderItem.order_item_status.length-1].status_comment,order.id,orderData.buyer.email)" disabled="">Cancel Item</a>
                                             </div>
-                                            <div class="col-sm-5 col-sm-offset-2">
-                                                <form action="https://secure.payu.in/_payment" method="post" target="_top" name="payuForm" id="payuForm" data-ng-init="getHash(orderItem,order)">
-                                                <!-- <form action="https://test.payu.in/_payment" method="post" target="_top" name="payuForm" id="payuForm" data-ng-init="getHash(orderItem,order)"> -->
-                                                    <input type="hidden" name="key"  ng-value="MERCHANT_KEY" />
-                                                    <input type="hidden" name="hash"  ng-value="encrypttext"/>
-                                                    <input type="hidden" name="txnid"  ng-value="order.transaction_id" />
-                                                    <input type="hidden" name="amount"  ng-value="orderItem.price" />
-                                                    <input type="hidden" name="productinfo"  ng-value="orderItem.productSku.product.title" />
-                                                    <input type="hidden" name="surl"  ng-value="surl" />
-                                                    <input type="hidden" name="furl"  ng-value="furl" />
-                                                    <input type="hidden" name="firstname"  ng-value="order.buyer.code" />
-                                                    <input type="hidden" name="email"  ng-value="order.buyer.email" />
-                                                    <input type="hidden" name="phone"  ng-value="order.buyer.phone" />
-                                                    <input type="hidden" name="service_provider" value="payu_paisa" />
-
-                                                    <input name="lastname" id="lastname" type="hidden" ng-value="order.buyer.code" />
-                                                    <input name="curl" ng-value="curl" type="hidden"/>
-                                                    <input name="address1" type="hidden" ng-value="" />
-                                                    <input name="address2" type="hidden" ng-value="" />
-                                                    <input name="city" type="hidden" ng-value="" />
-                                                    <input name="state" type="hidden" ng-value="" />
-                                                    <input name="country" type="hidden" ng-value="" />
-                                                    <input name="zipcode" type="hidden" ng-value="" />
-                                                    <input name="udf1" type="hidden" ng-value="" />
-                                                    <input name="udf2" type="hidden" ng-value="" />
-                                                    <input name="udf3" type="hidden" ng-value="" />
-                                                    <input name="udf4" type="hidden" ng-value="" />
-                                                    <input name="udf5" type="hidden" ng-value="" />
-                                                   <!--  <input name="pg" type="hidden" ng-value="" /> -->
-                                                    <input ng-if="orderItem.order_item_status[orderItem.order_item_status.length-1].status_id == 1" type="submit" class="btn btn-primary btn-block" type="submit" value="Pay Now" />
-                                                </form>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
