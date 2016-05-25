@@ -1931,7 +1931,9 @@ class StoreController extends AppController
             $allStores = Store::with('profile', 'profile_images', 'collage_image1', 'collage_image2',
                 'collage_image3', 'StoreFrontInfo', 'StoreFrontPromotion', 'StoreFrontPromotion.image.image1',
                 'StoreFrontPromotion.image.image2', 'StoreFrontPromotion.image.image3',
-                'StoreFrontPromotion.image.image4', 'StoreStatus')->get();
+                'StoreFrontPromotion.image.image4', 'StoreStatus')->orderBy('id', 'Desc')->get();
+
+
 
             if (!$allStores) {
                 return $this->responseNotFound('Store Listing Not Found!');
