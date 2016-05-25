@@ -1414,10 +1414,93 @@ class StoreController extends AppController
 
         } catch (Exception $e) {
 
-            //return $this->setStatusCode(500)->respondWithError($e);
-            return $e;
+            return $this->setStatusCode(500)->respondWithError($e);
         }
     }
+
+
+    /**
+     * Store status update by admin.
+     * POST /update store status- admin
+     *
+     * @return Response
+     */
+    public function adminUpdateStoreStatus()
+    {
+        try {
+            $input = Input::all();
+
+
+            $input_array = $input['data'];
+
+            $storeId = $input_array['StoreId'];
+
+            $storeStatusId = $input_array['storeStatus'];
+
+
+            $storeStatus = StoreStatus::where('store_id', $storeId)->first();
+
+            $StoreOwnerDetails = StoreFrontInfo::where('store_id', $storeId)->first();
+
+            $StoreOwnerEmail = $StoreOwnerDetails->store_contact_email;
+
+            $StoreDetails = Store::where('id', $storeId)->first();
+
+            $StoreName = $StoreDetails->title;
+
+
+            if (!$storeStatus) {
+                $storeStatus = StoreStatus::create([
+                    'store_id' => $storeId,
+                    'status_id' => (int)$storeStatusId,
+                ]);
+            } else {
+                $storeStatus->status_id = (int)$storeStatusId;
+                $storeStatus->save();
+            }
+
+            // Send an notification email to user if store published by admin.
+            if($storeStatusId == 3)
+            {
+                $user = array(
+                'email' => $StoreOwnerEmail,
+                'name' => $StoreName
+                );
+
+                $data = array(
+                    'email' => $StoreOwnerEmail,
+                    'name' => $StoreName
+                );
+
+                Mail::send('emails.storePublishByAdmin', $data, function ($message) use ($user) {
+                    $message->from('editor@evezown.com');
+                    $message->to($user['email'])->subject('Store publish');
+                });
+
+                $successResponse = [
+                    'status' => true,
+                    'id' => $storeStatus->id,
+                    'message' => 'Store published successfully'
+                ];
+
+                return $this->setStatusCode(200)->respond($successResponse);
+            }
+            else
+            {
+                $successResponse = [
+                    'status' => true,
+                    'id' => $storeStatus->id,
+                    'message' => 'Store status updated successfully'
+                ];
+                return $this->setStatusCode(200)->respond($successResponse);
+            }
+            
+        } catch (Exception $e) {
+
+            return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -1848,7 +1931,9 @@ class StoreController extends AppController
             $allStores = Store::with('profile', 'profile_images', 'collage_image1', 'collage_image2',
                 'collage_image3', 'StoreFrontInfo', 'StoreFrontPromotion', 'StoreFrontPromotion.image.image1',
                 'StoreFrontPromotion.image.image2', 'StoreFrontPromotion.image.image3',
-                'StoreFrontPromotion.image.image4', 'StoreStatus')->get();
+                'StoreFrontPromotion.image.image4', 'StoreStatus')->orderBy('id', 'Desc')->get();
+
+
 
             if (!$allStores) {
                 return $this->responseNotFound('Store Listing Not Found!');
