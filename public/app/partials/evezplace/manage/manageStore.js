@@ -60,6 +60,7 @@ evezownApp
         $scope.ShowAddProduct = function()
         {
             $scope.CheckSub = $scope.currentStore[0].store_subscription_id;
+            $scope.CurrentStatus = $scope.currentStore[0].store_status.status_id;
             //free
             if($scope.CheckSub == 1)
             {
@@ -70,15 +71,23 @@ evezownApp
                 }
                 else
                 {
-                    toastr.error('Max limit reached',"Upgrade to add more products")
+                    toastr.error('Max limit reached',"Upgrade to add more products");
                 }
             }
             if($scope.CheckSub == 2)
             {
                 if($scope.totalProducts < $scope.MaxProductsPremium)
                 {
-                    $scope.isAddProductHidden = true;
-                    $scope.isProductSKUHidden = false;
+                    if($scope.CurrentStatus == 7)
+                    {
+                        $scope.isAddProductHidden = true;
+                        $scope.isProductSKUHidden = false;
+                    }
+                    else
+                    {
+                        toastr.error('Please make payment and add product',"Payment pending");
+                        $location.path('/store/'+ $scope.currentStore[0].id +'/manage/store_info');
+                    }
                 }
                 else
                 {
