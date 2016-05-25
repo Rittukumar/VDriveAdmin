@@ -200,8 +200,10 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
     $scope.SALT = "09BHBbap";
     $scope.PAYU_BASE_URL = "https://secure.payu.in/_payment";
 
-    $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
-    $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
+    $scope.surl = PATHS.api_url+"paymentstatus/paymentstatus";
+    $scope.furl = PATHS.api_url+"paymentstatus/paymentstatus";
+    $scope.curl = PATHS.api_url+"paymentstatus/paymentstatus";
+
     $scope.loggedInUserId = $cookieStore.get('userId');
     $scope.service_url = PATHS.api_url;
     $scope.usertoken = $cookieStore.get('userToken');
@@ -676,7 +678,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
         //$scope.currentIndex = index;
     }
 
-    $scope.GetIndex(0);
+    $scope.GetIndex(4);
 
 
     $scope.SubmitPayment= function(src) { 
@@ -724,7 +726,7 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
                 
             }).error(function (response)
             {
-               toastr.error('Please Try Again Later!');
+               toastr.error('There Is Some Issue, Please Try Again Later!');
                
             });
             
@@ -882,9 +884,6 @@ evezownApp.controller('ShoppingCartCtrl', function ($scope, $cookieStore, StoreS
 
     $scope.getHash = function()
     {
-          $scope.surl = PATHS.api_url+"paymentstatus/paymentstatus";
-          $scope.furl = PATHS.api_url+"paymentstatus/paymentstatus";
-          $scope.curl = PATHS.api_url+"paymentstatus/paymentstatus";
           $scope.udf1 = "";
           $scope.udf2 = "";
           $scope.udf3 = "";
