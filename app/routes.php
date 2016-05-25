@@ -294,6 +294,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('users/store/step4/{user_id}/add', 'StoreController@storeStep4');
     Route::post('users/store/updatestorefooter/{user_id}/update', 'StoreController@UpdateStoreFooterInfo');
     Route::post('users/store/updatestorestatus/update', 'StoreController@updateStoreStatus');
+    Route::post('users/store/adminStoreStatusUpdate', 'StoreController@adminUpdateStoreStatus');
     Route::post('users/store/upgrade', 'StoreController@upgradeSubscription');
     Route::get('users/store/getstorestatus/{store_id}/get', 'StoreController@getStoreStatus');
     Route::get('users/store/getstorestatus/enums', 'StoreController@getStoreStatusEnum');

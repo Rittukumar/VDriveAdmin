@@ -1,21 +1,21 @@
 
                     <div class="col-md-3 col-xs-12 user-menu-btns">
                         <div class="btn-group-vertical square" id="responsive">
+                            <a ng-click="GetIndex(4);" class="btn btn-block {{currentSection4}}">
+                                <p style="font-size: 16px;">PayU Money</p>
+                            </a>
                             <a ng-click="GetIndex(0)" class="btn btn-block {{currentSection0}}">
                                 <p style="font-size: 16px;">Cash On Delivery</p>
+                            </a>
+                            <a ng-click="GetIndex(2);" class="btn btn-block {{currentSection2}}">
+                                <p style="font-size: 16px;">Cheque Payment</p>
                             </a>
                             <!-- <a ng-click="GetIndex(1);" class="btn btn-block {{currentSection1}}">
                                 <p style="font-size: 16px;">Bank Payment</p>
                             </a> -->
-                            <a ng-click="GetIndex(2);" class="btn btn-block {{currentSection2}}">
-                                <p style="font-size: 16px;">Cheque Payment</p>
-                            </a>
                             <!-- <a ng-click="GetIndex(3);" class="btn btn-block {{currentSection3}}">
                                 <p style="font-size: 16px;">Pay Online</p>
                             </a> -->
-                            <a ng-click="GetIndex(4);" class="btn btn-block {{currentSection4}}">
-                                <p style="font-size: 16px;">PayU Money</p>
-                            </a>
                         </div>          
                     </div>
 
@@ -70,7 +70,7 @@
 
                     <div class="col-md-6 col-xs-12" ng-show="PayUmoney">
                         <div class="col-md-12" style="padding-left: 0px;padding-right: 0px;">
-                            <div class="fragment">
+                            <div class="fragment" style="border:none;">
                                 <!-- <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
                                 <h4>You selected Online Payment</h4>
                                 <p>
@@ -96,7 +96,7 @@
                             <input type="hidden" name="service_provider" value="payu_paisa" />
 
                             <input name="address1" type="hidden" ng-value="orderData.checkOutType" />
-                            <input name="address2" type="hidden" ng-value="" />
+                            <input name="address2" type="hidden" ng-value="orderData.buyer.email" />
                             <input name="city" type="hidden" ng-value="" />
                             <input name="state" type="hidden" ng-value="orderData.checkOutType" />
                             <input name="country" type="hidden" ng-value="" />

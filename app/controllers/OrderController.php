@@ -235,7 +235,7 @@ class OrderController extends AppController
 
             $inputArray = Input::all();
 
-            $orders = $this->saveOrders($inputArray, '');
+            $orders = $this->saveOrders($inputArray);
 
              $successResponse = [
                 'status'  => true,
@@ -265,7 +265,7 @@ class OrderController extends AppController
     }
 
 
-    public function saveOrders($orders, $stripe_payment_details){
+    public function saveOrders($orders){
 
         try{
 
@@ -424,20 +424,20 @@ class OrderController extends AppController
                         
 
                         //Insert Stripe Payment Details  
-                        if(!empty($stripe_payment_details)){
+                        // if(!empty($stripe_payment_details)){
                             
-                            $stripe_details = new \PaymentDetails();
+                        //     $stripe_details = new \PaymentDetails();
 
-                            $stripe_details->order_id  = $order->id;
-                            $stripe_details->charge_id = $stripe_payment_details['charge_id'];
-                            $stripe_details->price     = $value['price'];
-                            $stripe_details->last_four = $stripe_payment_details['last_four'];
-                            $stripe_details->card_type = $stripe_payment_details['card_type'];
+                        //     $stripe_details->order_id  = $order->id;
+                        //     $stripe_details->charge_id = $stripe_payment_details['charge_id'];
+                        //     $stripe_details->price     = $value['price'];
+                        //     $stripe_details->last_four = $stripe_payment_details['last_four'];
+                        //     $stripe_details->card_type = $stripe_payment_details['card_type'];
 
 
-                            $stripe_details->save();
-                            unset($stripe_details);
-                        }
+                        //     $stripe_details->save();
+                        //     unset($stripe_details);
+                        // }
                         
                     }
 
@@ -869,7 +869,7 @@ class OrderController extends AppController
             }
             else
             {
-                $paymentOrder = PaymentOrders::find($payuOrder->id);
+                $paymentOrder = PaymentOrders::find($paymentOrder->id);
 
                 $paymentOrder->email  = $email;
                 $paymentOrder->orders = json_encode($orders);
@@ -887,7 +887,7 @@ class OrderController extends AppController
 
         }catch (Exception $e){
 
-            return $e;
+            return $this->setStatusCode(500)->respondWithError($e);
 
         }
 

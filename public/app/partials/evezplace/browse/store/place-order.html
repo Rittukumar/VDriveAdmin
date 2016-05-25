@@ -721,11 +721,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1);padding:0px;
                     <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Quantity">
                         <div fs-counter value="shoppingCartItem.quantity"
                              data-min="1"
-                             data-max="20"
+                             data-max="{{shoppingCartItem.stock_quantity}}"
                              data-step="1"
                              data-width="130px"
                              data-editable="false"
                              style="margin-top: 5px"></div>
+                        <div ng-show="shoppingCartItem.quantity == shoppingCartItem.stock_quantity">
+                        <i  style="font-size:13px;color:red;">Reached the max stock</i>
+                        </div>
                     </td>
                     
                     <td class="col-sm-2 col-md-2 col-lg-2 col-sx-6" data-title="Price">{{shoppingCartItem.price}}</td>
