@@ -25,10 +25,10 @@ evezownApp
             return deferred.promise;
         };
 
-        OrderService.getBuyerOrder = function (input,user)
+        OrderService.getBuyerOrder = function (input,userId)
         {
             var deferred = $q.defer();
-            $http.get(PATHS.api_url + 'orders/'+input+'/'+user+'/buyer', {
+            $http.get(PATHS.api_url + 'orders/'+input+'/'+userId+'/buyer', {
                 })
                 .success(function (data) {
                     if(data.data.length > 0){
