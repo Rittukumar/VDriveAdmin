@@ -170,7 +170,7 @@ class PaymentController extends AppController {
 
             $inputArray = Input::all();
             
-            $payuOrder = PaymentOrders::where('email', $inputArray['email'])->pluck('orders');
+            $payuOrder = PaymentOrders::where('email', $inputArray['address2'])->pluck('orders');
 
             $inputArray['orders'] = json_decode($payuOrder, true);
 
@@ -179,13 +179,13 @@ class PaymentController extends AppController {
             $inputArray['order_success'] = '';
 
             $status = $inputArray['status'];
-            
-            $delete = PaymentOrders::where('email', $inputArray['email'])->delete();
 
+            $delete = PaymentOrders::where('email', $inputArray['address2'])->delete();
+            
             if($status == 'success')
             {
 
-              if($this->storeOrder($inputArray['orders'], '') == 'success')
+              if($this->storeOrder($inputArray['orders']) == 'success')
                 {
 
                     $inputArray['order_success'] = 'success';
@@ -212,9 +212,9 @@ class PaymentController extends AppController {
 
 
 
-    public function storeOrder($orders, $stripe_payment_details){
+    public function storeOrder($orders){
 
-       return $browser_loaded = (new OrderController)->saveOrders($orders, $stripe_payment_details); 
+       return $browser_loaded = (new OrderController)->saveOrders($orders); 
     }
 
 
