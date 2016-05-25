@@ -30,7 +30,7 @@
                                 <p>Reset Your Password</p>
                                 <p>You requested to reset your password for your Evezown account.</p>
                                 <p>Click the link below to reset your password:</p>
-                                <a href="http://evezown.com/#/reset_password/{{$Code}}">http://evezown.com/#/reset_password/{{$Code}}</a>
+                                <a href="<?php echo Config::get('app.evezown_url'); ?>/reset_password/{{$Code}}"><?php echo Config::get('app.evezown_url'); ?>/reset_password/{{$Code}}</a>
                                 <p>If you did not make this request, you can safely ignore this email. Rest assured your account is safe.</p>
                                 <p>If clicking the link doesn't seem to work, you can copy and paste the link on your browser address window.</p>
                                 <p>Questions? Contact Evezown Support.</p>

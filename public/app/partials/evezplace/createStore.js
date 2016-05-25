@@ -68,8 +68,6 @@ evezownApp
         $scope.ShowPayment = false;
         $scope.PayOnline = false;
         $scope.PayUmoney = false;
-        $scope.PaymentDetailsDiv = "";
-        $scope.StoreDetailsDiv = "";
         //   $scope.selectedStoreListing = null;
 
         $scope.selectedSubscription = null;
@@ -1675,13 +1673,6 @@ evezownApp
                     }
                     $scope.Subscription_offer = $scope.currentStore[0].subscription_offer;
                     $scope.Subscription_type = $scope.currentStore[0].store_subscription_id;
-
-                    //For UI Div Alignments
-                    if($scope.Subscription_type == 1 && $scope.Subscription_offer.length > 0)
-                    {
-                        $scope.StoreDetailsDiv = "col-md-offset-3";
-                    }
-                    //Div alignments ends
                     
 
                     if ($scope.currentStore.length > 0) {
@@ -1940,16 +1931,6 @@ evezownApp
             $scope.sub_type = subscriptiontype;
             $scope.totalPrice = amount;
             $scope.ShowPayment = true;
-
-            //Div alignments
-            if($scope.Subscription_type == 1)
-            {
-                $scope.PaymentDetailsDiv = "col-md-offset-3";
-            }
-            else
-            {
-                $scope.StoreDetailsDiv = "col-md-offset-3";
-            }
 
             $scope.GetIndex(4);
             $scope.PreparePayee();
