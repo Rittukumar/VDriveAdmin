@@ -24,17 +24,32 @@ evezownApp
       $scope.SALT = "09BHBbap";
       $scope.PAYU_BASE_URL = "https://secure.payu.in/_payment";
       
-//      $scope.surl = "http://evezown.com/success";
-//      $scope.furl = "http://evezown.com/failure";
+      //$scope.surl = "http://evezown.com/success";
+      //$scope.furl = "http://evezown.com/failure";
       $scope.surl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
       $scope.furl = "http://evezown-api-dev.elasticbeanstalk.com/public/paymentstatus/paymentstatus";
       $scope.loggedInUserId = $cookieStore.get('userId');
       $scope.service_url = PATHS.api_url;
       $scope.usertoken = $cookieStore.get('userToken');
       $scope.encrypttext = "";
+
+      if($scope.loggedInUserId){
+
+       $scope.Tracktitle   = 'Enter order transaction id or email or phone';
+       $scope.Trackheading = 'Transaction Id / Email /  Phone';
+       $scope.Trackuser    =  $scope.loggedInUserId;
+
+     }else{
+
+       $scope.Tracktitle   = 'Enter order transaction id or buyer code';
+       $scope.Trackheading = 'Transaction Id / Buyer code';
+       $scope.Trackuser    =  0;
+
+     }
+
       $scope.GetOrderByBuyer = function (input)
       {
-          OrderService.getBuyerOrder(input, $scope.usertoken).then(function (data)
+          OrderService.getBuyerOrder(input, $scope.Trackuser).then(function (data)
           {
               $scope.orders = data;
               $scope.GetCurrentStatus();

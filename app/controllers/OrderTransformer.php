@@ -25,13 +25,13 @@ class OrderTransformer extends Fractal\TransformerAbstract
             'order_status' => $order['currentOrderStatus'],
             'order_status_history' => $order['orderStatusHistories'],
             'priority' => (int)$order['priority'],
-            'create_date' => $order['created_at'],
-            'buyer' => [
-                'id' => (int) $order->buyer->id,
-                'email' => $order->buyer->email,
-                'phone' => $order->buyer->phone,
-                'code' => $order->buyer->code
-            ]
+            'create_date' => $order['created_at']
+            // 'buyer' => [
+            //     'id' => (int) $order->buyer->id,
+            //     'email' => $order->buyer->email,
+            //     'phone' => $order->buyer->phone,
+            //     'code' => $order->buyer->code
+            // ]
         ];
     }
 

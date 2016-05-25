@@ -25,14 +25,19 @@ evezownApp
             return deferred.promise;
         };
 
-        OrderService.getBuyerOrder = function (input,token)
+        OrderService.getBuyerOrder = function (input,user)
         {
             var deferred = $q.defer();
-            $http.get(PATHS.api_url + 'orders/'+input+'/buyer', {
-                    headers: {'Authorization' :'Bearer ' + token }
+            $http.get(PATHS.api_url + 'orders/'+input+'/'+user+'/buyer', {
                 })
                 .success(function (data) {
-                    deferred.resolve(data.data);
+                    if(data.data.length > 0){
+                       deferred.resolve(data.data);
+                    }else{
+                        deferred.resolve(data.data);
+                        toastr.error("No Orders Found");
+                    }
+                    
                 })
                 .error(function (err) {
                     console.log('Error retrieving order');
