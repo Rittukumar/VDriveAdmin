@@ -197,7 +197,7 @@ evezownApp
             //Other options
             else
             {
-                $http.post(PATHS.api_url + 'users/store/updatestorestatus/update'
+                $http.post(PATHS.api_url + 'users/store/adminStoreStatusUpdate'
                     , {
                         data: {
                             StoreId: store.id,
