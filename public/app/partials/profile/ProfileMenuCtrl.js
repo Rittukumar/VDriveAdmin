@@ -26,11 +26,7 @@ evezownApp
             },{
             name: 'Build Community',
             link : 'community'
-            },{
-            name: 'Buy History',
-            link : 'buyHistory/' + $routeParams.id
-
-        });
+            });
         }
 
         $scope.profileMenuItems.push({
@@ -40,6 +36,14 @@ evezownApp
             name: 'Recent Activity',
             link : 'profile/' + $routeParams.id
         });
+
+        if($scope.loggedInUserId == $routeParams.id)
+        {
+            $scope.profileMenuItems.push({
+            name: 'Buy History',
+            link : 'buyHistory/' + $routeParams.id
+            });
+        }
 
         $scope.navClass = function (page) {
 

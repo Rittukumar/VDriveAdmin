@@ -55,26 +55,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <div ng-include src='"partials/recco_woice_comment_partial.html"'></div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12" style="background: #fafafa; padding: 0px">
-                <div class="col-sm-6" style="padding: 10px 5px 10px 0px">
-                    <a href ng-click="openPriceList()" class="btn btn-primary btn-lg btn-block"><span class="fa fa-list"></span> Price List at a
-                        Glance</a>
-                </div>
-                <div class="col-sm-6" style="padding: 10px 0px 10px 5px">
-                    <a href="" class="btn btn-primary btn-block btn-lg pull-right"
-                       ng-click="openRequestForQueryForm()"><span class="fa fa-mail-reply"></span>
-                        Request for Quote</a>
-                </div>
-            </div>
-        </div>
-
         <div ng-include src='"partials/evezplace/storefront_offers_partial.html"'
              ng-controller="StoreFrontOfferController"></div>
 
@@ -224,6 +204,26 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div ng-include src='"partials/recco_woice_comment_partial.html"'></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12" style="background: #fafafa;">
+        <div class="col-sm-6" style="padding: 10px 5px 10px 0px">
+            <a href ng-click="openPriceList()" class="btn btn-primary btn-lg btn-block"><span class="fa fa-list"></span> Price List at a
+                Glance</a>
+        </div>
+        <div class="col-sm-6" style="padding: 10px 0px 10px 5px">
+            <a href="" class="btn btn-primary btn-block btn-lg pull-right"
+               ng-click="openRequestForQueryForm()"><span class="fa fa-mail-reply"></span>
+                Request for Quote</a>
         </div>
     </div>
 </div>

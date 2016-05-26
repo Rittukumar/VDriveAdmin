@@ -32,25 +32,6 @@
                 </flex-slider>
             </div>
         </div>
-        <div class="row" style="padding: 20px">
-            <ng-comment-recco-rewoice-grade
-                    ng-comments="classifiedComments"
-                    ng-comments-metadata="commentMetadata"
-                    is-comments="true"
-                    total-grade="totalGrade"
-                    avg-grade="avgGrade"
-                    user-grade="userGrade"
-                    is-grades="true"
-                    restreams="totalRestreams"
-                    is-restream="true"
-                    add-comment="addComment(value)"
-                    update-comment="updateComment(commentId, comment)"
-                    delete-comment="deleteComment(id)"
-                    load-comments="loadComments(page)"
-                    add-grade="addGrade(grade)"
-                    add-restream="addRestream()">
-            </ng-comment-recco-rewoice-grade>
-        </div>
     </div>
 
     <div class="col-sm-12">
@@ -100,6 +81,25 @@
 
 
             </div>
+        </div>
+        <div class="row" style="padding: 20px">
+            <ng-comment-recco-rewoice-grade
+                    ng-comments="classifiedComments"
+                    ng-comments-metadata="commentMetadata"
+                    is-comments="true"
+                    total-grade="totalGrade"
+                    avg-grade="avgGrade"
+                    user-grade="userGrade"
+                    is-grades="true"
+                    restreams="totalRestreams"
+                    is-restream="true"
+                    add-comment="addComment(value)"
+                    update-comment="updateComment(commentId, comment)"
+                    delete-comment="deleteComment(id)"
+                    load-comments="loadComments(page)"
+                    add-grade="addGrade(grade)"
+                    add-restream="addRestream()">
+            </ng-comment-recco-rewoice-grade>
         </div>
         <div class="row text-center" style="margin: 30px 0px">
             <div class="col-sm-12">
