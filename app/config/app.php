@@ -4,14 +4,14 @@ return array(
 
 
 	'token_secret'    => 'some random string',
-	'facebook_secret' => '0bec8ecb4999fd683346d5b5c1542b2e',
-	'google_secret'   => 'f07r4MTEtDbme1hsgpiBNypj',
-	'linkedin_secret' => 'PJk2eO9hoaf2wcAR',
+	'facebook_secret' => '24d5660ead3308eea63ff1c113729246',
+	'google_secret'   => 'DtBCpPSLtOaBCm1p8dvpuXp7',
+	'linkedin_secret' => 'WCYC3u1pe8tITaBd',
 
 
 	//'evezown_url'  => 'http://localhost:9000/#',
-	'evezown_url'  => 'http://evezown.in/#',
-	//'evezown_url'  => 'http://evezown.com/#',
+	//'evezown_url'  => 'http://evezown.in/#',
+	'evezown_url'  => 'http://evezown.com/#',
 
 	/*
 	|--------------------------------------------------------------------------
