@@ -212,8 +212,17 @@ evezownApp
                                 //If user come from create campaign
                                 else if($cookieStore.get('FromSource') == "FromCreateCampaign")
                                 {
-                                    $location.path("/classifieds/create/step1");
-                                    $cookieStore.remove('FromSource');
+                                    if($rootScope.roleId == 1)
+                                    {
+                                        $location.path("/classifieds/create/step1");
+                                        $cookieStore.remove('FromSource');
+                                    }
+                                    else
+                                    {
+                                        $location.path('/mystores/'+ $cookieStore.get('userId'));
+                                        $cookieStore.remove('FromSource');
+                                    }
+                                    
                                 }
                                 //If user come through login
                                 else
@@ -256,8 +265,16 @@ evezownApp
                     //If user come from create campaign
                     else if($cookieStore.get('FromSource') == "FromCreateCampaign")
                     {
-                        $location.path("/classifieds/create/step1");
-                        $cookieStore.remove('FromSource');
+                        if($rootScope.roleId == 1)
+                        {
+                            $location.path("/classifieds/create/step1");
+                            $cookieStore.remove('FromSource');
+                        }
+                        else
+                        {
+                            $location.path('/mystores/'+ $cookieStore.get('userId'));
+                            $cookieStore.remove('FromSource');
+                        }
                     }
                     //If user come through login
                     else

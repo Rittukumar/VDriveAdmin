@@ -118,23 +118,42 @@ class InviteController extends AppController {
             else
                 $linkedin_link = '';
 
-            // Check if the referrer is already in the system.
-			//	if(! DB::table('users')->where('email', $referrer_email)->first())
-			//	{
-			//				return $this->setStatusCode(404)->respondWithError("Referrer email is not registered with Evezown!");
-			//	}
+            //If already refistered
+            $Registred = DB::table('users')->where('email', $email)->first();
 
-
-
-			$invite = DB::table('invites')->where('email', $email)->first();
-			$Registred = DB::table('users')->where('email', $email)->first();
-
-			if ($invite) {
-				return $this->setStatusCode(409)->respondWithError("You have already sent an invite!");
-			}
-			if ($Registred) {
+            if ($Registred) {
 				return $this->setStatusCode(409)->respondWithError("You have registered already!");
 			}
+
+			//If invited already
+			$invite = DB::table('invites')->where('email', $email)->where('referrer_email', $referrer_email)->first();
+
+			//Get the invite and send now
+			if ($invite) {
+
+					$user = array(
+						'email' => $invite->email,
+						'name' => $name
+					);
+
+					$data = array(
+						'name' => $name,
+						'inviteCode' => $invite->code
+					);
+
+					Mail::send('emails.register', $data, function ($message) use ($user) {
+						$message->from('admin@evezown.com', 'Evezown Admin');
+						$message->to($user['email'], $user['name'])->subject('Welcome to Evezown!');
+					});
+
+					$successResponse = [
+						'status' => true,
+						'message' => 'Request sent successfully! You will receive a mail shortly with Sign up link.'
+					];
+
+					return $this->setStatusCode(200)->respond($successResponse);
+				}
+			
 
 			$dob = DOB::create([
 				'day' => $day,
