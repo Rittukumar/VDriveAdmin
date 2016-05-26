@@ -2005,7 +2005,7 @@ class StoreController extends AppController
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 3');
+                            ->whereIn('store_status.status_id',  array(3, 7));
                     })
                     ->whereExists(function($query)
                         {
@@ -2029,7 +2029,7 @@ class StoreController extends AppController
                         $query->select(DB::raw(1))
                             ->from('store_status')
                             ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 3');
+                            ->whereIn('store_status.status_id',  array(3, 7));
                     })
                     ->whereExists(function($query)
                         {
@@ -2203,10 +2203,9 @@ class StoreController extends AppController
                     })
                     ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
-                            ->from('store_status')
-                            ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2')
-                            ->orWhereRaw('store_status.status_id = 3');
+                              ->from('store_status')
+                              ->whereRaw('stores.id = store_status.store_id')
+                              ->whereIn('store_status.status_id',  array(2, 3, 7));
                     })
                     ->orWhereExists(function ($query) use ($myId) {
                         $query->where('visibility_id', 2);
@@ -2215,32 +2214,30 @@ class StoreController extends AppController
                             ->whereRaw('circle_friends.friend_user_id = ' . $myId)
                             ->whereExists(function ($query) {
                                 $query->select(DB::raw(1))
-                                    ->from('circles')
-                                    ->whereRaw('circles.id = stores.circle_id')
-                                    ->whereRaw('circles.id = circle_friends.circle_id')
-                                    ->whereRaw('circles.user_id = stores.owner_id');
+                                      ->from('circles')
+                                      ->whereRaw('circles.id = stores.circle_id')
+                                      ->whereRaw('circles.id = circle_friends.circle_id')
+                                      ->whereRaw('circles.user_id = stores.owner_id');
                             });
                     })
                     ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
-                            ->from('store_status')
-                            ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2')
-                            ->orWhereRaw('store_status.status_id = 3');
+                              ->from('store_status')
+                              ->whereRaw('stores.id = store_status.store_id')
+                              ->whereIn('store_status.status_id',  array(2, 3, 7));
                     })
                     ->orWhereExists(function ($query) use ($myId) {
                         $query->where('visibility_id', 3);
                         $query->select(DB::raw(1))
-                            ->from('friends')
-                            ->whereRaw('friends.user_id = stores.owner_id')
-                            ->whereRaw('friends.friend_user_id = ' . $myId);
+                              ->from('friends')
+                              ->whereRaw('friends.user_id = stores.owner_id')
+                              ->whereRaw('friends.friend_user_id = ' . $myId);
                     })
                     ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
-                            ->from('store_status')
-                            ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2')
-                            ->orWhereRaw('store_status.status_id = 3');
+                              ->from('store_status')
+                              ->whereRaw('stores.id = store_status.store_id')
+                              ->whereIn('store_status.status_id',  array(2, 3, 7));
                     })
                     ->orWhere(function ($query) use ($myId, $userId) {
                        
@@ -2248,7 +2245,6 @@ class StoreController extends AppController
                         $query->where('owner_id', '!=', $myId);
                         $query->where('owner_id', '!=', $userId);
                     })
-
                     ->orWhere(function ($query) use ($userId) {
                        
                         $query->orwhereNull('visibility_id');
@@ -2256,12 +2252,17 @@ class StoreController extends AppController
                     })
                     ->whereExists(function ($query) {
                         $query->select(DB::raw(1))
-                            ->from('store_status')
-                            ->whereRaw('stores.id = store_status.store_id')
-                            ->whereRaw('store_status.status_id = 2')
-                            ->orWhereRaw('store_status.status_id = 3');
+                              ->from('store_status')
+                              ->whereRaw('stores.id = store_status.store_id')
+                              ->whereIn('store_status.status_id',  array(2, 3, 7));
                     })
-                    
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = stores.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
                     ->get();
 
             if (!$myStores) {
