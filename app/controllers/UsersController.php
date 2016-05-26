@@ -975,7 +975,16 @@ class UsersController extends AppController
 
         try{
 
-            $friendsList = Friend::where('user_id', $userId)->count();
+            $friendsList = Friend::where('user_id', $userId)
+                                    ->whereExists(function($query)
+                                        {
+                                            $query->select(DB::raw(1))
+                                                  ->from('users')
+                                                  ->whereRaw('users.id = friends.friend_user_id')
+                                                  ->whereRaw('blocked = 0')
+                                                  ->whereRaw('deleted = 0');
+                                        })
+                                    ->count();
 
             $circlesList = Circle::where('user_id', $userId)->count();
 

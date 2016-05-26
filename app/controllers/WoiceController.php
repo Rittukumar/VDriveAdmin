@@ -293,6 +293,13 @@ class WoiceController extends AppController
                     $query->where('visibility_id', 1);
                     $query->where('post_type_id', $type);
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhereExists(function ($query) use ($user_id, $type) {
                     $query->where('visibility_id', 2);
                     $query->where('post_type_id', $type);
@@ -307,6 +314,13 @@ class WoiceController extends AppController
                                 ->whereRaw('circles.user_id = posts.owner_id');
                         });
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhereExists(function ($query) use ($user_id, $type) {
                     $query->where('visibility_id', 3);
                     $query->where('post_type_id', $type);
@@ -315,10 +329,24 @@ class WoiceController extends AppController
                         ->whereRaw('friends.user_id = posts.owner_id')
                         ->whereRaw('friends.friend_user_id = ' . $user_id);
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhere(function ($query) use ($user_id, $type) {
                     $query->where('visibility_id', 4);
                     $query->where('post_type_id', $type);
                     $query->where('owner_id', $user_id);
+                })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
                 })
                 ->orderBy('priority', 'DESC')
                 ->orderBy('updated_at', 'DESC')
@@ -482,82 +510,328 @@ class WoiceController extends AppController
 
           
             
-            $allposts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user', 'users')
+            $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user', 'users')
                 
-                ->Where('title', 'LIKE', "%$title%")    
-                ->Where('post_type_id', 'LIKE', "$postTypeId")
-                ->orwhereNull('post_type_id')
-                ->Where('classification_id', 'LIKE', "$classificationId")
-                ->orwhereNull('classification_id')
-                ->Where('brand_id', 'LIKE', "$postBrand")
-                ->orwhereNull('brand_id')
-                ->Where('cat_id', 'LIKE', "$search_category")
-                ->orwhereNull('cat_id')
-                ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
-                ->orwhereNull('sub_cat_id')
-                ->orWhereExists(function ($query) use ($search_location) {
-                    $query->select(DB::raw(1))
-                        ->from('locations')
-                        ->where('location', 'LIKE', "$search_location");
-                })
-                ->orderBySubmitDate()->get();
+                    ->Where('title', 'LIKE', "%$title%")
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('post_type_id', 'LIKE', "$postTypeId")
+                    ->orwhereNull('post_type_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('classification_id', 'LIKE', "$classificationId")
+                    ->orwhereNull('classification_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('brand_id', 'LIKE', "$postBrand")
+                    ->orwhereNull('brand_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('cat_id', 'LIKE', "$search_category")
+                    ->orwhereNull('cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
+                    ->orwhereNull('sub_cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhereExists(function ($query) use ($search_location) {
+                        $query->select(DB::raw(1))
+                            ->from('locations')
+                            ->where('location', 'LIKE', "$search_location");
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhere(function ($query) {
+                        $query->where('visibility_id', 1);
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('title', 'LIKE', "%$title%")
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('post_type_id', 'LIKE', "$postTypeId")
+                    ->orwhereNull('post_type_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    }) 
+                    ->Where('classification_id', 'LIKE', "$classificationId")
+                    ->orwhereNull('classification_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('brand_id', 'LIKE', "$postBrand")
+                    ->orwhereNull('brand_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('cat_id', 'LIKE', "$search_category")
+                    ->orwhereNull('cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
+                    ->orwhereNull('sub_cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhereExists(function ($query) use ($search_location) {
+                        $query->select(DB::raw(1))
+                            ->from('locations')
+                            ->where('location', 'LIKE', "$search_location");
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhereExists(function ($query) use ($user_id) {
+                        $query->where('visibility_id', 2);
+                        $query->select(DB::raw(1))
+                            ->from('circle_friends')
+                            ->whereRaw('circle_friends.friend_user_id = ' . $user_id)
+                            ->whereExists(function ($query) {
+                                $query->select(DB::raw(1))
+                                    ->from('circles')
+                                    ->whereRaw('circles.id = posts.circle_id')
+                                    ->whereRaw('circles.id = circle_friends.circle_id')
+                                    ->whereRaw('circles.user_id = posts.owner_id');
+                            });
+                        $query->orWhere('owner_id', $user_id);
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('title', 'LIKE', "%$title%")
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('post_type_id', 'LIKE', "$postTypeId")
+                    ->orwhereNull('post_type_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('classification_id', 'LIKE', "$classificationId")
+                    ->orwhereNull('classification_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('brand_id', 'LIKE', "$postBrand")
+                    ->orwhereNull('brand_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('cat_id', 'LIKE', "$search_category")
+                    ->orwhereNull('cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
+                    ->orwhereNull('sub_cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhereExists(function ($query) use ($search_location) {
+                        $query->select(DB::raw(1))
+                            ->from('locations')
+                            ->where('location', 'LIKE', "$search_location");
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhereExists(function ($query) use ($user_id) {
+                        $query->where('visibility_id', 3);
+                        $query->select(DB::raw(1))
+                            ->from('friends')
+                            ->whereRaw('friends.user_id = posts.owner_id')
+                            ->whereRaw('friends.friend_user_id = ' . $user_id);
+                        $query->orWhere('owner_id', $user_id);
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('title', 'LIKE', "%$title%")
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('post_type_id', 'LIKE', "$postTypeId")
+                    ->orwhereNull('post_type_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    }) 
+                    ->Where('classification_id', 'LIKE', "$classificationId")
+                    ->orwhereNull('classification_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('brand_id', 'LIKE', "$postBrand")
+                    ->orwhereNull('brand_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('cat_id', 'LIKE', "$search_category")
+                    ->orwhereNull('cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->Where('sub_cat_id', 'LIKE', "$search_subcategory")
+                    ->orwhereNull('sub_cat_id')
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhereExists(function ($query) use ($search_location) {
+                        $query->select(DB::raw(1))
+                            ->from('locations')
+                            ->where('location', 'LIKE', "$search_location");
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orWhere(function ($query) use ($user_id) {
+                       
+                        $query->where('visibility_id', 4);
+                        $query->where('owner_id', $user_id);
+                    })
+                    ->whereExists(function($query) {
+                        $query->select(DB::raw(1))
+                              ->from('users')
+                              ->whereRaw('users.id = posts.owner_id')
+                              ->whereRaw('blocked = 0')
+                              ->whereRaw('deleted = 0');
+                    })
+                    ->orderBySubmitDate()->paginate($limit);
 
-
-                $all = [];
-
-                foreach ($allposts as $key => $value) 
-                {
-                     if($value->visibility_id == 1)
-                     {
-                        $all[] = $value;
-                     }
-                     else if($value->visibility_id == 4 && $value->owner_id == $user_id)
-                     {
-                        $all[] = $value;
-                     }
-                     else if($value->visibility_id == 3)
-                     {
-                        $checkFriend = DB::table('friends')
-                                        ->where('friends.user_id', $value->owner_id)
-                                        ->where('friends.friend_user_id', $user_id)->get();
-
-                        if(!empty($checkFriend)  || $owner_id == $user_id)
-                        {
-                            $all[] = $value;
-                        }
-                     }
-                     else if($value->visibility_id == 2)
-                     {
-                         $owner_id    = $value->owner_id;
-                         $circle_id   = $value->circle_id;
-                         $checkCircle = DB::table('circle_friends')->where('circle_friends.friend_user_id', $user_id)
-                                        ->whereExists(function ($query) use ($owner_id, $circle_id) {
-                                            $query->select(DB::raw(1))
-                                                  ->from('circles')
-                                                  ->whereRaw('circles.id =' .$circle_id)
-                                                  ->whereRaw('circles.id = circle_friends.circle_id')
-                                                  ->whereRaw('circles.user_id =' .$owner_id);
-                                        })->get();  
-                        
-                        if(!empty($checkCircle) || $owner_id == $user_id)
-                        {
-                            $all[] = $value;
-                        }
-                        
-                      }
-                }
-
-                $posts = new \Illuminate\Database\Eloquent\Collection($all);
-
-
-            // if(isset($inputs_array['communityId']))
-            // {
-            //    $communityId = $inputs_array['communityId'];
-            // }
-
-
-            // $posts = Post::with('images', 'links', 'post_location', 'user.profile_image', 'brand', 'comments.user.profile_image', 'grades.user')->where('post_type_id', $postTypeId)->Where('brand_id','=',$postBrand)->Where('price_range','<=',$priceRange)->Where('visibility_id','=',$communityId)->Where('title', 'LIKE', "%$title%")->Where('description', 'LIKE', "%$title%")->Where('testimonial', 'LIKE', "%$title%")
-            // ->orderBySubmitDate()->paginate($limit);
 
             if ($posts->isEmpty()) {
                 $errorMessage = [
@@ -572,12 +846,12 @@ class WoiceController extends AppController
 
             $postsResource = new Collection($posts, new PostsTransformer);
 
-            //$postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
+            $postsResource->setPaginator(new IlluminatePaginatorAdapter($posts));
 
             $data = $fractal->createData($postsResource);
 
-
             return $data->toJson();
+
         } catch (Exception $e) {
             $errorMessage = [
                 'status' => false,
@@ -601,6 +875,13 @@ class WoiceController extends AppController
                 ->orWhere(function ($query) {
                     $query->where('visibility_id', 1);
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhereExists(function ($query) use ($user_id) {
                     $query->where('visibility_id', 2);
                     $query->select(DB::raw(1))
@@ -616,6 +897,13 @@ class WoiceController extends AppController
                     $query->orWhere('owner_id', $user_id);
 
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhereExists(function ($query) use ($user_id) {
                     $query->where('visibility_id', 3);
                     $query->select(DB::raw(1))
@@ -624,13 +912,30 @@ class WoiceController extends AppController
                         ->whereRaw('friends.friend_user_id = ' . $user_id);
                     $query->orWhere('owner_id', $user_id);
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhere(function ($query) use ($user_id) {
                    
                     $query->where('visibility_id', 4);
                     $query->where('owner_id', $user_id);
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orderBySubmitDate()->paginate($limit);
-
+              // foreach ($posts as $key => $value) {
+              //     echo '<pre>';
+              //     print_r($value);
+              // }die();
 
             if (!$posts) {
                 $errorMessage = [
@@ -682,8 +987,17 @@ class WoiceController extends AppController
 
             $posts = Post::with('images', 'post_location', 'links', 'user.profile_image',
                 'brand', 'comments.user.profile_image', 'grades.user')
-                ->where('visibility_id', 1)
-                ->where('owner_id', $user_id)
+                ->orWhere(function ($query) use ($user_id) {
+                    $query->where('visibility_id', 1);
+                    $query->where('owner_id', $user_id);
+                })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhereExists(function ($query) use ($user_id, $loggedInUserId) {
                     $query->where('visibility_id', 2);
                     $query->where('owner_id', $user_id);
@@ -701,6 +1015,13 @@ class WoiceController extends AppController
                     $query->where('owner_id', $user_id);
 
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhereExists(function ($query) use ($user_id, $loggedInUserId) {
                     $query->where('visibility_id', 3);
                     $query->where('owner_id', $user_id);
@@ -712,10 +1033,29 @@ class WoiceController extends AppController
                     $query->where('owner_id', $loggedInUserId);
                     $query->where('owner_id', $user_id);
                 })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
+                })
                 ->orWhere(function ($query) use ($user_id, $loggedInUserId) {
                     $query->where('visibility_id', 4);
                     $query->where('owner_id', $user_id);
                     $query->where('owner_id', $loggedInUserId);
+                })
+                ->orWhere(function ($query) use ($user_id) {
+                   
+                    $query->orwhereNull('visibility_id');
+                    $query->where('owner_id', $user_id);
+                })
+                ->whereExists(function($query) {
+                    $query->select(DB::raw(1))
+                          ->from('users')
+                          ->whereRaw('users.id = posts.owner_id')
+                          ->whereRaw('blocked = 0')
+                          ->whereRaw('deleted = 0');
                 })
                 ->orderBy('created_at', 'DESC')->paginate($limit);
 
