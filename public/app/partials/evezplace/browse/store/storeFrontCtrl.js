@@ -152,8 +152,8 @@ evezownApp.controller('StoreFrontController', function ($scope, ngDialog, $filte
     }
 
     $scope.openPriceList = function() {
-        console.log($scope.storefront.storeAdvertising);
-        $window.open(PATHS.api_url + $scope.storefront.storeAdvertising.store_price_list);
+        //console.log($scope.storefront.storeAdvertising);
+        //$window.open(PATHS.api_url + $scope.storefront.storeAdvertising.store_price_list);
     }
 
 
