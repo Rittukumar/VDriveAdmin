@@ -7,6 +7,14 @@
     color : #ffffff;
 }
 
+#loading-bar .bar {
+background: #692668;
+}
+
+#loading-bar-spinner .spinner-icon {
+border-top-color: #E50880;
+border-left-color: #E50880;
+}
 /* Font Awesome style end */
 
 /*This will turn off the spinner(increment/decrement) for input-type="number"*/

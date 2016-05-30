@@ -55,11 +55,14 @@
                             <td data-title="'Quantity'">
                                 <div fs-counter value="shoppingCartItem.quantity"
                                      data-min="1"
-                                     data-max="20"
+                                     data-max="{{shoppingCartItem.stock_quantity}}"
                                      data-step="1"
                                      data-width="130px"
                                      data-editable
                                      style="margin-top: 5px"></div>
+                                <div ng-show="shoppingCartItem.quantity == shoppingCartItem.stock_quantity">
+                                <i  style="font-size:13px;color:red;">Reached the max stock</i>
+                                </div>
                             </td>
                             <td data-title="'Total'">&#x20b9; {{+shoppingCartItem.quantity * +shoppingCartItem.price}}
                             </td>
