@@ -93,6 +93,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('admin/{admin_id}/{subcategory_id}/deletesubcategory', 'MasterController@deleteSubCategory');
     Route::post('admin/{admin_id}/saveCategory', 'MasterController@saveCategory');
     Route::post('admin/{admin_id}/saveSubCategory', 'MasterController@saveSubCategory');
+    Route::get('admin/{admin_id}/EvezownSections', 'MasterController@getEvezownSections');
 
     // Eveplace promotion section
     Route::get('evezplace/{section_id}/promotion', 'AdminEvezplacePromotionController@index');

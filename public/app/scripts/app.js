@@ -274,6 +274,16 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
+            .when('/admin/manage/categories', {
+                templateUrl: 'partials/admin/Manage/edit_categories.html',
+                controller: 'editCategoriesCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
+                }
+            });
+
+        $routeProvider
+
             .when('/admin/manage/configurations', {
                 templateUrl: 'partials/admin/Manage/configurations.html',
                 controller: 'adminConfigurationCtrl',

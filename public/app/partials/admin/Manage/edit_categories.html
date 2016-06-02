@@ -1,0 +1,135 @@
+<div class="container">
+    <div class="row" >
+        <div class="col-lg-12 col-md-12 col-sm-8 col-xs-9 bhoechie-tab-container">
+            
+            <div class="col-lg-2 col-md-2 col-sm-2 bhoechie-tab-menu">
+                <div 
+                ng-include src='"partials/admin/adminLeftMenu.html"'>
+                </div>
+            </div>
+
+            <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab">
+
+                <h4>{{title}}</h4>
+
+                <div class="col-sm-12">
+                    <select class="form-control"
+                            ng-model="Categories"
+                            style="font-weight: 700"
+                            default-option="Select Categories"                          
+                            ng-options="category as category.category_name for category in allcategories"
+                            ng-change="GetSubCategories();">
+                    </select><br><br>
+                </div>
+
+                <div class="col-sm-12 table-responsive" ng-if="showTable">
+                    <table id="mytable" class="table table-bordred table-striped">
+                        <tbody>
+                        <tr>
+                            <td><b>Category Name</b></td>
+                            <td ng-hide="CategoryEdit">
+                                {{Categories.category_name}}
+                            </td>
+                            <td ng-show="CategoryEdit">
+                                <input type="text" ng-model="Categories.category_name" class="form-control">
+                            </td>
+                            <td ng-hide="CategoryEdit">
+                                <button class="btn btn-default pull-right" style="margin-right:10px;" ng-click="CategoryEdit = ! CategoryEdit">Edit</button>
+                                <button class="btn btn-default pull-right" style="margin-right:10px;" ng-really-message="Are you sure to delete?" ng-really-click="DeleteCategory(Categories.id)">Delete</button>
+                            </td>
+                            <td ng-show="CategoryEdit">
+                                <button class="btn btn-default pull-right" ng-click="EditCategory(Categories);">Save Changes</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <table id="mytable" class="table table-bordred table-striped">
+                        <thead>
+                            <th>SL.NO</th>
+                            <th style="text-align:left">SUBCATEGORY NAME</th>
+                        </thead>
+                        
+                        <tbody>
+                        <tr ng-repeat="subcategories in SubCategories">
+                            <td>{{$index + 1}}</td>
+                            <td ng-hide="SubCategoryEdit">
+                                {{subcategories.subcategory_name}}
+                            </td>
+                            <td ng-show="SubCategoryEdit">
+                                <input type="text" ng-model="subcategories.subcategory_name" class="form-control">
+                            </td>
+                            <td ng-hide="SubCategoryEdit">
+                                <button class="btn btn-default pull-right" style="margin-right:10px;" ng-click="SubCategoryEdit = ! SubCategoryEdit">Edit</button>
+                                <button class="btn btn-default pull-right" style="margin-right:10px;" ng-really-message="Are you sure to delete?" ng-really-click="DeleteSubCategory(subcategories.id)">Delete</button>
+                            </td>
+                            <td ng-show="SubCategoryEdit">
+                                <button class="btn btn-default pull-right" ng-click="EditSubCategory(subcategories);">Save Changes</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--Add category and sub category-->
+            <button class="btn btn-default pull-right" ng-click="AddCategory()" style="margin-right:10px;">Add Category</button>
+            <button class="btn btn-default pull-right" ng-click="AddSubCategory()" style="margin-right:10px;">Add Subcategory</button>
+            <!--Add category-->
+            <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab" ng-show="AddCategoryBlock">
+
+                <h4>Add Category</h4>
+
+                <div class="col-sm-12 table-responsive">
+                    <table id="mytable" class="table table-bordred table-striped">
+                        <tbody>
+                        <tr>
+                            <td><input type="text" ng-model="category_name" placeholder="Enter category name" class="form-control"></td>
+
+                            <td>
+                                <select class="form-control"
+                                        ng-model="SelectedSections"
+                                        style="font-weight: 700"                          
+                                        ng-options="section as section.name for section in EvezownSections"
+                                        >
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-default pull-right" ng-click="SaveCategories(category_name,SelectedSections.id)">Add Category</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--Add sub category-->
+            <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab" ng-show="AddSubCategoryBlock">
+
+                <h4>Add SubCategory</h4>
+
+                <div class="col-sm-12 table-responsive">
+                    <table id="mytable" class="table table-bordred table-striped">
+                        <tbody>
+                        <tr>
+                            <td><input type="text" ng-model="sub_category_name" placeholder="Enter subcategory name" class="form-control"></td>
+                            <td>
+                                <select class="form-control"
+                                    ng-model="Categories"
+                                    style="font-weight: 700"                          
+                                    ng-options="category as category.category_name for category in allcategories">
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn btn-default pull-right" ng-click="SaveSubCategories(sub_category_name,Categories.id)">Add SubCategory</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--Add category and sub category ends-->
+
+
+        </div>
+    </div>
+</div>
