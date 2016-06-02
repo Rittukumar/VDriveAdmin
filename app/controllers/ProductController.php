@@ -134,7 +134,9 @@ class ProductController extends AppController
                     'size' => $productSize,
                     'color' => $productColor,
                     'weight' => $productWeight,
-                    'volume' => $productVolume
+                    'volume' => $productVolume,
+                    'package_date' => $productPackingDate,
+                    'expiry_date' => $productExpiryDate
                 ]);
             } catch (Exception $ex) {
                 return $ex;

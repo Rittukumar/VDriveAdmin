@@ -457,8 +457,8 @@ evezownApp
                                     productColor:formData.productColor,
                                     productWeight:formData.productWeight,
                                     productVolume:formData.productVolume,
-                                    productPackingDate:formData.productExpiry,
-                                    productExpiryDate:formData.productExpiry,
+                                    productPackingDate:formData.productExpiry.startDate,
+                                    productExpiryDate:formData.productExpiry.endDate,
                                     productImages:$scope.productImages,
                                     productStock:formData.productStock
 
