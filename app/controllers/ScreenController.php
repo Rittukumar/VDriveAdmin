@@ -12,6 +12,9 @@ class ScreenController extends AppController {
 	{
 		
 		try {
+
+			Log::info('Enterning getScreens Method');
+
             $screens = Screens::all();
 
             $fractal = new Manager();
@@ -23,6 +26,9 @@ class ScreenController extends AppController {
             return $data->toJson();
 
         } catch (Exception $e) {
+
+        	Log::error('Error In getScreens Method');
+
             $errorMessage = [
                 'status' => false,
                 'message' => $e
@@ -36,6 +42,9 @@ class ScreenController extends AppController {
 	public function getScreenField($adminId,$Id)
 	{
 		try {
+
+			Log::info('Enterning to getScreenField Method with '.$Id);
+
             $screensFields = ScreenFields::where('screen_id', '=', $Id)->get();
 
             $fractal = new Manager();
@@ -47,6 +56,9 @@ class ScreenController extends AppController {
             return $data->toJson();
 
         } catch (Exception $e) {
+
+        	Log::error('Error In getScreenField Method with '.$Id);
+
             $errorMessage = [
                 'status' => false,
                 'message' => $e
@@ -63,6 +75,8 @@ class ScreenController extends AppController {
 		 
 		try {
 
+			Log::info('Enterning to saveScreenFields Method');
+
 			$allscreensFields = Input::all();
 
 			$screensFieldsArray = $allscreensFields['data'];
@@ -75,16 +89,21 @@ class ScreenController extends AppController {
 			    $screenField->field_value = $value['description'];
 			    $screenField->save();
 			}
+
+			$successResponse = [
+				'status' => true,
+				'message' => 'Screen Fields saved successfully!',
+			];
+
+		    return $this->setStatusCode(200)->respond($successResponse);
+
 		} catch (Exception $e) {
+
+			Log::error('Error In saveScreenFields Method');
+
 			return $this->setStatusCode(500)->respondWithError($e);
 		}
 
-		$successResponse = [
-			'status' => true,
-			'message' => 'Screen Fields saved successfully!',
-		];
-
-		return $this->setStatusCode(200)->respond($successResponse);
 	}
 
 

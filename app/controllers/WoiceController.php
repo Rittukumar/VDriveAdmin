@@ -932,11 +932,7 @@ class WoiceController extends AppController
                           ->whereRaw('deleted = 0');
                 })
                 ->orderBySubmitDate()->paginate($limit);
-              // foreach ($posts as $key => $value) {
-              //     echo '<pre>';
-              //     print_r($value);
-              // }die();
-
+              
             if (!$posts) {
                 $errorMessage = [
                     'status' => false,

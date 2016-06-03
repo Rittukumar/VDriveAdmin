@@ -403,7 +403,8 @@ evezownApp
             success(function (data, status, headers, config)
             {
                 console.log(data);
-                $scope.LandingCaptions = data.data;
+                $rootScope.LandingCaptions = data.data;
+                $rootScope.VideoPartialCaptions = data.data;
             }).error(function (data)
             {
                 console.log(data);
@@ -483,22 +484,13 @@ evezownApp.controller('HomeProductMenuController', function ($rootScope, $scope,
 
 
 evezownApp
-    .controller('ArticlesNewsInterviewsCtrl', function ($scope, ArticleService, BlogService, EventService, ForumService, $http, $cookieStore, PATHS) {
+    .controller('BlogsEventsDiscussionsCtrl', function ($scope, ArticleService, BlogService, EventService, ForumService, $http, $cookieStore, PATHS) {
 
-        $scope.isShowMoreVideos = false;
 
         $scope.imagePath = PATHS.api_url + 'image/show/';
 
-        // Fetch all news items
-        function fetchHomeNews() {
-            ArticleService.getHomeNews().then(function (data) {
-
-                $scope.news = data;
-            });
-        }
-
         // Fetch all blogs items
-        function fetchRelatedBlogs() {
+        function fetchRelatedBlogs() {//alert('vas');
             BlogService.getTrendingBlogs(3).then(function (data) {
 
                 $scope.relatedBlogs = data;
@@ -518,6 +510,31 @@ evezownApp
             ForumService.getTrendingForums(3).then(function (data) {
 
                 $scope.relatedForums = data;
+            });
+        }
+
+        
+        fetchRelatedBlogs();
+
+        fetchRelatedEvents();
+
+        fetchRelatedForums();
+
+    });
+
+
+
+evezownApp
+    .controller('ArticlesNewsInterviewsCtrl', function ($scope, ArticleService, BlogService, EventService, ForumService, $http, $cookieStore, PATHS) {
+
+        $scope.isShowMoreVideos = false;
+
+
+        // Fetch all news items
+        function fetchHomeNews() {
+            ArticleService.getHomeNews().then(function (data) {
+
+                $scope.news = data;
             });
         }
 
@@ -552,20 +569,6 @@ evezownApp
             }
         }
 
-        $scope.GetCaptions = function(id)
-        {
-           
-            $http.get(PATHS.api_url + 'admin/'+ $cookieStore.get('userId')  +'/'+ id +'/getscreenfields').
-            success(function (data, status, headers, config)
-            {
-                console.log(data);
-                $scope.VideoPartialCaptions = data.data;
-            }).error(function (data)
-            {
-                console.log(data);
-            });
-        }
-        $scope.GetCaptions(3);
 
         // Show more video click toggle
         $scope.showMoreVideos = function () {
@@ -576,12 +579,6 @@ evezownApp
         }
 
         fetchHomeNews();
-        
-        fetchRelatedBlogs();
-
-        fetchRelatedEvents();
-
-        fetchRelatedForums();
 
         fetchHomeArticles();
 
