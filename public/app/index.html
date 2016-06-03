@@ -113,28 +113,28 @@
         <!-- <div class="col-sm-12 footer-links"> -->
         <div class="row" style="margin:0px;">
             <ul class="col-md-4">
-                <li><a href="#aboutus">{{FooterCaptions[0].description}}</a></li>
-                <li><a href="#careers">{{FooterCaptions[3].description}}</a></li>
-                <li><a href="#contactus">{{FooterCaptions[6].description}}</a></li>
+                <li><a href="#aboutus" ng-bind="FooterCaptions[0].description"></a></li>
+                <li><a href="#careers" ng-bind="FooterCaptions[3].description"></a></li>
+                <li><a href="#contactus" ng-bind="FooterCaptions[6].description"></a></li>
             </ul>
             <ul class="col-md-4">
-                <li><a href="#streamit">{{FooterCaptions[1].description}}</a></li>
-                <li><a href="#evezplace">{{FooterCaptions[4].description}}</a></li>
-                <li><a href="#wopportunity">{{FooterCaptions[7].description}}</a></li>
+                <li><a href="#streamit" ng-bind="FooterCaptions[1].description"></a></li>
+                <li><a href="#evezplace" ng-bind="FooterCaptions[4].description"></a></li>
+                <li><a href="#wopportunity" ng-bind="FooterCaptions[7].description"></a></li>
             </ul>
             <ul class="col-md-4">
-                <li><a href="#contribute">{{FooterCaptions[2].description}}</a></li>
-                <li><a href="#advertisement">{{FooterCaptions[5].description}}</a></li>
-                <li><a href="#friends/invite" ng-if="loggedIn">{{FooterCaptions[8].description}}</a>
+                <li><a href="#contribute" ng-bind="FooterCaptions[2].description"></a></li>
+                <li><a href="#advertisement" ng-bind="FooterCaptions[5].description"></a></li>
+                <li><a href="#friends/invite" ng-show="loggedIn" ng-bind="FooterCaptions[8].description"></a>
                 </li>
-                <li><a href="#login" ng-if="!loggedIn">{{FooterCaptions[8].description}}</a></li>
+                <li><a href="#login" ng-show="!loggedIn" ng-bind="FooterCaptions[8].description"></a></li>
             </ul>
         </div>
         <!-- </div> -->
         <div class="row" style="margin:0px;">
             <div class="col-sm-12 text-center">
-                <p style="margin:0px;">Terms of Use. <a href="#privacy">{{FooterCaptions[9].description}}</a></p>
-                © 2015 <a target="_blank" href="#" title="">Evezown</a>. All Rights Reserved. Powered by<a target="_blank" href="http://webinsights.in" title=""> {{FooterCaptions[10].description}}</a>.
+                <p style="margin:0px;">Terms of Use. <a href="#privacy" ng-bind="FooterCaptions[9].description"></a></p>
+                © 2015 <a target="_blank" href="#" title="">Evezown</a>. All Rights Reserved. Powered by<a target="_blank" href="http://webinsights.in" title="" ng-bind="FooterCaptions[10].description"></a>.
             </div>
         </div>
     </div>
