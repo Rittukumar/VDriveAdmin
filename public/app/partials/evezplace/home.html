@@ -1,7 +1,7 @@
 <!-- Main component for a primary marketing message or call to action -->
 <!--description text-->
 <!-- Main component for a primary marketing message or call to action -->
-<div id="myCarousel" class="container-fluid carousel slide carousel-fade" data-ride="carousel" data-interval="30000" style="background-color:#FFFFFF">
+<div id="myCarousel" class="container-fluid carousel slide carousel-fade" data-ride="carousel" data-interval="30000" style="background-color:#FFFFFF;padding-top:10px;">
 
     <!-- Wrapper for slides -->
     <div class="jumbotron home-jumbotron"
@@ -13,24 +13,24 @@
              ng-intro-autostart="false">
              
             <!-- To be shown if not logged in -->
-            <div class="col-md-12" ng-hide="loggedIn" style="padding:0px;">
+            <div class="col-md-12 top-content-section" ng-hide="loggedIn" style="padding:0px;">
                 <div class="col-md-4">
-                <a href="#profile/{{userId}}" style="text-decoration:none;"><h1 style="font-size:22px;margin-bottom:10px;margin-top:10px;background-color:#FFFFFF;" id="step1" data-target="#step1" data-toggle="tab" data-slide-to="0">{{LandingCaptions[0].description}}</h1></a>
-                <p style="text-align: justify;word-break: break-all;font-size:15px;">
+                <a href="#profile/{{userId}}"><h1 id="step1" data-target="#step1" data-toggle="tab" data-slide-to="0">{{LandingCaptions[0].description}}</h1></a>
+                <p>
                     <img src="img/mysite.jpg" class="description-img" width="150" height="90" style="border: 2px solid #FFFFFF;"/>
                     {{LandingCaptions[3].description}}</p>
                 </div>
 
                 <div class="col-md-4">
-                <a href="#evezplace" style="text-decoration:none;"><h1 style="font-size:22px;margin-bottom:10px;margin-top:10px;background-color:#FFFFFF" id="step2" data-target="#step2" data-toggle="tab" data-slide-to="1">{{LandingCaptions[1].description}}</h1></a>
-                <p style="text-align: justify;word-break: break-all;font-size:15px;">
+                <a href="#evezplace"><h1 id="step2" data-target="#step2" data-toggle="tab" data-slide-to="1">{{LandingCaptions[1].description}}</h1></a>
+                <p>
                     <img src="img/market_place.jpg" class="description-img" width="150" height="80" style="border: 2px solid #FFFFFF;"/>
                     {{LandingCaptions[4].description}}</p>
                 </div>
 
                 <div class="col-md-4">
-                <a href="#wopportunity" style="text-decoration:none;"><h1 style="font-size:22px;margin-bottom:10px;margin-top:10px;background-color:#FFFFFF" id="step3" data-target="#step3" data-toggle="tab" data-slide-to="2">{{LandingCaptions[2].description}}</h1></a>
-                <p style="text-align: justify;word-break: break-all;font-size:15px;">
+                <a href="#wopportunity"><h1 id="step3" data-target="#step3" data-toggle="tab" data-slide-to="2">{{LandingCaptions[2].description}}</h1></a>
+                <p>
                     <img src="img/jobs.jpg" class="description-img" width="150" height="90" style="border: 2px solid #FFFFFF;"/>
                     {{LandingCaptions[5].description}}</p>
                 </div>
@@ -38,21 +38,21 @@
                 <div class="col-md-12 col-xs-12">
 
                     <div class="col-md-2 col-xs-6 text-center no-padding">
-                        <button class="btn btn-lg btn-primary" ng-click="CallMe();" style="padding:7px 10px; font-size:16px;font-weight: 400; width:95%;margin-top:2px;">{{LandingCaptions[6].description}}</button>
+                        <button class="btn btn-lg btn-primary" ng-click="CallMe();" style="padding:7px 10px;font-weight: 400;width:95%;margin-top:2px;">{{LandingCaptions[6].description}}</button>
                     </div>
 
                     <div class="col-md-2 col-xs-6 col-md-offset-2 text-center no-padding">
-                        <a class="btn btn-lg btn-create-store" href="#whatdoiget" id="step4" data-target="#step4" data-toggle="tab" data-slide-to="3" style="text-align:center; padding:7px 10px; font-size:16px;font-weight: 400; width:95%;margin-top:2px;">Create Store</a>
+                        <a class="btn btn-lg btn-create-store" href="#whatdoiget" id="step4" data-target="#step4" data-toggle="tab" data-slide-to="3" style="text-align:center; padding:7px 10px;font-weight: 400; width:95%;margin-top:2px;">Create Store</a>
                     </div>
 
                     <div class="col-md-2 col-xs-6 text-center no-padding">
-                        <a href class="btn btn-lg btn-create-store" ng-click="Create_Campaign();" id="step5" data-target="#step5" data-toggle="tab" data-slide-to="4" style="text-align:center; padding:7px 10px; font-size:16px;font-weight: 400; width:95%;margin-top:2px;">Create Ads</a>
+                        <a href class="btn btn-lg btn-create-store" ng-click="Create_Campaign();" id="step5" data-target="#step5" data-toggle="tab" data-slide-to="4" style="text-align:center; padding:7px 10px;font-weight: 400; width:95%;margin-top:2px;">Create Ads</a>
                     </div>
 
                     
 
                     <div class="col-md-2 col-xs-6 col-md-offset-2 text-center no-padding">
-                        <a class="btn btn-lg btn-primary" href="#requestinvite" role="button" style="padding:7px 10px; font-size:16px;font-weight: 400; width:95%;margin-top:2px;"> {{LandingCaptions[7].description}} &raquo;</a>
+                        <a class="btn btn-lg btn-primary" href="#requestinvite" role="button" style="padding:7px 10px;font-weight: 400; width:95%;margin-top:2px;"> {{LandingCaptions[7].description}} &raquo;</a>
                     </div>
                 </div>
             </div>
@@ -63,12 +63,12 @@
 
                 <div class="request-invite">
 
-                    <div class="col-md-10 zero-left-padding">
+                    <div class="col-md-9 zero-left-padding">
                         <!-- <p id="eye-buy"><i>Explore Evezown.com. Make it your own place!</i></p> -->
                     </div>
 
-                    <div class="col-md-2 col-xs-6 text-center no-padding">
-                        <a class="btn btn-lg btn-primary" href="#profile/{{userId}}/personalinfo" role="button" style="padding:7px 10px; font-size:16px;font-weight: 400; width:95%;margin-top:2px;"> Complete your profile</a>
+                    <div class="col-md-3 col-xs-10 text-center no-padding">
+                        <a class="btn btn-lg btn-primary" href="#profile/{{userId}}/personalinfo" role="button" style="padding:7px 10px;font-weight: 400; width:95%;margin-top:2px;"> Complete your profile</a>
                     </div>
                 </div>
             </div>

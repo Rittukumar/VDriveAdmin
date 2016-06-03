@@ -2,7 +2,7 @@
 
 class ProductSKU extends \Eloquent {
     protected $fillable = ['id', 'product_id', 'price', 'discount','tax', 'shipping_charge'
-                            ,'size','color','weight','volume','is_trending'];
+                            ,'size','color','weight','volume','is_trending','package_date','expiry_date'];
 
     protected $table = 'product_sku';
 

@@ -1,7 +1,7 @@
 <div class="row" id="promotion-section" ng-controller="evezplacePromotionCtrl">
     <div class="col-sm-12" ng-if="CheckRole == 'Admin'">
         <div class="jumbotron alert alert-dismissible promotion-jumbotron" id="no-border-round" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="right:-10px;"><span aria-hidden="true">×</span>
             </button>
             <h1 style="font-size: 18px; margin-bottom: 20px; color: #2d9db8">Manage Promotion Section</h1>
 
@@ -21,10 +21,13 @@
                  class="img-responsive" alt=""/>
 
             <div class="col-md-8 col-xs-12" id="left-promotion">
-                <h5>{{promotion.left_small_caption}}</h5>
+                <p class="visible-xs">{{promotion.left_small_caption}}</p>
+                <h4 class="hidden-xs">{{promotion.left_small_caption}}</h4>
 
-                <h3>{{promotion.left_large_caption | filter:addEllipsis }}</h3>
-                <a href="{{promotion.left_link}}" class="btn btn-primary btn-lg pull-right">{{promotion.left_button_text}}</a>
+                <p class="visible-xs">{{promotion.left_large_caption | filter:addEllipsis }}</p>
+                <h3 class="hidden-xs">{{promotion.left_large_caption | filter:addEllipsis }}</h3>
+                <a href="{{promotion.left_link}}" class="btn btn-primary btn-lg pull-right hidden-xs">{{promotion.left_button_text}}</a>
+                <a href="{{promotion.left_link}}" class="btn btn-primary btn-xs pull-right visible-xs">{{promotion.left_button_text}}</a>
             </div>
         </div>
         <div class="col-md-4 col-xs-12 small-cover-pic">
@@ -34,7 +37,7 @@
                          class="img-responsive" alt=""/>
 
                     <div class="right-top-promotion">
-                        <h5>{{promotion.right_top_small_caption}}</h5>
+                        <p>{{promotion.right_top_small_caption}}</p>
                     </div>
                 </a>
 
@@ -45,7 +48,7 @@
                          class="img-responsive" alt=""/>
 
                     <div class="right-bottom-promotion">
-                        <h5>{{promotion.right_bottom_small_caption}}</h5>
+                        <p>{{promotion.right_bottom_small_caption}}</p>
                     </div>
                 </a>
             </div>

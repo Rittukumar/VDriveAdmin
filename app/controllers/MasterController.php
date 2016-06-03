@@ -50,15 +50,38 @@ class MasterController extends AppController
 	}
 
 
+	public function getEvezownSections()
+	{
+		try{
+
+			$evezownSections =  EvezownSection::all();
+
+			$successResponse = [
+                 'status' => true,
+                 'evezownSections' => $evezownSections,
+             ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+		}catch(Exception $e){
+
+			return $this->setStatusCode(500)->respondWithError($e);
+
+		}
+	}
+
+
 	public function saveCategory()
 	{
 		try{
 
 			$all = Input::all();
+			$input_array  = $all['data'];
+			$selectedCategory = $input_array['Categories'];
 
-			$categoryId   = $all['id'];
-			$categoryName = $all['category_name'];
-			$sectionId    = $all['section_id'];
+			$categoryId   = isset($selectedCategory['id'])? $selectedCategory['id'] : '';
+			$categoryName = $selectedCategory['category_name'];
+			$sectionId    = $selectedCategory['section_id'];
 
 			if(empty($categoryId))
 		    {
@@ -95,10 +118,12 @@ class MasterController extends AppController
 		try{
 
 			$all = Input::all();
+			$input_array  = $all['data'];
+			$selectedSubCategory = $input_array['SubCategories'];
 
-			$subcategoryId   = $all['id'];
-			$subcategoryName = $all['subcategory_name'];
-			$categoryId      = $all['category_id'];
+			$subcategoryId   = isset($selectedSubCategory['id'])? $selectedSubCategory['id'] : '';
+			$subcategoryName = $selectedSubCategory['subcategory_name'];
+			$categoryId      = $selectedSubCategory['category_id'];
 
 			if(empty($subcategoryId))
 		    {
@@ -129,7 +154,7 @@ class MasterController extends AppController
 	}
 
 
-	public function deleteCategory($categoryId)
+	public function deleteCategory($adminId, $categoryId)
 	{
 
 		try{
@@ -151,7 +176,7 @@ class MasterController extends AppController
 	}
 
 
-	public function deleteSubCategory($subcategoryId)
+	public function deleteSubCategory($adminId, $subcategoryId)
 	{
 
 		try{

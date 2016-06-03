@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav class="navbar navbar-default" id="navContainer">
+<nav class="navbar navbar-default hidden-xs" id="navContainer">
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
@@ -33,7 +33,12 @@
         </ul>
     </div>
 </nav>
-<div class="col-md-12" ng-controller="profileCtrl">
+
+<div class="col-md-2 user-menu-btns visible-xs" ng-include src='"partials/profile/profileLeftMenu.html"'>
+    
+</div>
+
+<div class="col-md-12 col-xs-12" ng-controller="profileCtrl">
     <div class="row user-menu-container square">
         <!-- <div class="row cover-section custom-profile-covers">
             <div class="col-md-4 small-cover-pic">
@@ -53,17 +58,17 @@
                      class="img-responsive thumbnail"/>
             </div>
         </div> -->
-        <div class="col-md-12 user-details">
-            <div class="row coralbg white custom-profile-userpic">
+        <div class="col-md-12 col-xs-12 no-padding user-details">
+            <div class="col-md-12 col-xs-12 no-padding coralbg white">
 
-                <div class="col-md-3 top-margin">
+                <div class="col-md-3 col-xs-4 top-margin">
                     <div class="user-image biothumb">
                         <img ng-src="{{currentProfileImage}}" src="http://placehold.it/293x220"
                              class="img-responsive thumbnail" />
                     </div>
                 </div>
 
-                <div class="col-md-9 no-pad">
+                <div class="col-md-9 col-xs-8 no-pad">
                     <div class="user-pad-profile">
                         <!--name-->
                         <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
@@ -78,22 +83,22 @@
                             </h4>
                         </div>
                     </div>
-                    <div class="row" ng-include='"partials/profile/userProfileCount.html"'></div>
+                    <div class="row hidden-xs" ng-include='"partials/profile/userProfileCount.html"'></div>
                 </div>
             </div>
 
-            <div class="col-md-12"  id="view">
+            <div class="col-md-12 col-xs-12"  id="view">
                 <h3>About Me</h3>
                 <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
 
         </div>
 
-        <div class="col-md-2 user-menu-btns" ng-include src='"partials/profile/profileLeftMenu.html"'>
+        <div class="col-md-2 user-menu-btns hidden-xs" ng-include src='"partials/profile/profileLeftMenu.html"'>
             
         </div>
 
-        <div class="col-lg-10 col-md-10 col-sm-10 bhoechie-tab">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 bhoechie-tab">
                 <!-- Empty -->
                 <div class="empty-section text-center" ng-if="getBuyHistory.length == 0">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>

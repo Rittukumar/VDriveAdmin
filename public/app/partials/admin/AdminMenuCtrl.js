@@ -41,6 +41,10 @@ evezownApp
             link : 'admin/manage/screens' 
 
         },{
+            name: 'Category & Subcategory',
+            link : 'admin/manage/categories' 
+
+        },{
             name: 'Store Contract',
             link : 'admin/store_contract' 
 
