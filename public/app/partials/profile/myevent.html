@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav class="navbar navbar-default" id="navContainer">
+<nav class="navbar navbar-default hidden-xs" id="navContainer">
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
@@ -37,18 +37,24 @@
         </ul>
     </div>
 </nav>
-<div class="col-md-12" ng-controller="profileCtrl">
+
+<div class="col-md-2 col-xs-12 user-menu-btns visible-xs"
+    ng-include src='"partials/profile/PromotionalToolMenu.html"'>
+</div>
+
+
+<div class="col-md-12 col-xs-12" ng-controller="profileCtrl">
     <div class="row user-menu-container square">
-        <div class="col-md-12 user-details">
-            <div class="row coralbg white custom-profile-userpic">
-                <div class="col-md-3 top-margin">
+        <div class="col-md-12 col-xs-12 no-padding user-details">
+            <div class="col-md-12 col-xs-12 coralbg white">
+                <div class="col-md-3 col-xs-4 top-margin">
                     <div class="user-image biothumb">
                         <img ng-src="{{currentProfileImage}}" src="http://placehold.it/293x220" class="img-responsive thumbnail" />
                     </div>
                 </div>
 
 
-                <div class="col-md-9 no-pad">
+                <div class="col-md-9 col-xs-8 no-pad">
                     <div class="user-pad-profile">
                         <!--name-->
                         <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
@@ -63,19 +69,19 @@
                             </h4>
                         </div>
                     </div>
-                    <div class="row" ng-include='"partials/profile/userProfileCount.html"'></div>
+                    <div class="row hidden-xs" ng-include='"partials/profile/userProfileCount.html"'></div>
                 </div>
             </div>
 
-            <div class="col-md-12" id="view">
+            <div class="col-md-12 col-xs-12" id="view">
                 <h3>About Me</h3>
                 <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
         </div>
 
         <!--breadcrumb-->
-        <div class="col-md-12" style="margin-top: 10px;" id="view">
-            <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+        <div class="col-md-12 col-xs-12" style="margin-top: 10px;" id="view">
+            <ul class="breadcrumb" style="background: transparent; padding-left: 0px;font-size:12px;">
                 <li><a href="#home">Home</a> <span class="divider"></span></li>
                 <li><a href="#mystores/{{currentUserId}}">Promotional Tools</a></li>
                 <li class="active">Events</li>
@@ -83,12 +89,12 @@
         </div>
         <!--breadcrumb ends-->
 
-        <div class="col-md-2 user-menu-btns"
+        <div class="col-md-2 user-menu-btns hidden-xs"
             ng-include src='"partials/profile/PromotionalToolMenu.html"'>
         </div>
 
         <!--For Member-->
-        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
+        <div class="col-md-10 col-xs-12 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
             <div class="col-md-12 col-xs-12">
                 <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
@@ -105,8 +111,8 @@
 
         <!--For Admin-->
         <div ng-show="Role == 1 && currentUserId == loggedInUserId">
-            <div class="col-md-7 user-menu user-pad">
-        		<div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+            <div class="col-md-7 col-xs-12 user-menu user-pad">
+        		<div class="col-md-12 panel-heading hidden-xs" style="padding-left: 0px;padding-right: 0px;">
 			        <div class="fragment">
 			            <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
 			            <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
@@ -115,16 +121,19 @@
 			            </p>
 			        </div>
 			    </div>
-                <div class="col-md-12 panel-heading">
-                    <div class="col-md-2">
+                <div class="col-md-12 col-xs-12 panel-heading">
+                    <div class="col-md-2 col-xs-6 no-padding">
                         <h5>
                             Events ({{myEvents.length}})
                         </h5>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-xs-6 pull-right visible-xs no-padding">
+                        <a href="#createevent" class="btn btn-primary"><span class="fa fa-plus"></span> Create Event</a>
+                    </div>
+                    <div class="col-md-3 col-xs-12 no-padding">
                         <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
                     </div>
-                    <div class="col-md-3 col-md-offset-4 pull-right">
+                    <div class="col-md-3 col-md-offset-4 pull-right hidden-xs no-padding">
                         <a href="#createevent" class="btn btn-primary"><span class="fa fa-plus"></span> Create Event</a>
                     </div>
                 </div>
@@ -134,10 +143,10 @@
 
                     <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
                 </div>
-                <div class="col-md-12 circle-section">
+                <div class="col-md-12 col-xs-12 circle-section">
                     <ul class="row event-list">
                         <!-- Row 1 -->
-                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
+                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-repeat="event in myEvents | filter:search">
                             <article>
                                 <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
                                     <div class="img" ng-if="event.event_image == null">
@@ -160,7 +169,7 @@
             </div>
        
 
-            <div class="col-md-3" style="padding-right: 0px">
+            <div class="col-md-3 col-xs-12">
                 <!-- Friend requests -->
                 <div class="panel" style="background: #f7f7f7;">
                     <div class="panel-heading">
@@ -203,8 +212,8 @@
 
         <!--For visiting friends profile-->
         <div ng-show="currentUserId != loggedInUserId">
-            <div class="col-md-10 user-menu user-pad">
-                <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+            <div class="col-md-10 col-xs-12 user-menu user-pad">
+                <div class="col-md-12 panel-heading hidden-xs" style="padding-left: 0px;padding-right: 0px;">
                     <div class="fragment">
                         <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
                         <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Events</h4>
@@ -213,13 +222,13 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-12 panel-heading">
-                    <div class="col-md-2">
+                <div class="col-md-12 col-xs-12 panel-heading">
+                    <div class="col-md-2 col-xs-12">
                         <h5>
                             Events ({{myEvents.length}})
                         </h5>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-xs-12">
                         <input type="text" class="form-control" placeholder="search events" ng-model="search"/>
                     </div>
                 </div>
@@ -229,10 +238,10 @@
 
                     <h3 style="font-weight: 200">We can't seem to find any specials for this category around here</h3>
                 </div>
-                <div class="col-md-12 circle-section">
+                <div class="col-md-12 col-xs-12 circle-section">
                     <ul class="row event-list">
                         <!-- Row 1 -->
-                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-repeat="event in myEvents | filter:search">
+                        <li class="col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-repeat="event in myEvents | filter:search">
                             <article>
                                 <a class="box" href="#eventdetails/{{event.id}}/{{currentUserId}}">
                                     <div class="img" ng-if="event.event_image == null">

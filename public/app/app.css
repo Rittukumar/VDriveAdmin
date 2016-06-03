@@ -134,6 +134,11 @@ input[type=number]::-webkit-outer-spin-button {
         display: block;
     }
 
+    .navbar
+    {
+        margin-bottom:0px;
+    }
+
     .navbar-default .navbar-toggle {
         margin-top: 40px;
         margin-bottom: 40px;
@@ -226,6 +231,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 
 @media (min-width: 768px){
+    .navbar
+    {
+        margin-bottom:10px;
+    }
     #navbar2
     {
         background: none;
@@ -396,6 +405,49 @@ input[type=number]::-webkit-outer-spin-button {
         vertical-align: middle;
         float: none;
     }
+    .reco-image-gallery .thumbnail>img, .thumbnail a>img {
+    width:100%;
+    min-height:115px;
+    max-height:115px;
+    }
+    .custom-text-over-image
+    {
+        left: 0;
+        position:absolute;
+        text-align:center;
+        top: 50px;
+        width: 100%;
+        font-size:24px;
+        color:#ffffff;
+        font-weight: bold;
+    }
+    #btn-login {
+        color : #ffffff;
+        padding: 6px 16px 6px 16px;
+    }
+    .navbar-default .navbar-nav > li >a {
+        font-size: 18px;
+        margin-left: 30px;
+        color: #692668;
+        padding: 5px;
+    }
+    .top-content-section a
+    {
+        text-decoration:none;
+    }
+    .top-content-section a h1
+    {
+        font-size:22px;
+        margin-bottom:10px;
+        margin-top:10px;
+        background-color:#FFFFFF;
+    }
+    .top-content-section p
+    {
+        text-align: justify;
+        word-break: break-all;
+        font-size:15px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -451,14 +503,6 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: small;
     }
 }
-
-.navbar-default .navbar-nav > li >a {
-    font-size: 18px;
-    margin-left: 30px;
-    color: #692668;
-    padding: 5px;
-}
-
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
     border-bottom: 5px solid #e50880;
@@ -604,11 +648,6 @@ margin-top: 10px;
 .btn-create-store:hover {
     background: #B573B5;
     color:#FFFFFF;
-}
-
-#btn-login {
-    color : #ffffff;
-    padding: 6px 16px 6px 16px;
 }
 
 #btn-login:hover
@@ -1224,24 +1263,6 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
     margin-bottom: 5px;
 }
 
-.reco-image-gallery .thumbnail>img, .thumbnail a>img {
-    width:100%;
-    min-height:115px;
-    max-height:115px;
-}
-
-.custom-text-over-image
-{
-    left: 0;
-    position:absolute;
-    text-align:center;
-    top: 50px;
-    width: 100%;
-    font-size:24px;
-    color:#ffffff;
-    font-weight: bold;
-}
-
 .reco-image {
     padding: 0px;
 }
@@ -1646,12 +1667,68 @@ canvas {
         float:left;
     }/*footer ends*/
     
-
+    .btn-primary
+    {
+        font-size: 10px;
+    }
+    .dropdown:hover .dropdown-menu
+    {
+        font-size:10px;
+    }
+    .reco-image-gallery .thumbnail>img, .thumbnail a>img {
+        width:100%;
+        min-height:35px;
+        max-height:35px;
+    }
+    .custom-text-over-image
+    {
+        left: 0;
+        position:absolute;
+        text-align:center;
+        top: 8px;
+        width: 100%;
+        font-size:14px;
+        color:#ffffff;
+        font-weight: bold;
+    }
+    .custom-post-location
+    {
+        font-size:10px;
+    }
+    #btn-login {
+        color : #ffffff;
+        padding: 0px;
+    }
+    .top-content-section a
+    {
+        text-decoration:none;
+    }
+    .top-content-section a h1
+    {
+        font-size:12px;
+        margin-bottom:6px;
+        margin-top:4px;
+        background-color:#FFFFFF;
+    }
+    .top-content-section p
+    {
+        text-align: justify;
+        word-break: break-all;
+        font-size:12px;
+    }
+    .navbar-default .navbar-nav > li >a {
+        font-size: 12px;
+        color: #692668;
+        padding: 5px;
+    }
+    .btn-lg, .btn-group-lg > .btn
+    {
+        font-size: 10px;
+    }
     /*woice/recco starts*/
     .col-md-1 .img-thumbnail
     {
         padding: 4px;
-        max-width:15%;
     }
     .custom-trending-timesago
     {
@@ -1669,8 +1746,6 @@ canvas {
     {
         margin-top:10px;
     }
-
-
     .no-right-pad
     {
         margin-right:16px;

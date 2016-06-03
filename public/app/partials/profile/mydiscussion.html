@@ -1,5 +1,5 @@
 <!-- Static navbar -->
-<nav class="navbar navbar-default" id="navContainer">
+<nav class="navbar navbar-default hidden-xs" id="navContainer">
     <div id="navbar1">
         <ul class="nav navbar-nav">
             <li>
@@ -37,18 +37,23 @@
         </ul>
     </div>
 </nav>
-<div class="col-md-12" ng-controller="profileCtrl">
+
+<div class="col-md-2 col-xs-12 user-menu-btns visible-xs"
+    ng-include src='"partials/profile/PromotionalToolMenu.html"'>
+</div>
+
+<div class="col-md-12 col-xs-12" ng-controller="profileCtrl">
     <div class="row user-menu-container square">
-        <div class="col-md-12 user-details">
-            <div class="row coralbg white custom-profile-userpic">
-                <div class="col-md-3 top-margin">
+        <div class="col-md-12 col-xs-12 no-padding user-details">
+            <div class="col-md-12 col-xs-12 coralbg white">
+                <div class="col-md-3 col-xs-4 top-margin">
                     <div class="user-image biothumb">
                         <img ng-src="{{currentProfileImage}}" src="http://placehold.it/293x220" class="img-responsive thumbnail" />
                     </div>
                 </div>
 
 
-                <div class="col-md-9 no-pad">
+                <div class="col-md-9 col-xs-8 no-pad">
                     <div class="user-pad-profile">
                         <!--name-->
                         <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
@@ -63,19 +68,19 @@
                             </h4>
                         </div>
                     </div>
-                    <div class="row" ng-include='"partials/profile/userProfileCount.html"'></div>
+                    <div class="row hidden-xs" ng-include='"partials/profile/userProfileCount.html"'></div>
                 </div> 
             </div>
 
-            <div class="col-md-12"  id="view">
+            <div class="col-md-12 col-xs-12"  id="view">
                 <h3>About Me</h3>
                 <p style="text-align:justify;padding-bottom:10px;">{{ aboutme }}</p>
             </div>
         </div>
 
         <!--breadcrumb-->
-        <div class="col-md-12" style="margin-top: 10px;" id="view">
-            <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
+        <div class="col-md-12 col-xs-12" style="margin-top: 10px;" id="view">
+            <ul class="breadcrumb" style="background: transparent; padding-left: 0px;font-size:12px;" >
                 <li><a href="#home">Home</a> <span class="divider"></span></li>
                 <li><a href="#mystores/{{currentUserId}}">Promotional Tools</a></li>
                 <li class="active">Discussions</li>
@@ -83,12 +88,12 @@
         </div>
         <!--breadcrumb ends-->
 
-        <div class="col-md-2 user-menu-btns"
+        <div class="col-md-2 user-menu-btns hidden-xs"
             ng-include src='"partials/profile/PromotionalToolMenu.html"'>
         </div>
 
         <!--For Member-->
-        <div class="col-md-10 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
+        <div class="col-md-10 col-xs-12 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
              <div class="col-md-12 col-xs-12">
                 <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
@@ -105,8 +110,8 @@
 
         <!--For Admin-->
         <div ng-show="Role == 1">
-            <div class="col-md-10 user-menu user-pad"  ng-show="Role != 2" ng-controller="forums">
-            	  <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
+            <div class="col-md-10 col-xs-12 user-menu user-pad"  ng-show="Role != 2" ng-controller="forums">
+            	  <div class="col-md-12 panel-heading hidden-xs" style="padding-left: 0px;padding-right: 0px;">
                     <div class="fragment">
                         <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
                         <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Discussion</h4>
@@ -115,20 +120,23 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-12 panel-heading no-padding">
-                    <div class="col-md-2 no-padding">
+                <div class="col-md-12 col-xs-12 panel-heading no-padding" style="margin-top:10px;">
+                    <div class="col-md-2 col-xs-6 no-padding">
                         <h4>
                             Discussions ({{myForums.length}})
                         </h4>
                     </div>
-                    <div class="col-md-4 no-padding">
+                    <div class="col-xs-6 pull-right no-padding visible-xs" ng-if="loggedInUserId == currentUserId">
+                        <a href ng-click="CreateForum()" class="btn btn-primary"><span class="fa fa-plus"></span> Discussion</a>
+                    </div>
+                    <div class="col-md-4 col-xs-12 no-padding">
                         <input type="text" class="form-control" placeholder="Search Discussion" ng-model="forumsearch"/>
                     </div>
-                    <div class="col-md-2 col-md-offset-2 pull-right no-padding" ng-if="loggedInUserId == currentUserId">
+                    <div class="col-md-2 col-md-offset-2 pull-right no-padding hidden-xs" ng-if="loggedInUserId == currentUserId">
                         <a href ng-click="CreateForum()" class="btn btn-primary"><span class="fa fa-plus"></span> Discussion</a>
                     </div>
                 </div>
-                <div class="col-md-12 album-section" style="margin-top:30px;">
+                <div class="col-md-12 col-xs-12 album-section" style="margin-top:30px;">
                     <div class="row forum-section">
                         <div class="category" ng-repeat="forum in myForums | filter:forumsearch">
                             <h5 class="category-title"><i class="glyphicon glyphicon-envelope"></i>&nbsp;&nbsp;<a
