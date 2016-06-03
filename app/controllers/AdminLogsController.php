@@ -7,6 +7,8 @@ class AdminLogsController extends AdminController {
     {
 
         try{
+
+            Log::info('Enterning to Log Method');
             
             if (\Input::get('dl')) {
                 return \Response::download(storage_path() . '/logs/' . \Input::get('dl'));
@@ -29,6 +31,8 @@ class AdminLogsController extends AdminController {
             
 
         }catch(Exception $e){
+
+            Log::error('Error In Log Method');
 
             return $this->setStatusCode(500)->respond($e);
 

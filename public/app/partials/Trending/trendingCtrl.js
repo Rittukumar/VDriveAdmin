@@ -65,15 +65,15 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
         return dateOut;
     };
 
-    $scope.getRole = function ($userId) {
-        $http.get(PATHS.api_url +  'users/' + $userId)
-            .success(function(data){
-                $scope.CheckRole = data.data.role;
-            })
-            .error(function(err){
-                console.log('Error retrieving user');
-            });
-    }
+    // $scope.getRole = function ($userId) {
+    //     $http.get(PATHS.api_url +  'users/' + $userId)
+    //         .success(function(data){
+    //             $scope.CheckRole = data.data.role;
+    //         })
+    //         .error(function(err){
+    //             console.log('Error retrieving user');
+    //         });
+    // }
 
     $scope.GetPostByFilter = function (itemId)
     {
@@ -757,63 +757,73 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
                 if($location.path() == '/streamit' || $location.path() == '/search/advanced')
                 {
                     var postType = data;
-                    var newTypes = [];
+                    var newTypes = []; var newClassifiedsTypes = [];
+
                     for(var i=0; i < postType.length; i++)
                     {
                         var value = postType[i];
-                        if (value.Post_Type == '0') {
+
+                        if (value.Post_Type == '0'){
+
                             newTypes.push(value);
+
+                        }else if (value.Post_Type == '1'){
+                        
+                            newClassifiedsTypes.push(value);
                         }
                     }
-                    //angular.forEach(postType, function (value, key)
-                    //{
-                    //    if (value.Post_Type == '0') {
-                    //        var index = postType.indexOf(value)
-                    //        postType.splice(index);
-                    //    }
-                    //});
+                    
                     $scope.posttypes = newTypes;
+                    $scope.classifieds_types = newClassifiedsTypes;
+                    
                     //$scope.isRecco = true;
                     $scope.buttonTitle = "Stream It";
                     $scope.postTitle = "Create your Stream It";
                     $scope.PageSubTitle = "Stream It";
                     $scope.PageDescription = "Promote, recommend or endorse a Stores or a Business service or both. It helps to create awareness and draw attention. Any member can recommend what or whom they believe in on account of direct experience with the product, service, person or place. This place is used for positive experiences as we have included ‘Be careful’ to voice negative experiences. It is in effect a good tool for word of mouth… spreading the word online.";
+                    
                 }
                 else
                 {
                     $scope.posttypes = data;
                 }
+
                 if ($scope.posttypes.length > 0)
                 {
                     $scope.selectedType = $scope.posttypes[1];
                 }
+                if ($scope.classifieds_types.length > 0)
+                {
+                    $scope.selectedClassifieds = $scope.classifieds_types[1];
+                }
+
             });
     }
 
-    $scope.ReccoClasifieds =function()
-    {
-        $http.get(PATHS.api_url + 'posttypes').
-            success(function (data)
-            {
+    // $scope.ReccoClasifieds =function()
+    // {
+    //     $http.get(PATHS.api_url + 'posttypes').
+    //         success(function (data)
+    //         {
                 
-                    var ClassifiedsType = data;
-                    var newClassifiedsTypes = [];
-                    for(var i=0; i < ClassifiedsType.length; i++)
-                    {
-                        var value = ClassifiedsType[i];
-                        if (value.Post_Type == '1')
-                        {
-                            newClassifiedsTypes.push(value);
-                        }
-                    }
+    //                 var ClassifiedsType = data;
+    //                 var newClassifiedsTypes = [];
+    //                 for(var i=0; i < ClassifiedsType.length; i++)
+    //                 {
+    //                     var value = ClassifiedsType[i];
+    //                     if (value.Post_Type == '1')
+    //                     {
+    //                         newClassifiedsTypes.push(value);
+    //                     }
+    //                 }
 
-                    $scope.classifieds_types = newClassifiedsTypes;
-                    if ($scope.classifieds_types.length > 0)
-                    {
-                        $scope.selectedClassifieds = $scope.classifieds_types[1];
-                    }
-            });
-    }
+    //                 $scope.classifieds_types = newClassifiedsTypes;
+    //                 if ($scope.classifieds_types.length > 0)
+    //                 {
+    //                     $scope.selectedClassifieds = $scope.classifieds_types[1];
+    //                 }
+    //         });
+    // }
 
     $scope.SearchPost = function()
     {
@@ -1260,8 +1270,8 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
     $scope.LoadAllData();
     $scope.GetPostByFilter($rootScope.currentItemId);
     $scope.LoadPostType();
-    $scope.ReccoClasifieds();
-    $scope.getRole($scope.loggedInUser);
+    //$scope.ReccoClasifieds();
+    //$scope.getRole($scope.loggedInUser);
 
 
 });

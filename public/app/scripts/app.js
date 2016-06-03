@@ -445,7 +445,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/redirectHome', {
                 templateUrl: 'partials/evezplace/home.html',
-                controller: 'HomeController',
+                //controller: 'HomeController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
                 }
@@ -454,7 +454,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/', {
                 templateUrl: 'partials/evezplace/home.html',
-                controller: 'HomeController',
+                //controller: 'HomeController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
                 }
@@ -463,7 +463,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/home', {
                 templateUrl: 'partials/evezplace/home.html',
-                controller: 'ApplicationCtrl',
+                //controller: 'ApplicationCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
                 }

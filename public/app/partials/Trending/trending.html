@@ -35,7 +35,7 @@
 </nav>
 <!-- Static navbar Ends-->
 <!-- Main component for a primary marketing message or call to action -->
-<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round" role="alert" ng-controller="ApplicationCtrl">
+<div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
    
@@ -58,7 +58,7 @@
     </ul>
 </div>
 
-<div class="streamit-page" ng-controller="trending">
+<div class="streamit-page">
 
 <!--Post Types Menubar starts-->
 <div class="container">
@@ -109,7 +109,7 @@
                         
                     </div>
                     <div class="col-md-4 no-padding text-right">
-                        <div ng-if="CheckRole == 'Admin'">
+                        <div ng-if="role == 'Admin'">
                             <label for="priority" style="padding:0px;"><h5>Priority:</h5></label>
                             <input type="checkbox" id="priority" name="priority"
                             ng-model="priority"  ng-change="PriorityCheck(priority)" style="width: 12px; height: 12px;margin-top:4px;">
