@@ -17,14 +17,6 @@ Route::get('/', function () {
     return View::make('hello');
 });
 
-// Route::post('paymentstatus/paymentstatus', function () {
-//  	$inputArray = Input::all();
-// 	return View::make('paymentstatus')->with('data',$inputArray);
-// }); 
-
-Route::get('payupaymentsuccess/payupaymentsuccess', function () {
-	return View::make('payupaymentsuccess');
-});
 
 Route::group(array('prefix' => 'v1'), function () {
 

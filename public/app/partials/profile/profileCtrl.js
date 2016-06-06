@@ -92,39 +92,6 @@ evezownApp
         getStoresByOwnerId();
 
 
-
-        $scope.getUserProfileCount =  function () {
-
-            $http.get(PATHS.api_url + 'users/' + $scope.currentUserId +'/getUserProfileCount').
-            success(function (data) {
-
-                $rootScope.friendsList = data.friendsList;
-                $rootScope.circlesList = data.circlesList;
-                $rootScope.eventssList = data.eventssList;
-                $rootScope.blogsList   = data.blogsList;
-                $rootScope.albumsList  = data.albumsList;
-                
-            });
-
-        };
-
-        $scope.getUserProfileCount();
-
-        //function fetchProfileImage(userId)
-        //{
-        //    var imagePath = PATHS.api_url + 'users/' + userId + '/profile_image/current';
-        //    $http.get(imagePath).
-        //        success(function (data, status, headers, config)
-        //        {
-        //            $scope.profileImage = PATHS.api_url +'image/show/'+data;
-        //            $rootScope.$broadcast('profileImage', data);
-        //        })
-        //        .error(function (data)
-        //        {
-        //            console.log(data);
-        //        });
-        //}
-
         function fetchRightCoverImage(userId) {
             var imagePath = PATHS.api_url + 'users/' + userId + '/right_image/current';
             $http.get(imagePath).
@@ -188,24 +155,6 @@ evezownApp
         // Cropper code end
 
 
-        
-
-
-        ////users/{id}/profile_image/all
-        //function fetchAllProfileImage(userId)
-        //{
-        //    var imagePath = PATHS.api_url + 'users/' + userId + '/profile_image/all';
-        //    $http.get(imagePath).
-        //        success(function (data, status, headers, config)
-        //        {
-        //           // $scope.profileImage = PATHS.api_url +'image/show/'+data;
-        //            console.log(data.data);
-        //        })
-        //        .error(function (data)
-        //        {
-        //            console.log(data);
-        //        });
-        //}
 
         $scope.UploadProfileImage = function (files) {
             $scope.imageTag = 0;
