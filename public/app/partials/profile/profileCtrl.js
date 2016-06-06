@@ -63,7 +63,6 @@ evezownApp
                     $scope.currentProfileImage = AuthService.getImage();
                 });
             });
-            $location.hash('view');
         }
 
         function getStoresByOwnerId() {
@@ -96,7 +95,7 @@ evezownApp
 
         $scope.getUserProfileCount =  function () {
 
-            $http.get(PATHS.api_url + 'users/' + $scope.loggedInUserId +'/getUserProfileCount').
+            $http.get(PATHS.api_url + 'users/' + $scope.currentUserId +'/getUserProfileCount').
             success(function (data) {
 
                 $rootScope.friendsList = data.friendsList;
@@ -189,64 +188,7 @@ evezownApp
         // Cropper code end
 
 
-        //take a tour starts
-        $scope.IntroOptions = {
-                steps:[
-                    {
-                        element: '#step1',
-                        intro: "Your personal info here, like name, email, ect"
-                    },
-                    {
-                        element: '#step2',
-                        intro: "Enhance your profile by adding hobbies,achievements, ect",
-                    },
-                    {
-                        element: '#step3',
-                        intro: 'Your online presence. You can add your social network sites here',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#step4',
-                        intro: "Enter your favorite topics, Area of interest",
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#step5',
-                        intro: 'You can refer your friends to join evezown'
-                    },
-                    {
-                        element: '#step6',
-                        intro: 'Your participation in evezown like stores,ecommerce, ect'
-                    },
-                    {
-                        element: '#step7',
-                        intro: 'Other evezown services such as careers, joblistings, ect'
-                    },
-                    {
-                        element: '#step8',
-                        intro: 'Partnering with evezown through blogs,discussions ect'
-                    },
-                    {
-                        element: '#step9',
-                        intro: 'Your Feedback/suggestions for further improvements'
-                    },
-                    {
-                        element: '#step10',
-                        intro: "<div class='tour-step'><b><h3>Thankyou</h3></b>" +
-                        "</div>"
-                    }
-                ],
-                showStepNumbers: false,
-                exitOnOverlayClick: true,
-                exitOnEsc:true,
-                nextLabel: '<strong>NEXT!</strong>',
-                prevLabel: '<span style="color:green">Previous</span>',
-                skipLabel: 'Exit',
-                doneLabel: 'Exit'
-            };
-
-            $scope.ShouldAutoStart = false;
-        //take a tour ends
+        
 
 
         ////users/{id}/profile_image/all

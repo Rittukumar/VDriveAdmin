@@ -1,0 +1,45 @@
+<div class="col-md-12 user-details">
+    <div class="row coralbg white">
+        <div class="col-md-3 top-margin">
+            <div class="user-image biothumb">
+                <img ng-src="{{profileImage}}" src="http://placehold.it/300x200"
+                     class="img-responsive thumbnail" />
+            </div>
+        </div>
+
+        <div class="col-md-9 no-pad">
+            <div class="user-pad-profile">
+                <!--name-->
+                <h3 style="text-transform: capitalize;">{{ detailFirstname }} {{ detailLastname }}</h3>
+                <!--Location-->
+                <div ng-hide="!detailCity || !detailCountry">
+                    <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{detailCity}}, {{detailCountry}}</h4>
+                </div>
+
+                <!--Profession starts-->
+                <!--job and company-->
+                <div ng-hide="!detailDesignation || !detailOrganization">
+                    <h4 style="text-transform: capitalize;">
+                        <i class="fa fa-briefcase"></i> {{detailDesignation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{detailOrganization}}
+                    </h4>
+                </div>
+                <!--Profession ends-->
+            </div>
+            <div class="row" ng-include='"partials/profile/userProfileCount.html"'></div>
+        </div>
+        <div class="col-md-12">
+            <div class="carousel-inner"
+             ng-intro-options="IntroOptions" ng-intro-method="CallMe"
+             ng-intro-oncomplete="CompletedEvent" ng-intro-onexit="ExitEvent"
+             ng-intro-onchange="ChangeEvent" ng-intro-onbeforechange="BeforeChangeEvent"
+             ng-intro-autostart="false">
+            <h3>About Me</h3>
+
+            <p>{{detailaboutme}}</p>
+            
+            <button class="btn btn-lg btn-primary pull-right" ng-click="CallMe();" style="padding-top:6px;padding-bottom:6px;">Take a Tour</button>
+            </div>
+        </div>
+    </div>
+
+</div>

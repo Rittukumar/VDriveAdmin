@@ -33,56 +33,11 @@
         </ul>
     </div>
 </nav>
-<div class="col-md-12" ng-controller="profileCtrl">
+<div class="col-md-12">
     <div class="row user-menu-container square">
-        <div class="col-md-12 user-details">
-            <div class="row coralbg white">
-                <div class="col-md-3 top-margin">
-                    <div class="user-image biothumb">
-                        <img ng-src="{{profileImage}}" src="http://placehold.it/300x450"
-                             class="img-responsive thumbnail" />
-                        <div class="overlay fileUpload" ng-if="userId == loggedInUserId">
-                            <ul class="list-unstyled text-center">
-                                <li><a href>Update Mysite Image</a></li>
-                                <input type="file" class="upload" name="image" nv-file-select uploader="uploader"/>
-                                <div ng-if="uploader.queue.length > 0">
-                                    <!-- Image upload queue section start -->
-                                    <div class="progress" style="">
-                                        <div class="progress-bar" role="progressbar" id="upload-progress-bar"
-                                             ng-style="{ 'width': uploader.progress + '%' }"></div>
-                                    </div>
-                                    <!-- Image upload queue section end -->
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-md-9 no-pad">
-                    <div class="user-pad-profile">
-                        <!--name-->
-                        <h3 style="text-transform: capitalize;">{{ firstname }} {{ lastname }}</h3>
-                        <!--Location-->
-                        <div ng-hide="city == '' || country =='' || city == null || country == null">
-                            <h4 style="text-transform: capitalize;"><i class="fa fa-location-arrow"></i>&nbsp;{{locationDetails}}</h4>
-                        </div>
-                        <!--job and company-->
-                        <div ng-hide="designation == '' || organization =='' || designation == null || organization == null">
-                            <h4 style="text-transform: capitalize;">
-                                <i class="fa fa-briefcase"></i> {{designation}}&nbsp;&nbsp;{{connectingtext}}&nbsp;&nbsp;{{organization}}
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="row" ng-include='"partials/profile/userProfileCount.html"' ng-controller = "profileCtrl"></div>
-                </div>
-                <div class="col-md-12">
-                    <h3>About Me</h3>
+        <div ng-include='"partials/profile/details/depthProfileCount.html"'></div>
 
-                    <p>{{aboutme}}</p>
-                </div>
-            </div>
-
-        </div>
         <div class="col-md-12" id="view" style="margin-top: 10px;">
             <ul class="breadcrumb" style="background: transparent; padding-left: 0px" >
                 <li><a href="#home">Home</a> <span class="divider"></span></li>
@@ -92,40 +47,40 @@
         </div>
         <div class="col-md-2 user-menu-btns">
             <div class="btn-group-vertical square" id="responsive">
-                <a href="#profile/{{userId}}/personalinfo" class="btn btn-block btn-default ">
+                <a id="step1"  data-toggle="tab" data-slide-to="0" href="#profile/{{userId}}/personalinfo" class="btn btn-block btn-default ">
                     <p>Personal Info Basic</p>
                 </a>
-                <a href="#profile/{{userId}}/enhance" class="btn btn-block btn-default ">
+                <a id="step2"  data-toggle="tab" data-slide-to="1" href="#profile/{{userId}}/enhance" class="btn btn-block btn-default">
                     <p>Enhance Profile Page</p>
                 </a>
                 <a href="#profile/{{userId}}/change_password" class="btn btn-default" ng-show="checkforPasswordField">
-                <p>Change Password</p>
+                    <p>Change Password</p>
                 </a>
-                <a href="#profile/{{userId}}/myonline" class="btn btn-default ">
+                <a id="step3"  data-toggle="tab" data-slide-to="2" href="#profile/{{userId}}/myonline" class="btn btn-default">
                     <p>My Online Presence </p>
                 </a>
-                <a href="#profile/favorites" class="btn btn-default active">
+                <a id="step4"  data-toggle="tab" data-slide-to="3" href="#profile/favorites" class="btn btn-default active">
                     <p>Favorites-Topics /</br>Areas of Interest </p>
                 </a>
-                <a href="#profile/{{userId}}/reference" class="btn btn-default ">
+                <a id="step5"  data-toggle="tab" data-slide-to="4" href="#profile/{{userId}}/reference" class="btn btn-default">
                     <p>My Reference info </p>
                 </a>
-                <a href="#profile/{{userId}}/participation" class="btn btn-default ">
+                <a id="step6"  data-toggle="tab" data-slide-to="5" href="#profile/{{userId}}/participation" class="btn btn-default">
                     <p>My Participation in </br>MarketPlace </p>
                 </a>
-                <a href="#profile/{{userId}}/other" class="btn btn-default">
+                <a id="step7"  data-toggle="tab" data-slide-to="6" href="#profile/{{userId}}/other" class="btn btn-default">
                     <p>Other EvezOwn services </p>
                 </a>
-                <a href="#profile/partnering" class="btn btn-default ">
+                <a id="step8"  data-toggle="tab" data-slide-to="7" href="#profile/partnering" class="btn btn-default">
                     <p>Partnering with EvezOwn </p>
                 </a>
-                <a href="#profile/feedback" class="btn btn-default">
+                <a id="step9"  data-toggle="tab" data-slide-to="8" href="#profile/feedback" class="btn btn-default">
                     <p>Feedback/suggestions </p>
                 </a>
             </div>
         </div>
 
-        <div class="col-md-10 user-menu user-pad" ng-controller="profileDetailsCtrl">
+        <div class="col-md-10 user-menu user-pad">
             <div class="col-md-12 panel-heading" style="padding-left: 0px;padding-right: 0px;">
     			        
     		</div>
