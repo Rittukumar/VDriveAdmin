@@ -42,9 +42,9 @@
     ng-include src='"partials/profile/PromotionalToolMenu.html"'>
 </div>
 
-<div class="col-md-12 col-xs-12" ng-controller="profileCtrl">
+<div class="col-md-12 col-xs-12">
     <div class="row user-menu-container square">
-        <div class="col-md-12 col-xs-12 no-padding user-details">
+        <div class="col-md-12 col-xs-12 no-padding user-details" ng-controller="profileCtrl">
             <div class="col-md-12 col-xs-12 coralbg white">
                 <div class="col-md-3 col-xs-4 top-margin">
                     <div class="user-image biothumb">
@@ -94,7 +94,7 @@
         </div>
 
         <!--For Member-->
-        <div class="col-md-10 col-xs-12 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
+        <div class="col-md-10 col-xs-12 user-menu user-pad" ng-show="roleId != 1 && currentUserId == loggedInUserId">
             <div class="col-md-12 col-xs-12">
                 <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
@@ -110,8 +110,8 @@
         </div>
 
         <!--For Admin-->
-        <div ng-show="Role == 1">
-            <div class="col-md-7 col-xs-12 user-menu user-pad" ng-controller="groups">
+        <div ng-show="roleId == 1">
+            <div class="col-md-7 col-xs-12 user-menu user-pad">
             	<div class="col-md-12 panel-heading hidden-xs" style="padding-left: 0px;padding-right: 0px;">
                     <div class="fragment">
                         <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
@@ -166,7 +166,7 @@
             </div>
 
 
-            <div class="col-md-3 col-xs-12" ng-controller="groups" ng-if="loggedInUserId == currentUserId">
+            <div class="col-md-3 col-xs-12" ng-if="loggedInUserId == currentUserId">
                 <!-- Friend requests -->
                 <div class="panel" style="background: #f7f7f7;">
                     <div class="panel-heading">
@@ -191,7 +191,7 @@
             </div>
 
 
-            <div class="col-md-3 col-xs-12" ng-controller="groups" ng-if="loggedInUserId == currentUserId">
+            <div class="col-md-3 col-xs-12" ng-if="loggedInUserId == currentUserId">
                 <!-- Friend requests -->
                 <div class="panel" style="background: #f7f7f7;">
                     <div class="panel-heading">
