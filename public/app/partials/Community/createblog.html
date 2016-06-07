@@ -36,7 +36,7 @@
 
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
-     role="alert" ng-controller="ApplicationCtrl">
+     role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <h1>Blogs</h1>
@@ -50,42 +50,42 @@
     <li><a href="#home">Home</a></li>
     <li><a href="#myblogs/{{userId}}">Blogs</a></li>
 </ul>
-<div ng-controller="blogCntrl">
-<div class="col-md-12">
-<div class="row" style="padding-bottom: 10px">
-<div class="col-md-2">
-    <label for="category-type">choose category?</label>
-</div>
-<div class="col-md-2">
-    <select class="form-control" id="category-type"
-            ng-options="category as category.category_name for category in categories"
-            ng-change="GetSubCategories()" data-ng-model="selectedOption">
-    </select>
-</div>
-</div>
-<div class="row"  style="padding-bottom: 10px">
-<div class="col-md-2">
-    <label for="sub-category-type">choose sub category?</label>
-</div>
-<div class="col-md-2">
-    <select class="form-control" id="sub-category-type"
-            ng-options="subcategory as subcategory.subcategory_name for subcategory in subcategories"
-            data-ng-model="selectedsubcategories" ng-change="ReloadBrand()">
-    </select>
-</div>
-</div>
-<div class="row"  style="padding-bottom: 10px">
-     <div class="col-md-2">
-        <label for="visibility-type">visibility settings</label>
-     </div>
-     <div class="col-md-2">
-        <select class="form-control" id="visibility-type"
-                    ng-options="visibility as visibility.type for visibility in visibilties"
-                    data-ng-model="selectedVisibility">
 
-       </select>
+<div class="col-md-12">
+    <div class="row" style="padding-bottom: 10px">
+        <div class="col-md-2">
+            <label for="category-type">choose category?</label>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" id="category-type"
+                    ng-options="category as category.category_name for category in categories"
+                    ng-change="GetSubCategories()" data-ng-model="selectedOption">
+            </select>
+        </div>
     </div>
-</div>
+    <div class="row"  style="padding-bottom: 10px">
+        <div class="col-md-2">
+            <label for="sub-category-type">choose sub category?</label>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" id="sub-category-type"
+                    ng-options="subcategory as subcategory.subcategory_name for subcategory in subcategories"
+                    data-ng-model="selectedsubcategories" ng-change="ReloadBrand()">
+            </select>
+        </div>
+    </div>
+    <div class="row"  style="padding-bottom: 10px">
+         <div class="col-md-2">
+            <label for="visibility-type">visibility settings</label>
+         </div>
+         <div class="col-md-2">
+            <select class="form-control" id="visibility-type"
+                        ng-options="visibility as visibility.type for visibility in visibilties"
+                        data-ng-model="selectedVisibility">
+
+           </select>
+        </div>
+    </div>
 
 
 
@@ -112,12 +112,9 @@
     </div>
 
     <div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
-        <button class="btn btn-primary btn-block" id="btn-publish"
-                ng-click="SaveBlog(true)">Publish</button>
+        <button class="btn btn-primary btn-block" id="btn-publish" ng-click="SaveBlog(true)">Publish</button>
     </div>
-<div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
-    <button class="btn btn-primary btn-block" id="btn-Save"
-            ng-click="SaveBlog(false)">Save as draft</button>
-</div>
-</div>
+    <div class="col-md-2 pull-right" style="padding-top: 10px; padding-bottom: 10px;">
+        <button class="btn btn-primary btn-block" id="btn-Save" ng-click="SaveBlog(false)">Save as draft</button>
+    </div>
 </div>

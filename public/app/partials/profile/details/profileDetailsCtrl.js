@@ -66,15 +66,13 @@ evezownApp
                 $scope.profile.profileUserId = data.user_id;
                 $scope.profile.firstname = data.firstname;
                 $scope.profile.lastname = data.lastname;
-                $scope.profile.phone1 = data.phone;
-                var PhoneNumber = parseInt($scope.profile.phone1);
-                $scope.profile.phone = PhoneNumber;
+                $scope.profile.phone = parseInt(data.phone);
                 $scope.profile.email = data.email;
                 $scope.profile.streetAddress = data.streetAddress;
                 $scope.profile.city = data.city;
                 $scope.profile.state = data.state;
                 $scope.profile.country = data.country;
-                $scope.profile.zip = data.zip;
+                $scope.profile.zip = parseInt(data.zip);
                 $scope.profile.education1 = data.education1;
                 $scope.profile.education2 = data.education2;
                 $scope.profile.education3 = data.education3;
@@ -490,14 +488,51 @@ evezownApp
         }
 
         fetchProfileInfo($routeParams.id);
-        fetchPersonalInfo($routeParams.id);
-        fetchEnhancedProfile($routeParams.id);
-        fetchOnlineProfile($routeParams.id);
-        fetchReferenceProfile($routeParams.id);
-        fetchParticipationProfile($routeParams.id);
-        fetchInterestProfile($scope.favorites.userId);
-        fetchOtherServicesProfile($routeParams.id);
-        fetchPartneringProfile($scope.partnering.userId);
-        fetchFeedbackProfile($scope.feedback.userId);
+        //fetchPersonalInfo($routeParams.id);
+        //fetchEnhancedProfile($routeParams.id);
+        //fetchOnlineProfile($routeParams.id);
+        //fetchReferenceProfile($routeParams.id);
+        //fetchParticipationProfile($routeParams.id);
+        //fetchInterestProfile($scope.favorites.userId);
+        //fetchOtherServicesProfile($routeParams.id);
+        //fetchPartneringProfile($scope.partnering.userId);
+        //fetchFeedbackProfile($scope.feedback.userId);
+        
 
+        if(($location.path() == '/profile/'+$routeParams.id+'/personalinfo') || ($location.path() == '/profile/myprofile/'+$routeParams.id))
+        {
+            fetchPersonalInfo($routeParams.id);
+        }
+        if(($location.path() == '/profile/'+$routeParams.id+'/enhance') || ($location.path() == '/profile/myprofile/'+$routeParams.id))
+        {
+            fetchEnhancedProfile($routeParams.id);
+        }
+        if(($location.path() == '/profile/'+$routeParams.id+'/myonline') || ($location.path() == '/profile/myprofile/'+$routeParams.id))
+        {
+            fetchOnlineProfile($routeParams.id);
+        }
+        if(($location.path() == '/profile/favorites') || ($location.path() == '/profile/myprofile/'+$routeParams.id))
+        {
+            fetchInterestProfile($scope.favorites.userId);
+        }
+        if(($location.path() == '/profile/'+$routeParams.id+'/reference'))
+        {
+            fetchReferenceProfile($routeParams.id);
+        }
+        if(($location.path() == '/profile/'+$routeParams.id+'/participation'))
+        {
+            fetchParticipationProfile($routeParams.id);
+        }
+        if(($location.path() == '/profile/'+$routeParams.id+'/other'))
+        {
+            fetchOtherServicesProfile($routeParams.id);
+        }
+        if(($location.path() == '/profile/partnering'))
+        {
+            fetchPartneringProfile($scope.partnering.userId);
+        }
+        if(($location.path() == '/profile/feedback'))
+        {
+            fetchFeedbackProfile($scope.feedback.userId);
+        }
 });

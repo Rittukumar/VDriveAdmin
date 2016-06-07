@@ -34,12 +34,12 @@
     </div>
 </nav>
 
-<ul class="breadcrumb" ng-controller="activity">
+<ul class="breadcrumb">
     <li><a href="#home">Home</a></li>
     <li><a href="#mydiscussion/{{currentUserId}}">Discussion</a></li>
 </ul>
 <div class="custom-forum-details-section">
-<div class="col-md-12 trending-section custom-forum-header" ng-controller="forums">
+<div class="col-md-12 trending-section custom-forum-header">
     <!--<div ng-if="selectedActivity.images.length > 0"  class="col-xs-12 spec center-block reco-image-gallery">-->
         <!--<div class="col-xs-3 reco-image" ng-repeat="image in selectedActivity.images | limitTo:4">-->
             <!--<a ng-click="openLightBox(selectedActivity.images,$index)" class="thumbnail">-->
@@ -116,7 +116,7 @@
         </div>
     </div>
 </div>
-<div ng-controller="forums">
+<div>
     <div class="col-md-12 commentLoadSection" ng-repeat="reply in selectedForum.replies">
         <div class="col-md-12">
             <div class="row" >
@@ -148,7 +148,7 @@
         </div>
     </div>
 </div>
-<div class="row custom-forum-add-comment" class="col-md-12" ng-controller="forums">
+<div class="row custom-forum-add-comment" class="col-md-12">
     <div class="col-md-10 commentSection">
         <textarea class="form-control" rows="2" placeholder="Add comment?"  data-ng-model="addedcomment"/>
     </div>

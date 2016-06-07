@@ -35,7 +35,7 @@
 </nav>
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
-     role="alert" ng-controller="ApplicationCtrl">
+     role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <h1>Build Community</h1>
@@ -49,7 +49,7 @@
     <li><a href="#home">Home</a></li>
     <li><a href="#myevents/{{currentUserId}}">Events</a></li>
 </ul>
-<div ng-controller="eventCtrl" class="custom-event-details">
+<div class="custom-event-details">
 <div class="col-md-12 circle-section" style="padding-right: 0px; padding-left: 0px">
 <div class="col-md-9 panel-heading " style="padding-left: 0px; padding-right: 0px">
     <div class="col-sm-12" style="padding-left: 0px; padding-right: 0px">
@@ -256,7 +256,7 @@
     </div>
     <!-- Announcement list section ends -->
 </div>
-<div class="col-md-3 custom-event-panel" style="padding-right: 0px" ng-controller="eventCtrl">
+<div class="col-md-3 custom-event-panel" style="padding-right: 0px">
     <div class="panel" style="background: #f7f7f7;">
         <div class="panel-heading">
             <h5 style="color: #337ab7; font-weight: 600 ;margin-top: 5px; margin-bottom: 5px">Attendees
@@ -293,7 +293,7 @@
         </div>
         <div class="col-md-12 custom-event-invite" style="padding-right: 0px" ng-if="selectedEvent.owner_id == loggedInUserId">
            
-            <div class="panel" style="background: #f7f7f7;" ng-controller="eventCtrl">
+            <div class="panel" style="background: #f7f7f7;">
                 <div class="panel-heading">
                     <input type="text" placeholder="Search friends" ng-model="queryMembers" class="form-control"/>
                 </div>

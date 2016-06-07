@@ -35,7 +35,7 @@
 </nav>
 <!-- Main component for a primary marketing message or call to action -->
 <div class="jumbotron alert alert-dismissible inner-jumbotron shadow " ng-show="caption" id="no-border-round"
-     role="alert" ng-controller="ApplicationCtrl">
+     role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
     </button>
     <h1>Events</h1>
@@ -49,7 +49,6 @@
     <li><a href="#home">Home</a></li>
     <li><a href="#myevents/{{userId}}">Events</a></li>
 </ul>
-<div ng-controller="eventCtrl">
     <div class="col-md-12" style="padding: 0px">
         <div class="col-md-12" style="padding: 0px">
         <input class="form-control" type="text" placeholder="Title"
@@ -87,4 +86,3 @@
         <button class="btn btn-primary btn-block" id="btn-Save"
                 ng-click="CreateEvent()">Save event</button>
     </div>
-</div>

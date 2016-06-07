@@ -93,7 +93,7 @@
         </div>
 
         <!--For Member-->
-        <div class="col-md-10 col-xs-12 user-menu user-pad" ng-show="Role != 1 && currentUserId == loggedInUserId">
+        <div class="col-md-10 col-xs-12 user-menu user-pad" ng-show="roleId != 1 && currentUserId == loggedInUserId">
              <div class="col-md-12 col-xs-12">
                 <div class="col-md-12 col-xs-12 empty-section text-center">
                     <span class="fa fa-exclamation-circle" style="color: #e50880; font-size: 64px;"></span>
@@ -109,8 +109,8 @@
         </div>
 
         <!--For Admin-->
-        <div ng-show="Role == 1">
-            <div class="col-md-10 col-xs-12 user-menu user-pad"  ng-show="Role != 2" ng-controller="forums">
+        <div ng-show="roleId == 1">
+            <div class="col-md-10 col-xs-12 user-menu user-pad">
             	  <div class="col-md-12 panel-heading hidden-xs" style="padding-left: 0px;padding-right: 0px;">
                     <div class="fragment">
                         <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
