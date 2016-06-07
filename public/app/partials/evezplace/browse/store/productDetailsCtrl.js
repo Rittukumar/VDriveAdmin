@@ -360,7 +360,7 @@ evezownApp.controller('ProductDetailsCtrl', function ($scope, $rootScope, ngDial
         }
         
 
-        toastr.success('Add to Cart', 'Product added to cart successfully.');
+        toastr.success('Product added to cart successfully.');
 
         $rootScope.$broadcast('shoppingCartItems', {message: shoppingCartItems});
     }
