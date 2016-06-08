@@ -2087,6 +2087,20 @@ evezownApp.directive('httpPrefix', function() {
     };
 });
 
+evezownApp.directive('autofocusWhen', function ($timeout) {
+    return {
+        link: function(scope, element, attrs) {
+            scope.$watch(attrs.autofocusWhen, function(newValue){
+                if ( newValue ) {
+                    $timeout(function(){
+                        element.focus();
+                    });
+                }
+            });
+        }
+     };
+});
+
 evezownApp.directive( 'backButton', function() {
     return {
         restrict: 'A',
