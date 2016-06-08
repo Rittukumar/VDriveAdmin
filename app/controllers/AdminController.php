@@ -129,15 +129,14 @@ class AdminController extends AppController
     public function getAllUsers($admin_id)
     {
         try {
+
             $hasAdminRole = User::find($admin_id)->hasRole('Admin');
 
             if (!$hasAdminRole) {
                 return $this->setStatusCode(403)->respondWithError('User does not have permission!');
             }
 
-            $limit = Input::all();
-
-            $users = User::paginate($limit);
+            $users = User::all();
 
             if (!$users) {
                 return $this->responseNotFound('User Not Found!');
@@ -146,8 +145,6 @@ class AdminController extends AppController
             $fractal = new Manager();
 
             $usersResource = new Collection($users, new UserTransformer);
-
-            $usersResource->setPaginator(new IlluminatePaginatorAdapter($users));
 
             $data = $fractal->createData($usersResource);
 
