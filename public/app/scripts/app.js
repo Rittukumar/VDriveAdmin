@@ -2037,6 +2037,7 @@ evezownApp.directive('ngThumb', ['$window', function ($window) {
     };
 }]);
 
+//default option(select) in select box
 evezownApp.directive('select', function ($interpolate) {
     return {
         restrict: 'E',
@@ -2050,7 +2051,7 @@ evezownApp.directive('select', function ($interpolate) {
     };
 });
 
-
+//Confrim before delete
 evezownApp.directive('ngReallyClick', [function() {
     return {
         restrict: 'A',
@@ -2065,6 +2066,7 @@ evezownApp.directive('ngReallyClick', [function() {
     }
 }]);
 
+//Add http prefix before in the url input elements
 evezownApp.directive('httpPrefix', function() {
     return {
         restrict: 'A',
@@ -2087,6 +2089,7 @@ evezownApp.directive('httpPrefix', function() {
     };
 });
 
+//focus to a div element
 evezownApp.directive('autofocusWhen', function ($timeout) {
     return {
         link: function(scope, element, attrs) {
@@ -2101,6 +2104,7 @@ evezownApp.directive('autofocusWhen', function ($timeout) {
      };
 });
 
+//Back button (implemented in breadcrumb - search products)
 evezownApp.directive( 'backButton', function() {
     return {
         restrict: 'A',
@@ -2113,6 +2117,7 @@ evezownApp.directive( 'backButton', function() {
     };
 });
 
+//custom popovers(implemented in hints - create store)
 evezownApp.directive('customPopover', function () {
     return {
         restrict: 'A',
@@ -2129,7 +2134,7 @@ evezownApp.directive('customPopover', function () {
     };
 });
 
-
+//Trigger a function on enter key press(implemented in search products - marketplace)
 evezownApp.directive('ngEnter', function () {
         return {
            link: function (scope, elements, attrs) {

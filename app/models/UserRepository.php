@@ -31,6 +31,8 @@ class UserRepository
         $profileId = DB::table('user_profile')->insert(array(
             'firstname' => array_get($input, 'firstname'),
             'lastname' => array_get($input, 'lastname'),
+            'email' => array_get($input, 'email'),
+            'phone' => array_get($input, 'phone'),
             'user_id' => $user->id
         ));
 

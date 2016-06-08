@@ -67,6 +67,10 @@ evezownApp
             {
                 toastr.error("Password mismatch", 'Register');
             }
+            else if(!$scope.master.phone)
+            {
+                toastr.error("Please enter phone number", 'Register');
+            }
             else if(!$scope.master.tandc)
             {
                 toastr.error("Please accept the terms and conditions", 'Register');
@@ -88,6 +92,7 @@ evezownApp
                             password : $scope.master.password,
                             code : $scope.master.code,
                             referrer : $scope.master.referrer_email,
+                            phone : $scope.master.phone,
                             role : $scope.role
                         },
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).

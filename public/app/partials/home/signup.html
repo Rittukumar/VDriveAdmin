@@ -53,9 +53,20 @@
                         </div>
                         <ul id="strength" check-strength="master.password"></ul>
                     </div>
-                    <div class="form-group">
-                        <input type="code" name="code" id="code" class="form-control input-lg"
-                               placeholder="Invite code" tabindex="7" ng-model="master.code">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <div class="form-group">
+                                <input type="number" name="phone" id="phone" class="form-control input-lg"
+                                       placeholder="Phone Number" tabindex="7" ng-model="master.phone" pattern=".{10,15}">
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-8 col-md-6">
+                            <div class="form-group">
+                                <input type="code" name="code" id="code" class="form-control input-lg"
+                                       placeholder="Invite code" tabindex="8" ng-model="master.code">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12 checkbox checkbox-primary">
