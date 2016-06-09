@@ -17,6 +17,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/admin', {
                 templateUrl: 'partials/admin/home.html',
+                controller: 'AdminInviteCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator]
                 }
