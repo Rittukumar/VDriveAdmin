@@ -1,5 +1,13 @@
-<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+<ul ng-if="pagesrc == 'marketplace'" class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#home">Home</a> <span class="divider"></span></li>
     <li><a href="#evezplace">Marketplace</a></li>
+    <li><a href="#store/browse">Stores</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<ul ng-if="pagesrc == 'profile'" class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#home">Home</a> <span class="divider"></span></li>
+    <li><a href="#mystores/{{loggedInUserId}}">Mystores</a></li>
     <li>Manage Store</li>
 </ul>
 
@@ -15,7 +23,7 @@
     <!--</p>-->
 <!--</div>-->
 <!--Description Ends-->
-<div class="col-sm-9" ng-controller="CreateStoreController">
+<div class="col-sm-9">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <h5 style="color: #e51385; font-weight: 700; font-size: 1.2em">Store Front - Footer Info</h5>

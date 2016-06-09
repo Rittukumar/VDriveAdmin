@@ -1,7 +1,13 @@
-<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+<ul ng-if="pagesrc == 'marketplace'" class="breadcrumb create-store-breadcrumb" style="background: transparent">
     <li><a href="#home">Home</a> <span class="divider"></span></li>
     <li><a href="#evezplace">Marketplace</a></li>
     <li><a href="#store/browse">Stores</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<ul ng-if="pagesrc == 'profile'" class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#home">Home</a> <span class="divider"></span></li>
+    <li><a href="#mystores/{{loggedInUserId}}">Mystores</a></li>
     <li>Manage Store</li>
 </ul>
 
@@ -19,7 +25,7 @@
 <!--Description Ends-->
 
 <!--psyment offer-->
-<div class="col-sm-9 no-padding" ng-controller="CreateStoreController">
+<div class="col-sm-9 no-padding">
 
     <div class="col-sm-12"  ng-show="storeStatus == 8">
         <div class="row">

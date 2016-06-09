@@ -1350,6 +1350,17 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/store/:storeId/manage/store_info', {
                 templateUrl: 'partials/evezplace/manage/store/store_info.html',
+                controller: 'CreateStoreController',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
+                }
+            });
+
+        $routeProvider
+
+            .when('/store/:storeId/manage/store_info/:pagesrc', {
+                templateUrl: 'partials/evezplace/manage/store/store_info.html',
+                controller: 'CreateStoreController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1396,8 +1407,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/store_selection', {
+            .when('/store/:id/manage/store_selection/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/store_selection_contract.html',
+                controller: 'CreateStoreController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1405,8 +1417,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/store_front', {
+            .when('/store/:id/manage/store_front/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/store_front.html',
+                controller: 'CreateStoreController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1414,8 +1427,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/store_crm', {
+            .when('/store/:id/manage/store_crm/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/storecrm.html',
+                controller: 'CreateStoreController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1423,8 +1437,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/store_front_footer', {
+            .when('/store/:id/manage/store_front_footer/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/storefrontfooter.html',
+                controller: 'CreateStoreController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1432,8 +1447,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/product_catalogue', {
+            .when('/store/:id/manage/product_catalogue/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/product_catalogue.html',
+                controller: 'ManageStoreCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1441,8 +1457,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/analytics', {
+            .when('/store/:id/manage/analytics/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/analytics.html',
+                controller: 'CreateStoreController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1450,8 +1467,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/promotion', {
+            .when('/store/:id/manage/promotion/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/promotion.html',
+                controller: 'CreateStoreController',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1459,8 +1477,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/commerce_engine', {
+            .when('/store/:id/manage/commerce_engine/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/commerce_engine.html',
+                controller: 'ManageStoreCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1477,8 +1496,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             });
         $routeProvider
 
-            .when('/store/:id/manage/stock_management', {
+            .when('/store/:id/manage/stock_management/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/stock_management.html',
+                controller: 'ManageStoreCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1486,8 +1506,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/orders', {
+            .when('/store/:id/manage/orders/:pagesrc', {
                 templateUrl: 'partials/evezplace/manage/store/orders/orders.html',
+                controller: 'ManageOrdersCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1495,8 +1516,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/rfi', {
+            .when('/store/:id/manage/rfi/:pagesrc', {
                 templateUrl: 'views/manage/store/manage_rfi.html',
+                controller: 'manageRfiCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1504,8 +1526,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $routeProvider
 
-            .when('/store/:id/manage/rfq', {
+            .when('/store/:id/manage/rfq/:pagesrc', {
                 templateUrl: 'views/manage/store/manage_rfq.html',
+                controller: 'manageRfqCtrl',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
@@ -1918,12 +1941,12 @@ evezownApp.constant('AUTH_EVENTS', {
 });
 
 evezownApp.constant('PATHS', {
-    //api_url: 'http://localhost:8000/v1/'
+    api_url: 'http://localhost:8000/v1/'
     //api_url: 'http://creativethoughts.co.in/evezown/api/public/v1/'
     //api_url: 'http://evezown.com/api/public/v1/'
     //api_url: 'http://evezown.com/beta/api/public/v1/'
     //api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
-	api_url: 'http://52.77.144.180/OwnUrSite/public/v1/'
+	//api_url: 'http://52.77.144.180/OwnUrSite/public/v1/'
 	
 });
 

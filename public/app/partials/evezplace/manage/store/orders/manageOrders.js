@@ -2,16 +2,18 @@
  * Created by vishu on 06/11/15.
  */
 evezownApp
-    .controller('ManageOrdersCtrl', function ($scope,$http,PATHS,$cookieStore,OrderService) {
+    .controller('ManageOrdersCtrl', function ($scope,$http,PATHS,$cookieStore,OrderService,$routeParams) {
         $scope.orders = [];
         $scope.service_url = PATHS.api_url;
         $scope.usertoken = $cookieStore.get('userToken');
+        $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.UpdateOrder = {};
         $scope.UpdateOrder.selectedItemStatus = null;
         $scope.UpdateOrder.orderComment = "";
         $scope.orderstatuses = [];
         $scope.isCollapsed = true;
         $scope.title = 'Manage';
+        $scope.pagesrc = $routeParams.pagesrc;
 
         $scope.GetAllOrdersByUser = function () {
             $http.get(PATHS.api_url + 'orders',
