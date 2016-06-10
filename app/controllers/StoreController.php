@@ -344,6 +344,10 @@ class StoreController extends AppController
             	return "Contract upload failed, Please try again later";
             }
 
+            $emails = UIHelper::getAdminEmails();
+
+            $configMail = UIHelper::getAdminConfigMail();
+
             $user = array(
                 'email' => $storeEmail,
                 'storename' => $storeName
@@ -354,7 +358,7 @@ class StoreController extends AppController
                 'email' => $storeEmail
             );
 
-            $emails = 'editor@evezown.com';
+            array_push($emails, $configMail['config_email']);
 
             Mail::send('emails.storeContract', $data, function ($message) use ($user, $emails) {
                 $message->from($user['email']);
@@ -417,6 +421,8 @@ class StoreController extends AppController
                 $content = 'Your Uploaded contract has been rejected by Evezown admin, Please upload a valid contract';
             }
 
+            $configMail = UIHelper::getAdminConfigMail();
+
             $user = array(
             'email' => $storeEmail,
             'storename' => $storeName
@@ -428,7 +434,7 @@ class StoreController extends AppController
                 'content' => $content
             );
 
-            $emails = 'editor@evezown.com';
+            $emails = $configMail['config_email'];
 
            
             Mail::send('emails.storeContractStatus', $data, function ($message) use ($user, $emails) {
@@ -1389,9 +1395,13 @@ class StoreController extends AppController
 
             // Send an request & notification email to admin.
 
+            $emails = UIHelper::getAdminEmails();
+
+            $configMail = UIHelper::getAdminConfigMail();
+
             $user = array(
                 'email' => $StoreOwnerEmail,
-                'name' => $StoreName
+                'name'  => $StoreName
             );
 
             $data = array(
@@ -1399,9 +1409,11 @@ class StoreController extends AppController
                 'name' => $StoreName
             );
 
-            Mail::send('emails.storePublishRequest', $data, function ($message) use ($user) {
+            array_push($emails, $configMail['config_email']);
+
+            Mail::send('emails.storePublishRequest', $data, function ($message) use ($user, $emails) {
                 $message->from($user['email']);
-                $message->to('editor@evezown.com')->subject('Store publish request');
+                $message->to($emails)->subject('Store publish request');
             });
 
             $successResponse = [
@@ -1462,9 +1474,13 @@ class StoreController extends AppController
             // Send an notification email to user if store published by admin.
             if($storeStatusId == 3)
             {
+                $configMail = UIHelper::getAdminConfigMail();
+
                 $user = array(
                 'email' => $StoreOwnerEmail,
-                'name' => $StoreName
+                'name' => $StoreName,
+                'config_email' => $configMail['config_email'],
+                'config_name'  => $configMail['config_name']
                 );
 
                 $data = array(
@@ -1473,7 +1489,7 @@ class StoreController extends AppController
                 );
 
                 Mail::send('emails.storePublishByAdmin', $data, function ($message) use ($user) {
-                    $message->from('editor@evezown.com');
+                    $message->from($user['config_email']);
                     $message->to($user['email'])->subject('Store publish');
                 });
 
@@ -1540,9 +1556,15 @@ class StoreController extends AppController
 
             // Send an request & notification email to admin.
 
+            $emails = UIHelper::getAdminEmails();
+
+            $configMail = UIHelper::getAdminConfigMail();
+
             $user = array(
                 'email' => $StoreOwnerEmail,
-                'name' => $StoreName
+                'name' => $StoreName,
+                'config_email' => $configMail['config_email'],
+                'config_name'  => $configMail['config_name']
             );
 
             $data = array(
@@ -1550,14 +1572,17 @@ class StoreController extends AppController
                 'name' => $StoreName,
                 'phone' => $StoreOwnerPhone
             );
+
+            array_push($emails, $configMail['config_email']);
+
             //mail to admin
-            Mail::send('emails.storeSubscriptionRequest', $data, function ($message) use ($user) {
+            Mail::send('emails.storeSubscriptionRequest', $data, function ($message) use ($user, $emails) {
                 $message->from($user['email']);
-                $message->to('editor@evezown.com')->subject('Store Subscription Request');
+                $message->to($emails)->subject('Store Subscription Request');
             });
             //mail to user
             Mail::send('emails.SubscriptionRequestUser', $data, function ($message) use ($user) {
-                $message->from('editor@evezown.com');
+                $message->from($user['config_email']);
                 $message->to($user['email'])->subject('Store Subscription Request');
             });
 
@@ -1709,9 +1734,13 @@ class StoreController extends AppController
 
             // Send an email to store admin.
 
+            $configMail = UIHelper::getAdminConfigMail();
+
             $user = array(
                 'email' => $storeEmail,
-                'name' => $storeName
+                'name' => $storeName,
+                'config_email' => $configMail['config_email'],
+                'config_name'  => $configMail['config_name']
             );
 
 
@@ -1748,7 +1777,7 @@ class StoreController extends AppController
             
 
             Mail::send('emails.storeResponseApprove', $data, function ($message) use ($user) {
-                $message->from('editor@evezown.com');
+                $message->from($user['config_email']);
                 $message->to($user['email'])->subject('Store publish response');
             });
 
@@ -1803,10 +1832,14 @@ class StoreController extends AppController
 
             // Send an email to store admin.
 
+            $configMail = UIHelper::getAdminConfigMail();
+
             $user = array(
                 'email' => $storeEmail,
                 'name' => $storeName,
-                'content' => $emailContent
+                'content' => $emailContent,
+                'config_email' => $configMail['config_email'],
+                'config_name'  => $configMail['config_name']
             );
 
             $data = array(
@@ -1816,7 +1849,7 @@ class StoreController extends AppController
             );
 
             Mail::send('emails.storeResponseReject', $data, function ($message) use ($user) {
-                $message->from('editor@evezown.com');
+                $message->from($user['config_email']);
                 $message->to($user['email'])->subject('Store publish response');
             });
 

@@ -1125,7 +1125,7 @@ evezownApp.controller('trending', function ($scope, FileUploader, PATHS, usSpinn
     }
     $scope.AddRewoiceForRecentActivity = function (post) {
         // users/{user_id}/posts/{post_id}/rewoice
-        $http.post(PATHS.api_url + 'users/' + $scope.currentUserId + '/posts/' + post.id + '/rewoice'
+        $http.post(PATHS.api_url + 'users/' + $cookieStore.get('userId') + '/posts/' + post.id + '/rewoice'
             , {
                 data: {},
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}

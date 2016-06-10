@@ -31,7 +31,8 @@
                                 <p>{{ $content }}, Store Details are as follows:</p>
                                 <p>StoreName: {{ $email }} </p>
                                 <p>Email: {{ $storename }}</p>
-                                <p>Any queries? Please write to editor@evezown.com</p>
+                                <?php $configMail = UIHelper::getAdminConfigMail(); ?>
+                                <p>Any queries? Please write to {{$configMail['config_name']}}</p>
                                 <br/>
                             </div>
                         </div>

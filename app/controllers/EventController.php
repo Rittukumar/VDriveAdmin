@@ -54,8 +54,32 @@ class EventController extends AppController {
         try{
             $limit = Input::get('limit') ?: 50;
 
-            $events = WoiceEvent::with('attendees.profile.profile_image', 'event_image', 'location', 'owner')->where('owner_id', $userId)
-                ->paginate($limit);
+            $events = WoiceEvent::with('attendees.profile.profile_image', 'event_image', 'location', 'owner')
+                                  ->orWhere('owner_id', $userId)
+	                              ->whereExists(function($query)
+	                                {
+	                                    $query->select(DB::raw(1))
+	                                          ->from('users')
+	                                          ->whereRaw('users.id = events.owner_id')
+	                                          ->whereRaw('blocked = 0')
+	                                          ->whereRaw('deleted = 0');
+	                                })
+	                              ->orWhereExists(function($query)  use ($userId)
+	                                {
+	                                    $query->select(DB::raw(1))
+	                                          ->from('event_invites')
+	                                          ->whereRaw('event_invites.event_id = events.id')
+	                                          ->whereRaw('friend_user_id = '. $userId);
+	                                })
+	                              ->whereExists(function($query)
+	                                {
+	                                    $query->select(DB::raw(1))
+	                                          ->from('users')
+	                                          ->whereRaw('users.id = events.owner_id')
+	                                          ->whereRaw('blocked = 0')
+	                                          ->whereRaw('deleted = 0');
+	                                })
+                                  ->paginate($limit);
 
             if(! $events)
             {
@@ -86,7 +110,7 @@ class EventController extends AppController {
 			$limit = Input::get('limit') ?: 15;
 
 			$events = WoiceEvent::with('attendees.profile.profile_image', 'event_image', 'location','grades')
-				->where('owner_id', $id)->paginate($limit);
+				                 ->where('owner_id', $id)->paginate($limit);
 
 			if(! $events)
 			{
@@ -117,14 +141,15 @@ class EventController extends AppController {
 	public function showEvent($event_id)
 	{
 		try{
-			$event = WoiceEvent::with('attendees.profile.profile_image', 'event_image', 'location')->find($event_id);
+			
+			$event = WoiceEvent::with('owner.profile_image', 'attendees.profile.profile_image', 'event_image', 'location')->find($event_id);
 
             $avgGrade = EventGrade::join('grades', 'event_grades.grade_id', '=', 'grades.id')
-                ->where('event_grades.event_id', $event_id)
-                ->avg('scale');
+					                ->where('event_grades.event_id', $event_id)
+					                ->avg('scale');
 
             $event->scale = number_format($avgGrade,1);
-
+            
 			if(! $event)
 			{
 				return $this->responseNotFound('Event Not Found!');

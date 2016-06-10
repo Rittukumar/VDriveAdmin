@@ -260,9 +260,15 @@ class PaymentController extends AppController {
 
                 // Send an notification email to store admin and editor.
 
+                $emails = UIHelper::getAdminEmails();
+
+                $configMail = UIHelper::getAdminConfigMail();
+
                 $user = array(
                     'email' => $UserEmail,
-                    'name' => $StoreName
+                    'name' => $StoreName,
+                    'config_email' => $configMail['config_email'],
+                    'config_name'  => $configMail['config_name']
                 );
 
                 $data = array(
@@ -272,10 +278,11 @@ class PaymentController extends AppController {
                     'payment' => $PaymentAmount
                 );
 
-                $emails = [$UserEmail, 'editor@evezown.com'];
+                array_push($emails, $UserEmail, $configMail['config_email']);
+
 
                 Mail::send('emails.storePaymentSuccess', $data, function ($message) use ($user, $emails) {
-                    $message->from('editor@evezown.com');
+                    $message->from($user['config_email']);
                     $message->to($emails)->subject('Store Activated successfully');
                 });
 

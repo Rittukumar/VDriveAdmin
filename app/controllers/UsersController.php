@@ -404,12 +404,17 @@ class UsersController extends AppController
                     ->update(array('password' => $Encpt));
 
                 //Send email to user.
+
+                $configMail = UIHelper::getAdminConfigMail();
+
                 $emailUser = array(
-                    'email' => $OldPass[0]->email
+                    'email' => $OldPass[0]->email,
+                    'config_email' => $configMail['config_email'],
+                    'config_name'  => $configMail['config_name']
                 );
 
                 Mail::send('emails.passwordChanged', [], function ($message) use ($emailUser) {
-                    $message->from('Editor@evezown.com', 'Evezown Team');
+                    $message->from($emailUser['config_email'], $emailUser['config_name']);
                     $message->to($emailUser['email'])->subject('Evezown password changed');
                 });
 
@@ -505,12 +510,17 @@ class UsersController extends AppController
                 
 
                 //Send email to user.
+
+                $configMail = UIHelper::getAdminConfigMail();
+
                 $emailUser = array(
-                    'email' => $CheckUser[0]->email
+                    'email' => $CheckUser[0]->email,
+                    'config_email' => $configMail['config_email'],
+                    'config_name'  => $configMail['config_name']
                 );
 
                 Mail::send('emails.passwordChanged', [], function ($message) use ($emailUser) {
-                    $message->from('Editor@evezown.com', 'Evezown Team');
+                    $message->from($emailUser['config_email'], $emailUser['config_name']);
                     $message->to($emailUser['email'])->subject('Evezown password changed');
                 });
 

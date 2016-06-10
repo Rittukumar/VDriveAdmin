@@ -261,12 +261,18 @@ class AdminController extends AppController
 //            $message->to($buyer['email'], $buyer['email'])->subject('Your order placed!');
 //        });
 
+        $configMail = UIHelper::getAdminConfigMail();
+
         $store = array(
-            'email' => 'radhakrishnan.radha@gmail.com'
+            'email' => 'radhakrishnan.radha@gmail.com',
+            'config_email' => $configMail['config_email'],
+            'config_name'  => $configMail['config_name']
         );
 
+        
+
         Mail::send('emails.store-order', $data, function ($message) use ($store) {
-            $message->from('editor@evezown.com', 'Evezown Admin');
+            $message->from($store['config_email'], $store['config_name']);
             $message->to($store['email'], $store['email'])->subject('You received an order!');
         });
 
