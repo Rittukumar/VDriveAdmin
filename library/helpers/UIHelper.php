@@ -455,6 +455,61 @@ EOF;
 
     }
 
+
+    public static function generateShareContent($username, $title, $description, $image_name, $url)
+    {
+
+    	// 1. generate the HTML
+	    $html  = '<!doctype html>'.PHP_EOL;
+	    $html .= '<html>'.PHP_EOL;
+	    $html .= '<head>'.PHP_EOL;
+	    $html .= '<meta name="author" content="'.$username.'"/>'.PHP_EOL;
+	    $html .= '<meta property="og:title" content="'.$title.'"/>'.PHP_EOL;
+	    $html .= '<meta property="og:locale" content="en_US" />'.PHP_EOL;
+        $html .= '<meta property="og:type" content="website">'.PHP_EOL;
+	    $html .= '<meta property="og:description" content="'.$description.'"/>'.PHP_EOL;
+	    $html .= '<meta property="og:image" content="'.$image_name.'"/>'.PHP_EOL;
+	    $html .= '<meta property="og:url" content="'.$url.'">'.PHP_EOL;
+	    $html .= '<meta property="fb:app_id" content="506370999551048" />'.PHP_EOL;
+	    $html .= '</head>'.PHP_EOL;
+	    $html .= '<body></body>'.PHP_EOL;
+	    $html .= '</html>';
+
+	    // 2. return the page
+	    return $html;
+
+    }
+
+
+    public static function getAdminConfigMail()
+    {
+
+    	$ConfigData   = AdminConfigurations::find(1);
+        $config_name  = $ConfigData->config_name;
+        $config_value = $ConfigData->config_value;
+      
+        return array('config_email' => $config_value, 'config_name' => $config_name);
+    }
+
+
+    public static function getAdminEmails()
+    {
+    	$allAdminEmails = [];
+
+        $adminUsers = Role::with('users')->where('name','Admin')->get();
+
+        if (!$adminUsers->isEmpty()) {
+	        foreach ($adminUsers as $key => $value) {
+	            foreach ($value['users'] as $k => $v) {
+	                $allAdminEmails[] = $v->email;
+	            }
+	        }
+        }
+
+        return $allAdminEmails;
+            
+    }
+
   
 
 }

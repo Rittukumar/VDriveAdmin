@@ -175,11 +175,15 @@ class OrderController extends AppController
 
                 $code = 'EvezownBuyer-'.$this->getRandomString();
 
+                $configMail = UIHelper::getAdminConfigMail();
+
                 $buyer = Buyer::create([
                     'name'  => $buyerName,
                     'email' => $buyerEmail,
                     'phone' => $buyerPhone,
-                    'code'  => $code
+                    'code'  => $code,
+                    'config_email' => $configMail['config_email'],
+                    'config_name'  => $configMail['config_name']
                 ]);
 
                 if($buyer){
@@ -192,7 +196,7 @@ class OrderController extends AppController
                     );
 
                     Mail::send('emails.buyercode', $data, function ($message) use ($buyer) {
-                        $message->from('editor@evezown.com', 'Evezown Admin');
+                        $message->from($buyer['config_email'], $buyer['config_name']);
                         $message->to($buyer['email'], $buyer['email'])->subject('Your Buyer Code!');
                     });
 
@@ -461,18 +465,28 @@ class OrderController extends AppController
                     'order' => $order
                 );
 
-                Mail::send('emails.customerorder', $data, function ($message) use ($buyerEmail) {
-                    $message->from('editor@evezown.com', 'Evezown Admin');
-                    $message->to($buyerEmail, $buyerEmail)->subject('Your order placed!');
+                $configMail = UIHelper::getAdminConfigMail();
+
+                $customerorder = array(
+                    'buyerEmail'   => $buyerEmail,
+                    'config_email' => $configMail['config_email'],
+                    'config_name'  => $configMail['config_name']
+                    );
+
+                Mail::send('emails.customerorder', $data, function ($message) use ($customerorder) {
+                    $message->from($customerorder['config_email'], $customerorder['config_name']);
+                    $message->to($customerorder['buyerEmail'], $customerorder['buyerEmail'])->subject('Your order placed!');
                 });
 
                 if ($storeItem->email_address != null) {
                     $store = array(
-                        'email' => $storeItem->email_address
+                        'email' => $storeItem->email_address,
+                        'config_email' => $configMail['config_email'],
+                        'config_name'  => $configMail['config_name']
                     );
 
                     Mail::send('emails.store-order', $data, function ($message) use ($store) {
-                        $message->from('editor@evezown.com', 'Evezown Admin');
+                        $message->from($store['config_email'], $store['config_name']);
                         $message->to($store['email'], $store['email'])->subject('You received an order!');
                     });
                 }
