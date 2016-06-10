@@ -8,8 +8,11 @@
  * Controller of the appApp
  */
 evezownApp
-  .controller('manageRfqCtrl', function ($scope, $routeParams, StoreService) {
+  .controller('manageRfqCtrl', function ($scope, $routeParams, StoreService, $cookieStore) {
+
     var storeId = $routeParams.id;
+    $scope.pagesrc = $routeParams.pagesrc;
+    $scope.loggedInUserId = $cookieStore.get('userId');
 
     function getAllStoreRfq(page) {
       StoreService.getStoreRfq(storeId, page).

@@ -7,11 +7,11 @@ evezownApp
                                              ngTableParams,$rootScope,$http,PATHS,ngDialog,FileUploader) {
 
         // This count is dynamic based on selection of store type.
-
         $scope.selectedProductLineType = null;
         $scope.productImages = [];
         $scope.loggedInUserId = $cookieStore.get('userId');
         $scope.service_url = PATHS.api_url;
+        $scope.pagesrc = $routeParams.pagesrc;
         $rootScope.AllProductLines = [];
         $scope.totalProducts = 0;
         $scope.MaxProductsFree = 16;
@@ -86,7 +86,7 @@ evezownApp
                     else
                     {
                         toastr.error('Please make payment and add product',"Payment pending");
-                        $location.path('/store/'+ $scope.currentStore[0].id +'/manage/store_info');
+                        $location.path('/store/'+ $scope.currentStore[0].id +'/manage/store_info/'+ $scope.pagesrc);
                     }
                 }
                 else

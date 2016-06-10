@@ -141,12 +141,23 @@
         <!--For Business-->
         <div class="col-md-10 col-xs-12 user-menu user-pad" ng-if="Role != 2 && loggedInUserId == currentUserId">
             <div class="col-md-12 panel-heading hidden-xs" style="padding-left: 0px;padding-right: 0px;">
-                <div class="fragment">
+                <div class="fragment col-md-12">
                     <a><span id='close' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode); return false;'>x</span></a>
                     <h4 style="color: #369;font-family:'Raleway', sans-serif;font-size:18px;font-weight:500;">Stores</h4>
                     <p>
-                        If you own a business, products or services or both, want to start a new one, This is the place for you.  We have made it simple for you. You get all the tools to  create your web store and promote it, tab by tab fill in details. Arm yourself with real bright images, get your script and description in place before hand, Go with the flow.
+                        If you own a business, products or services or both, want to start a new one, This is the place for you.  We have made it simple for you. You get all the tools to  create your web store and promote it, tab by tab fill in details. Arm yourself with real bright images, get your script and description in place before hand, Go with the flow. <b>For more information on (What do i get?, Types of stores, Store Faqs) <a ng-click="MoreDetails = !MoreDetails">Click Here</a></b>
                     </p>
+                    <div class="col-md-12" ng-show="MoreDetails">
+                        <div class="col-md-4 text-center">
+                            <a href="#whatdoiget" class="btn btn-default col-md-8">What do i get?</a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a href="#typeofstores" class="btn btn-default col-md-8">Types of stores</a>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <a href="#faq" class="btn btn-default col-md-8">Store Faqs</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12 col-xs-12 panel-heading">
@@ -184,7 +195,7 @@
                                         <a href="#store/{{item.id}}/profile" style="color: #ffffff; font-size: 1.2em"><h5 style="padding: 10px">{{item.title}}</h5></a>
                                     </div>
                                     <div class="col-xs-6">
-                                        <a href="#store/{{item.id}}/manage/store_info" class="btn btn-link btn-sm pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">manage store</a>
+                                        <a href="#store/{{item.id}}/manage/store_info/{{pagesrc}}" class="btn btn-link btn-sm pull-right" style="color: #ffffff; margin-top: 16px; margin-right: 5px">manage store</a>
                                     </div>
                                 </div>
                             </div>

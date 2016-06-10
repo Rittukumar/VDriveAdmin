@@ -19,6 +19,7 @@ evezownApp
         $scope.collage3 = "";
         $scope.formData.storeContactEmail="";
         $scope.formData.StoreName = "";
+        $scope.pagesrc = $routeParams.pagesrc;
 
         $scope.filePath = PATHS.api_url + 'image/show/';
 
@@ -1677,7 +1678,7 @@ evezownApp
 
                     if ($scope.currentStore.length > 0) {
 
-                        if (($location.path() == '/store/create/step1') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_info') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_info')) {
+                        if (($location.path() == '/store/create/step1') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_info/'+ $scope.pagesrc) || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_info')) {
                             $scope.formData.title = $scope.currentStore[0]['title'];
                             if ($scope.currentStore[0]['own_a_physical_store'] == '1') {
                                 $scope.formData.isPhysicalStore = true;
@@ -1706,7 +1707,7 @@ evezownApp
                                 counter++;
                             });
                         }
-                        else if (($location.path() == '/store/create/step2') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_selection') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_selection')) {
+                        else if (($location.path() == '/store/create/step2') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_selection/'+ $scope.pagesrc) || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_selection')) {
                             $scope.formData.panNumber = $scope.currentStore[0]['business_info']['pan_number'];
                             $scope.formData.tinNumber = $scope.currentStore[0]['business_info']['tin_number'];
                             $scope.formData.vatNumber = $scope.currentStore[0]['business_info']['vat_number'];
@@ -1723,7 +1724,7 @@ evezownApp
                             $scope.formData.StoreName = $scope.currentStore[0]['title'];
                             $scope.GetSelectedStoreSubscription();
                         }
-                        else if (($location.path() == '/store/create/step3') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front')) {
+                        else if (($location.path() == '/store/create/step3') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front/'+ $scope.pagesrc) || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front')) {
                             $scope.formData.storeTitle = $scope.currentStore[0]['store_front_info']['store_caption'];
                             $scope.formData.storeAboutUs = $scope.currentStore[0]['store_front_info']['store_about_us'];
                             $scope.formData.storeTargetAudience = $scope.currentStore[0]['store_front_info']['target_audience'];
@@ -1768,7 +1769,7 @@ evezownApp
                                 $scope.addCollage.ProfileCollageImage.croppedImage = null;
                             }
                         }
-                        else if (($location.path() == '/store/create/step4') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_crm') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front_footer') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front_footer')) {
+                        else if (($location.path() == '/store/create/step4') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_crm/'+ $scope.pagesrc) || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/store_front_footer') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_front_footer')) {
                             $scope.formData.storeEmail = $scope.currentStore[0]['store_front_info']['store_contact_email'];
                             $scope.formData.storePhone1 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone1']);
                             $scope.formData.storePhone2 = parseInt($scope.currentStore[0]['store_front_info']['store_contact_phone2']);
@@ -1780,7 +1781,7 @@ evezownApp
                             $scope.formData.link2 = $scope.currentStore[0]['store_front_info']['store_mandatory_disclosure_link2'];
                             $scope.formData.link3 = $scope.currentStore[0]['store_front_info']['store_mandatory_disclosure_link3'];
                         }
-                        else if (($location.path() == '/store/create/step5') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/promotion') || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_promotion')) {
+                        else if (($location.path() == '/store/create/step5') || ($location.path() == '/store/' + $scope.currentStoreId + '/manage/promotion/'+ $scope.pagesrc) || ($location.path() == '/admin/store/' + $scope.currentStoreId + '/manage/admin_store_promotion')) {
                             $scope.formData.classifiedPrice = $scope.currentStore[0]['store_front_promotion']['promotion_price'];
                             $scope.formData.classifiedTagline = $scope.currentStore[0]['store_front_promotion']['promotion_tagline'];
                             $scope.formData.classifiedDescription = $scope.currentStore[0]['store_front_promotion']['promotion_description'];
@@ -1837,6 +1838,7 @@ evezownApp
             $scope.email = $scope.Selected_Store.store_front_info.store_contact_email;
             $scope.phone = $scope.Selected_Store.store_front_info.store_contact_phone1;
             $scope.zipcode = $scope.currentStore[0].id;
+            $scope.PageSource = $scope.pagesrc;
             $scope.productInfo = $scope.sub_type;
             $scope.orderAmount    = $scope.totalPrice;
             $scope.transactions   = $scope.makeUniqeId();

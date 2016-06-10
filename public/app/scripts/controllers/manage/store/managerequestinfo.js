@@ -8,8 +8,11 @@
  * Controller of the evezownApp
  */
 evezownApp
-  .controller('manageRfiCtrl', function ($scope, $routeParams, StoreService) {
+  .controller('manageRfiCtrl', function ($scope, $routeParams, StoreService, $cookieStore) {
+
     var storeId = $routeParams.id;
+    $scope.pagesrc = $routeParams.pagesrc;
+    $scope.loggedInUserId = $cookieStore.get('userId');
 
     function getAllProductsRfi(page) {
       StoreService.getProductRfi(storeId, page).

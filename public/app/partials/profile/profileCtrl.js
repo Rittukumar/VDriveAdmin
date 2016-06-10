@@ -5,6 +5,7 @@ evezownApp
                                          ImageService, $rootScope, $location) {
 
         $scope.loggedInUserId = $cookieStore.get('userId');
+        $scope.pagesrc = "profile";
         $scope.currentUserId = $routeParams.id;
         $scope.carouselTitle = "Evezown";
         $scope.Role = $cookieStore.get('userRole');

@@ -35,6 +35,7 @@
 			$status = $data["status"];
 			$amount = $data["amount"];
 			$storeId = $data["zipcode"];
+			$PageSource = $data["address1"];
 		?>
 
 <?php if ($status ==  "success") { 
@@ -46,7 +47,7 @@
 	<div style="background-color:#FFFFFF;width:100%;float:left;text-align:center;">
 		<p style="padding:0px 0px 0px 10px;font-size:20px;"><label>Amount Paid : </label> <b style="color:#55C334;">&#x20B9;<?php echo $amount ?></b></p>
 		<p style="text-align:center;color:#8E8E94;">Thank you for using Evezown</p><br>
-		<p><a href="<?php echo Config::get('app.evezown_url'); ?>/store/<?php echo $storeId ?>/manage/store_info" class="button">Return to Evezown</a></p><br>
+		<p><a href="<?php echo Config::get('app.evezown_url'); ?>/store/<?php echo $storeId ?>/manage/store_info/<?php echo $PageSource ?>" class="button">Return to Evezown</a></p><br>
 	</div>
 </div>	
 <?php }
@@ -59,7 +60,7 @@ else { ?>
 
 
 			<div style="background-color:#FFFFFF;width:100%;float:left;text-align:center;">
-				<br><p><a href="<?php echo Config::get('app.evezown_url'); ?>/store/<?php echo $storeId ?>/manage/store_info" class="button">Return to Evezown</a></p><br>
+				<br><p><a href="<?php echo Config::get('app.evezown_url'); ?>/store/<?php echo $storeId ?>/manage/store_info/<?php echo $PageSource ?>" class="button">Return to Evezown</a></p><br>
 			</div>
 
 		</div>

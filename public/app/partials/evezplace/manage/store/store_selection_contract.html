@@ -1,11 +1,19 @@
-<ul class="breadcrumb create-store-breadcrumb" style="background: transparent">
+<ul ng-if="pagesrc == 'marketplace'" class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#home">Home</a> <span class="divider"></span></li>
     <li><a href="#evezplace">Marketplace</a></li>
+    <li><a href="#store/browse">Stores</a></li>
+    <li>Manage Store</li>
+</ul>
+
+<ul ng-if="pagesrc == 'profile'" class="breadcrumb create-store-breadcrumb" style="background: transparent">
+    <li><a href="#home">Home</a> <span class="divider"></span></li>
+    <li><a href="#mystores/{{loggedInUserId}}">Mystores</a></li>
     <li>Manage Store</li>
 </ul>
 
 <div ng-include src='"partials/evezplace/manage/store/manage_store_left_menu.html"'></div>
 
-<div class="col-sm-9"  ng-controller="CreateStoreController">
+<div class="col-sm-9">
 
     <!--Description starts-->
     <div class="jumbotron alert alert-dismissible inner-jumbotron shadow"  id="no-border-round" role="alert" style="padding:0px 28px 10px 16px;font-size:12px;">
