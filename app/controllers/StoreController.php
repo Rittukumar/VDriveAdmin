@@ -200,6 +200,7 @@ class StoreController extends AppController
 
             $input_array = $input['data'];
             $storeId = $input_array['StoreId'];
+            $MaxProduct = '';
 			
             if (isset($input_array['storeType'])) {
                 $storeType = $input_array['storeType'];
@@ -259,11 +260,21 @@ class StoreController extends AppController
                 $billingContactNumber = '';
             }
 
+            if ($storeType == 1)
+            {
+                $MaxProduct = 16;
+            }
+
+            else if($storeType == 2)
+            {
+                $MaxProduct = 64;
+            }
 
             $currentStore = Store::find($storeId);
 
             if ($currentStore) {
                 $currentStore->store_subscription_id = $storeType;
+                $currentStore->product_limit = $MaxProduct;
                 $currentStore->save();
             }
 
@@ -312,6 +323,40 @@ class StoreController extends AppController
         } catch (Exception $e) {
 
             return $this->setStatusCode(500)->respondWithError($e);
+        }
+    }
+
+    /*Update Product MAx limit by admin*/
+    public function updateProductLimit()
+    {
+        try {
+
+            $input = Input::all();
+
+            $input_array = $input['data'];
+            $storeId = $input_array['StoreId'];
+            $ProductLimit = $input_array['ProductLimit'];
+
+            $UpdateLimit = Store::find($storeId);
+
+            if ($UpdateLimit) {
+                $UpdateLimit->product_limit = $ProductLimit;
+                $UpdateLimit->save();
+            }
+
+            $successResponse = [
+                'status' => true,
+                'message' => 'Product limit updated successfully'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+        }
+        catch (Exception $e) {
+            $errorMessage = [
+                'status' => false,
+                'message' => "Product limit update failed"
+            ];
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
         }
     }
     
