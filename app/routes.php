@@ -293,6 +293,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::get('users/store/getstorestatus/enums', 'StoreController@getStoreStatusEnum');
     Route::post('users/store/setstorestatus/Accept', 'StoreController@StoreAcceptByAdmin');
     Route::post('users/store/setstorestatus/Reject', 'StoreController@StoreRejectByAdmin');
+    Route::post('users/store/delete', 'StoreController@deleteStore');
 
 
     //UpdateStoreFooterInfo

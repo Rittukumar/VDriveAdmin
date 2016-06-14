@@ -3,7 +3,7 @@
 
 evezownApp
     .controller('storelist',
-    function AdminUsers($scope, $http, $routeParams, PATHS, usSpinnerService, Session, ngDialog, $cookieStore)
+    function AdminUsers($scope, $http, $routeParams, PATHS, usSpinnerService, Session, ngDialog, $cookieStore, StoreService)
     {
 
         $scope.stores = [];
@@ -336,5 +336,29 @@ evezownApp
                 $scope.GetAllStores();
             });
         }*/
+
+        $scope.storeDelete = function (storeId){
+
+           var actionConfirm = true;
+
+            actionConfirm = confirm("Are you sure you want to Delete Store");
+
+            if(actionConfirm){
+
+                StoreService.deleteStore(storeId).
+                then(function (data) {
+                    if(data.status == true)
+                    {
+                       toastr.success(data.message);
+                       $scope.GetAllStores();
+                    }else{
+                       toastr.error('Store deletion failed, Please try again later');
+                    }
+                });
+                
+            }
+
+        };
+
         $scope.GetAllStoreStatusEnums();
     });

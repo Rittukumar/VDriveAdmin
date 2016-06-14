@@ -366,6 +366,25 @@ evezownApp.factory('StoreService', ['$http', '$q', 'PATHS', '$cookieStore', 'loc
             return deferred.promise;
         };
 
+
+        StoreService.deleteStore = function(storeId){
+
+            storeData = {storeId : storeId};
+
+            var deferred = $q.defer();
+
+            $http.post(PATHS.api_url + 'users/store/delete',storeData)
+              .success(function (data) {
+                deferred.resolve(data);
+              })
+              .error(function (err) {
+                deferred.reject(err);
+            });
+
+          return deferred.promise;    
+
+        };
+
         return StoreService;
 
     }]);

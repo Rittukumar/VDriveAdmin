@@ -34,7 +34,11 @@
                                 <tr ng-repeat="store in stores | filter:storesearch">
                                     <td>{{$index + 1}}</td>
                                     <td><a href="#store/{{store.id}}" target="blank" style="text-decoration:none;">{{store.title}}</a></td>
-                                    <td><a href="#admin/store/{{store.id}}/manage/admin_store_info" target="blank"><i class="fa fa-pencil-square"></i></a></td>
+                                    <td>
+                                        <a href="#admin/store/{{store.id}}/manage/admin_store_info" target="blank"><i class="fa fa-pencil-square"></i></a>
+                                        &nbsp;
+                                        <a ng-click="storeDelete(store.id)" class="btn btn-link"><i class="fa fa-times-circle"></i></a>
+                                   </td>
                                     <td>{{store.profile.firstname}} {{store.profile.lastname}}</td>
                                     <td><p>{{store.street_address}}</p><p>{{store.city}}</p><p>{{store.state}}</p><p>{{store.country}}</p><p>{{store.zip}}</p></td>
                                     <td>

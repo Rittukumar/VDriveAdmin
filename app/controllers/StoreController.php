@@ -2546,4 +2546,32 @@ class StoreController extends AppController
         }
     }
 
+
+    public function deleteStore(){
+
+        try {
+
+            $inputs_array = Input::all();
+
+            $storeId = $inputs_array['storeId'];
+
+            Store::where('id', $storeId)->first()->delete();
+
+            $successResponse = [
+                'status' => true,
+                'message' => 'Store deleted successfully!'
+            ];
+
+            return $this->setStatusCode(200)->respond($successResponse);
+
+        } catch (Exception $e) {
+            $errorMessage = [
+                'status' => false,
+                'message' => $e
+            ];
+
+            return $this->setStatusCode(500)->respondWithError($errorMessage);
+        }
+    }
+
 }
