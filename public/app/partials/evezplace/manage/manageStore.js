@@ -56,45 +56,63 @@ evezownApp
             $rootScope.currentStoreId = $routeParams.storeId;
         }
 
+        /*Temp array for Known stores*/
+        $scope.OwnStores = ['71'];
+        $scope.EvezStore = false;
+        if($scope.OwnStores.indexOf($rootScope.currentStoreId) !== -1) {
+          $scope.EvezStore = true;
+        }
+        /*Ends*/
 
         $scope.ShowAddProduct = function()
         {
-            $scope.CheckSub = $scope.currentStore[0].store_subscription_id;
-            $scope.CurrentStatus = $scope.currentStore[0].store_status.status_id;
-            //free
-            if($scope.CheckSub == 1)
+            if($scope.EvezStore)
             {
-                if($scope.totalProducts < $scope.MaxProductsFree)
-                {
-                    $scope.isAddProductHidden = true;
-                    $scope.isProductSKUHidden = false;
-                }
-                else
-                {
-                    toastr.error('Max limit reached',"Upgrade to add more products");
-                }
+                $scope.isAddProductHidden = true;
+                $scope.isProductSKUHidden = false;
             }
-            if($scope.CheckSub == 2)
+
+            else
             {
-                if($scope.totalProducts < $scope.MaxProductsPremium)
+                $scope.CheckSub = $scope.currentStore[0].store_subscription_id;
+                $scope.CurrentStatus = $scope.currentStore[0].store_status.status_id;
+                //free
+                if($scope.CheckSub == 1)
                 {
-                    if($scope.CurrentStatus == 7)
+                    if($scope.totalProducts < $scope.MaxProductsFree)
                     {
                         $scope.isAddProductHidden = true;
                         $scope.isProductSKUHidden = false;
                     }
                     else
                     {
-                        toastr.error('Please make payment and add product',"Payment pending");
-                        $location.path('/store/'+ $scope.currentStore[0].id +'/manage/store_info/'+ $scope.pagesrc);
+                        toastr.error('Max limit reached',"Upgrade to add more products");
                     }
                 }
-                else
+                if($scope.CheckSub == 2)
                 {
-                    toastr.error('Max limit reached',"Upgrade to add more products")
+                    if($scope.totalProducts < $scope.MaxProductsPremium)
+                    {
+                        if($scope.CurrentStatus == 7)
+                        {
+                            $scope.isAddProductHidden = true;
+                            $scope.isProductSKUHidden = false;
+                        }
+                        else
+                        {
+                            toastr.error('Please make payment and add product',"Payment pending");
+                            $location.path('/store/'+ $scope.currentStore[0].id +'/manage/store_info/'+ $scope.pagesrc);
+                        }
+                    }
+                    else
+                    {
+                        toastr.error('Max limit reached',"Upgrade to add more products")
+                    }
                 }
-            }
+            }  
         }
+
+
         $scope.HideAddProduct = function()
         {
             $scope.isAddProductHidden = false;
