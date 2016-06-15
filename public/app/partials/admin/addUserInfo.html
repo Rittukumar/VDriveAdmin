@@ -69,16 +69,15 @@
                                             <ul id="strength" check-strength="master.password"></ul>
                                         </div>
 
-                                        <span us-spinner="{radius:6, width:2, length: 2,color: '#e50880'}" spinner-key="spinner-1" ></span>
                                         <div class="row">
-                                            <div class="col-xs-12 col-md-8 col-md-offset-2" style="margin-top: 10px">
-                                                <button
-                                                        class="btn btn-primary btn-block btn-lg"
-                                                        tabindex="22" ng-click="saveUserInfo(master)" style="height: 40px">Save</button>
+                                            <div class="col-xs-12 col-sm-8 col-md-6">
+                                                <input type="number" name="phone" id="phone" class="form-control input-lg" placeholder="Phone Number" tabindex="7" ng-model="master.phone" pattern=".{10,15}" required>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-8 col-md-6">
+                                                <span us-spinner="{radius:6, width:2, length: 2,color: '#e50880'}" spinner-key="spinner-1" ></span>
+                                                <button class="btn btn-primary btn-block btn-lg" tabindex="22" ng-click="saveUserInfo(master)">Save</button>
                                             </div>
                                         </div>
-
-
                                     </form>
 
 

@@ -217,15 +217,19 @@ evezownApp
                 else if ($scope.master.password != $scope.master.cpassword) {
                     toastr.error("Confirm password do not match", 'Register');
                 }
+                else if (!$scope.master.phone) {
+                    toastr.error("Please enter phone number", 'Register');
+                }
                 else {
                     usSpinnerService.spin('spinner-1');
-                    $http.post(PATHS.api_url + 'admin/'+$cookieStore.get('userId')+'/users/add_new_user'
+                   $http.post(PATHS.api_url + 'admin/'+$cookieStore.get('userId')+'/users/add_new_user'
                         , {
                             data: {
                                 firstname: $scope.master.firstname,
                                 lastname: $scope.master.lastname,
                                 email: $scope.master.emailId,
                                 password: $scope.master.password,
+                                phone: $scope.master.phone,
                                 role: $scope.role
                             },
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
