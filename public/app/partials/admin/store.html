@@ -27,6 +27,7 @@
                                 <th>Manage</th>
                                 <th>Owner</th>
                                 <th>Address</th>
+                                <th>Product Limit</th>
                                 <th>Status</th>
                                 </thead>
                                 <tbody>
@@ -41,6 +42,7 @@
                                    </td>
                                     <td>{{store.profile.firstname}} {{store.profile.lastname}}</td>
                                     <td><p>{{store.street_address}}</p><p>{{store.city}}</p><p>{{store.state}}</p><p>{{store.country}}</p><p>{{store.zip}}</p></td>
+                                    <td><a href ng-click="UpdateProductLimit(store.id,store.title,store.product_limit)" style="text-decoration:none;">{{store.product_limit}}</a></td>
                                     <td>
                                         <p data-placement="top" data-toggle="tooltip" title="status">
                                             <select class=" form-control" id="status-type" ng-options="status.id as status.status for status in storeStatusEnum" data-ng-model="store.store_status.status_id" ng-change="UpdateStoreStatus(store)">

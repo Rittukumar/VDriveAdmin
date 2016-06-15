@@ -64,6 +64,43 @@ evezownApp
             });
         }
 
+
+        $scope.UpdateProductLimit = function(StoreId, StoreTitle, Limit)
+        {
+            //alert(StoreId);
+            $scope.ProductStoreName = StoreTitle;
+            $scope.ProductStoreId = StoreId;
+            $scope.product_limit = Limit;
+            ngDialog.openConfirm({            
+                    template: '<div><h3 class="text-center">Store Title : {{ProductStoreName}}</h3>' +
+                    '<h5>Product Limit: <input type="text" class="form-control" ng-model="product_limit"/></h5>' +
+                    '<input type="button" value="Save Changes" class="center" ng-click="ProductLimitUpdate(ProductStoreId, product_limit);"/>' +
+                    '<input type="button" value="close" class="center" ng-click="closeThisDialog()"/></div>' ,
+                    plain: true,
+                    scope:$scope           
+                    });
+        }
+
+        $scope.ProductLimitUpdate = function(StoreId, Limit)
+        {
+            $http.post(PATHS.api_url + 'admin/store/product_limit/update'
+                , {
+                    data: {
+                        StoreId: StoreId,
+                        ProductLimit: Limit
+                    },
+                    headers: {'Content-Type': 'application/json'}
+                }).
+            success(function (data, status, headers, config) {
+                toastr.success(data.message, 'Store');
+                ngDialog.closeAll();
+                $scope.GetAllStores();
+
+            }).error(function (data) {
+                toastr.error(data.message, 'Please try later');
+            });
+        }
+
         /*$scope.StoreStatusRequestUpdate = function(storeId, storeEmail, storeName)
         {
             $http.post(PATHS.api_url + 'users/store/setstorestatus/Accept'

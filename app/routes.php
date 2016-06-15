@@ -294,6 +294,7 @@ Route::group(array('prefix' => 'v1'), function () {
     Route::post('users/store/setstorestatus/Accept', 'StoreController@StoreAcceptByAdmin');
     Route::post('users/store/setstorestatus/Reject', 'StoreController@StoreRejectByAdmin');
     Route::post('users/store/delete', 'StoreController@deleteStore');
+    Route::post('admin/store/product_limit/update', 'StoreController@updateProductLimit');
 
 
     //UpdateStoreFooterInfo

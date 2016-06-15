@@ -14,8 +14,7 @@ evezownApp
         $scope.pagesrc = $routeParams.pagesrc;
         $rootScope.AllProductLines = [];
         $scope.totalProducts = 0;
-        $scope.MaxProductsFree = 16;
-        $scope.MaxProductsPremium = 64;
+        $scope.Product_Limit = "";
         //$rootScope.currentProductLine = null;
         $scope.isImageUploadComplete = false;
         $scope.isAddProductHidden = false;
@@ -56,60 +55,52 @@ evezownApp
             $rootScope.currentStoreId = $routeParams.storeId;
         }
 
-        /*Temp array for Known stores*/
-        $scope.OwnStores = ['71'];
-        $scope.EvezStore = false;
-        if($scope.OwnStores.indexOf($rootScope.currentStoreId) !== -1) {
-          $scope.EvezStore = true;
-        }
-        /*Ends*/
 
         $scope.ShowAddProduct = function()
         {
-            if($scope.EvezStore)
+            
+            $scope.CheckSub = $scope.currentStore[0].store_subscription_id;
+            $scope.CurrentStatus = $scope.currentStore[0].store_status.status_id;
+            //free
+            if($scope.CheckSub == 1)
             {
-                $scope.isAddProductHidden = true;
-                $scope.isProductSKUHidden = false;
-            }
-
-            else
-            {
-                $scope.CheckSub = $scope.currentStore[0].store_subscription_id;
-                $scope.CurrentStatus = $scope.currentStore[0].store_status.status_id;
-                //free
-                if($scope.CheckSub == 1)
+                if($scope.totalProducts < $scope.Product_Limit)
                 {
-                    if($scope.totalProducts < $scope.MaxProductsFree)
+                    $scope.isAddProductHidden = true;
+                    $scope.isProductSKUHidden = false;
+                }
+                else
+                {
+                    toastr.error('Max limit reached',"Upgrade to add more products");
+                }
+            }
+            //Premium
+            if($scope.CheckSub == 2)
+            {
+                if($scope.totalProducts < $scope.Product_Limit)
+                {
+                    if($scope.CurrentStatus == 7)
                     {
                         $scope.isAddProductHidden = true;
                         $scope.isProductSKUHidden = false;
                     }
                     else
                     {
-                        toastr.error('Max limit reached',"Upgrade to add more products");
+                        toastr.error('Please make payment and add product',"Payment pending");
+                        $location.path('/store/'+ $scope.currentStore[0].id +'/manage/store_info/'+ $scope.pagesrc);
                     }
                 }
-                if($scope.CheckSub == 2)
+                else
                 {
-                    if($scope.totalProducts < $scope.MaxProductsPremium)
-                    {
-                        if($scope.CurrentStatus == 7)
-                        {
-                            $scope.isAddProductHidden = true;
-                            $scope.isProductSKUHidden = false;
-                        }
-                        else
-                        {
-                            toastr.error('Please make payment and add product',"Payment pending");
-                            $location.path('/store/'+ $scope.currentStore[0].id +'/manage/store_info/'+ $scope.pagesrc);
-                        }
-                    }
-                    else
-                    {
-                        toastr.error('Max limit reached',"Upgrade to add more products")
-                    }
+                    toastr.error('Max limit reached',"Upgrade to add more products")
                 }
-            }  
+            }
+            //Customized
+            if($scope.CheckSub == 3)
+            {
+                $scope.isAddProductHidden = true;
+                $scope.isProductSKUHidden = false;
+            }
         }
 
 
@@ -123,9 +114,10 @@ evezownApp
                 $http.get(PATHS.api_url + 'stores/' + $rootScope.currentStoreId + '/get').
                     success(function (data) {
                         $scope.currentStore = data;
+                        
                         if ($scope.currentStore.length > 0) {
 
-
+                            $scope.Product_Limit = $scope.currentStore[0].product_limit;
                             $scope.storeCommerce.wantPaymentGateway = $scope.currentStore[0]['store_commerce']['is_payment_gateway_needed'];
                             $scope.storeCommerce.billingAddress = $scope.currentStore[0]['store_commerce']['billing_address'];
                             $scope.storeCommerce.billingPincode = $scope.currentStore[0]['store_commerce']['billing_pincode'];
