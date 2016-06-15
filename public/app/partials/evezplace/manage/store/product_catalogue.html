@@ -530,10 +530,11 @@
                             <tr ng-repeat="productsku in AllProductSKU" class="text-center">
                                 <td>{{$index+1}}</td>
                                 <td><input type="checkbox" id="trendingchx" name="tredingchx"
-                                                                      ng-model="productsku.is_trending"
-                                                                      ng-true-value="'1'"
-                                                                      ng-false-value="'0'"
-                                                                      ng-change="UpdateTrending(productsku)"/></td>
+                                        ng-model="productsku.is_trending"
+                                        ng-checked="productsku.is_trending"
+                                        ng-true-value="1"
+                                        ng-false-value="0"
+                                        ng-change="UpdateTrending(productsku)"/></td>
                                 <td><img
                                         ng-src="{{service_url+'image/show/'+productsku['product_images'][0]['image']['large_image_url']}}/40/40"
                                         class="img-thumbnail"/></td>

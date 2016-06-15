@@ -9,6 +9,7 @@ evezownApp.controller('StoreFrontOfferController', function ($scope, PATHS, $rou
 
     $scope.isPromotionHidden = false;
     $scope.isTrendingHidden = false;
+    $scope.Pagesrc = $routeParams.pagesrc;
     function getStoreFrontDetails(storeId) {
         StoreService.getStoreFrontDetails(storeId).
         then(function (data) {
@@ -69,7 +70,7 @@ evezownApp.controller('StoreFrontOfferController', function ($scope, PATHS, $rou
                         $scope.offerImages.push({
                             imageName: PATHS.api_url + 'image/show/' +
                             value.images[0].large_image_url,
-                            title: value.details.title,
+                            title: value.title,
                             price: value.price,
                             id: value.product_id
                         });
@@ -78,7 +79,7 @@ evezownApp.controller('StoreFrontOfferController', function ($scope, PATHS, $rou
                         $scope.offerImages = [{
                             imageName: PATHS.api_url + 'image/show/' +
                             value.images[0].large_image_url,
-                            title: value.details.title,
+                            title: value.title,
                             price: value.price,
                             id: value.product_id
                         }];
