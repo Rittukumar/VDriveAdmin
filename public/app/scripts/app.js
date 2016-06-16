@@ -1155,7 +1155,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
             .when('/circle/details/:circle_id', {
                 templateUrl: 'partials/Community/circle-details.html',
-                controller: 'community',
+                controller: 'circles',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
                 }
