@@ -46,11 +46,12 @@
         <div class="row">
             <div class="create-store-section">
 
-                <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;">
-                    <div class="row" ng-repeat="Subscription in Subscription_offer">
-                        <h3 class="text-center">Pay & Activate Store</h3><br>
-                        <div class="col-md-12 col-xs-12">
-                            <div class="col-md-6 col-xs-12 col-md-offset-4">
+                <div class="col-md-12" style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;">
+                    <h3 class="text-center">Pay & Activate Store</h3><br>
+                    <div class="col-md-6" ng-repeat="Subscription in Subscription_offer">
+                        
+                        <div class="col-md-12 col-xs-12 no-padding">
+                            <div class="col-md-12 col-xs-12 no-padding">
                                 <div class="col-md-6 col-xs-6">
                                     <p>Subscription Type<br><br></p>
                                 </div>
@@ -61,7 +62,7 @@
                                     : Premium
                                 </div>
                             </div>
-                            <div class="col-md-6 col-xs-12 col-md-offset-4">
+                            <div class="col-md-12 col-xs-12 no-padding">
                                 <div class="col-md-6 col-xs-6">
                                     <p>Amount Payable<br><br></p>
                                 </div>
@@ -122,7 +123,7 @@
             <!-- <div style="background-color:red"> -->
                 <!-- <div style="border: 1px solid #E50880; border-radius: 5px;margin-bottom:20px;"> -->
                     <div class="col-md-12 no-padding">
-                       <div class="col-md-12 col-xs-12 no-padding" style="margin-bottom: 10px;background-color: #FFFCF4" ng-include='"partials/payment/onlyOnline.html"'>
+                       <div class="col-md-12 col-xs-12 no-padding" style="margin-bottom: 10px;background-color: #FFFCF4;border:2px solid #CFCFCE;" ng-include='"partials/payment/onlyOnline.html"'>
                        </div>
                     </div>
                 <!-- </div> -->
