@@ -146,14 +146,14 @@ evezownApp
                 $scope.addClassified.dealDescription = data.deal_description;
 
                 $scope.addClassified.contactDetails = {};
-                $scope.addClassified.contactDetails.phoneNum = data.contact.phone;
+                $scope.addClassified.contactDetails.phoneNum = parseInt(data.contact.phone);
                 $scope.addClassified.contactDetails.email = data.contact.email;
                 $scope.addClassified.contactDetails.name = data.contact.name;
 
                 $scope.addClassified.storeLocation = {};
                 $scope.addClassified.storeLocation.streetAddress = data.location.street_address;
                 $scope.addClassified.storeLocation.cityState = data.location.city + ', ' + data.location.state;
-                $scope.addClassified.storeLocation.pincode = data.location.pincode;
+                $scope.addClassified.storeLocation.pincode = parseInt(data.location.pincode);
 
                 // For step 3
                 $scope.addClassified.step3 = {};
