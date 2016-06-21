@@ -82,34 +82,8 @@ evezownApp.controller('circles' ,function($scope, friendsService, PATHS,$http,$c
         ngDialog.open({ template: 'EdittemplateId' });
     }
 
-    // $scope.GetVisibility = function()
-    // {
-    //     //Loading user visibility section (with all,circle,friends,me)
-    //     $http.get(PATHS.api_url + 'visibility').
-    //         success(function (data) {
-    //             $scope.visibilties = data;
-    //             if ($scope.visibilties.length > 0)
-    //             {
-    //                 $scope.selectedVisibility = $scope.visibilties[0];
-
-    //             }
-    //         }).then(function() {
-    //             //Loading user visibility section (with all,circle,friends,me)
-    //             angular.forEach($scope.visibilties, function (value, key)
-    //             {
-    //                 if($rootScope.selectedCircle.visibility_id == value.id)
-    //                 {
-    //                     $scope.selectedVisibility = value;
-    //                     $rootScope.showVisibility = value;
-                        
-    //                 }
-    //             });
-               
-    //         });
-    // }
-
-    $scope.GetCircleVisibility = function()
-    {   
+    $scope.GetVisibility = function()
+    {
         //Loading user visibility section (with all,circle,friends,me)
         $http.get(PATHS.api_url + 'visibility').
             success(function (data) {
@@ -117,21 +91,21 @@ evezownApp.controller('circles' ,function($scope, friendsService, PATHS,$http,$c
                 if ($scope.visibilties.length > 0)
                 {
                     $scope.selectedVisibility = $scope.visibilties[0];
-
                 }
-            }).then(function() {
-                //Loading user visibility section (with all,circle,friends,me)
-                angular.forEach($scope.visibilties, function (value, key)
-                {
-                    if($rootScope.selectedCircle.visibility_id == value.id)
-                    {
-                        $scope.selectedVisibility = value;
-                        $rootScope.showVisibility = value;
-                        
-                    }
-                });
-               
             });
+    }
+
+    $scope.GetCircleVisibility = function()
+    {
+        //Loading user visibility section (with all,circle,friends,me)
+        angular.forEach($scope.visibilties, function (value, key)
+        {
+            if($rootScope.selectedCircle.visibility_id == value.id)
+            {
+                $scope.selectedVisibility = value;
+                $rootScope.showVisibility = value;
+            }
+        });
     }
 
 
@@ -319,7 +293,7 @@ evezownApp.controller('circles' ,function($scope, friendsService, PATHS,$http,$c
     //users/circles/{circle_id}/delete
     //users/circles/{circle_id}
     $scope.fetchFriends();
-    //$scope.GetVisibility();
+    $scope.GetVisibility();
     $scope.GetCircleBasedOnId($routeParams.circle_id);
    // $scope.GetAllCircles();
     $scope.GetCirclesByUser();
