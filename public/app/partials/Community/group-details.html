@@ -187,22 +187,23 @@
                         ({{friendList.length}})</h5>
                 </div>
                 <div class="panel-heading">
-                    <input type="text" placeholder="Search friends" ng-model="queryMembers" class="form-control"/>
+                    <input type="text" placeholder="Search Friends" ng-model="queryMembers" class="form-control" ng-change="fetchFriends(queryMembers)"/>
                 </div>
                 <ul class="list-group"
                     ng-repeat="member in friendList | limitTo:5 | filter:queryMembers | orderBy:'firstname':true">
                     <li class="list-group-item col-sm-12">
                         <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
-                            <a href="#mystores/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                            <a href="#mystores/{{member.user_id}}"><img ng-src="{{service_url+'image/show/'+member.users.profile.profile_image.large_image_url}}"
                                                                   class="img-thumbnail" style="width: 32px; height: 32px"
-                                                                  alt=""/> {{member.profile.firstname}}, {{member.profile.lastname}}</a>
+                                                                  alt=""/> {{member.firstname}}, {{member.lastname}}</a>
                         </div>
                         <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px">
-                            <a href ng-click="AddFriendsToGroup(member.friend_user_id,selectedGroup.id)"
+                            <a href ng-click="AddFriendsToGroup(member.user_id,selectedGroup.id)"
                                class="btn btn-link btn-sm"><span class="fa fa-check"></span> Add</a>
                         </div>
                     </li>
                 </ul>
+                <p style="text-align:center;" ng-show="NoResult">No Friends Found</p>
             </div>
         </div>
         <div class="col-md-12" style="padding-right: 0px">

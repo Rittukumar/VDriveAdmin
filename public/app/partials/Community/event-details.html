@@ -295,17 +295,17 @@
         </div>
         <div class="col-md-12 custom-event-invite" style="padding-right: 0px" ng-if="selectedEvent.owner_id == loggedInUserId">
            
-            <div class="panel" style="background: #f7f7f7;" ng-controller="eventCtrl">
+            <div class="panel" style="background: #f7f7f7;">
                 <div class="panel-heading">
-                    <input type="text" placeholder="Search friends" ng-model="queryMembers" class="form-control"/>
+                    <input type="text" placeholder="Search friends" ng-model="queryMembers" class="form-control" ng-change="fetchFriends(queryMembers)"/>
                 </div>
                 <ul class="list-group"
                     ng-repeat="member in friendList | limitTo:5 | filter:queryMembers | orderBy:'firstname':true">
                     <li class="list-group-item col-sm-12">
                         <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
-                            <a href="#mystores/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                            <a href="#mystores/{{member.user_id}}"><img ng-src="{{service_url+'image/show/'+member.users.profile.profile_image.large_image_url}}"
                                                                   class="img-thumbnail" style="width: 32px; height: 32px"
-                                                                  alt=""/> {{member.profile.firstname}}, {{member.profile.lastname}}</a>
+                                                                  alt=""/> {{member.firstname}}, {{member.lastname}}</a>
                         </div>
                         <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px">
                             <a href ng-click="AddFriendsToEvents(member)" class="btn btn-link btn-sm"><span
@@ -313,6 +313,7 @@
                         </div>
                     </li>
                 </ul>
+                <p style="text-align:center;" ng-show="NoResult">No Friends Found</p>
             </div>
         </div>
     </div>

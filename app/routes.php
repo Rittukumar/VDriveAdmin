@@ -241,11 +241,10 @@ Route::group(array('prefix' => 'v1'), function () {
 
     Route::get('users/{id}/friends', 'FriendsController@index');
     Route::get('users/{id}/chatfriends', 'FriendsController@getChatFriends');
-    Route::get('users/{id}/{circle_id}/circlefriends', 'FriendsController@getFriendsForCircle');
-    Route::get('users/{id}/{group_id}/groupfriends', 'FriendsController@getFriendsForGroup');
-    Route::get('users/{id}/{event_id}/eventfriends', 'FriendsController@getFriendsForEvents');
-    //getFriendsForCircle
-    //getFriendsForEvents
+    Route::get('users/{id}/{circle_id}/{search_key}/circlefriends', 'FriendsController@getFriendsForCircle');
+    Route::get('users/{id}/{group_id}/{search_key}/groupfriends', 'FriendsController@getFriendsForGroup');
+    Route::get('users/{id}/{event_id}/{search_key}/eventfriends', 'FriendsController@getFriendsForEvents');
+    
     Route::post('users/autofriend', 'FriendsController@autoFriend');
     Route::post('users/friend/request', 'FriendsController@sendFriendRequest');
     Route::post('users/friend/request/accept', 'FriendsController@acceptFriendInviteRequest');
