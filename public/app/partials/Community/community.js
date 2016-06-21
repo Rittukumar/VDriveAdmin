@@ -127,11 +127,11 @@ evezownApp.controller('community' ,function($rootScope, $scope, friendsService, 
             }).
             success(function (data, status, headers, config)
             {
-                toastr.success(data.message, 'Community success');
+                toastr.success(data.message);
 
             }).error(function (data)
             {
-                toastr.error(data.error.message, 'Community failure');
+                toastr.error(data.error.message);
             });
     }
 
