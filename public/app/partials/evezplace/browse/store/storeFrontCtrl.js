@@ -37,7 +37,7 @@ evezownApp.controller('StoreFrontController', function ($scope, ngDialog, $filte
 
             $scope.storefront.title = storeFrontDetails.title;
             $scope.storefront.description = storeFrontDetails.description;
-            $scope.storefront.aboutus = storeFrontDetails.store_about_us || '';
+            $scope.storefront.aboutus = storeFrontDetails.store_front_info.store_about_us || '';
             if (storeFrontDetails.profile_images != null &&
                 storeFrontDetails.profile_images.large_image_url != '') {
                 $scope.storefront.profile_image = 

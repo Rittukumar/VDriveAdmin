@@ -114,14 +114,14 @@ evezownApp.controller('CreateClassifiedsCtrl', function ($scope, PATHS, $locatio
                 $scope.addClassified.dealDescription = (data.deal_description == null)?"":data.deal_description;
 
                 $scope.addClassified.contactDetails = {};
-                $scope.addClassified.contactDetails.phoneNum = (data.contact == null)?"":data.contact.phone;
+                $scope.addClassified.contactDetails.phoneNum = (data.contact == null)?"":parseInt(data.contact.phone);
                 $scope.addClassified.contactDetails.email = (data.contact == null)?"":data.contact.email;
                 $scope.addClassified.contactDetails.name = (data.contact == null)?"":data.contact.name;
 
                 $scope.addClassified.storeLocation = {};
                 $scope.addClassified.storeLocation.streetAddress = (data.location == null)?"":data.location.street_address;
                 $scope.addClassified.storeLocation.cityState = (data.location == null)?"":data.location.city + ', ' + data.location.state;
-                $scope.addClassified.storeLocation.pincode = (data.location == null)?"":data.location.pincode;
+                $scope.addClassified.storeLocation.pincode = (data.location == null)?"":parseInt(data.location.pincode);
 
                 // For step 3
                 $scope.addClassified.step3 = {};
