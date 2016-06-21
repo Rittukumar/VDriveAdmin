@@ -118,18 +118,18 @@
             </div>
             <div class="panel-heading">
                 <div class="form-group has-feedback" style="margin-bottom: 0px">
-                    <input type="text" placeholder="Search friends" ng-model="queryMembers" class="form-control"
-                           id="inputSuccess2"/>
+                    <input type="text" placeholder="Search Friends" ng-model="queryMembers" class="form-control"
+                           id="inputSuccess2" ng-change="fetchFriends(queryMembers)"/>
                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
                 </div>
             </div>
             <ul class="list-group"
-                ng-repeat="member in friendList | limitTo:5 | filter:queryMembers | orderBy:'firstname':true">
+                ng-repeat="member in friendList | limitTo:5 | orderBy:'firstname':true">
                 <li class="list-group-item col-sm-12">
                     <div class="col-sm-9" style="padding-left: 0px; padding-right: 0px">
-                        <a href="#profile/{{member.friend_user_id}}"><img ng-src="{{service_url+'image/show/'+member.profile.profile_image.large_image_url}}"
+                        <a href="#profile/{{member.user_id}}"><img ng-src="{{service_url+'image/show/'+member.users.profile.profile_image.large_image_url}}"
                                                               class="img-thumbnail" style="width: 32px; height: 32px"
-                                                              alt=""/> {{member.profile.firstname}}, {{member.profile.lastname}}</a>
+                                                              alt=""/> {{member.firstname}}, {{member.lastname}}</a>
                     </div>
                     <div class="col-sm-3" style="padding-left: 0px; padding-right: 0px">
                         <a href ng-click="AddFriendsToCircle(member)" class="btn btn-link btn-sm"><span
@@ -137,6 +137,7 @@
                     </div>
                 </li>
             </ul>
+            <p style="text-align:center;" ng-show="NoResult">No Friends Found</p>
             <div class="panel-footer" style="min-height: 200px">
                 <div class="row">
                     <div class="col-md-12">

@@ -390,7 +390,7 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
             {
                 $scope.GetAllGroupActivities(groupId);
                 $scope.GetVisibility();
-                $scope.fetchFriends();
+                $scope.fetchFriends("");
             });;
     }
 
@@ -446,15 +446,23 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
     //    });
     //}
 //users/{id}/{event_id}/eventfriends
-    $scope.fetchFriends = function()
+    $scope.fetchFriends = function(searchkey)
     {
-        //PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/circlefriends'
-        $http.get(PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/'+$routeParams.group_id+'/groupfriends').
+        $scope.NoResult = true;
+        if(searchkey.length == 0)
+        {
+            searchkey = 0;
+        }
+        $http.get(PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/'+$routeParams.group_id+'/'+searchkey+'/groupfriends').
             success(function (data, status, headers, config)
             {
                 $scope.friendsCount = data.data.length;
                 $scope.friendList = []
                 $scope.friendList = data.data;
+                if($scope.friendList.length > 0)
+                {
+                    $scope.NoResult = false;
+                }
             }).error(function (data)
             {
 
@@ -484,7 +492,7 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
                 toastr.error(data.error.message, 'Groups');
             }).then(function()
             {
-               $scope.fetchFriends();
+               $scope.fetchFriends("");
                $scope.GetGroupById(groupId);
             });
     }
@@ -511,7 +519,7 @@ evezownApp.controller('groups' ,function($scope, friendsService, PATHS,$http,$co
             {
                 //$scope.GetAllGroups();
                 //$scope.GetMyGroups();
-                $scope.fetchFriends();
+                $scope.fetchFriends("");
                 $scope.GetGroupById(groupId);
             });
     }

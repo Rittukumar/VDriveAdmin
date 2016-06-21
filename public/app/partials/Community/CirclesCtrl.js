@@ -19,22 +19,30 @@ evezownApp.controller('circles' ,function($scope, friendsService, PATHS,$http,$c
 
     
 
-    $scope.fetchFriends = function()
+    $scope.fetchFriends = function(searchkey)
     {
-        //PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/circlefriends'
-        $http.get(PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/'+$routeParams.circle_id+'/circlefriends').
+        $scope.NoResult = true;
+        if(searchkey.length == 0)
+        {
+            searchkey = 0;
+        }
+        $http.get(PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/'+$routeParams.circle_id+'/'+searchkey+'/circlefriends').
             success(function (data, status, headers, config)
             {
                 $scope.friendsCount = data.data.length;
                 $scope.friendList = []
                 $scope.friendList = data.data;
+
+                if($scope.friendList.length > 0)
+                {
+                    $scope.NoResult = false;
+                }
+
             }).error(function (data)
             {
-
-            }).then(function(data)
-            {
-
+                console.log(data);
             });
+
     }
 
     $scope.GetCirclesByUser = function()
@@ -258,7 +266,7 @@ evezownApp.controller('circles' ,function($scope, friendsService, PATHS,$http,$c
 
             }).then(function()
             {   
-                $scope.fetchFriends();
+                $scope.fetchFriends("");
                 $scope.GetCircleVisibility();
                 
             });
@@ -271,7 +279,7 @@ evezownApp.controller('circles' ,function($scope, friendsService, PATHS,$http,$c
                 data:
                 {
                     circle_id: $routeParams.circle_id,
-                    friend_user_id:friend.friend_user_id
+                    friend_user_id:friend.user_id
                 },
                 headers: {'Content-Type': 'application/json'}
             }).
@@ -289,10 +297,9 @@ evezownApp.controller('circles' ,function($scope, friendsService, PATHS,$http,$c
     }
 
 
-
     //users/circles/{circle_id}/delete
     //users/circles/{circle_id}
-    $scope.fetchFriends();
+    $scope.fetchFriends("");
     $scope.GetVisibility();
     $scope.GetCircleBasedOnId($routeParams.circle_id);
    // $scope.GetAllCircles();

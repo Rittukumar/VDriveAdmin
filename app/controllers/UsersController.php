@@ -605,8 +605,8 @@ class UsersController extends AppController
 
             $inputs_array = $inputs['data'];
 
-            $api_key = $inputs_array['api_key'];
-            $search_key = $inputs_array['search_key'];
+            $api_key    = $inputs_array['api_key'];
+            $search_key = isset($inputs_array['search_key'])?$inputs_array['search_key']:"";
 
             $isValidApiKey = User::where('api_key', $api_key)->first();
 
@@ -620,43 +620,43 @@ class UsersController extends AppController
 
             try{
                 $users = UserProfile::with('users', 'users.profile.profile_image')
-                    ->where('firstname', 'LIKE', "$search_key%")
-                    ->where('user_id', '<>', $user_id)
-                    ->whereNotExists(function ($query) use ($user_id) {
-                        $query->select(DB::raw(1))
-                            ->from('friends')
-                            ->whereRaw('friends.friend_user_id = user_profile.user_id')
-                            ->whereRaw('friends.user_id = ' . $user_id);
-                    })
-                    ->whereExists(function ($query){
-                        $query->select(DB::raw(1))
-                            ->from('stores')
-                            ->whereRaw('stores.owner_id = user_profile.user_id')
-                            ->whereExists(function ($query) {
-                              $query->select(DB::raw(1))
-                                ->from('store_status')
-                                ->whereRaw('store_status.store_id = stores.id')
-                                ->whereRaw('store_status.status_id = 3');
-                        });
-                   })
-                    ->paginate($limit);
+                                     ->where('firstname', 'LIKE', "$search_key%")
+                                     ->where('user_id', '<>', $user_id)
+                                     ->whereNotExists(function ($query) use ($user_id) {
+                                        $query->select(DB::raw(1))
+                                            ->from('friends')
+                                            ->whereRaw('friends.friend_user_id = user_profile.user_id')
+                                            ->whereRaw('friends.user_id = ' . $user_id);
+                                     })
+                                     ->whereExists(function ($query){
+                                        $query->select(DB::raw(1))
+                                            ->from('stores')
+                                            ->whereRaw('stores.owner_id = user_profile.user_id')
+                                            ->whereExists(function ($query) {
+                                              $query->select(DB::raw(1))
+                                                ->from('store_status')
+                                                ->whereRaw('store_status.store_id = stores.id')
+                                                ->whereRaw('store_status.status_id = 3');
+                                            });
+                                     })
+                                     ->whereExists(function($query)
+                                     {
+                                        $query->select(DB::raw(1))
+                                              ->from('users')
+                                              ->whereRaw('users.id = user_profile.user_id')
+                                              ->whereRaw('blocked = 0')
+                                              ->whereRaw('deleted = 0');
+                                     })
+                                     ->paginate($limit);
             }
             catch (Exception $ex) {
              return $ex;
             }
 
-            //  $users =UserProfile::with('users')->where('firstname', 'LIKE', "$search_key%");
+            
             if (!$users) {
                 return $this->responseNotFound('User Not Found!');
             }
-
-//            $fractal = new Manager();
-//
-//            $usersResource = new Collection($users, new UserProfileTransformer);
-//
-//            $usersResource->setPaginator(new IlluminatePaginatorAdapter($users));
-//
-//            $data = $fractal->createData($usersResource);
 
         } catch (Exception $e) {
 

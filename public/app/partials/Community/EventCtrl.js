@@ -663,7 +663,7 @@ evezownApp.controller('eventCtrl' ,function($scope, PATHS,$cookieStore,$http,$ro
 
             }).then(function(data)
             {
-                $scope.fetchFriends();
+                $scope.fetchFriends("");
                 $scope.GetAllEventInvites();
             });
     }
@@ -676,7 +676,7 @@ evezownApp.controller('eventCtrl' ,function($scope, PATHS,$cookieStore,$http,$ro
                 data:
                 {
                     event_id: $routeParams.event_id,
-                    friend_user_id:member.friend_user_id
+                    friend_user_id:member.user_id
                 },
                 headers: {'Content-Type': 'application/json'}
             }).
@@ -689,7 +689,7 @@ evezownApp.controller('eventCtrl' ,function($scope, PATHS,$cookieStore,$http,$ro
                 toastr.error(data.error.message, 'Event');
             }).then(function()
             {
-                $scope.fetchFriends();
+                $scope.fetchFriends("");
             });
     }
 
@@ -737,15 +737,23 @@ evezownApp.controller('eventCtrl' ,function($scope, PATHS,$cookieStore,$http,$ro
     //    });
     //}
 
-    $scope.fetchFriends = function()
+    $scope.fetchFriends = function(searchkey)
     {
-        //PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/circlefriends'
-        $http.get(PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/'+$routeParams.event_id+'/eventfriends').
+        $scope.NoResult = true;
+        if(searchkey.length == 0)
+        {
+            searchkey = 0;
+        }
+        $http.get(PATHS.api_url +  'users/' + $cookieStore.get('userId') + '/'+$routeParams.event_id+'/'+searchkey+'/eventfriends').
             success(function (data, status, headers, config)
             {
                 $scope.friendsCount = data.data.length;
                 $scope.friendList = []
                 $scope.friendList = data.data;
+                if($scope.friendList.length > 0)
+                {
+                    $scope.NoResult = false;
+                }
             }).error(function (data)
             {
 
@@ -766,7 +774,7 @@ evezownApp.controller('eventCtrl' ,function($scope, PATHS,$cookieStore,$http,$ro
         }
     });
 
-    $scope.fetchFriends();
+    $scope.fetchFriends("");
     $scope.GetVisibility();
    // $scope.GetAllEvents();
     $scope.GetMyEvents();
