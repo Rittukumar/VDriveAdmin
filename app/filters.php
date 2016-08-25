@@ -24,8 +24,7 @@ App::before(function($request)
 		$headers = [
 		
 			'Access-Control-Allow-Origin'      => 'http://localhost:9000',
-			//'Access-Control-Allow-Origin'      => 'http://evezown.com',
-			//'Access-Control-Allow-Origin'      => 'http://creativethoughts.co.in',
+
 			'Access-Control-Allow-Methods'     => 'GET, POST, PUT, DELETE, OPTIONS',
 			'Access-Control-Allow-Headers'     => 'Origin, Content-Type, Accept, Authorization, X-Requested-With',
 			'Access-Control-Allow-Credentials' => 'true',
@@ -38,8 +37,7 @@ App::before(function($request)
 App::after(function($request, $response)
 {
 	$response->headers->set('Access-Control-Allow-Origin', 'http://localhost:9000');
-	//$response->headers->set('Access-Control-Allow-Origin', 'http://evezown.com');
-	//$response->headers->set('Access-Control-Allow-Origin', 'http://creativethoughts.co.in');
+
 	$response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 	$response->headers->set('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, Authorization, X-Requested-With');
 	$response->headers->set('Access-Control-Allow-Credentials', 'true');

@@ -350,7 +350,7 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .nav-square, .btn {
-    border-radius: 0px;
+    border-radius: 30px;
 }
 
 .profile-right-section, .reco-section{

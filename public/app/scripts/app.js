@@ -13,7 +13,45 @@ var evezownApp = angular.module('evezownapp', ['ngRoute', 'ui.bootstrap', 'ngAni
 evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider,
                             USER_ROLES, LightboxProvider, $httpProvider, FacebookProvider,
                             $linkedInProvider, $authProvider, PATHS, ngDialogProvider, $crypthmacProvider, localStorageServiceProvider) {
-        $routeProvider
+        
+	
+		 <!-- Rit Starts here -->
+			 $routeProvider
+				       .when('/', {
+			       templateUrl: 'partials/admin/home.html'
+			   });
+			 
+		     $routeProvider
+			       .when('/driverlist', {
+		         templateUrl: 'partials/admin/driverList.html',
+		         controller: 'AdminListUsers'
+		     });
+		     
+	        $routeProvider
+	        .when('/driverRegistration', {
+	            templateUrl: 'partials/admin/driverRegistration.html',
+	            controller: 'AdminAddUser'
+	        });
+	        
+	        $routeProvider
+            .when('/updateDriverDetails/:userId', {
+                templateUrl: 'partials/admin/updateDriverDetails.html',
+                controller: 'UpdateDriverDetails'
+            });
+	        
+	        $routeProvider
+            .when('/bookingreports', {
+                templateUrl: 'partials/admin/bookingReports.html'
+            });
+	        
+	        $routeProvider
+            .when('/configurations', {
+                templateUrl: 'partials/admin/configurations.html'
+            });
+	        
+	     <!-- Ends here -->
+ 
+		/*$routeProvider
 
             .when('/admin', {
                 templateUrl: 'partials/admin/home.html',
@@ -104,24 +142,9 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                 }
             });
 
-        $routeProvider
+        
 
-            .when('/editUserInfo/:userId', {
-                templateUrl: 'partials/admin/editUserInfo.html',
-                controller: 'AdminListUsers',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
-                }
-            });
 
-        $routeProvider
-            .when('/admin/addNewUser', {
-                templateUrl: 'partials/admin/addUserInfo.html',
-                controller: 'AdminAddUser',
-                data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user]
-                }
-            });
 
         $routeProvider
 
@@ -460,6 +483,8 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.moderator, USER_ROLES.user, USER_ROLES.guest]
                 }
             });
+        
+       
         $routeProvider
 
             .when('/home', {
@@ -1715,7 +1740,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             redirectTo: '/login'
         });
 
-        localStorageServiceProvider.setPrefix('evezowncart');
+        localStorageServiceProvider.setPrefix('evezowncart');*/
 
         /*Stripe.setPublishableKey('pk_test_PkqvWTApkszG3EmDfxFcMHSj');*/
 
@@ -1759,7 +1784,7 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
         
         $authProvider.baseUrl = base;
 
-        $authProvider.facebook({
+       /* $authProvider.facebook({
           clientId: fbAppId
         });
 
@@ -1769,18 +1794,18 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
 
         $authProvider.linkedin({
           clientId: linkedinAppId
-        });
+        });*/
 
 
         // Set your appId through the setAppId method or
         // use the shortcut in the initialize method directly.
-        FacebookProvider.init(fbAppId);
+        //FacebookProvider.init(fbAppId);
 
         // Set the linkedin api key
-        $linkedInProvider
+        /*$linkedInProvider
             .set('appKey', '78mct0q0l2nefx')
             .set('scope', 'r_basicprofile r_network rw_nus w_messages')
-            .set('authorize', true);
+            .set('authorize', true);*/
 
 
 
@@ -1874,11 +1899,11 @@ evezownApp.value('GoogleApp', {
 });
 
 evezownApp
-    .run(function ($rootScope, $location, $cookieStore, AUTH_EVENTS, AuthService, PATHS, $http, Session) {
+    .run(function ($rootScope, $location, $cookieStore, AUTH_EVENTS, PATHS, $http) {
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $http.defaults.useXDomain = true;
             delete $http.defaults.headers.common['X-Requested-With'];
-            var authorizedRoles = next.data.authorizedRoles;
+           // var authorizedRoles = next.data.authorizedRoles;
             if ($cookieStore.get('api_key') != undefined) {
                 $http.post(PATHS.api_url + 'users/get'
                     , {
@@ -1888,7 +1913,7 @@ evezownApp
                         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     }).
                 success(function (data, status, headers, config) {
-                    Session.api_key = data.data.api_key;
+                    /*Session.api_key = data.data.api_key;
                     Session.userId = data.data.id;
                     Session.firstname = data.data.firstname;
                     Session.lastname = data.data.lastname;
@@ -1902,7 +1927,7 @@ evezownApp
                             $rootScope.loggedIn = false;
                             $location.path("/login");
                         }
-                    }
+                    }*/
                 }).error(function (data) {
                     if (next.originalPath == '/woice') {
                         $rootScope.loggedIn = false;
@@ -1911,13 +1936,13 @@ evezownApp
                 });
             }
             else {
-                if (next.data.authorizedRoles.indexOf('Guest') == -1) {
+                /*if (next.data.authorizedRoles.indexOf('Guest') == -1) {
                     $rootScope.loggedIn = false;
                     $location.path("/login");
-                }
+                }*/
             }
 
-            if (!AuthService.isAuthorized(authorizedRoles)) {
+            /*if (!AuthService.isAuthorized(authorizedRoles)) {
                 //event.preventDefault();
                 // $location.path("/login");
                 if (AuthService.isAuthenticated()) {
@@ -1925,7 +1950,7 @@ evezownApp
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     }
                 }
-            }
+            }*/
 
 
         });
@@ -1959,9 +1984,9 @@ evezownApp.constant('USER_ROLES', {
     guest: 'Guest'
 });
 
-evezownApp.constant('GmailCredentials', {
+/*evezownApp.constant('GmailCredentials', {
    client_id: gmailAppId
-});
+});*/
 // Filter
 
 

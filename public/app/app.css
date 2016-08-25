@@ -8,7 +8,7 @@
 }
 
 #loading-bar .bar {
-background: #692668;
+background: #FF5E00;
 }
 
 #loading-bar-spinner .spinner-icon {
@@ -211,7 +211,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 #navContainer
 {
-    background: #692668;
+    background: #FF5E00;
     border: none;
 
 }
@@ -288,7 +288,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     #navbar1
     {
-        background: #692668;
+        background: #FF5E00;
         margin: 0 auto;
         display: table;
         table-layout: auto;
@@ -428,7 +428,7 @@ input[type=number]::-webkit-outer-spin-button {
     .navbar-default .navbar-nav > li >a {
         font-size: 18px;
         margin-left: 30px;
-        color: #692668;
+        color: #FF5E00;
         padding: 5px;
     }
     .top-content-section a
@@ -453,7 +453,7 @@ input[type=number]::-webkit-outer-spin-button {
 @media (max-width: 768px) {
     /*#navbar1*/
     /*{*/
-        /*background: #692668;*/
+        /*background: #FF5E00;*/
         /*margin: 0 auto;*/
         /*display: inline-block;*/
         /*float:none;*/
@@ -506,7 +506,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
     border-bottom: 5px solid #e50880;
-    color: #692668;
+    color: #FF5E00;
     background-color: transparent;
 }
 
@@ -589,7 +589,7 @@ margin-top: 10px;
 }
 .post-camera span:hover
 {
-    color:#692668;
+    color:#FF5E00;
 }
 .post-img-wrap {
     position: relative;
@@ -627,14 +627,26 @@ margin-top: 10px;
 }
 
 .btn-primary {
-    background: #e50880;
+    background: #FF5E00;
     border-color: transparent;
     border-radius: 0px;
     font-weight: 100;
 }
 
+.btn-menu-primary {
+    background: #3F799B;
+    border-color: transparent;
+    border-radius: 0px;
+    font-weight: 400;
+    margin-right:3px;
+    
+}
+
+.btn-menu-primary:hover {
+    background: #FF5E00;
+}
 .btn-primary:hover {
-    background: #692668;
+    background: #FF5E00;
 }
 
 .btn-create-store {
@@ -652,7 +664,7 @@ margin-top: 10px;
 
 #btn-login:hover
 {
-    background: #692668;
+    background: #FF5E00;
     border-bottom: 1px solid #000000;
 }
 
@@ -675,7 +687,7 @@ margin-top: 10px;
 }
 .pagination-custom>li>a,
 .pagination-custom>li>span {
-    color: #692668;
+    color: #FF5E00;
     background-color: #fff;
     border: 1px solid #ddd;
     font-size: 14px;
@@ -690,8 +702,8 @@ margin-top: 10px;
     z-index: 2;
     color: #fff;
     cursor: default;
-    background-color: #692668;
-    border-color: #692668;
+    background-color: #FF5E00;
+    border-color: #FF5E00;
 }
 
 .shadow {
@@ -759,7 +771,7 @@ margin-top: 10px;
     overflow: hidden;
     height: 34px;
     width: 120px;
-    background: #e50880;
+    background: #FF5E00;
     text-align: right;
     z-index: 0;
 }
@@ -983,11 +995,15 @@ h3.trending-item-title {
 /* Footer style starts */
 
 #footer {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    color: #333333;
-    background: #f6b77f;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    color: #000000;
+    background: #3F799B;
+    position : relative;
+    /*bottom : 0; */
+    width:100%;
 }
+
 
 #footer ul > li {
     display: block;
@@ -995,7 +1011,7 @@ h3.trending-item-title {
 }
 
 #footer a {
-    color : #7b6757;
+    color : #FFFFFF;
     line-height:2;
 }
 
@@ -1250,8 +1266,8 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active){
 
 .checkbox-primary input[type="checkbox"]:checked + label::before,
 .checkbox-primary input[type="radio"]:checked + label::before {
-    background-color: #692668;
-    border-color: #692668;
+    background-color: #FF5E00;
+    border-color: #FF5E00;
 }
 
 /* Tag styles ends */
@@ -1576,7 +1592,7 @@ canvas {
  border:1px solid #CFCFCE;
 }
 #store-type-catalogue-menu ul> li.active a{
- background-color: #692668;
+ background-color: #FF5E00;
  border-radius: 0px;
  color:#ffffff;
 }
@@ -1718,7 +1734,7 @@ canvas {
     }
     .navbar-default .navbar-nav > li >a {
         font-size: 12px;
-        color: #692668;
+        color: #FF5E00;
         padding: 5px;
     }
     .btn-lg, .btn-group-lg > .btn
@@ -2235,5 +2251,9 @@ canvas {
     {
         font-size: 12px;
     }
+    
+}
+.ng-table th {
+   text-align: left !important;
 }
 /*mobile optimization style ends*/

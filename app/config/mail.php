@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'mail.evezown.com',
+	'host' => 'mail.oceanstyxx.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => "editor@evezown.com", 'name' => "Evezown Admin"),
+	'from' => array('address' => "admin@vdrive.com", 'name' => "V-Drive Admin"),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'evezo8kj',
+	'username' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +93,7 @@ return array(
 	|
 	*/
 
-	'password' => 'Varsha@12345',
+	'password' => '',
 
 	/*
 	|--------------------------------------------------------------------------

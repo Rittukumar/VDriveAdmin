@@ -2,13 +2,10 @@
 <html>
 <head lang="en">
     <meta charset="utf-8">
-	<title>Evezown, a unique commerce and community platform for b2c and b2b customers.</title>
+	<title>OceanStyxx</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   	<meta name="keywords" content="Entraprenuers, marketplace, ecomm, stores, services,products,gifts">
-	<meta name="description" content="Evezown, a unique commerce and community platform. It is focused on entrepreneurs, organisations, forums and associations and also the consumers">
-    <meta name="author" content="Varsha Anand">
-    <link rel="icon" href="../../favicon.ico">
+   <!--  <link rel="icon" href="../../favicon.ico"> -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700'
           rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,500,800,700,600,300,200' rel='stylesheet'
@@ -51,7 +48,7 @@
     <link rel="stylesheet" href="app.css"/>
     <link rel="stylesheet" href="profile.css"/>
     <link rel="stylesheet" href="woice.css"/>
-    <link rel="stylesheet" href="evezplace.css"/>
+    <link rel="stylesheet" href="vdrive.css"/>
     <link rel="stylesheet" href="custom/staticpages/staticpages.css"/>
 
 
@@ -59,16 +56,16 @@
 
     <!-- endbuild -->
 
-    <script type="text/javascript" src="https://platform.linkedin.com/in.js">
+   <!--  <script type="text/javascript" src="https://platform.linkedin.com/in.js">
         api_key: 78yxxkb6uvnro3
         authorize: true
         scope: r_basicprofile r_emailaddress w_share rw_company_admin
-    </script>
-    <!--test comment-->
+    </script> -->
+    
     <script>
 
       var base; 
-      var fbAppId       = '245052959173426';
+     /*  var fbAppId       = '245052959173426';
       var gmailAppId    = '947054555635-pvknme356teuh4nuhj1te5fbl41o08t4.apps.googleusercontent.com';
       var linkedinAppId = '75g1n36kp2pmlc';
 
@@ -78,39 +75,56 @@
           xfbml      : true,
           version    : 'v2.5'
         });
-      };
+      }; */
 
-      (function(d, s, id){
+      /* (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
          js = d.createElement(s); js.id = id;
          js.src = "//connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
+       }(document, 'script', 'facebook-jssdk')); */
+    </script> 
 </head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<body ng-app="evezownapp" ng-controller="ApplicationCtrl">
-
-<!-- Static navbar -->
+<!-- <body ng-app="evezownapp" ng-controller="ApplicationCtrl"> -->
+<body ng-app="evezownapp" style="background: #CBFFFF;height:100%">
+<!-- Header -->
 <nav class="navbar navbar-default" >
-    <div ng-bind-html="preview_data.preview.embed.html | to_trusted"></div>
-    <div ng-include src='"partials/top-menu.html"' ng-controller="TopMenuCtrl"></div>
+    <!-- <div ng-bind-html="preview_data.preview.embed.html | to_trusted"></div> -->
+    <!-- <div ng-include src='"partials/top-menu.html"' ng-controller="TopMenuCtrl" style="background:#ffffff"></div> -->
+    <div ng-include src='"partials/top-menu.html"' style="background:#ffffff"></div>
 </nav>
-
-<div class="container" ng-view>
-
-            
+<!-- Body -->
+<div class="container" ng-view style="padding-top: 10px;height:78.7%;">
 
 </div>
+<!-- Footer -->
+<div class="col-sm-12 text-center" style="background: #3F799B;padding-top:8px;">
+     <p style="margin:0px;">Terms of Use. <a href="#privacy" style="color : #CBFFFF;">Privacy Policy</a></p>
+     © 2016 <a target="_blank" href="#" title="" style="color : #CBFFFF;">V-drive</a>. All Rights Reserved. Powered by <a target="_blank" href="http://www.oceanstyxx.com" title="" style="color : #CBFFFF;">www.oceanstyxx.com</a>
+ </div>
+<!-- <footer id="footer"> class="navbar-static-bottom" overflow-auto;overflow-y: scroll;overflow-x: hidden;
+    <div class="container center-block ">
+        <div class="row" style="margin:0px;">
+            <div class="col-sm-12 text-center">
+                <p style="margin:0px;">Terms of Use. <a href="#privacy">Privacy Policy</a></p>
+                © 2016 <a target="_blank" href="#" title="">OceanStyxx</a>. All Rights Reserved. Powered by <a target="_blank" href="http://www.oceanstyxx.com" title="" >www.oceanstyxx.com</a>
+            </div>
+        </div>
+    </div>
+</footer> -->
 
-<div id="chat-container" class="fixed" ng-if="loggedIn" style="display:none;"  ng-include='"partials/chat/chat-form.html"'></div>
+
+
+
+<!-- <div id="chat-container" class="fixed" ng-if="loggedIn" style="display:none;"  ng-include='"partials/chat/chat-form.html"'></div> -->
 
 <!-- /container -->
 
 
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
@@ -177,6 +191,7 @@
 <script src="libs/textAngular/src/textAngularSetup.js"></script>
 <script src="libs/toastr/toastr.js"></script>
 <script src="libs/whatsapp-sharing/dist/whatsapp-button.js"></script>
+<script src="libs/angular-payments/lib/angular-payments.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 <script src="libs/js-xlsx/shim.js"></script>
@@ -184,7 +199,7 @@
 <script src="libs/js-xlsx/xlsx.js"></script>
 <script src="libs/js-xlsx/dist/ods.js"></script>
 <script src="custom/angular-read-more/readmore.js"></script>
-<script src="https://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+<!-- <script src="https://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script> -->
 
 <script src="libs/ng-time-relative/dist/ng-time-relative.min.js"></script>
 <script src="//cdn.jsdelivr.net/satellizer/0.9.2/satellizer.min.js"></script>
@@ -200,8 +215,8 @@
 <!--<script type="IN/Login" data-onAuth="onLinkedInAuth"></script>-->
 
 <script src="scripts/app.js"></script>
-<script src="authService.js"></script>
-<script src="applicationCtrl.js"></script>
+<!--<script src="authService.js"></script>
+ <script src="applicationCtrl.js"></script>
 <script src="partials/home/home.js"></script>
 <script src="partials/evezplace/home.js"></script>
 <script src="partials/admin/adminCtrl.js"></script>
@@ -211,16 +226,16 @@
 <script src="partials/invite/inviteCtrl.js"></script>
 <script src="partials/invite/inviteService.js"></script>
 <script src="partials/home/services.js"></script>
-<script src="partials/admin/AdminInviteCtrl.js"></script>
-<script src="partials/admin/AdminListUsers.js"></script>
-<script src="partials/admin/bloglists.js"></script>
+<script src="partials/admin/AdminInviteCtrl.js"></script> -->
+<script src="partials/admin/AdminController.js"></script>
+<!--<script src="partials/admin/AdminMenuCtrl.js"></script>
+ <script src="partials/admin/bloglists.js"></script>
 <script src="partials/admin/forumlists.js"></script>
 <script src="partials/admin/storelist.js"></script>
 <script src="partials/admin/woiceinf.js"></script>
 <script src="partials/admin/woiceFlagCntr.js"></script>
 <script src="partials/admin/addBrandCntr.js"></script>
 <script src="partials/admin/getAllBrandCntr.js"></script>
-<script src="partials/admin/AdminMenuCtrl.js"></script>
 <script src="partials/admin/opportunitiesCntr.js"></script>
 <script src="partials/admin/EditBlogsCtrl.js"></script>
 <script src="partials/admin/blogsService.js"></script>
@@ -299,12 +314,12 @@
 <script src="partials/evezplace/classifiedsListService.js"></script>
 <script src="partials/evezplace/browse/store/storeService.js"></script>
 <script src="partials/evezplace/productSearch.js"></script>
-<script src="partials/evezplace/browse/store/orderCtrl.js"></script>
+<script src="partials/evezplace/browse/store/orderCtrl.js"></script> -->
 <!--<script src="scripts/controllers/buyer/BuyerOrdersCtrl.js"></script>-->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 
-<script src="scripts/directives/ngcommentreccorewoicegrade.js"></script>
+<!-- <script src="scripts/directives/ngcommentreccorewoicegrade.js"></script>
 <script src="scripts/controllers/buyer/orders.js"></script>
 <script src="scripts/services/orderservice.js"></script>
 <script src="scripts/controllers/store/productline.js"></script>
@@ -322,9 +337,9 @@
 <script src="scripts/controllers/admin/evezplace/managetrendingitems.js"></script>
 <script src="scripts/controllers/evezplace/recommendation.js"></script>
 <script src="scripts/services/evezplacesection.js"></script>
-<script src="scripts/filters/addlimitellipsis.js"></script>
+<script src="scripts/filters/addlimitellipsis.js"></script> -->
 
-<script src="custom/satellizer.js"></script>
+<!-- <script src="custom/satellizer.js"></script> -->
 <script src="custom/angular-local-storage.min.js"></script>
 
 <!-- <script type="text/javascript" src="https://js.stripe.com/v2/"></script> -->
@@ -342,14 +357,14 @@
              Because it is loaded asynchronously, it might take some time to load.
              Place some loading notification, so user won't get confused.
              You can use ng-show and ng-hide to show or hide your notification and accomplish best user experience. --><script>// <![CDATA[
-(function() {
+/* (function() {
     var po = document.createElement('script'); 
     po.type = 'text/javascript'; 
     po.async = true;
     po.src = 'https://apis.google.com/js/client:plusone.js';
     var s = document.getElementsByTagName('script')[0]; 
     s.parentNode.insertBefore(po, s);
-})();
+})(); */
 
 // ]]></script><!-- Second script needed for accessing Google API (gapi.*) . It's usage will be described in controller. --><script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 <script type="text/javascript">
@@ -379,37 +394,7 @@
         });
 </script>
 
-<footer id="footer" class="midnight-blue">
-    <div class="container center-block ">
-        <!-- <div class="col-sm-12 footer-links"> -->
-        <div class="row" style="margin:0px;">
-            <ul class="col-md-4">
-                <li><a href="#aboutus" ng-bind="FooterCaptions[0].description"></a></li>
-                <li><a href="http://careers.evezown.com" target="_blank" ng-bind="FooterCaptions[3].description"></a></li>
-                <li><a href="#contactus" ng-bind="FooterCaptions[6].description"></a></li>
-            </ul>
-            <ul class="col-md-4">
-                <li><a href="#streamit" ng-bind="FooterCaptions[1].description"></a></li>
-                <li><a href="#evezplace" ng-bind="FooterCaptions[4].description"></a></li>
-                <li><a href="#wopportunity" ng-bind="FooterCaptions[7].description"></a></li>
-            </ul>
-            <ul class="col-md-4">
-                <li><a href="#contribute" ng-bind="FooterCaptions[2].description"></a></li>
-                <li><a href="#advertisement" ng-bind="FooterCaptions[5].description"></a></li>
-                <li><a href="#friends/invite" ng-show="loggedIn" ng-bind="FooterCaptions[8].description"></a>
-                </li>
-                <li><a href="#login" ng-show="!loggedIn" ng-bind="FooterCaptions[8].description"></a></li>
-            </ul>
-        </div>
-        <!-- </div> -->
-        <div class="row" style="margin:0px;">
-            <div class="col-sm-12 text-center">
-                <p style="margin:0px;">Terms of Use. <a href="#privacy" ng-bind="FooterCaptions[9].description"></a></p>
-                © 2015 <a target="_blank" href="#" title="">Evezown</a>. All Rights Reserved. Powered by <a target="_blank" href="http://webinsights.in" title="" ng-bind="FooterCaptions[10].description"></a>.
-            </div>
-        </div>
-    </div>
-</footer>
+
 
 </body>
 </html>

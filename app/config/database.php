@@ -54,25 +54,13 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-           // 'host'      => 'localhost',
-		   // 'database'  => 'ownursite',
-           // 'username'  => 'root',
-           // 'password'  => '',
-
-			'host'      => '52.77.144.180',
-			'database'  => 'evezown_production',
-			'username'  => 'evezownuser',
-			'password'  => 'evezown12345',
+            'host'      => 'localhost',
+		    'database'  => 'oceanstyxx',
+            'username'  => 'root',
+            'password'  => '',
 
 
-//			'host'      => '192.232.251.249',
-//			'database'  => 'cloud9_evezown_staging',
-//			'username'  => 'cloud9_eveuser',
-//			'password'  => 'cre@t1ve',
-//            'host'      => 'evezowndbinstance.ckbibubammpe.us-west-2.rds.amazonaws.com',
-//			'database'  => 'evezowndb',
-//			'username'  => 'evezownuser',
-//			'password'  => 'evezown123',
+
             'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

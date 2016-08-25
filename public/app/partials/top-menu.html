@@ -1,145 +1,17 @@
 <div class="container nav-container">
-    <div class="col-md-12 col-xs-12">
+	<div class="col-md-12 col-xs-12">
         <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header col-md-4 col-xs-4">
-                <a class="navbar-brand" href="#home" style="height:auto;padding-left:0px;"><img ng-src="img/logo.png" class="img-responsive" alt=""/></a>
+                <a class="navbar-brand" href="#home" style="height:auto;padding:0px;"><img ng-src="img/logo1.png" class="img-responsive" alt=""/></a>
             </div>
-
-            <!--only for mobile-->
-            <div class="col-xs-8 visible-xs pull-right" style="padding:6px 0px 0px 0px;">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#login" ng-hide="loggedIn" class="btn btn-primary pull-right col-xs-4" id="btn-login">{{TopMenuCaptions[3].description}}</a></li>
-                    <li class="dropdown" ng-show="loggedIn">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:12px;">
-                            <img class="img-circle" width="20" height="20" ng-src="{{profileImage}}"
-                                 src="{{profileImage}}"> {{ username }}
-                            <span class="caret"></span>
-                        </a>
-                      <ul class="dropdown-menu">
-                        <li><a href="#profile/myprofile/{{userId}}">{{TopMenuCaptions[4].description}}</a></li>
-                        <li><a href="#profile/{{userId}}/personalinfo">{{TopMenuCaptions[5].description}}</a></li>
-                        <li ng-if="roleId == 1"><a href="#admin">{{TopMenuCaptions[6].description}}</a></li>
-                        <li><a>{{TopMenuCaptions[7].description}}</a></li>
-                        <li class="divider"></li>
-                        <li><a href ng-click="Logout()">{{TopMenuCaptions[8].description}}</a></li>
-                      </ul>
-                    </li>
-                </ul>
-            </div>
-            <!--for mobile ends-->
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse hidden-xs">
-                <!-- Menu top-->
-                <div class="col-md-8" style="padding-top:5px;">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li ng-class="{ active: isActive('/evezplace')}"><a href="#evezplace">{{TopMenuCaptions[1].description}}</a></li>
-                        <li ng-class="{ active: isActive('/mystores/{{userId}}')}"><a href="#mystores/{{userId}}">{{TopMenuCaptions[0].description}}</a></li>
-                        <li ng-class="{ active: isActive('/wopportunity')}"><a href="#wopportunity">{{TopMenuCaptions[2].description}}</a>
-                        </li>
-                        <li><a href="#login" ng-hide="loggedIn" class="btn btn-primary col-sm-9 col-md-9" id="btn-login">{{TopMenuCaptions[3].description}}</a></li>
-                        <li class="dropdown" ng-show="loggedIn">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="img-circle" width="32" height="32" ng-src="{{profileImage}}"
-                                     src="{{profileImage}}"> {{ username }}
-                                <span class="caret"></span>
-                            </a>
-                          <ul class="dropdown-menu">
-                            <li><a href="#profile/myprofile/{{userId}}">{{TopMenuCaptions[4].description}}</a></li>
-                            <li><a href="#profile/{{userId}}/personalinfo">{{TopMenuCaptions[5].description}}</a></li>
-                            <li ng-if="roleId == 1"><a href="#admin">{{TopMenuCaptions[6].description}}</a></li>
-                            <li><a>{{TopMenuCaptions[7].description}}</a></li>
-                            <li class="divider"></li>
-                            <li><a href ng-click="Logout()">{{TopMenuCaptions[8].description}}</a></li>
-                          </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Menu bottom-->
-                <div class="col-md-8 col-xs-12" style="margin-top:28px;">
-                    <div class="col-md-12 col-xs-12 no-padding">
-                        <div class="col-md-2 col-xs-4 pull-right" style="margin-top: 5px">
-                            <a href="javascript:void(0)" ng-if="loggedIn" id="top-chat-button" class="btn-chat" >
-                                <i class="fa fa-weixin" style="font-size: 28px;color:#e50880;">
-                                    <span class="span-top-value label label-danger" style="font-size: 10px;background-color:crimson;"></span>
-                                </i>
-                            </a>
-                        </div>
-
-                        <div class="col-md-3 col-xs-4 pull-right" style="margin-top: -10px">
-                            <a
-                                tabindex="0"
-                                type="button"
-                                popover-template="shoppingCartPopover.templateUrl"
-                                popover-placement="bottom"
-                                popover-trigger="focus"
-                                class="btn btn-popover btn-link">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x" style="color:#e50880;"></i>
-                              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                            </span> {{TopMenuCaptions[10].description}} ({{shoppingCartCount}})
-                            </a>
-                        </div>
-
-                        <div class="col-md-2 col-xs-4 pull-right" style="margin-top: -10px">
-                            <a href="#buyer/orders" class="btn btn-link pull-right" style="color: #E50880; padding-left: 5px" title="Track Your Order">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x" ></i>
-                              <i class="fa fa-tty fa-stack-1x fa-inverse"></i>
-                            </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-8" style="padding-top:50px;">
+            	<div class="col-md-2 btn btn-menu-primary"><a href="#/" style="height:auto;padding:0px;color:#CBFFFF;text-decoration: none;">HOME</a></div>
+                <div class="col-md-3 btn btn-menu-primary"><a href="#driverlist" style="height:auto;padding:0px;color:#CBFFFF;text-decoration: none;">DRIVER REGISTRATION</a></div>
+                <div class="col-md-3 btn btn-menu-primary"><a  href="#bookingreports" style="height:auto;padding:0px;color:#CBFFFF;text-decoration: none;">BOOKING REPORTS</a></div>
+                <div class="col-md-3 btn btn-menu-primary"><a  href="#configurations" style="height:auto;padding:0px;color:#CBFFFF;text-decoration: none;">CONFIGURATIONS</a></div>
             </div>
         </div>
-    </div>
-
-    <!--only for mobile-->
-    <div class="col-xs-12 visible-xs">
-        <div class="col-xs-4 text-center no-padding">
-            <a href="#buyer/orders" class="btn btn-link" style="color: #E50880; padding-left: 5px" title="Track Your Order">
-            <span class="fa-stack fa-lg" style="font-size:10px;">
-              <i class="fa fa-circle fa-stack-2x" ></i>
-              <i class="fa fa-tty fa-stack-1x fa-inverse"></i>
-            </span>
-            </a>
-        </div>
-
-        <div class="col-xs-4 text-center no-padding">
-            <a tabindex="0" type="button" popover-template="shoppingCartPopover.templateUrl" popover-placement="bottom" popover-trigger="focus" class="btn btn-popover btn-link" style="font-size:10px;">
-            <span class="fa-stack fa-lg" style="font-size:10px;">
-              <i class="fa fa-circle fa-stack-2x" style="color:#e50880;"></i>
-              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-            </span> {{TopMenuCaptions[10].description}} ({{shoppingCartCount}})
-            </a>
-        </div>
-        
-        <div class="col-xs-4 text-center no-padding" style="padding-top:6px;">
-            <a href="javascript:void(0)" ng-if="loggedIn" id="top-chat-button" class="btn-chat">
-                <i class="fa fa-weixin" style="font-size: 10px;color:#e50880;">
-                    <span class="span-top-value label label-danger" style="font-size: 10px;background-color:crimson;"></span>
-                </i>
-            </a>
-        </div>
-    </div>
-
-    <div class="col-xs-12 visible-xs" style="background-color:#FFFFFF;padding:0px;">
-        <ul class="nav navbar-nav navbar-right col-xs-12" style="padding:0px;">
-            <!-- <li ng-class="{ active: isActive('/evezplace')}" class="col-xs-4 no-padding"><a href="#evezplace" style="font-size:10px;margin:0px;">{{TopMenuCaptions[1].description}}</a></li>
-            <li ng-class="{ active: isActive('/evezplace')}" class="col-xs-4 no-padding"><a href="#evezplace" style="font-size:10px;margin:0px;">{{TopMenuCaptions[1].description}}</a></li>
-            <li ng-class="{ active: isActive('/evezplace')}" class="col-xs-4 no-padding"><a href="#evezplace" style="font-size:10px;margin:0px;">{{TopMenuCaptions[1].description}}</a></li>
- -->
-            <li ng-class="{ active: isActive('/evezplace')}" class="col-xs-4 text-center no-padding"><a href="#evezplace" style="font-size:12px;margin:0px;border-right:1px solid #F6F6F6;">{{TopMenuCaptions[1].description}}</a></li>
-            <li ng-class="{ active: isActive('/mystores/{{userId}}')}" class="col-xs-4 text-center no-padding"><a href="#mystores/{{userId}}" style="font-size:12px;margin:0px;border-right:1px solid #F6F6F6;">{{TopMenuCaptions[0].description}}</a></li>
-            <li ng-class="{ active: isActive('/wopportunity')}" class="col-xs-4 text-center no-padding"><a href="#wopportunity" style="font-size:12px;margin:0px;border-right:1px solid #F6F6F6;">{{TopMenuCaptions[2].description}}</a>
-            </li>
-        </ul>
-        <!-- <div class="col-xs-4" ng-class="{ active: isActive('/evezplace')}"><h6>Mysite</h6></div>
-        <div class="col-xs-4"><h6>Marketplace</h6></div>
-        <div class="col-xs-4 text-center"><h6>Jobs</h6></div> -->
-    </div>
-    <!--only for mobile ends-->
+	</div>
 </div>
+
+  
