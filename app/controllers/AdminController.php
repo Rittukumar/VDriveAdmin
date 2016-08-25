@@ -67,7 +67,7 @@ class AdminController extends AppController
     	    		'licence_no' 		=> $inputs_array['licenceno'],
     	    		'car_type' 			=> $inputs_array['cartype'],
     				'email_id' 			=> $inputs_array['email'],
-    				'status' 			=> "Registered"
+    				'status' 			=> "Offline"
     		));  
     	    $driverId = DB::getPdo()->lastInsertId();
 
