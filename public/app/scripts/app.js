@@ -1967,12 +1967,8 @@ evezownApp.constant('AUTH_EVENTS', {
 });
 
 evezownApp.constant('PATHS', {
-    api_url: 'http://localhost:8000/v1/'
-    //api_url: 'http://creativethoughts.co.in/evezown/api/public/v1/'
-    //api_url: 'http://evezown.com/api/public/v1/'
-    //api_url: 'http://evezown.com/beta/api/public/v1/'
-    //api_url: 'http://evezown-api-dev.elasticbeanstalk.com/public/v1/'
-	//api_url: 'http://52.77.144.180/OwnUrSite/public/v1/'
+    //api_url: 'http://localhost:8000/v1/'
+    api_url: 'http://52.220.4.248/VDriveAdmin/public/v1/'
 	
 });
 
