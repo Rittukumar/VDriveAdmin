@@ -54,11 +54,16 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-            'host'      => 'localhost',
+            /*'host'      => 'localhost',
 		    'database'  => 'oceanstyxx',
             'username'  => 'root',
-            'password'  => '',
+            'password'  => '',*/
 
+
+            'host'      => '52.220.4.248',
+		    'database'  => 'vdrive',
+            'username'  => 'root',
+            'password'  => 'root',
 
 
             'charset'   => 'utf8',
