@@ -44,6 +44,7 @@
                             </span>
                             
                         </td>
+                         <tr ng-if="getUser.length <= 0" ><td colspan="8"><b style="color:red">Sorry, there is no registered driver in our record.</b></td></tr>
                 </table>
                 <uib-pagination ng-show="getUser.length > 0" total-items="userPagination.total"
                                 ng-model="currentUserPage"

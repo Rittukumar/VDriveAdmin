@@ -171,7 +171,7 @@ class AdminController extends AppController
     		}
     		if(isset($inputs_array['phonenumber']))
     		{
-    			$driverDetails->phone_number =(int) $inputs_array['phonenumber'];
+    			$driverDetails->phone_number = $inputs_array['phonenumber'];
     		}
     		if(isset($inputs_array['licenceno']))
     		{

@@ -177,7 +177,7 @@ evezownApp
          .success(function(data){
         	 $scope.master.firstname = data.first_name;
              $scope.master.lastname = data.last_name;
-             $scope.master.phonenumber = parseInt(data.phone_number);
+             $scope.master.phonenumber = data.phone_number;
              $scope.master.email = data.email_id;
              $scope.master.licenceno = data.licence_no;
              $scope.master.cartype = data.car_type;
