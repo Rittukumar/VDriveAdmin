@@ -9,6 +9,8 @@ use League\Fractal\Resource\Item;
 class AdminController extends AppController
 {
     
+	/** ********************************************** VDRIVE ADMIN APIS ********************************************************** **/
+	
     /** Rit
      * API for fetching all the registered drivers and their status.
      * GET /getRegisteredDrivers
@@ -219,5 +221,8 @@ class AdminController extends AppController
     		return $e;
     	}
     }
+  
+    
+   
  
 }

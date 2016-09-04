@@ -20,14 +20,27 @@ Route::get('/', function () {
 
 Route::group(array('prefix' => 'v1'), function () {
 
-//Rit
+	//Rit
+	// ------------------------ V-DRIVE ROUTE ----------------------------------
 	Route::get('admin/getAllDrivers', 'AdminController@getRegisteredDrivers');
 	Route::post('admin/addNewDriver', 'AdminController@driverRegistration');
 	Route::post('admin/deleteDriver', 'AdminController@DeleteDriver');
 	Route::get('admin/{user_id}/getDriverDetails', 'AdminController@getDriverDetails');
 	Route::post('admin/updateDriverInfo', 'AdminController@updateDriverInfo');
-
-
+	
+	// ------------------------ DRIVER APP ROUTE --------------------------------
+	Route::get('driver/validateDriver/{driver_code}', 'DriverController@validateDriverLogin');
+	Route::get('driver/getAllActiveDrivers', 'DriverController@getAllActiveDrivers');
+	Route::post('driver/startDrive', 'DriveController@startDrive');
+	
+	// ------------------------ CUSTOMER APP ROUTE -------------------------------
+	Route::post('customer/sendBookingRequest', 'DriveController@sendBookingRequest');
+	Route::post('customer/assignDriverForRide', 'DriveController@assignDriverForRide');
+	
+	
+	
+	
+	
 });
 
 

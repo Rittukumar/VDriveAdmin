@@ -29,14 +29,14 @@
                  </div>
 
                     <tr ng-repeat="user in getUser | filter:driversearch | orderBy:'id':false">
-                        <td data-title="'Driver Code'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.drivercode}} </td>
-                        <td data-title="'First Name'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.firstname}} </td>
-                        <td data-title="'Last Name'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.lastname}}</td>
-                        <td data-title="'Phone No'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.phonenumber}}</td>
-                        <td data-title="'Licence No'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.licenceno}}</td>
-                        <td data-title="'Driven Car Type'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.cartype}}</td>
-                        <td data-title="'Status'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.status}}</td>
-                        <td data-title="'Action'" style="text-align: left;padding:3px;vertical-align:middle;border-top: 1px solid #DF6;">
+                        <td data-title="'First Name'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.firstname}} </td>
+                        <td data-title="'Last Name'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.lastname}}</td>
+                        <td data-title="'Driver Code'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.drivercode}} </td>
+                        <td data-title="'Phone No'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.phonenumber}}</td>
+                        <td data-title="'Licence No'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.licenceno}}</td>
+                        <td data-title="'Driven Car Type'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.cartype}}</td>
+                        <td data-title="'Status'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">{{user.status}}</td>
+                        <td data-title="'Action'" style="text-align: left;padding:3px;padding-left: 8px;vertical-align:middle;border-top: 1px solid #DF6;">
                             <span style="padding:3px;vertical-align:middle;">
                             		<label><a href ng-click="updateDriverInfo(user)" class="topic-link" title="UPDATE"><span class="glyphicon glyphicon-edit"></span>
                             		</a> | </label> 
