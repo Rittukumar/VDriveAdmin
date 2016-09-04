@@ -61,7 +61,7 @@ return array(
 
 
             'host'      => '52.220.4.248',
-		    'database'  => 'vdrive',
+		    'database'  => 'vdrive_p1',
             'username'  => 'root',
             'password'  => 'root',
 
