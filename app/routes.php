@@ -27,6 +27,8 @@ Route::group(array('prefix' => 'v1'), function () {
 	Route::post('admin/deleteDriver', 'AdminController@DeleteDriver');
 	Route::get('admin/{user_id}/getDriverDetails', 'AdminController@getDriverDetails');
 	Route::post('admin/updateDriverInfo', 'AdminController@updateDriverInfo');
+	Route::get('admin/getAllDriveRequest', 'AdminController@getAllDriveRequest');
+	
 	
 	// ------------------------ DRIVER APP ROUTE --------------------------------
 	Route::get('driver/validateDriver/{driver_code}', 'DriverController@validateDriverLogin');

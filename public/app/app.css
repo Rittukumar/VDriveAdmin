@@ -642,6 +642,19 @@ margin-top: 10px;
     
 }
 
+.btn-assign-primary {
+    background: #3F799B;
+    border-color: transparent;
+    border-radius: 0px;
+    font-weight: 400;
+    margin-right:3px;
+    
+}
+
+.btn-assign-primary:hover {
+    background: #FF5E00;
+}
+
 .btn-menu-primary:hover {
     background: #FF5E00;
 }

@@ -54,17 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-/*             'host'      => 'localhost',
+           'host'      => 'localhost',
 		    'database'  => 'oceanstyxx',
             'username'  => 'root',
-            'password'  => '', */
-
-
-            'host'      => '52.220.4.248',
-		    'database'  => 'vdrive_p1',
-            'username'  => 'root',
-            'password'  => 'root',
-
+            'password'  => '', 
 
             'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',

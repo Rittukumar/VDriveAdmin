@@ -69,21 +69,21 @@ class DriveController extends AppController
     public function assignDriverForRide()
     {
     	try {
-    		/* $inputs = Input::all();
+    		$inputs = Input::all();
     		$inputs_array = $inputs['data'];
-    		$driveId = $inputs_array['driveId'];
+    	    $driveId = $inputs_array['driveId'];
     		
-    		$driveDetails = DriverRequest::find($driveId);
+    		$driveDetails = DriveRequest::find($driveId);
     		$driveDetails->driver_id = $inputs_array['driverId'];
-    		
-    		$driveDetails->save(); */
+    		$driveDetails->status = "Assigned";
+    		$driveDetails->save();
     		
     		//TEST
     		
-    		$driveDetails = DriveRequest::find(3);
+    		/* $driveDetails = DriveRequest::find(3);
     		$driveDetails->driver_id = 1;
     		
-    		$driveDetails->save();
+    		$driveDetails->save(); */
     		
     	} catch (Exception $e) {
     		return $e;

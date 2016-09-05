@@ -40,13 +40,19 @@ evezownApp.config(function ($routeProvider, $stateProvider, $urlRouterProvider, 
             });
 	        
 	        $routeProvider
-            .when('/bookingreports', {
-                templateUrl: 'partials/admin/bookingReports.html'
+            .when('/assignDriver/:bookingId', {
+                templateUrl: 'partials/admin/assignDriver.html',
+                controller: 'AssignDriver'
             });
 	        
 	        $routeProvider
-            .when('/configurations', {
-                templateUrl: 'partials/admin/configurations.html'
+            .when('/bookingrequest', {
+                templateUrl: 'partials/admin/bookingRequest.html'
+            });
+	        
+	        $routeProvider
+            .when('/report', {
+                templateUrl: 'partials/admin/reports.html'
             });
 	        
 	     <!-- Ends here -->
@@ -1967,8 +1973,8 @@ evezownApp.constant('AUTH_EVENTS', {
 });
 
 evezownApp.constant('PATHS', {
-    //api_url: 'http://localhost:8000/v1/'
-    api_url: 'http://52.220.4.248/VDriveAdmin/public/v1/'
+    api_url: 'http://localhost:8000/v1/'
+   
 	
 });
 

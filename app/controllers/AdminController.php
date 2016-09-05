@@ -222,7 +222,39 @@ class AdminController extends AppController
     	}
     }
   
+    /** Rit
+     * API for fetching all the drive request placed by the customer.
+     * GET /getAllDriveRequest
+     * @param
+     * @return Response
+     * @internal param $data
+     */
+    public function getAllDriveRequest()
+    {
+    	try {
+    		/* $limit = Input::get('limit') ?: 10; */
     
+    		$bokinglist = DriveRequest::get();
+    
+    		if (!$bokinglist) {
+    			return $this->responseNotFound('There is no booking found!');
+    		}
+    
+    		/* $fractal = new Manager();
+    
+    		$usersResource = new Collection($users, new DriverRegistrationTransformer);
+    
+    		$usersResource->setPaginator(new IlluminatePaginatorAdapter($users));
+    
+    		$data = $fractal->createData($usersResource); */
+    
+    	} catch (Exception $e) {
+    
+    		return $this->setStatusCode(500)->respondWithError($e);
+    	}
+    
+    	return $bokinglist->toJson();
+    }
    
  
 }

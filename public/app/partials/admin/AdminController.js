@@ -263,3 +263,80 @@ evezownApp
      }
 	 
 });
+
+evezownApp
+.controller('BookingList',
+function AdminUsers($scope, $http,$routeParams, PATHS, usSpinnerService, ngTableParams,$location,$rootScope,$cookieStore)
+{
+    $scope.title = "Drive Request";
+    $scope.service_url = PATHS.api_url;
+    usSpinnerService.spin('spinner-1');
+    $scope.getBookingRequest = [];
+
+
+    $scope.assignDriver = function(bookingId)
+    { 
+        $location.path('assignDriver/'+bookingId);
+    }
+
+    $scope.getAllDriveRequest = function () {
+    	$http.get(PATHS.api_url + 'admin/getAllDriveRequest').
+        success(function(data) {
+                console.log(data);
+                $scope.getBookingRequest = data;
+                usSpinnerService.stop('spinner-1');
+               /* $scope.userPagination = data.meta.pagination;*/
+            }).then(function () {
+
+            });
+    }
+   $scope.getAllDriveRequest();
+ });
+
+evezownApp
+.controller('AssignDriver',
+function AdminUsers($scope, $http,$routeParams, PATHS, usSpinnerService, ngTableParams,$location,$rootScope,$cookieStore)
+{
+    $scope.title = "Assign Driver";
+    $scope.service_url = PATHS.api_url;
+    usSpinnerService.spin('spinner-1');
+    $scope.bookingId = $routeParams.bookingId;
+    
+    $scope.getActiveDriverList = [];
+
+    $scope.assignDriverForDrive = function(driverId)
+    { 
+    	$http.post(PATHS.api_url +  'customer/assignDriverForRide'
+        , {
+              data: {
+                  driveId: $scope.bookingId,
+                  driverId: driverId
+              },
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+          }).
+         success(function (data, status, headers, config) {
+                usSpinnerService.stop('spinner-1');
+                toastr.success("Driver Assigned Successfully","Drive Request");
+                $location.path('bookingrequest');	
+	     }).error(function (data) {
+	        usSpinnerService.stop('spinner-1');
+	        toastr.error("Error occured while assigning the Driver.");
+	     }).then(function () {
+
+        });
+    }
+
+    $scope.getActiveDrivers = function () {
+    	$http.get(PATHS.api_url + 'driver/getAllActiveDrivers').
+        success(function(data) {
+                console.log(data);
+                $scope.getActiveDriverList = data;
+                usSpinnerService.stop('spinner-1');
+               /* $scope.userPagination = data.meta.pagination;*/
+            }).then(function () {
+
+            });
+    }
+   $scope.getActiveDrivers();
+ 
+ });
