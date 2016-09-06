@@ -63,6 +63,33 @@ LOCK TABLES `country` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `customer_registration`
+--
+
+DROP TABLE IF EXISTS `customer_registration`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customer_registration` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(126) NOT NULL DEFAULT '',
+  `phone` varchar(126) NOT NULL DEFAULT '',
+  `email` varchar(126) NOT NULL DEFAULT '',
+  `password` varchar(126) NOT NULL DEFAULT '',
+  `remember_password` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer_registration`
+--
+
+LOCK TABLES `customer_registration` WRITE;
+/*!40000 ALTER TABLE `customer_registration` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customer_registration` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customer_review`
 --
 
@@ -99,14 +126,14 @@ DROP TABLE IF EXISTS `drive_request`;
 CREATE TABLE `drive_request` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `drive_code` varchar(100) NOT NULL DEFAULT '',
-  `driver_id` int(10) unsigned DEFAULT NULL,
-  `customer_name` varchar(126) NOT NULL DEFAULT '',
-  `customer_phone` int(10) unsigned NOT NULL DEFAULT '0',
-  `email_id` varchar(126) DEFAULT NULL,
-  `pickup_point` varchar(512) NOT NULL DEFAULT '',
-  `drop_point` varchar(512) NOT NULL DEFAULT '',
+  `customer_id` int(11) DEFAULT NULL,
+  `driver_id` int(10) unsigned zerofill DEFAULT NULL,
+  `pickup_venue` varchar(126) NOT NULL DEFAULT '',
+  `pickup_location` varchar(256) NOT NULL DEFAULT '',
+  `drop_point` varchar(512) DEFAULT NULL,
   `status` varchar(45) NOT NULL DEFAULT '',
   `device_id` varchar(126) DEFAULT NULL,
+  `booking_date_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `drive_start_time` datetime DEFAULT NULL,
   `drive_end_time` datetime DEFAULT NULL,
@@ -123,7 +150,7 @@ CREATE TABLE `drive_request` (
 
 LOCK TABLES `drive_request` WRITE;
 /*!40000 ALTER TABLE `drive_request` DISABLE KEYS */;
-INSERT INTO `drive_request` VALUES (1,'VDRb902',NULL,'customername',1111111,'email_id','pickuppoint','droppoint','Requested','deviceid','0000-00-00 00:00:00',NULL,NULL,NULL),(2,'VDRdd0b',NULL,'customername',1111111,'email_id','pickuppoint','droppoint','Requested','deviceid','0000-00-00 00:00:00',NULL,NULL,NULL),(3,'VDR2c9d',1,'customername',1111111,'email_id','pickuppoint','droppoint','Requested','deviceid','2016-09-03 20:13:49','2016-09-04 01:43:49',NULL,NULL);
+INSERT INTO `drive_request` VALUES (1,'VDRb902',0,0000000002,'pickuppoint','','droppoint','Assigned','deviceid','0000-00-00 00:00:00','2016-09-05 10:33:52',NULL,NULL,NULL),(2,'VDRdd0b',0,0000000001,'pickuppoint','','droppoint','Assigned','deviceid','0000-00-00 00:00:00','2016-09-05 10:32:31',NULL,NULL,NULL),(3,'VDR2c9d',0,0000000002,'pickuppoint','','droppoint','Requested','deviceid','0000-00-00 00:00:00','2016-09-05 10:33:06','2016-09-04 01:43:49',NULL,NULL);
 /*!40000 ALTER TABLE `drive_request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,6 +207,9 @@ CREATE TABLE `driver_registration` (
   `licence_no` varchar(45) NOT NULL DEFAULT '',
   `car_type` varchar(45) NOT NULL DEFAULT '0',
   `profile_image` varchar(256) DEFAULT NULL,
+  `dl_upload` varchar(256) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `address_proof_upload` varchar(256) DEFAULT NULL,
+  `id_proof_upload` varchar(256) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_driver_registration_car_type` (`car_type`) USING BTREE
@@ -192,7 +222,7 @@ CREATE TABLE `driver_registration` (
 
 LOCK TABLES `driver_registration` WRITE;
 /*!40000 ALTER TABLE `driver_registration` DISABLE KEYS */;
-INSERT INTO `driver_registration` VALUES (1,'12sd','RRRRR','LLLL','22222222','AA@AA.COM','Online',NULL,'','0',NULL,'0000-00-00 00:00:00'),(2,'eeee','343434','3434','344',NULL,'Online',NULL,'','0',NULL,'0000-00-00 00:00:00');
+INSERT INTO `driver_registration` VALUES (1,'12sd','RRRRR','LLLL','22222222','AA@AA.COM','Online',NULL,'','0',NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'),(2,'eeee','343434','3434','344',NULL,'Online',NULL,'','0',NULL,'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `driver_registration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,4 +313,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-04 21:01:12
+-- Dump completed on 2016-09-06 11:35:36
